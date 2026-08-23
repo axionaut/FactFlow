@@ -1,19 +1,16 @@
 # FactFlow
 
-A mobile-first single-page study app for quiz and trivia preparation. It helps you ingest questions, detect topic patterns, prioritize high-value study material, and drill through the bank with category and tier filtering.
+A mobile-first single-page study app for quiz and trivia preparation. It focuses on pattern analysis and recommendation logic rather than manual question entry or season-by-season browsing.
 
 ## Features
 
-- Bulk import of CSV/JSON question banks
-- Fuzzy deduplication against existing data
+- Autonomous question-bank discovery and pattern analysis
 - Recency-aware prioritization and study queue
-- Pattern analysis for categories, tiers, seasons, and recurring tags
-- Drill mode for targeted revision
-- Current-affairs intake that feeds into the same bank model
-- Informational reference panel for current KBC mechanics
-- Bundled, provenance-labelled archive corpus with visible season coverage
+- Category, tier, and tag-based drill mode
+- Contextual recommendation logic for recurring topic clusters
+- Bundled, provenance-labelled archive corpus for research and training data
 
-> The product is intentionally built around bulk archival ingestion and pattern discovery. It does not rely on the user manually typing in question sets or guessing the content in advance.
+> The app is not built around manual uploads or manual question entry. The product model is autonomous data discovery, normalization, and pattern-based study guidance.
 
 ## Run locally
 

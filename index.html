@@ -14,18 +14,13 @@
           <p class="eyebrow">Study smarter</p>
           <div class="title-row">
             <h1>FactFlow</h1>
-            <span id="appVersionLabel" class="version-pill">v6</span>
+            <span id="appVersionLabel" class="version-pill">v7</span>
           </div>
-        </div>
-        <div class="header-actions">
-          <button class="secondary-button" id="exportBankButton" type="button">Export Bank</button>
-          <button class="primary-button" id="resetDataButton" type="button">Restore Archive</button>
         </div>
       </header>
 
       <nav class="main-nav" aria-label="Primary navigation">
         <button class="nav-button active" data-tab="dashboard" type="button">Dashboard</button>
-        <button class="nav-button" data-tab="bank" type="button">Archive Intake</button>
         <button class="nav-button" data-tab="analysis" type="button">Pattern Analysis</button>
         <button class="nav-button" data-tab="drill" type="button">Drill Mode</button>
         <button class="nav-button" data-tab="reference" type="button">Reference</button>
@@ -84,60 +79,16 @@
           </div>
         </section>
 
-        <section class="tab-panel" id="tab-bank">
-          <div class="panel-grid two-columns">
-            <section class="panel">
-              <div class="panel-header">
-                <h3>Bulk archive intake</h3>
-              </div>
-              <div class="upload-box">
-                <label for="fileInput" class="upload-label">Upload CSV or JSON archive</label>
-                <input id="fileInput" type="file" accept=".csv,.json,text/csv,application/json" />
-                <p class="helper-text">This is archive intake, not manual question entry. Import historical question data or curated batches; the app detects patterns from the data instead of asking you to type questions one by one.</p>
-              </div>
-            </section>
-
-          </div>
-
-          <section class="panel">
-            <div class="panel-header">
-              <h3>Current affairs intake</h3>
-            </div>
-            <form id="currentAffairsForm" class="stacked-form inline-form">
-              <label>
-                Item / fact to absorb
-                <textarea name="fact_text" rows="2" placeholder="Paste a current-affairs item, award, appointment, launch, or anniversary here..."></textarea>
-              </label>
-              <div class="field-row two-col">
-                <label>
-                  Category
-                  <select name="fact_category" id="factCategorySelect"></select>
-                </label>
-                <label>
-                  Date
-                  <input name="fact_date" type="date" />
-                </label>
-              </div>
-              <label>
-                Tags
-                <input name="fact_tags" type="text" placeholder="awards, india, 2026" />
-              </label>
-              <button class="primary-button" type="submit">Add current affairs item</button>
-            </form>
-          </section>
-        </section>
-
         <section class="tab-panel" id="tab-analysis">
           <section class="panel corpus-panel">
             <div class="panel-header">
               <div>
-                <h3>Corpus coverage</h3>
-                <p id="corpusCoverageSummary" class="helper-text">Loading bundled archive…</p>
+                <h3>Corpus health</h3>
+                <p id="corpusCoverageSummary" class="helper-text">Loading autonomous corpus…</p>
               </div>
               <a class="source-link" href="https://www.iqgarage.com/kbc-questions-and-answers/" target="_blank" rel="noreferrer">Source archive</a>
             </div>
-            <div id="corpusCoverageGrid" class="coverage-grid"></div>
-            <p class="corpus-warning">Seasons absent here are excluded from season-pattern conclusions. This is a research corpus assembled from public third-party transcripts, not an official or complete Sony KBC dataset.</p>
+            <p class="corpus-warning">This app is built around pattern analysis, not episode-by-episode season review. The corpus is a research dataset for identifying recurring topic structures.</p>
           </section>
           <div class="stats-grid">
             <article class="stat-card">

@@ -1,4 +1,4 @@
-const APP_VERSION = 6;
+const APP_VERSION = 8;
 const STORAGE_KEY = 'kbc-prep-app-v1';
 const CORPUS_URL = 'data/kbc-corpus.json';
 const CATEGORY_TAXONOMY = [
@@ -391,122 +391,6 @@ function parseCsvToRows(content) {
   return rows;
 }
 
-function parseImportedFile(file) {
-  return new Promise((resolve, reject) => {
-    const reader = new FileReader();
-    reader.onload = () => {
-      try {
-        const text = String(reader.result || '');
-        if (!text.trim()) {
-          resolve([]);
-          return;
-        }
-
-        const extension = file.name.split('.').pop()?.toLowerCase();
-        if (extension === 'json') {
-          const parsed = JSON.parse(text);
-          const records = Array.isArray(parsed) ? parsed : parsed.questions || [];
-          resolve(records);
-          return;
-        }
-
-        const rows = parseCsvToRows(text);
-        if (!rows.length) {
-          resolve([]);
-          return;
-        }
-
-        const headers = rows[0].map((header) => header.trim().replace(/^['"]|['"]$/g, ''));
-        const dataRows = rows.slice(1).filter((row) => row.some((cell) => cell && cell.trim()));
-        const records = dataRows.map((row) => {
-          const object = {};
-          headers.forEach((header, index) => {
-            object[header] = row[index] ? row[index].trim() : '';
-          });
-          return object;
-        });
-
-        resolve(records);
-      } catch (error) {
-        reject(new Error('Could not parse the uploaded file. Please use CSV or JSON with question fields.'));
-      }
-    };
-    reader.onerror = () => reject(new Error('File read failed.'));
-    reader.readAsText(file);
-  });
-}
-
-function normalizeRecord(record) {
-  const seasonValue = Number(record.season || record.season_no || 18);
-  const episodeValue = Number(record.episode || record.episode_no || 0) || null;
-  const rawOptions = Array.isArray(record.options)
-    ? record.options
-    : [record.option_a, record.option_b, record.option_c, record.option_d].filter(Boolean);
-
-  const category = record.category || 'Miscellaneous/Trivia';
-  const questionText = String(record.question_text || record.question || '').trim();
-
-  if (!questionText) {
-    return null;
-  }
-
-  const tags = Array.isArray(record.tags)
-    ? record.tags
-    : String(record.tags || '').split(',').map((tag) => tag.trim()).filter(Boolean);
-
-  const PrizeValue = Number(record.prize_level_asked_at || record.prize || 0) || 0;
-  const ladderPosition = Number(record.ladder_position || record.position || 1) || 1;
-
-  return {
-    id: record.id || `q-${Date.now()}-${Math.random().toString(16).slice(2)}`,
-    season: Number.isFinite(seasonValue) ? seasonValue : 18,
-    episode: episodeValue,
-    air_date: record.air_date || '',
-    question_text: questionText,
-    options: parseOptions(rawOptions, 4).map((option) => String(option).trim()),
-    correct_option_index: Number(record.correct_option_index ?? record.correct_index ?? 0),
-    category,
-    subcategory: record.subcategory || '',
-    difficulty_tier: record.difficulty_tier || determineTier({ prize_level_asked_at: PrizeValue, ladder_position: ladderPosition }),
-    prize_level_asked_at: PrizeValue,
-    source: record.source || 'upload',
-    tags: tags.map((tag) => String(tag).trim()).filter(Boolean),
-    seen_count: Number(record.seen_count || 0),
-    last_correct: record.last_correct || null,
-    ladder_position: ladderPosition
-  };
-}
-
-function addCurrentAffairsEntry(data) {
-  const factText = String(data.fact_text || '').trim();
-  if (!factText) return;
-
-  const factCategory = data.fact_category || 'Current Affairs';
-  const factTags = String(data.fact_tags || '').split(',').map((tag) => tag.trim()).filter(Boolean);
-  const item = {
-    id: `fact-${Date.now()}`,
-    season: 18,
-    episode: 0,
-    air_date: data.fact_date || new Date().toISOString().slice(0, 10),
-    question_text: factText,
-    options: ['Relevant fact', 'Alternative fact', 'Related event', 'Unrelated note'],
-    correct_option_index: 0,
-    category: factCategory,
-    subcategory: 'Current affairs',
-    difficulty_tier: 'Tier 2',
-    prize_level_asked_at: 80000,
-    source: 'current_affairs',
-    tags: factTags.length ? factTags : ['current-affairs'],
-    seen_count: 0,
-    last_correct: null,
-    ladder_position: 6
-  };
-
-  state.questions.push(item);
-  persistQuestions();
-  renderAll();
-}
-
 function getCategoryCounts() {
   return state.questions.reduce((acc, question) => {
     const category = question.category || 'Miscellaneous/Trivia';
@@ -743,15 +627,6 @@ function renderReference() {
   // static informational panel; no dynamic behavior required
 }
 
-function populateCategorySelects() {
-  const select = document.getElementById('factCategorySelect');
-  if (!select) return;
-
-  select.innerHTML = CATEGORY_TAXONOMY.map((category) => `
-    <option value="${category}">${category}</option>
-  `).join('');
-}
-
 function attachListeners() {
   document.querySelectorAll('.nav-button').forEach((button) => {
     button.addEventListener('click', () => {
@@ -759,50 +634,6 @@ function attachListeners() {
       document.querySelectorAll('.nav-button').forEach((navButton) => navButton.classList.toggle('active', navButton === button));
       document.querySelectorAll('.tab-panel').forEach((panel) => panel.classList.toggle('active', panel.id === `tab-${state.selectedTab}`));
     });
-  });
-
-  document.getElementById('currentAffairsForm').addEventListener('submit', (event) => {
-    event.preventDefault();
-    const formData = new FormData(event.currentTarget);
-    addCurrentAffairsEntry({
-      fact_text: formData.get('fact_text'),
-      fact_category: formData.get('fact_category'),
-      fact_date: formData.get('fact_date'),
-      fact_tags: formData.get('fact_tags')
-    });
-    event.currentTarget.reset();
-  });
-
-  document.getElementById('fileInput').addEventListener('change', async (event) => {
-    const [file] = event.target.files || [];
-    if (!file) return;
-
-    try {
-      const records = await parseImportedFile(file);
-      const normalized = records
-        .map((record) => normalizeRecord(record))
-        .filter(Boolean)
-        .filter((record) => dedupeQuestion(record, state.questions));
-
-      state.questions.push(...normalized);
-      persistQuestions();
-      renderAll();
-      event.target.value = '';
-      alert(`${normalized.length} question(s) added to the bank.`);
-    } catch (error) {
-      alert(error.message || 'Import failed.');
-    }
-  });
-
-  document.getElementById('resetDataButton').addEventListener('click', () => {
-    state.questions = state.corpus?.questions ? [...state.corpus.questions] : buildSeedQuestions();
-    persistQuestions();
-    renderAll();
-    alert(state.corpus ? 'Bundled archive restored.' : 'Demo data restored.');
-  });
-
-  document.getElementById('exportBankButton').addEventListener('click', () => {
-    exportBankToJson();
   });
 
   document.getElementById('filterCategory').addEventListener('change', (event) => {
@@ -881,7 +712,6 @@ async function init() {
   }
 
   await loadState();
-  populateCategorySelects();
   attachListeners();
   renderAll();
 }
