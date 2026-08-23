@@ -1,6 +1,6 @@
 'use strict';
 
-const APP_VERSION = 27;
+const APP_VERSION = 28;
 const CORPUS_URL = 'data/kbc-corpus.json';
 const LEARNING_STORAGE_KEY = 'factflow-learning-v2';
 const LEGACY_STORAGE_KEY = 'kbc-prep-app-v1';
