@@ -218,8 +218,8 @@ a { color: var(--blue); }
   body { padding-bottom: 64px; }
   .topbar { display: none; }
   .corpus-status { display: none; }
-  .main-nav { position: fixed; right: 0; bottom: 0; left: 0; z-index: 10; justify-content: space-around; margin: 0; overflow-x: auto; border-radius: 0; }
-  .nav-button { flex: 1 0 auto; padding: 9px 11px; }
+  .main-nav { position: fixed; right: 0; bottom: 0; left: 0; z-index: 10; justify-content: space-around; margin: 0; overflow: hidden; border-radius: 0; gap: 2px; padding: 3px; }
+  .nav-button { min-width: 0; flex: 1 1 0; padding: 9px 3px; font-size: .68rem; }
   .study-hero { display: none; }
   .streak-card { min-width: 90px; }
   .session-panel { padding: 16px; }
@@ -242,6 +242,9 @@ a { color: var(--blue); }
   .stats-grid, .stats-grid.two-stats, .stats-grid.four-stats, .coverage-grid { grid-template-columns: 1fr; }
   .session-actions { align-items: stretch; flex-direction: column; }
   .compact-field { justify-content: space-between; }
+}
+@media (max-width: 650px) {
+  html, body { overflow-x: hidden; }
 }
 @media (prefers-reduced-motion: reduce) {
   * { scroll-behavior: auto !important; transition: none !important; }
