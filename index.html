@@ -7,7 +7,7 @@
     <meta name="description" content="Adaptive GK practice informed by recurring KBC topic patterns." />
     <title>FactFlow</title>
     <link rel="icon" type="image/svg+xml" href="favicon.svg" />
-    <link rel="stylesheet" href="styles.css?v=15" />
+    <link rel="stylesheet" href="styles.css?v=16" />
   </head>
   <body>
     <div class="app-shell">
@@ -18,7 +18,7 @@
             <p class="eyebrow">KBC-patterned GK practice</p>
             <div class="title-row">
               <h1>FactFlow</h1>
-              <span id="appVersionLabel" class="version-pill">v15</span>
+              <span id="appVersionLabel" class="version-pill">v16</span>
             </div>
           </div>
         </div>
@@ -39,7 +39,7 @@
             <div>
               <p class="eyebrow light">Adaptive daily practice</p>
               <h2>Build recall one useful question at a time.</h2>
-              <p id="sessionSummary" class="hero-copy">Your queue balances due reviews, weak areas, and new material.</p>
+              <p id="sessionSummary" class="hero-copy">New questions appear here. Practised questions return only through Review.</p>
             </div>
             <div class="streak-card">
               <strong id="todayStreak">0</strong>
@@ -152,20 +152,6 @@
               <small>consecutive practice days</small>
             </article>
           </div>
-          <section class="panel translation-panel">
-            <div class="panel-header">
-              <div>
-                <p class="eyebrow">Hindi archive</p>
-                <h3>Prepare English translations</h3>
-              </div>
-              <strong><span id="translationPendingCount">0</span> waiting</strong>
-            </div>
-            <p class="helper-text">Reviewed translations work everywhere. On desktop Chrome, you can privately translate newly discovered Hindi questions on this device; the original Hindi, source link, option order, and answer index are retained.</p>
-            <div class="feedback-actions">
-              <button id="translateHindiButton" class="primary-button" type="button">Translate 20 more</button>
-              <p id="translationStatus" class="source-note" role="status">Checking the Hindi archive…</p>
-            </div>
-          </section>
           <div class="content-grid">
             <section class="panel">
               <div class="panel-header">
@@ -187,12 +173,12 @@
             <div>
               <p class="eyebrow">Pattern evidence</p>
               <h2>What historical KBC questions emphasize</h2>
-              <p>Reviewed English translations are playable. Untranslated or unverified archive records remain pattern evidence only.</p>
+              <p>Structurally eligible English questions are playable. Other historical archive records remain pattern evidence only.</p>
             </div>
           </div>
           <div class="stats-grid four-stats">
             <article class="stat-card"><span class="label">Practice bank</span><strong id="insightPracticeCount">0</strong><small>answer-keyed questions</small></article>
-            <article class="stat-card"><span class="label">Pattern archive</span><strong id="insightArchiveCount">0</strong><small>not used in drills</small></article>
+            <article class="stat-card"><span class="label">Historical KBC records</span><strong id="insightArchiveCount">0</strong><small>also weights topic selection</small></article>
             <article class="stat-card"><span class="label">Practice topics</span><strong id="insightCategoryCount">0</strong><small>inferred categories</small></article>
             <article class="stat-card"><span class="label">Corpus refreshed</span><strong id="insightGeneratedAt">—</strong><small>bundled data timestamp</small></article>
           </div>
@@ -215,7 +201,7 @@
       </main>
     </div>
 
-    <script src="learning.js?v=15"></script>
-    <script src="app.js?v=15"></script>
+    <script src="learning.js?v=16"></script>
+    <script src="app.js?v=16"></script>
   </body>
 </html>

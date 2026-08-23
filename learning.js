@@ -45,6 +45,26 @@
       .trim();
   }
 
+  function normalizeDisplayText(value) {
+    return String(value || '').normalize('NFC').replace(/\s+/g, ' ').trim();
+  }
+
+  function hasBrokenEncoding(value) {
+    const text = String(value || '');
+    return /\uFFFD|\u00C3[\u0080-\u00BF]|\u00C2[\u0080-\u00BF]|â(?:€™|€œ|€|€“|€”|€¦)/u.test(text);
+  }
+
+  function formatOptionText(value) {
+    const text = normalizeDisplayText(value);
+    const match = text.match(/\p{L}/u);
+    if (!match) return text;
+    const index = match.index || 0;
+    const letter = match[0];
+    const upper = letter.toLocaleUpperCase('en-US');
+    if (letter === upper || /^\p{Lu}/u.test(text.slice(index + letter.length))) return text;
+    return `${text.slice(0, index)}${upper}${text.slice(index + letter.length)}`;
+  }
+
   function hashText(value) {
     let hash = 2166136261;
     const text = String(value || '');
@@ -145,9 +165,10 @@
     return {
       ...question,
       key: questionKey(question),
+      question_text: normalizeDisplayText(question?.question_text),
       category: inferCategory(question),
       difficulty_tier: determineTier(question),
-      options: Array.isArray(question?.options) ? question.options.map((option) => String(option)) : []
+      options: Array.isArray(question?.options) ? question.options.map(formatOptionText) : []
     };
   }
 
@@ -159,11 +180,12 @@
       || question?.source === 'FactFlow demo';
     return practiceType
       && !unverifiedArchive
+      && !hasBrokenEncoding(question?.question_text)
       && Number.isInteger(answer)
       && answer >= 0
       && Array.isArray(options)
       && options.length === 4
-      && options.every((option) => String(option).trim());
+      && options.every((option) => String(option).trim() && !hasBrokenEncoding(option));
   }
 
   function dateKey(value = new Date()) {
@@ -312,15 +334,10 @@
     const weights = archivePatternWeights(archiveQuestions);
     const eligible = questions
       .filter(isPracticeQuestion)
-      .filter((question) => {
-        const latest = questionStats(state, question.key || questionKey(question)).latest;
-        return !latest || dateKey(latest.answeredAt) !== day || state.schedule[question.key]?.needsReview;
-      })
+      .filter((question) => questionStats(state, question.key || questionKey(question)).attempts === 0)
       .map((question) => ({
         question,
         priority: questionPriority(state, question, weights, now),
-        due: isDue(state, question.key, now),
-        unseen: questionStats(state, question.key).attempts === 0,
         noise: deterministicNoise(question.key, day)
       }))
       .sort((a, b) => b.priority - a.priority || b.noise - a.noise);
@@ -342,8 +359,6 @@
       }
     }
 
-    take(eligible.filter((item) => item.due), Math.ceil(size * 0.5));
-    take(eligible.filter((item) => item.unseen), Math.ceil(size * 0.85));
     take(eligible, size);
     if (chosen.length < size) take(eligible, size, false);
     return chosen;
@@ -365,7 +380,9 @@
 
   function selectChallengeQuestions(questions, options = {}) {
     const day = options.seed || `${dateKey(options.now || new Date())}:${Date.now()}`;
-    const practice = questions.filter(isPracticeQuestion);
+    const practice = questions
+      .filter(isPracticeQuestion)
+      .filter((question) => !options.state || questionStats(options.state, question.key || questionKey(question)).attempts === 0);
     const chosen = [];
     const chosenKeys = new Set();
     const bands = [
@@ -471,9 +488,12 @@
     hashText,
     inferCategory,
     guaranteedWinnings,
+    formatOptionText,
     isDue,
     isPracticeQuestion,
+    hasBrokenEncoding,
     normalizeLearningState,
+    normalizeDisplayText,
     normalizeText,
     prepareQuestion,
     presentQuestion,

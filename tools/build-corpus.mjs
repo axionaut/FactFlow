@@ -1,4 +1,5 @@
 import { mkdir, readFile, writeFile } from 'node:fs/promises';
+import { gatherWikidataQuestions, WIKIDATA_SOURCE_VERSION } from './wikidata-source.mjs';
 
 const IQGARAGE_INDEX_URL = 'https://www.iqgarage.com/kbc-questions-and-answers/';
 const GKSECTION_INDEX_URL = 'https://www.gksection.com/hindi/hindi-kbc-season-9-quiz/';
@@ -7,6 +8,7 @@ const REVIEWED_TRANSLATIONS_PATH = new URL('../data/gksection-reviewed-en.json',
 const OFFLINE = process.argv.includes('--offline');
 const MAX_NEW_IQGARAGE_PAGES = Math.max(1, Number(process.env.IQGARAGE_PAGE_LIMIT || 6));
 const MAX_NEW_GKSECTION_PAGES = Math.max(1, Number(process.env.GKSECTION_PAGE_LIMIT || 6));
+const WIKIDATA_BATCH_SIZE = Math.max(1, Number(process.env.WIKIDATA_BATCH_SIZE || 4));
 const REMOVED_SOURCES = new Set(['Open Trivia DB', 'The Trivia API']);
 
 function decodeHtml(value = '') {
@@ -45,6 +47,18 @@ function normalizedIdentity(value) {
 
 function questionIdentity(question) {
   return normalizedIdentity(question.canonical_key || question.question_text || question.question_text_hi);
+}
+
+function hasPlayableStructure(question) {
+  const options = Array.isArray(question?.options) ? question.options : [];
+  const answer = Number(question?.correct_option_index);
+  return options.length === 4
+    && options.every((option) => String(option).trim())
+    && new Set(options.map(normalizedIdentity)).size === 4
+    && Number.isInteger(answer)
+    && answer >= 0
+    && answer < 4
+    && /^https:\/\//.test(String(question?.source_url || ''));
 }
 
 function parseOptionLine(line) {
@@ -121,12 +135,12 @@ function parseIqgarageQuestions(html, metadata) {
       id: `iqg-s${metadata.season}-e${metadata.episode}-${records.length + 1}`,
       season: metadata.season, episode: metadata.episode, air_date: metadata.airDate,
       question_text: questionText, options, correct_option_index: correctOptionIndex,
-      question_type: 'archive', category: categoryFor(combined), subcategory: '', difficulty_tier: '',
+      question_type: new Set(options.map(normalizedIdentity)).size === 4 ? 'practice' : 'archive', category: categoryFor(combined), subcategory: '', difficulty_tier: '',
       prize_level_asked_at: prizeMatch ? Number(prizeMatch[1].replace(/,/g, '')) : null,
       source: 'IQgarage episode archive', source_url: metadata.url,
       source_accessed_at: new Date().toISOString().slice(0, 10), tags: tagsFor(combined),
       ladder_position: records.length + 1,
-      provenance_status: 'third-party transcript; answer not independently verified'
+      provenance_status: 'third-party KBC transcript; answer supplied by IQgarage; not independently verified'
     });
   }
   return records;
@@ -238,14 +252,26 @@ async function main() {
   const reviewedQuestions = (reviewedPayload.questions || []).map(prepareReviewedQuestion);
   const reviewedUrls = new Set(reviewedQuestions.map((question) => question.source_url));
   const questions = (previousCorpus.questions || [])
+    .map((question) => question.source === 'IQgarage episode archive' && hasPlayableStructure(question)
+      ? {
+          ...question,
+          question_type: 'practice',
+          provenance_status: 'third-party KBC transcript; answer supplied by IQgarage; not independently verified'
+        }
+      : question)
     .filter((question) => !REMOVED_SOURCES.has(question.source))
-    .filter((question) => question.translation_status !== 'reviewed English translation');
+    .filter((question) => question.translation_status !== 'reviewed English translation')
+    .filter((question) => question.source !== 'Wikidata structured facts'
+      || Number(question.source_schema_version) === WIKIDATA_SOURCE_VERSION);
   const fallbackAttemptDate = String(previousCorpus.generated_at || new Date().toISOString()).slice(0, 10);
   const withAttemptDate = (page) => (page.status !== 'reviewed' && !(Number(page.status) >= 200 && Number(page.status) < 300 && Number(page.questions) > 0) && !page.last_attempted_at)
     ? { ...page, last_attempted_at: fallbackAttemptDate }
     : page;
   const pageMap = new Map((previousCorpus.pages || []).map(withAttemptDate).map((page) => [page.url, page]));
   const translationPageMap = new Map((previousCorpus.translation_pages || []).map(withAttemptDate).map((page) => [page.url, page]));
+  let wikidataState = Number(previousCorpus.wikidata_source_version) === WIKIDATA_SOURCE_VERSION
+    ? previousCorpus.wikidata_state || {}
+    : {};
   for (const url of reviewedUrls) {
     const pageQuestions = reviewedQuestions.filter((question) => question.source_url === url);
     translationPageMap.set(url, { season: pageQuestions[0]?.season || null, episode: pageQuestions[0]?.episode || null,
@@ -282,9 +308,24 @@ async function main() {
         process.stdout.write(`\r${position + 1}/${links.length} new GKSection pages`);
       }
     } catch (error) { console.warn(`GKSection refresh unavailable: ${error.message}`); }
+
+    const wikidata = await gatherWikidataQuestions(wikidataState, { batchSize: WIKIDATA_BATCH_SIZE });
+    questions.push(...wikidata.questions);
+    wikidataState = wikidata.state;
+    if (wikidata.errors.length) console.warn(`Wikidata refresh warnings: ${wikidata.errors.join('; ')}`);
+    process.stdout.write(`\nWikidata supplied ${wikidata.questions.length} playable questions.`);
   }
 
-  const combinedQuestions = [...new Map([...questions, ...reviewedQuestions].map((question) => [questionIdentity(question), question])).values()];
+  const reviewedQuestionTexts = new Set(reviewedQuestions.map((question) => normalizedIdentity(question.question_text)));
+  const sourceQuestions = questions.map((question) => question.source === 'IQgarage episode archive'
+      && reviewedQuestionTexts.has(normalizedIdentity(question.question_text))
+    ? {
+        ...question,
+        question_type: 'archive',
+        provenance_status: 'third-party KBC transcript; duplicate of a validated English question; retained as pattern evidence'
+      }
+    : question);
+  const combinedQuestions = [...new Map([...sourceQuestions, ...reviewedQuestions].map((question) => [questionIdentity(question), question])).values()];
   const previousKeys = new Set((previousCorpus.questions || []).map(questionIdentity));
   const addedQuestions = combinedQuestions.filter((question) => !previousKeys.has(questionIdentity(question)));
   const removedGenericCount = (previousCorpus.questions || []).filter((question) => REMOVED_SOURCES.has(question.source)).length;
@@ -299,21 +340,26 @@ async function main() {
       pages: new Set(seasonQuestions.map((question) => question.source_url).filter(Boolean)).size };
   });
   const payload = {
-    schema_version: 2, generated_at: new Date().toISOString(),
-    corpus_scope: 'India-first KBC question archive with reviewed or on-device English translations; not an official Sony corpus.',
+    schema_version: 3, generated_at: new Date().toISOString(),
+    corpus_scope: 'India-first KBC practice combining historical KBC archives with accumulating structured facts; not an official Sony corpus.',
     sources: [
       { name: 'GKSection Hindi KBC archive', url: GKSECTION_INDEX_URL, license: 'No explicit reuse license found; retain original Hindi, attribution, and source URL. Permission is required for public redistribution.' },
-      { name: 'IQgarage KBC Questions and Answers', url: IQGARAGE_INDEX_URL, license: 'No explicit reuse license found; retained only as non-playable pattern evidence.' },
+      { name: 'IQgarage KBC Questions and Answers', url: IQGARAGE_INDEX_URL, license: 'No explicit reuse license found. Structurally valid records are playable with source-supplied answers and attribution; malformed or duplicate records remain archive-only. Permission is required for public redistribution.' },
+      { name: 'Wikidata structured facts', url: 'https://www.wikidata.org/wiki/Wikidata:Data_access', license: 'Structured data is available under CC0. FactFlow generates four-option practice questions from same-type facts and retains entity links.' },
       { name: 'SonyLIV KBC Play Along', url: 'https://origin-staticv2.sonyliv.com/UI_icons/KBC_Hindi_Terms/KBC16_PAG_FAQ.pdf', license: 'Official provenance reference only; SonyLIV content is not scraped or bundled.' }
     ],
     coverage, fresh_questions: addedQuestions.filter((question) => question.question_type === 'practice').length,
+    playable_questions: combinedQuestions.filter((question) => question.question_type === 'practice').length,
     translation_pending: combinedQuestions.filter((question) => question.question_type === 'translation_pending').length,
-    removed_generic_questions: removedGenericCount, pages, translation_pages: translationPages, questions: combinedQuestions
+    removed_generic_questions: removedGenericCount, pages, translation_pages: translationPages,
+    wikidata_source_version: WIKIDATA_SOURCE_VERSION, wikidata_state: wikidataState, questions: combinedQuestions
   };
   const previousComparable = JSON.stringify({ questions: previousCorpus.questions || [], pages: previousCorpus.pages || [],
-    translation_pages: previousCorpus.translation_pages || [], sources: previousCorpus.sources || [] });
+    translation_pages: previousCorpus.translation_pages || [], wikidata_source_version: previousCorpus.wikidata_source_version || 0,
+    wikidata_state: previousCorpus.wikidata_state || {}, sources: previousCorpus.sources || [] });
   const nextComparable = JSON.stringify({ questions: payload.questions, pages: payload.pages,
-    translation_pages: payload.translation_pages, sources: payload.sources });
+    translation_pages: payload.translation_pages, wikidata_source_version: payload.wikidata_source_version,
+    wikidata_state: payload.wikidata_state, sources: payload.sources });
   if (!OFFLINE && previousComparable === nextComparable) {
     process.stdout.write('\nNo corpus changes; bundled data left untouched.\n'); return;
   }

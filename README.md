@@ -2,20 +2,22 @@
 
 FactFlow is a browser-based GK practice app with two complementary modes:
 
-- **Today** builds recall through an adaptive daily queue of new, weak, and due questions.
-- **KBC Challenge** tests that preparation through an escalating 15-question, four-option, lock-answer run.
+- **Today** uses unseen questions only.
+- **KBC Challenge** uses 15 unseen questions in an escalating four-option, lock-answer run.
 
 Incorrect answers enter Review until answered correctly. Every attempt is retained separately from the read-only question corpus, allowing progress, accuracy, streaks, topic mastery, and scheduled revision to survive corpus refreshes.
 
 ## Product boundaries
 
-- Reviewed English translations of Hindi KBC questions are playable and retain the original Hindi, answer index, attribution, and source URL.
-- Machine-translated questions are created privately on the user's device and remain labelled as unreviewed translations.
-- IQgarage records remain third-party, incomplete pattern evidence and never appear in drills.
+- Validated English translations of Hindi KBC questions retain the original Hindi, answer index, attribution, and source URL.
+- Raw machine translations are never playable. The retired browser translation cache is deleted automatically.
+- Wikidata structured facts produce accumulating India and international questions under CC0. Correct answers come from structured relations; distractors come from the same relation type.
+- Structurally valid IQgarage KBC records are playable and remain historical topic evidence; malformed or duplicate records stay excluded from drills.
 - GKSection and IQgarage answers are supplied by those sources and are not independently fact-checked by FactFlow.
 - A verified current-affairs feed is not connected yet. Recently downloaded general trivia is not labelled as current affairs.
 - KBC Challenge simulates the question format and escalating difficulty. It does not attempt to reproduce a particular television season, host flow, or lifeline rules.
-- Options are reshuffled for every new presentation in Today, Review, and KBC Challenge. The answer is tracked independently of its displayed letter.
+- Ordinary practice and Challenge never repeat practised questions. Repetition is confined to Review.
+- Review options are reshuffled on every presentation. The answer is tracked independently of its displayed letter.
 
 ## Run locally
 
@@ -38,9 +40,12 @@ Opening `index.html` directly uses a small offline demonstration bank because br
 - `data/kbc-corpus.json` — read-only, provenance-labelled question corpus
 - `data/gksection-reviewed-en.json` — reviewed Hindi/English question pairs
 - `tools/build-corpus.mjs` — incremental corpus ingestion and normalization
-- `dev/assert-v15.js` — behavioral and corpus regression checks
+- `tools/wikidata-source.mjs` — structured-fact queries, distractors, and source cursors
+- `dev/assert-v16.js` — behavioral and corpus regression checks
 
 User learning state is stored under `factflow-learning-v2` in `localStorage`. The corpus itself is not copied into browser storage. Previous one-answer state from `kbc-prep-app-v1` is migrated once into attempt history.
+
+The browser checks for a newer bundled corpus every ten minutes. When fewer than 120 unseen questions remain, it also requests bounded Wikidata batches in the background and keeps valid additions locally until the scheduled shared corpus catches up. Starting a session below the requested size triggers up to three immediate replenishment batches before selection.
 
 ## Corpus refresh
 
@@ -50,11 +55,14 @@ GitHub Actions runs `node tools/build-corpus.mjs` every six hours. The generator
 2. Fetches bounded batches from GKSection so one source cannot monopolize a refresh.
 3. Preserves Hindi questions, four options, answer indices, season, episode, and provenance.
 4. Rejects malformed records, including ordering questions that do not have four answer choices.
-5. Merges reviewed English translations and removes Open Trivia DB and The Trivia API records.
-6. Retries failed or empty pages after a seven-day cooldown.
-7. Leaves the corpus file untouched when no question or page state changed.
+5. Appends bounded batches of notable India and international facts from Wikidata.
+6. Generates four unique same-type options while preserving the structured correct answer and entity URL.
+7. Rejects broken encoding, duplicate options, retired entities, and unsupported chemical elements.
+8. Merges validated English translations and removes Open Trivia DB and The Trivia API records.
+9. Retries failed or empty archive pages after a seven-day cooldown.
+10. Leaves the corpus file untouched when no question or source state changed.
 
-The playable bank now comes from reviewed English translations of the [GKSection Hindi KBC archive](https://www.gksection.com/hindi/hindi-kbc-season-9-quiz/). Newly discovered Hindi records enter a translation queue. Desktop Chrome 138 or newer can translate batches locally using its built-in Translator API; other browsers retain the reviewed bank. IQgarage is retained only for historical topic patterns. None of these third-party sources is official Sony data, and permission is required before public redistribution where the source does not provide a reuse licence.
+The playable bank combines validated English translations from the [GKSection Hindi KBC archive](https://www.gksection.com/hindi/hindi-kbc-season-9-quiz/), structurally valid IQgarage KBC records, and accumulating [Wikidata structured facts](https://www.wikidata.org/wiki/Wikidata:Data_access). Raw Hindi records never enter practice automatically. None of the third-party KBC archives is official Sony data, and permission is required before public redistribution where a source does not provide a reuse licence.
 
 ## Checks
 
@@ -62,6 +70,7 @@ The playable bank now comes from reviewed English translations of the [GKSection
 node --check learning.js
 node --check app.js
 node --check tools/build-corpus.mjs
-node dev/assert-v15.js
+node --check tools/wikidata-source.mjs
+node dev/assert-v16.js
 git diff --check
 ```

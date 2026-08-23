@@ -1,10 +1,13 @@
 'use strict';
 
-const APP_VERSION = 15;
+const APP_VERSION = 16;
 const CORPUS_URL = 'data/kbc-corpus.json';
 const LEARNING_STORAGE_KEY = 'factflow-learning-v2';
 const LEGACY_STORAGE_KEY = 'kbc-prep-app-v1';
-const TRANSLATION_STORAGE_KEY = 'factflow-hi-en-translations-v1';
+const RETIRED_TRANSLATION_STORAGE_KEY = 'factflow-hi-en-translations-v1';
+const LOCAL_FACT_STORAGE_KEY = 'factflow-wikidata-local-v1';
+const FACT_LOW_WATERMARK = 120;
+const BACKGROUND_REFRESH_MS = 10 * 60 * 1000;
 const Learning = window.FactFlowLearning;
 
 const state = {
@@ -12,9 +15,10 @@ const state = {
   questions: [],
   practiceQuestions: [],
   archiveQuestions: [],
-  translationCandidates: [],
-  translationCache: {},
-  translating: false,
+  localFactQuestions: [],
+  localFactSourceState: {},
+  factRefreshPromise: null,
+  challengeNotice: '',
   questionMap: new Map(),
   learning: Learning.createLearningState(),
   selectedTab: 'today',
@@ -134,30 +138,63 @@ function migrateLegacyProgress() {
   saveLearningState();
 }
 
+function localFactPayloadFor(corpus) {
+  const sourceVersion = Number(corpus?.wikidata_source_version || 0);
+  try {
+    const payload = JSON.parse(localStorage.getItem(LOCAL_FACT_STORAGE_KEY) || '{}');
+    if (Number(payload.sourceVersion) !== sourceVersion) return { sourceVersion, questions: [], sourceState: corpus?.wikidata_state || {} };
+    return {
+      sourceVersion,
+      questions: Array.isArray(payload.questions) ? payload.questions : [],
+      sourceState: payload.sourceState && typeof payload.sourceState === 'object' ? payload.sourceState : corpus?.wikidata_state || {}
+    };
+  } catch {
+    return { sourceVersion, questions: [], sourceState: corpus?.wikidata_state || {} };
+  }
+}
+
+function saveLocalFacts() {
+  try {
+    localStorage.setItem(LOCAL_FACT_STORAGE_KEY, JSON.stringify({
+      sourceVersion: Number(state.corpus?.wikidata_source_version || 0),
+      questions: state.localFactQuestions,
+      sourceState: state.localFactSourceState
+    }));
+  } catch (error) {
+    console.warn('Unable to save the locally replenished question bank.', error);
+  }
+}
+
+function applyCorpus(corpus) {
+  state.corpus = corpus;
+  state.usingDemo = false;
+  const corpusQuestions = Array.isArray(corpus.questions) ? corpus.questions : [];
+  const bundledKeys = new Set(corpusQuestions.map((question) => question.canonical_key || question.id).filter(Boolean));
+  const local = localFactPayloadFor(corpus);
+  state.localFactQuestions = local.questions.filter((question) =>
+    Number(question.source_schema_version) === local.sourceVersion
+    && !bundledKeys.has(question.canonical_key || question.id));
+  state.localFactSourceState = local.sourceState;
+  const merged = [...new Map([
+    ...corpusQuestions.filter((question) => question.question_type !== 'translation_pending'),
+    ...state.localFactQuestions
+  ].map((question) => [question.canonical_key || Learning.normalizeText(question.question_text) || question.id, question])).values()];
+  state.questions = merged.map(Learning.prepareQuestion);
+  state.practiceQuestions = [...new Map(state.questions
+    .filter(Learning.isPracticeQuestion)
+    .map((question) => [Learning.normalizeText(question.question_text), question])).values()];
+  state.archiveQuestions = state.questions.filter((question) =>
+    question.source === 'IQgarage episode archive' || !Learning.isPracticeQuestion(question));
+  state.questionMap = new Map(state.practiceQuestions.map((question) => [question.key, question]));
+  saveLocalFacts();
+}
+
 async function loadCorpus() {
   try {
     const response = await fetch(CORPUS_URL, { cache: 'no-cache' });
     if (!response.ok) throw new Error(`Corpus request returned ${response.status}`);
-    state.corpus = await response.json();
-    const corpusQuestions = Array.isArray(state.corpus.questions) ? state.corpus.questions : [];
-    state.translationCandidates = corpusQuestions.filter((question) => question.question_type === 'translation_pending');
-    try {
-      const cached = JSON.parse(localStorage.getItem(TRANSLATION_STORAGE_KEY) || '{}');
-      state.translationCache = cached && typeof cached === 'object' && !Array.isArray(cached) ? cached : {};
-    } catch {
-      state.translationCache = {};
-    }
-    const candidateKeys = new Set(state.translationCandidates.map((question) => question.canonical_key));
-    const cachedTranslations = Object.values(state.translationCache).filter((question) =>
-      candidateKeys.has(question?.canonical_key)
-      && question?.question_type === 'practice'
-      && Array.isArray(question?.options)
-      && question.options.length === 4
-    );
-    state.questions = [
-      ...corpusQuestions.filter((question) => question.question_type !== 'translation_pending'),
-      ...cachedTranslations
-    ].map(Learning.prepareQuestion);
+    applyCorpus(await response.json());
+    localStorage.removeItem(RETIRED_TRANSLATION_STORAGE_KEY);
   } catch (error) {
     console.warn('Bundled corpus unavailable; using the offline demo bank.', error);
     state.usingDemo = true;
@@ -166,91 +203,66 @@ async function loadCorpus() {
       coverage: [],
       sources: [{ name: 'FactFlow demo', url: '', license: 'Bundled offline demonstration questions.' }]
     };
+    state.localFactQuestions = [];
+    state.localFactSourceState = {};
     state.questions = buildDemoQuestions().map(Learning.prepareQuestion);
-    state.translationCandidates = [];
-    state.translationCache = {};
+    state.practiceQuestions = state.questions.filter(Learning.isPracticeQuestion);
+    state.archiveQuestions = [];
+    state.questionMap = new Map(state.practiceQuestions.map((question) => [question.key, question]));
   }
-  state.practiceQuestions = state.questions.filter(Learning.isPracticeQuestion);
-  state.archiveQuestions = state.questions.filter((question) => !Learning.isPracticeQuestion(question));
-  state.questionMap = new Map(state.practiceQuestions.map((question) => [question.key, question]));
 }
 
-function untranslatedCandidates() {
-  return state.translationCandidates.filter((question) => !state.translationCache[question.canonical_key]);
+function unseenQuestionCount() {
+  return state.practiceQuestions.filter((question) => Learning.questionStats(state.learning, question.key).attempts === 0).length;
 }
 
-function setTranslationStatus(message) {
-  setText('translationStatus', message);
-  setText('translationPendingCount', untranslatedCandidates().length);
-}
-
-async function translateMoreHindiQuestions() {
-  if (state.translating) return;
-  const pending = untranslatedCandidates().slice(0, 20);
-  if (!pending.length) {
-    setTranslationStatus('Every discovered Hindi question has an English version on this device.');
-    return;
-  }
-  if (!('Translator' in window)) {
-    setTranslationStatus('On-device translation needs desktop Chrome 138 or newer. The reviewed English bank remains available.');
-    return;
-  }
-  state.translating = true;
-  const button = byId('translateHindiButton');
-  if (button) button.disabled = true;
-  let translator;
-  let completed = 0;
-  try {
-    const availability = await window.Translator.availability({ sourceLanguage: 'hi', targetLanguage: 'en' });
-    if (availability === 'unavailable') throw new Error('Hindi-to-English translation is unavailable on this device.');
-    translator = await window.Translator.create({
-      sourceLanguage: 'hi',
-      targetLanguage: 'en',
-      monitor(monitor) {
-        monitor.addEventListener('downloadprogress', (event) => {
-          setTranslationStatus(`Downloading the private translation model: ${Math.round(event.loaded * 100)}%`);
-        });
-      }
-    });
-    for (const candidate of pending) {
-      setTranslationStatus(`Translating ${completed + 1} of ${pending.length} questions…`);
-      const questionText = String(await translator.translate(candidate.question_text_hi || candidate.question_text)).trim();
-      const options = [];
-      for (const option of candidate.options_hi || candidate.options) {
-        const value = String(option).trim();
-        options.push(/^\d+(?:[.,]\d+)?$/.test(value) ? value : String(await translator.translate(value)).trim());
-      }
-      if (!questionText || options.length !== 4 || options.some((option) => !option)) continue;
-      const translated = {
-        ...candidate,
-        question_text: questionText,
-        options,
-        question_type: 'practice',
-        source: 'GKSection on-device English translation',
-        translation_status: 'machine-translated to English on this device',
-        provenance_status: 'third-party KBC transcript; answer supplied by source; English machine translation not editorially reviewed'
-      };
-      state.translationCache[candidate.canonical_key] = translated;
-      localStorage.setItem(TRANSLATION_STORAGE_KEY, JSON.stringify(state.translationCache));
-      const prepared = Learning.prepareQuestion(translated);
-      state.questions.push(prepared);
-      state.practiceQuestions.push(prepared);
-      state.questionMap.set(prepared.key, prepared);
-      completed += 1;
+async function replenishQuestionBank(options = {}) {
+  if (state.usingDemo || state.factRefreshPromise) return state.factRefreshPromise;
+  if (!options.force && unseenQuestionCount() >= FACT_LOW_WATERMARK) return null;
+  state.factRefreshPromise = (async () => {
+    const source = await import(`./tools/wikidata-source.mjs?v=${APP_VERSION}`);
+    if (Number(source.WIKIDATA_SOURCE_VERSION) !== Number(state.corpus?.wikidata_source_version)) {
+      throw new Error('The local question source is newer than the bundled corpus.');
     }
-    if (completed) createNewDailySession();
-    setTranslationStatus(completed
-      ? `${completed} English questions added. The new daily queue is ready.`
-      : 'No translation passed validation; the existing reviewed bank was left unchanged.');
-  } catch (error) {
-    console.warn('Hindi translation unavailable.', error);
-    setTranslationStatus(error.message || 'Hindi translation could not be completed.');
-  } finally {
-    if (translator?.destroy) translator.destroy();
-    state.translating = false;
-    if (button) button.disabled = false;
+    const result = await source.gatherWikidataQuestions(state.localFactSourceState, { batchSize: 12 });
+    state.localFactSourceState = result.state;
+    const known = new Set(state.questions.map((question) => question.canonical_key || question.id).filter(Boolean));
+    const additions = result.questions.filter((question) => !known.has(question.canonical_key || question.id));
+    if (additions.length) {
+      state.localFactQuestions.push(...additions);
+      const prepared = additions.map(Learning.prepareQuestion).filter(Learning.isPracticeQuestion);
+      state.questions.push(...prepared);
+      state.practiceQuestions.push(...prepared);
+      prepared.forEach((question) => state.questionMap.set(question.key, question));
+    }
+    saveLocalFacts();
+    if (result.errors.length) console.warn('Some background question profiles were unavailable.', result.errors);
+    return additions.length;
+  })().catch((error) => {
+    console.warn('Background question replenishment was unavailable.', error);
+    return 0;
+  }).finally(() => {
+    state.factRefreshPromise = null;
     renderAll();
+  });
+  return state.factRefreshPromise;
+}
+
+async function refreshBundledCorpus() {
+  if (state.usingDemo) return;
+  try {
+    const response = await fetch(`${CORPUS_URL}?refresh=${Date.now()}`, { cache: 'no-store' });
+    if (!response.ok) return;
+    const corpus = await response.json();
+    if (corpus.generated_at !== state.corpus?.generated_at) applyCorpus(corpus);
+  } catch (error) {
+    console.warn('Background corpus refresh was unavailable.', error);
   }
+}
+
+async function runBackgroundMaintenance() {
+  await refreshBundledCorpus();
+  await replenishQuestionBank();
 }
 
 function validDailySession(session) {
@@ -272,6 +284,17 @@ function createNewDailySession() {
   state.activeQuestionKey = null;
   state.questionStartedAt = Date.now();
   saveLearningState();
+}
+
+async function startNewDailySession(button = null) {
+  if (button) button.disabled = true;
+  const required = Number(state.learning.settings.sessionSize || 10);
+  for (let attempt = 0; attempt < 3 && unseenQuestionCount() < required; attempt += 1) {
+    setText('sessionSummary', 'Replenishing the unseen question bank…');
+    await replenishQuestionBank({ force: true });
+  }
+  createNewDailySession();
+  renderAll();
 }
 
 function ensureDailySession() {
@@ -325,7 +348,14 @@ function formatRupees(value) {
 }
 
 function startChallenge() {
-  state.learning.currentChallenge = Learning.createChallenge(state.practiceQuestions);
+  const challenge = Learning.createChallenge(state.practiceQuestions, { state: state.learning });
+  if (challenge.questionKeys.length < Learning.CHALLENGE_LADDER.length) {
+    state.learning.currentChallenge = null;
+    state.challengeNotice = `A full challenge needs 15 unseen questions; ${challenge.questionKeys.length} are available right now. Review questions stay in Review.`;
+  } else {
+    state.learning.currentChallenge = challenge;
+    state.challengeNotice = '';
+  }
   state.challengeSelection = null;
   saveLearningState();
   renderAll();
@@ -482,7 +512,7 @@ function renderChallenge() {
     const intro = element('div', { className: 'challenge-intro-copy' }, [
       element('div', { className: 'completion-icon', text: '15' }),
       element('h3', { text: 'Ready for a pressure test?' }),
-      element('p', { text: 'The run starts with foundational recall and progresses toward harder questions. There are no theatrical lifelines—just KBC-style questions, four options, and a final lock.' })
+      element('p', { text: state.challengeNotice || 'The run uses 15 unseen questions, starting with foundational recall and progressing toward harder questions. Practised questions return only through Review.' })
     ]);
     const button = element('button', { className: 'primary-button', type: 'button', text: 'Start challenge' });
     button.addEventListener('click', startChallenge);
@@ -508,7 +538,7 @@ function renderChallenge() {
 function sourceDescription(question) {
   const provenance = String(question.provenance_status || '');
   if (question.source === 'FactFlow demo') return 'Bundled demonstration answer. It is not part of the live corpus.';
-  if (provenance.includes('answer supplied by source')) {
+  if (provenance.includes('answer supplied')) {
     return `Answer supplied by ${question.source}; FactFlow has not independently verified it.`;
   }
   return provenance || `Answer supplied by ${question.source || 'the question source'}.`;
@@ -601,6 +631,7 @@ function answerQuestion(selectedIndex) {
   saveLearningState();
   setText('sessionFeedback', attempt.correct ? 'Correct answer.' : 'Incorrect answer. The question was added to review.');
   renderAll();
+  void replenishQuestionBank();
   requestAnimationFrame(() => byId('nextQuestionButton')?.focus());
 }
 
@@ -624,7 +655,9 @@ function renderCompletion(container, session) {
     element('div', { className: 'completion-icon', text: '✓' }),
     element('h3', { text: session.mode === 'review' ? 'Review complete' : 'Daily session complete' }),
     element('p', {
-      text: attempts.length ? `${correct} of ${attempts.length} correct. Wrong answers remain in Review until you clear them.` : 'There were no available questions in this session.'
+      text: attempts.length
+        ? `${correct} of ${attempts.length} correct. Wrong answers remain in Review until you clear them.`
+        : 'No unseen questions are currently available. The accumulating corpus is checked on every refresh; practised questions remain in Review only.'
     })
   ]);
   const action = element('button', {
@@ -637,8 +670,7 @@ function renderCompletion(container, session) {
       state.reviewSession = null;
       switchTab('review');
     } else {
-      createNewDailySession();
-      renderAll();
+      void startNewDailySession(action);
     }
   });
   card.append(action);
@@ -662,11 +694,10 @@ function renderToday() {
   setText('sessionProgressText', total && session.cursor < total ? `Question ${session.cursor + 1} of ${total}` : `${answered} questions completed`);
 
   const sessionQuestions = (session?.questionKeys || []).map((key) => state.questionMap.get(key)).filter(Boolean);
-  const due = sessionQuestions.filter((question) => Learning.isDue(state.learning, question.key)).length;
   const newCount = sessionQuestions.filter((question) => Learning.questionStats(state.learning, question.key).attempts === 0).length;
   setText('sessionSummary', session?.mode === 'review'
     ? 'A focused retry. Answer correctly to clear this item from your mistake queue.'
-    : `This queue started with ${due} due and ${newCount} new question${newCount === 1 ? '' : 's'}.`);
+    : `${newCount} unseen question${newCount === 1 ? '' : 's'} in this queue. Practised questions return only through Review.`);
 
   const question = activeQuestion();
   if (!session || !total || !question || session.cursor >= total) {
@@ -799,13 +830,6 @@ function renderInsights() {
   setText('insightPracticeCount', state.practiceQuestions.length);
   setText('insightArchiveCount', state.archiveQuestions.length);
   setText('insightCategoryCount', new Set(state.practiceQuestions.map((question) => question.category)).size);
-  setText('translationPendingCount', untranslatedCandidates().length);
-  const translationStatus = byId('translationStatus');
-  if (!state.translating && translationStatus?.textContent.includes('Checking')) {
-    translationStatus.textContent = untranslatedCandidates().length
-      ? 'Translate a batch when you want more English questions.'
-      : 'Every discovered Hindi question has an English version on this device.';
-  }
   const generated = state.corpus?.generated_at ? new Date(state.corpus.generated_at) : null;
   setText('insightGeneratedAt', generated && !Number.isNaN(generated.getTime())
     ? generated.toLocaleDateString([], { month: 'short', day: 'numeric' })
@@ -831,8 +855,8 @@ function renderInsights() {
   clear(sources);
   const sourceNotes = [
     ['English practice questions', 'India-first questions translated from GKSection retain their original Hindi, four-option order, answer index, and source URL. Source answers are not independently fact-checked.'],
-    ['Hindi translation queue', 'New Hindi records remain non-playable until translated. Desktop Chrome can translate them privately on-device; reviewed translations are bundled for every browser.'],
-    ['Historical pattern archive', 'IQgarage remains non-playable pattern evidence. SonyLIV is referenced for official provenance but is not scraped.']
+    ['Accumulating fact bank', 'Wikidata contributes English questions from structured India and international facts. Options are generated only from answers of the same fact type.'],
+    ['Historical KBC questions', 'Structurally valid IQgarage questions are playable with source-supplied answers and transparent attribution. SonyLIV is referenced for official provenance but is not scraped.']
   ];
   sourceNotes.forEach(([title, copy]) => {
     sources.append(element('div', { className: 'source-item' }, [
@@ -846,21 +870,22 @@ function renderInsights() {
   clear(coverageGrid);
   const total = coverage.reduce((sum, item) => sum + Number(item.questions || 0), 0);
   setText('coverageSummary', coverage.length
-    ? `${total} provenance-labelled records. English-ready and translation-pending counts are shown separately.`
+    ? `${total} provenance-labelled historical KBC records. Only structurally eligible English records enter practice.`
     : 'Archive coverage is unavailable in offline demo mode.');
   coverage.forEach((item) => {
     coverageGrid.append(element('div', { className: 'coverage-item' }, [
       element('strong', { text: `Season ${item.season}` }),
-      element('span', { text: `${item.questions} records · ${Number(item.playable || 0)} English ready · ${Number(item.pending_translation || 0)} awaiting translation` })
+      element('span', { text: `${item.questions} archive records · ${Number(item.playable || 0)} included in practice` })
     ]));
   });
 }
 
 function renderHeader() {
+  const unseen = unseenQuestionCount();
   setText('appVersionLabel', `v${APP_VERSION}`);
   setText('corpusStatus', state.usingDemo
     ? 'Offline demo bank · serve over HTTP for the full corpus'
-    : `${state.practiceQuestions.length} English KBC questions · ${untranslatedCandidates().length} Hindi awaiting translation`);
+    : `${unseen} unseen · ${state.practiceQuestions.length} playable English questions`);
 }
 
 function renderAll() {
@@ -876,16 +901,11 @@ function attachListeners() {
   document.querySelectorAll('.nav-button').forEach((button) => {
     button.addEventListener('click', () => switchTab(button.dataset.tab));
   });
-  byId('newSessionButton').addEventListener('click', () => {
-    createNewDailySession();
-    renderAll();
-  });
+  byId('newSessionButton').addEventListener('click', (event) => void startNewDailySession(event.currentTarget));
   byId('newChallengeButton').addEventListener('click', startChallenge);
-  byId('translateHindiButton').addEventListener('click', translateMoreHindiQuestions);
   byId('sessionSize').addEventListener('change', (event) => {
     state.learning.settings.sessionSize = Number(event.target.value);
-    createNewDailySession();
-    renderAll();
+    void startNewDailySession();
   });
   window.addEventListener('hashchange', () => {
     const requested = window.location.hash.slice(1);
@@ -901,6 +921,11 @@ async function init() {
   ensureDailySession();
   attachListeners();
   renderAll();
+  void runBackgroundMaintenance();
+  window.setInterval(() => void runBackgroundMaintenance(), BACKGROUND_REFRESH_MS);
+  document.addEventListener('visibilitychange', () => {
+    if (document.visibilityState === 'visible') void runBackgroundMaintenance();
+  });
   const requestedTab = window.location.hash.slice(1);
   if (['today', 'challenge', 'review', 'progress', 'insights'].includes(requestedTab)) switchTab(requestedTab);
 }
