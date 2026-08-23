@@ -38,6 +38,14 @@ check('reviewed source categories remain authoritative', () => {
   }), 'Indian History');
 });
 
+check('historical IQgarage records can train selection patterns but never the learner', () => {
+  const historical = question(999, 'Tier 3', 'Indian History');
+  historical.source = 'IQgarage episode archive';
+  historical.question_type = 'practice';
+  assert.equal(Learning.isPracticeQuestion(historical), false);
+  assert.ok(Object.keys(Learning.archivePatternWeights([historical])).includes('Indian History'));
+});
+
 check('display text preserves Unicode and consistently capitalizes options', () => {
   assert.equal(Learning.formatOptionText('münchen'), 'München');
   assert.equal(Learning.formatOptionText('München'), 'München');
@@ -133,6 +141,15 @@ check('KBC challenge builds a unique escalating 15-question ladder', () => {
   assert.equal(Learning.guaranteedWinnings(10), 320000);
 });
 
+check('KBC challenge uses historical category patterns without selecting historical questions', () => {
+  const selected = Learning.selectChallengeQuestions(bank, {
+    seed: 'pattern-weighted',
+    patternWeights: { 'Science & Technology': 1, 'Geography (World)': 0 }
+  });
+  assert.ok(selected.slice(0, 5).every((item) => item.category === 'Science & Technology'));
+  assert.ok(selected.every((item) => item.source !== 'IQgarage episode archive'));
+});
+
 check('KBC challenge excludes every previously practised question', () => {
   const state = Learning.createLearningState();
   const used = bank.slice(0, 8);
@@ -147,17 +164,19 @@ check('bundled corpus has a large accumulating India-first practice bank', () =>
   const corpus = JSON.parse(fs.readFileSync(path.join(__dirname, '..', 'data', 'kbc-corpus.json'), 'utf8'));
   const prepared = corpus.questions.map(Learning.prepareQuestion);
   const practice = prepared.filter(Learning.isPracticeQuestion);
-  assert.ok(practice.length >= 900);
+  assert.ok(practice.length >= 450);
   assert.ok(practice.every((item) => item.options.length === 4));
   assert.ok(practice.every((item) => Number.isInteger(Number(item.correct_option_index))));
   assert.ok(new Set(practice.map((item) => item.category)).size >= 8);
   const wikidata = practice.filter((item) => item.source === 'Wikidata structured facts');
   assert.ok(wikidata.length >= 400);
   assert.ok(wikidata.filter((item) => item.tags.includes('india')).length >= 250);
-  assert.ok(practice.filter((item) => item.source === 'IQgarage episode archive').length >= 490);
+  assert.equal(practice.filter((item) => item.source === 'IQgarage episode archive').length, 0);
+  assert.ok(corpus.questions.filter((item) => item.source === 'IQgarage episode archive').length >= 499);
+  assert.ok(corpus.questions.filter((item) => item.source === 'IQgarage episode archive')
+    .every((item) => item.question_type === 'archive'));
   assert.ok(practice.every((item) => item.source.startsWith('GKSection')
-    || item.source === 'Wikidata structured facts'
-    || item.source === 'IQgarage episode archive'));
+    || item.source === 'Wikidata structured facts'));
   assert.equal(practice.some((item) => String(item.translation_status).includes('machine')), false);
   assert.equal(practice.some((item) => Learning.hasBrokenEncoding(item.question_text) || item.options.some(Learning.hasBrokenEncoding)), false);
   assert.equal(practice.some((item) => new Set(item.options.map(Learning.normalizeText)).size !== 4), false);
@@ -174,9 +193,9 @@ check('HTML loads cache-aligned assets and every main screen', () => {
   for (const id of ['tab-today', 'tab-challenge', 'tab-review', 'tab-progress', 'tab-insights']) {
     assert.ok(html.includes('id="' + id + '"'), 'missing ' + id);
   }
-  assert.ok(html.includes('styles.css?v=16'));
-  assert.ok(html.includes('learning.js?v=16'));
-  assert.ok(html.includes('app.js?v=16'));
+  assert.ok(html.includes('styles.css?v=17'));
+  assert.ok(html.includes('learning.js?v=17'));
+  assert.ok(html.includes('app.js?v=17'));
   assert.equal(html.includes('translateHindiButton'), false);
   assert.equal(html.includes('translationPendingCount'), false);
   assert.ok(app.includes("localStorage.removeItem(RETIRED_TRANSLATION_STORAGE_KEY)"));
@@ -198,5 +217,5 @@ check('HTML loads cache-aligned assets and every main screen', () => {
   assert.equal(new Set(declaredIds).size, declaredIds.length, 'HTML contains duplicate IDs');
 });
 
-console.log('v16 assertions passed: ' + checks.length + '/' + checks.length);
+console.log('v17 assertions passed: ' + checks.length + '/' + checks.length);
 checks.forEach((name, index) => console.log((index + 1) + '. ' + name));

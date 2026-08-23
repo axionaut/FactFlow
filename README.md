@@ -12,8 +12,8 @@ Incorrect answers enter Review until answered correctly. Every attempt is retain
 - Validated English translations of Hindi KBC questions retain the original Hindi, answer index, attribution, and source URL.
 - Raw machine translations are never playable. The retired browser translation cache is deleted automatically.
 - Wikidata structured facts produce accumulating India and international questions under CC0. Correct answers come from structured relations; distractors come from the same relation type.
-- Structurally valid IQgarage KBC records are playable and remain historical topic evidence; malformed or duplicate records stay excluded from drills.
-- GKSection and IQgarage answers are supplied by those sources and are not independently fact-checked by FactFlow.
+- IQgarage is the non-playable pattern corpus. It trains the app's topic, category, difficulty, and KBC-style weighting for Today and Challenge; it never trains the learner directly.
+- GKSection answers are supplied by that source and are not independently fact-checked by FactFlow.
 - A verified current-affairs feed is not connected yet. Recently downloaded general trivia is not labelled as current affairs.
 - KBC Challenge simulates the question format and escalating difficulty. It does not attempt to reproduce a particular television season, host flow, or lifeline rules.
 - Ordinary practice and Challenge never repeat practised questions. Repetition is confined to Review.
@@ -41,7 +41,7 @@ Opening `index.html` directly uses a small offline demonstration bank because br
 - `data/gksection-reviewed-en.json` — reviewed Hindi/English question pairs
 - `tools/build-corpus.mjs` — incremental corpus ingestion and normalization
 - `tools/wikidata-source.mjs` — structured-fact queries, distractors, and source cursors
-- `dev/assert-v16.js` — behavioral and corpus regression checks
+- `dev/assert-v17.js` — behavioral and corpus regression checks
 
 User learning state is stored under `factflow-learning-v2` in `localStorage`. The corpus itself is not copied into browser storage. Previous one-answer state from `kbc-prep-app-v1` is migrated once into attempt history.
 
@@ -62,7 +62,7 @@ GitHub Actions runs `node tools/build-corpus.mjs` every six hours. The generator
 9. Retries failed or empty archive pages after a seven-day cooldown.
 10. Leaves the corpus file untouched when no question or source state changed.
 
-The playable bank combines validated English translations from the [GKSection Hindi KBC archive](https://www.gksection.com/hindi/hindi-kbc-season-9-quiz/), structurally valid IQgarage KBC records, and accumulating [Wikidata structured facts](https://www.wikidata.org/wiki/Wikidata:Data_access). Raw Hindi records never enter practice automatically. None of the third-party KBC archives is official Sony data, and permission is required before public redistribution where a source does not provide a reuse licence.
+The learner-facing bank combines validated English translations from the [GKSection Hindi KBC archive](https://www.gksection.com/hindi/hindi-kbc-season-9-quiz/) with accumulating [Wikidata structured facts](https://www.wikidata.org/wiki/Wikidata:Data_access). The separate IQgarage archive influences selection weights but never enters Today, Challenge, or Review. Raw Hindi records never enter practice automatically. None of the third-party KBC archives is official Sony data, and permission is required before public redistribution where a source does not provide a reuse licence.
 
 ## Checks
 
@@ -71,6 +71,6 @@ node --check learning.js
 node --check app.js
 node --check tools/build-corpus.mjs
 node --check tools/wikidata-source.mjs
-node dev/assert-v16.js
+node dev/assert-v17.js
 git diff --check
 ```

@@ -49,18 +49,6 @@ function questionIdentity(question) {
   return normalizedIdentity(question.canonical_key || question.question_text || question.question_text_hi);
 }
 
-function hasPlayableStructure(question) {
-  const options = Array.isArray(question?.options) ? question.options : [];
-  const answer = Number(question?.correct_option_index);
-  return options.length === 4
-    && options.every((option) => String(option).trim())
-    && new Set(options.map(normalizedIdentity)).size === 4
-    && Number.isInteger(answer)
-    && answer >= 0
-    && answer < 4
-    && /^https:\/\//.test(String(question?.source_url || ''));
-}
-
 function parseOptionLine(line) {
   const matches = [...line.matchAll(/(?:^|\s)([A-D])[.)]\s*(.+?)(?=\s+[A-D][.)]\s*|$)/gi)];
   return matches.length < 2 ? null : matches.map((match) => match[2].trim());
@@ -135,12 +123,12 @@ function parseIqgarageQuestions(html, metadata) {
       id: `iqg-s${metadata.season}-e${metadata.episode}-${records.length + 1}`,
       season: metadata.season, episode: metadata.episode, air_date: metadata.airDate,
       question_text: questionText, options, correct_option_index: correctOptionIndex,
-      question_type: new Set(options.map(normalizedIdentity)).size === 4 ? 'practice' : 'archive', category: categoryFor(combined), subcategory: '', difficulty_tier: '',
+      question_type: 'archive', category: categoryFor(combined), subcategory: '', difficulty_tier: '',
       prize_level_asked_at: prizeMatch ? Number(prizeMatch[1].replace(/,/g, '')) : null,
       source: 'IQgarage episode archive', source_url: metadata.url,
       source_accessed_at: new Date().toISOString().slice(0, 10), tags: tagsFor(combined),
       ladder_position: records.length + 1,
-      provenance_status: 'third-party KBC transcript; answer supplied by IQgarage; not independently verified'
+      provenance_status: 'third-party KBC transcript; retained as KBC pattern evidence; not used for learner practice'
     });
   }
   return records;
@@ -252,11 +240,11 @@ async function main() {
   const reviewedQuestions = (reviewedPayload.questions || []).map(prepareReviewedQuestion);
   const reviewedUrls = new Set(reviewedQuestions.map((question) => question.source_url));
   const questions = (previousCorpus.questions || [])
-    .map((question) => question.source === 'IQgarage episode archive' && hasPlayableStructure(question)
+    .map((question) => question.source === 'IQgarage episode archive'
       ? {
           ...question,
-          question_type: 'practice',
-          provenance_status: 'third-party KBC transcript; answer supplied by IQgarage; not independently verified'
+          question_type: 'archive',
+          provenance_status: 'third-party KBC transcript; retained as KBC pattern evidence; not used for learner practice'
         }
       : question)
     .filter((question) => !REMOVED_SOURCES.has(question.source))
@@ -316,15 +304,7 @@ async function main() {
     process.stdout.write(`\nWikidata supplied ${wikidata.questions.length} playable questions.`);
   }
 
-  const reviewedQuestionTexts = new Set(reviewedQuestions.map((question) => normalizedIdentity(question.question_text)));
-  const sourceQuestions = questions.map((question) => question.source === 'IQgarage episode archive'
-      && reviewedQuestionTexts.has(normalizedIdentity(question.question_text))
-    ? {
-        ...question,
-        question_type: 'archive',
-        provenance_status: 'third-party KBC transcript; duplicate of a validated English question; retained as pattern evidence'
-      }
-    : question);
+  const sourceQuestions = questions;
   const combinedQuestions = [...new Map([...sourceQuestions, ...reviewedQuestions].map((question) => [questionIdentity(question), question])).values()];
   const previousKeys = new Set((previousCorpus.questions || []).map(questionIdentity));
   const addedQuestions = combinedQuestions.filter((question) => !previousKeys.has(questionIdentity(question)));
@@ -344,7 +324,7 @@ async function main() {
     corpus_scope: 'India-first KBC practice combining historical KBC archives with accumulating structured facts; not an official Sony corpus.',
     sources: [
       { name: 'GKSection Hindi KBC archive', url: GKSECTION_INDEX_URL, license: 'No explicit reuse license found; retain original Hindi, attribution, and source URL. Permission is required for public redistribution.' },
-      { name: 'IQgarage KBC Questions and Answers', url: IQGARAGE_INDEX_URL, license: 'No explicit reuse license found. Structurally valid records are playable with source-supplied answers and attribution; malformed or duplicate records remain archive-only. Permission is required for public redistribution.' },
+      { name: 'IQgarage KBC Questions and Answers', url: IQGARAGE_INDEX_URL, license: 'No explicit reuse license found. Records are retained only as non-playable KBC pattern evidence for category and difficulty weighting. Permission is required for public redistribution.' },
       { name: 'Wikidata structured facts', url: 'https://www.wikidata.org/wiki/Wikidata:Data_access', license: 'Structured data is available under CC0. FactFlow generates four-option practice questions from same-type facts and retains entity links.' },
       { name: 'SonyLIV KBC Play Along', url: 'https://origin-staticv2.sonyliv.com/UI_icons/KBC_Hindi_Terms/KBC16_PAG_FAQ.pdf', license: 'Official provenance reference only; SonyLIV content is not scraped or bundled.' }
     ],

@@ -1,6 +1,6 @@
 'use strict';
 
-const APP_VERSION = 16;
+const APP_VERSION = 17;
 const CORPUS_URL = 'data/kbc-corpus.json';
 const LEARNING_STORAGE_KEY = 'factflow-learning-v2';
 const LEGACY_STORAGE_KEY = 'kbc-prep-app-v1';
@@ -348,7 +348,10 @@ function formatRupees(value) {
 }
 
 function startChallenge() {
-  const challenge = Learning.createChallenge(state.practiceQuestions, { state: state.learning });
+  const challenge = Learning.createChallenge(state.practiceQuestions, {
+    state: state.learning,
+    patternWeights: Learning.archivePatternWeights(state.archiveQuestions)
+  });
   if (challenge.questionKeys.length < Learning.CHALLENGE_LADDER.length) {
     state.learning.currentChallenge = null;
     state.challengeNotice = `A full challenge needs 15 unseen questions; ${challenge.questionKeys.length} are available right now. Review questions stay in Review.`;
@@ -856,7 +859,7 @@ function renderInsights() {
   const sourceNotes = [
     ['English practice questions', 'India-first questions translated from GKSection retain their original Hindi, four-option order, answer index, and source URL. Source answers are not independently fact-checked.'],
     ['Accumulating fact bank', 'Wikidata contributes English questions from structured India and international facts. Options are generated only from answers of the same fact type.'],
-    ['Historical KBC questions', 'Structurally valid IQgarage questions are playable with source-supplied answers and transparent attribution. SonyLIV is referenced for official provenance but is not scraped.']
+    ['Historical KBC pattern corpus', 'IQgarage records train the app’s topic, category, and difficulty weighting but never appear in Today, Challenge, or Review. SonyLIV is referenced for official provenance but is not scraped.']
   ];
   sourceNotes.forEach(([title, copy]) => {
     sources.append(element('div', { className: 'source-item' }, [

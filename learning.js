@@ -175,11 +175,11 @@
   function isPracticeQuestion(question) {
     const answer = Number(question?.correct_option_index);
     const options = question?.options;
-    const unverifiedArchive = question?.provenance_status === 'third-party transcript; answer not independently verified';
+    const patternArchive = question?.source === 'IQgarage episode archive';
     const practiceType = question?.question_type === 'practice'
       || question?.source === 'FactFlow demo';
     return practiceType
-      && !unverifiedArchive
+      && !patternArchive
       && !hasBrokenEncoding(question?.question_text)
       && Number.isInteger(answer)
       && answer >= 0
@@ -380,6 +380,7 @@
 
   function selectChallengeQuestions(questions, options = {}) {
     const day = options.seed || `${dateKey(options.now || new Date())}:${Date.now()}`;
+    const patternWeights = options.patternWeights || {};
     const practice = questions
       .filter(isPracticeQuestion)
       .filter((question) => !options.state || questionStats(options.state, question.key || questionKey(question)).attempts === 0);
@@ -395,7 +396,9 @@
         .filter((question) => band.tiers.includes(question.difficulty_tier))
         .sort((a, b) => {
           const tierDifference = band.tiers.indexOf(a.difficulty_tier) - band.tiers.indexOf(b.difficulty_tier);
-          return tierDifference || deterministicNoise(b.key, `${day}:${bandIndex}`) - deterministicNoise(a.key, `${day}:${bandIndex}`);
+          const patternDifference = (patternWeights[b.category] || 0) - (patternWeights[a.category] || 0);
+          return tierDifference || patternDifference
+            || deterministicNoise(b.key, `${day}:${bandIndex}`) - deterministicNoise(a.key, `${day}:${bandIndex}`);
         });
       for (const question of candidates) {
         if (chosen.length >= (bandIndex + 1) * band.positions) break;
@@ -407,7 +410,8 @@
     if (chosen.length < CHALLENGE_LADDER.length) {
       practice
         .filter((question) => !chosenKeys.has(question.key))
-        .sort((a, b) => deterministicNoise(b.key, day) - deterministicNoise(a.key, day))
+        .sort((a, b) => (patternWeights[b.category] || 0) - (patternWeights[a.category] || 0)
+          || deterministicNoise(b.key, day) - deterministicNoise(a.key, day))
         .slice(0, CHALLENGE_LADDER.length - chosen.length)
         .forEach((question) => chosen.push(question));
     }
