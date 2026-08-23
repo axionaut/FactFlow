@@ -64,14 +64,15 @@ function cleanEnglishQuestion(value) {
 
 function categoryFor(text) {
   const value = String(text).toLowerCase();
+  const indian = /\bindia\b|\bindian\b|delhi|mumbai|kolkata|chennai|bengaluru|maharashtra|rajasthan|uttar pradesh|lok sabha|rajya sabha/.test(value);
   if (/cricket|football|tennis|olympic|sport|player|tournament|hockey|chess/.test(value)) return 'Sports';
-  if (/film|actor|actress|cinema|movie|bollywood|song|director/.test(value)) return 'Cinema (Bollywood)';
+  if (/film|actor|actress|cinema|movie|bollywood|song|director/.test(value)) return indian ? 'Cinema (Bollywood)' : 'Cinema (Regional/World)';
   if (/constitution|parliament|president|prime minister|government|minister|lok sabha|rajya sabha/.test(value)) return 'Polity & Constitution';
-  if (/river|state|city|district|mountain|country|capital|located|geograph/.test(value)) return 'Geography (India)';
+  if (/river|state|city|district|mountain|country|capital|located|geograph/.test(value)) return indian ? 'Geography (India)' : 'Geography (World)';
   if (/science|planet|space|chemical|physics|biology|disease|organ|technology/.test(value)) return 'Science & Technology';
   if (/author|book|novel|poem|wrote|writer/.test(value)) return 'Literature & Authors';
   if (/god|goddess|ramayana|mahabharata|religion|temple|myth/.test(value)) return 'Mythology & Religion';
-  if (/king|emperor|battle|dynasty|independence|century|ancient|history/.test(value)) return 'Indian History';
+  if (/king|emperor|battle|dynasty|independence|century|ancient|history/.test(value)) return indian ? 'Indian History' : 'World History';
   if (/award|honour|prize/.test(value)) return 'Awards & Honours';
   if (/dance|festival|painting|music|culture/.test(value)) return 'Art & Culture';
   if (/company|business|bank|economy|rupee|industry/.test(value)) return 'Business & Economy';
@@ -214,7 +215,7 @@ function prepareReviewedQuestion(question) {
   return {
     air_date: null, subcategory: '', prize_level_asked_at: null,
     source_accessed_at: new Date().toISOString().slice(0, 10), tags: tagsFor(combined), ...question,
-    question_type: 'practice', source: 'GKSection translated KBC archive', language_original: 'hi',
+    question_type: 'archive', source: 'GKSection translated KBC archive', language_original: 'hi',
     translation_status: 'reviewed English translation',
     provenance_status: 'third-party KBC transcript; English translation reviewed; answer supplied by source'
   };

@@ -1,6 +1,6 @@
 'use strict';
 
-const APP_VERSION = 18;
+const APP_VERSION = 19;
 const CORPUS_URL = 'data/kbc-corpus.json';
 const LEARNING_STORAGE_KEY = 'factflow-learning-v2';
 const LEGACY_STORAGE_KEY = 'kbc-prep-app-v1';
@@ -279,8 +279,11 @@ function createNewDailySession() {
     state.learning,
     state.practiceQuestions,
     state.archiveQuestions,
-    { size: state.learning.settings.sessionSize }
+    { size: 10, recentQuestionKeys: state.learning.recentQuestionKeys }
   );
+  state.learning.recentQuestionKeys = [
+    ...new Set([...(state.learning.recentQuestionKeys || []), ...state.learning.dailySession.questionKeys])
+  ].slice(-Math.max(30, Math.floor(state.practiceQuestions.length * 0.7)));
   state.reviewSession = null;
   state.activeQuestionKey = null;
   state.questionStartedAt = Date.now();
@@ -289,7 +292,7 @@ function createNewDailySession() {
 
 async function startNewDailySession(button = null) {
   if (button) button.disabled = true;
-  const required = Number(state.learning.settings.sessionSize || 10);
+  const required = 10;
   for (let attempt = 0; attempt < 3 && unseenQuestionCount() < required; attempt += 1) {
     setText('sessionSummary', 'Replenishing the unseen question bank…');
     await replenishQuestionBank({ force: true });
@@ -351,7 +354,8 @@ function formatRupees(value) {
 function buildChallenge() {
   return Learning.createChallenge(state.practiceQuestions, {
     state: state.learning,
-    patternWeights: Learning.archivePatternWeights(state.archiveQuestions)
+    patternWeights: Learning.archivePatternWeights(state.archiveQuestions),
+    recentQuestionKeys: state.learning.recentQuestionKeys
   });
 }
 
@@ -381,6 +385,9 @@ function startChallenge() {
     state.challengeNotice = `A full challenge needs 15 unseen questions; ${challenge.questionKeys.length} are available right now. Review questions stay in Review.`;
   } else {
     state.learning.currentChallenge = challenge;
+    state.learning.recentQuestionKeys = [
+      ...new Set([...(state.learning.recentQuestionKeys || []), ...challenge.questionKeys])
+    ].slice(-Math.max(30, Math.floor(state.practiceQuestions.length * 0.7)));
     state.challengeNotice = '';
   }
   state.challengeSelection = null;
@@ -615,6 +622,14 @@ function renderQuestion(container, question, response) {
         text: response.correct ? 'This question is scheduled for a later review.' : `Correct answer: ${correctAnswer}. It is now in your review queue.`
       })
     );
+    const nextButton = element('button', {
+      className: 'primary-button',
+      type: 'button',
+      text: session.cursor + 1 >= session.questionKeys.length ? 'Finish session' : 'Next question',
+      attributes: { id: 'nextQuestionButton' }
+    });
+    nextButton.addEventListener('click', advanceSession);
+    answerPanel.append(element('div', { className: 'feedback-actions' }, nextButton));
     if (question.explanation) answerPanel.append(element('p', { className: 'source-note', text: question.explanation }));
     const sourceLine = element('p', { className: 'source-note', text: sourceDescription(question) });
     if (question.source_url) {
@@ -626,14 +641,6 @@ function renderQuestion(container, question, response) {
       }));
     }
     answerPanel.append(sourceLine);
-    const nextButton = element('button', {
-      className: 'primary-button',
-      type: 'button',
-      text: session.cursor + 1 >= session.questionKeys.length ? 'Finish session' : 'Next question',
-      attributes: { id: 'nextQuestionButton' }
-    });
-    nextButton.addEventListener('click', advanceSession);
-    answerPanel.append(element('div', { className: 'feedback-actions' }, nextButton));
     stage.append(answerPanel);
   }
   container.append(stage);
@@ -708,8 +715,6 @@ function renderToday() {
   setText('todayStreak', Learning.studyStreak(state.learning));
   setText('sessionModeLabel', session?.mode === 'review' ? 'Focused review' : 'Today’s practice');
   setText('sessionHeading', session?.mode === 'review' ? 'Review session' : 'Daily session');
-  byId('sessionSize').value = String(state.learning.settings.sessionSize);
-
   const total = session?.questionKeys.length || 0;
   const response = activeResponse();
   const answered = Math.min((session?.cursor || 0) + (response ? 1 : 0), total);
@@ -931,10 +936,6 @@ function attachListeners() {
   });
   byId('newSessionButton').addEventListener('click', (event) => void startNewDailySession(event.currentTarget));
   byId('newChallengeButton').addEventListener('click', startChallenge);
-  byId('sessionSize').addEventListener('change', (event) => {
-    state.learning.settings.sessionSize = Number(event.target.value);
-    void startNewDailySession();
-  });
   window.addEventListener('hashchange', () => {
     const requested = window.location.hash.slice(1);
     if (['today', 'challenge', 'review', 'progress', 'insights'].includes(requested)) switchTab(requested);

@@ -14,7 +14,7 @@ function question(index, tier, category) {
     question_type: 'practice',
     difficulty_tier: tier,
     category,
-    source: 'GKSection translated KBC archive',
+    source: 'Wikidata structured facts',
     provenance_status: 'third-party KBC transcript; English translation reviewed; answer supplied by source'
   });
 }
@@ -174,17 +174,19 @@ check('the bundled KBC ladder avoids serial categories and question templates', 
     assert.notEqual(item.category, selected[index].category, `adjacent category repeated at ${index + 1}`);
     assert.notEqual(families[index + 1], families[index], `adjacent template repeated at ${index + 1}`);
   });
-  assert.ok(Math.max(...Object.values(families.reduce((counts, family) => {
+  const familyCounts = Object.values(families.reduce((counts, family) => {
     counts[family] = (counts[family] || 0) + 1;
     return counts;
-  }, {}))) <= 2);
+  }, {}));
+  assert.ok(Math.max(...familyCounts) <= 3);
+  assert.ok(familyCounts.filter((count) => count > 2).length <= 1);
 });
 
 check('bundled corpus has a large accumulating India-first practice bank', () => {
   const corpus = JSON.parse(fs.readFileSync(path.join(__dirname, '..', 'data', 'kbc-corpus.json'), 'utf8'));
   const prepared = corpus.questions.map(Learning.prepareQuestion);
   const practice = prepared.filter(Learning.isPracticeQuestion);
-  assert.ok(practice.length >= 450);
+  assert.ok(practice.length >= 400);
   assert.ok(practice.every((item) => item.options.length === 4));
   assert.ok(practice.every((item) => Number.isInteger(Number(item.correct_option_index))));
   assert.ok(new Set(practice.map((item) => item.category)).size >= 8);
@@ -192,6 +194,8 @@ check('bundled corpus has a large accumulating India-first practice bank', () =>
   assert.ok(wikidata.length >= 400);
   assert.ok(wikidata.filter((item) => item.tags.includes('india')).length >= 250);
   assert.equal(practice.filter((item) => item.source === 'IQgarage episode archive').length, 0);
+  assert.equal(practice.filter((item) => item.source === 'GKSection translated KBC archive').length, 0);
+  assert.ok(corpus.questions.filter((item) => item.source === 'GKSection translated KBC archive').length >= 1);
   assert.ok(corpus.questions.filter((item) => item.source === 'IQgarage episode archive').length >= 499);
   assert.ok(corpus.questions.filter((item) => item.source === 'IQgarage episode archive')
     .every((item) => item.question_type === 'archive'));
@@ -213,9 +217,9 @@ check('HTML loads cache-aligned assets and every main screen', () => {
   for (const id of ['tab-today', 'tab-challenge', 'tab-review', 'tab-progress', 'tab-insights']) {
     assert.ok(html.includes('id="' + id + '"'), 'missing ' + id);
   }
-  assert.ok(html.includes('styles.css?v=18'));
-  assert.ok(html.includes('learning.js?v=18'));
-  assert.ok(html.includes('app.js?v=18'));
+  assert.ok(html.includes('styles.css?v=19'));
+  assert.ok(html.includes('learning.js?v=19'));
+  assert.ok(html.includes('app.js?v=19'));
   assert.equal(html.includes('translateHindiButton'), false);
   assert.equal(html.includes('translationPendingCount'), false);
   assert.ok(app.includes("localStorage.removeItem(RETIRED_TRANSLATION_STORAGE_KEY)"));

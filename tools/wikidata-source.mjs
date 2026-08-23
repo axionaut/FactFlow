@@ -170,6 +170,11 @@ function rotate(values, amount) {
   return [...values.slice(offset), ...values.slice(0, offset)];
 }
 
+function displayAnswer(profile, answer) {
+  if (profile.id !== 'world-country-currency') return answer;
+  return answer.replace(/^(?:[A-Z][a-z]+(?:\s+[A-Z][a-z]+)?)\s+(?=(?:dollar|rupee|yen|euro|franc|pound|peso|dinar|rial|ruble|won|shilling|krona|krone|lira|rand|baht|dong|ringgit|forint|zloty|lek|taka|vatu|manat|lari|lev|lei|koruna|shekel|dirham|tenge|kyat|kip|tugrik|guarani|real|birr|cedi)\b)/i, '');
+}
+
 export function buildWikidataQuestions(profile, bindings, accessedAt = new Date().toISOString().slice(0, 10)) {
   const candidates = bindings.map((binding) => ({
     itemId: entityId(binding.item?.value),
@@ -194,18 +199,19 @@ export function buildWikidataQuestions(profile, bindings, accessedAt = new Date(
   const rows = [...grouped.values()]
     .filter((group) => new Set(group.map((row) => normalized(row.answerLabel))).size === 1)
     .map((group) => group[0]);
-  const answerPool = [...new Map(rows.map((row) => [normalized(row.answerLabel), row.answerLabel])).values()];
+  const answerPool = [...new Map(rows.map((row) => [normalized(displayAnswer(profile, row.answerLabel)), displayAnswer(profile, row.answerLabel)])).values()];
   if (answerPool.length < 4) return [];
 
   return rows.flatMap((row) => {
-    const correctIdentity = normalized(row.answerLabel);
+    const correctAnswer = displayAnswer(profile, row.answerLabel);
+    const correctIdentity = normalized(correctAnswer);
     const candidates = answerPool.filter((answer) => normalized(answer) !== correctIdentity);
     const ordered = rotate(candidates, hash(`${profile.id}:${row.itemId}`) % candidates.length);
     const distractors = ordered.slice(0, 3);
     if (distractors.length !== 3) return [];
     const correctSlot = hash(`${row.itemId}:correct-slot`) % 4;
     const options = [...distractors];
-    options.splice(correctSlot, 0, row.answerLabel);
+    options.splice(correctSlot, 0, correctAnswer);
     const canonicalKey = `wd-${profile.id}-${row.itemId}`;
     return [{
       id: canonicalKey,

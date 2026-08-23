@@ -2,18 +2,18 @@
 
 FactFlow is a browser-based GK practice app with two complementary modes:
 
-- **Today** uses unseen questions only.
+- **Today** uses unseen questions only, rotating across the bank before fresh questions recur.
 - **KBC Challenge** uses 15 unseen questions in an escalating four-option, lock-answer run.
 
 Incorrect answers enter Review until answered correctly. Every attempt is retained separately from the read-only question corpus, allowing progress, accuracy, streaks, topic mastery, and scheduled revision to survive corpus refreshes.
 
 ## Product boundaries
 
-- Validated English translations of Hindi KBC questions retain the original Hindi, answer index, attribution, and source URL.
+- Validated English translations of Hindi KBC questions retain the original Hindi, answer index, attribution, and source URL as archive evidence only.
 - Raw machine translations are never playable. The retired browser translation cache is deleted automatically.
 - Wikidata structured facts produce accumulating India and international questions under CC0. Correct answers come from structured relations; distractors come from the same relation type.
-- IQgarage is the non-playable pattern corpus. It trains the app's topic, category, difficulty, and KBC-style weighting for Today and Challenge; it never trains the learner directly.
-- GKSection answers are supplied by that source and are not independently fact-checked by FactFlow.
+- GKSection and IQgarage are non-playable KBC pattern corpora. They train the app's topic, category, difficulty, and KBC-style weighting for Today and Challenge; they never train the learner directly.
+- GKSection answers are supplied by that source and are not independently fact-checked by FactFlow; those questions are not learner practice.
 - A verified current-affairs feed is not connected yet. Recently downloaded general trivia is not labelled as current affairs.
 - KBC Challenge simulates the question format and escalating difficulty. It does not attempt to reproduce a particular television season, host flow, or lifeline rules.
 - Ordinary practice and Challenge never repeat practised questions. Repetition is confined to Review.
