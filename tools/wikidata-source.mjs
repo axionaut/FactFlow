@@ -205,7 +205,9 @@ export function buildWikidataQuestions(profile, bindings, accessedAt = new Date(
   return rows.flatMap((row) => {
     const correctAnswer = displayAnswer(profile, row.answerLabel);
     const correctIdentity = normalized(correctAnswer);
-    const candidates = answerPool.filter((answer) => normalized(answer) !== correctIdentity);
+    const candidates = answerPool
+      .filter((answer) => normalized(answer) !== correctIdentity)
+      .sort((first, second) => Math.abs(first.length - correctAnswer.length) - Math.abs(second.length - correctAnswer.length));
     const ordered = rotate(candidates, hash(`${profile.id}:${row.itemId}`) % candidates.length);
     const distractors = ordered.slice(0, 3);
     if (distractors.length !== 3) return [];

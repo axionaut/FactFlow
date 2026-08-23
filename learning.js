@@ -121,14 +121,18 @@
 
   function inferCategory(question) {
     const existing = String(question?.category || '');
-    if (CATEGORIES.includes(existing) && existing !== 'Miscellaneous/Trivia') return existing;
-
     const value = normalizeText([
       question?.subcategory,
       question?.question_text,
       ...(Array.isArray(question?.tags) ? question.tags : [])
     ].join(' '));
     const indian = /\bindia\b|\bindian\b|delhi|mumbai|kolkata|chennai|bengaluru|maharashtra|rajasthan|uttar pradesh|lok sabha|rajya sabha/.test(value);
+    if (CATEGORIES.includes(existing) && existing !== 'Miscellaneous/Trivia') {
+      if (existing === 'Indian History' && !indian) return 'World History';
+      if (existing === 'Geography (India)' && !indian) return 'Geography (World)';
+      if (existing === 'Cinema (Bollywood)' && !indian && !/bollywood/.test(value)) return 'Cinema (Regional/World)';
+      return existing;
+    }
 
     if (/cricket|football|tennis|olympic|sport|athlete|player|tournament|hockey|chess|formula one|basketball/.test(value)) return 'Sports';
     if (/constitution|parliament|president|prime minister|government|minister|election|politic|supreme court|lok sabha|rajya sabha/.test(value)) return 'Polity & Constitution';
