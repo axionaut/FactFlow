@@ -1,4 +1,4 @@
-const APP_VERSION = 12;
+const APP_VERSION = 13;
 const STORAGE_KEY = 'kbc-prep-app-v1';
 const CORPUS_URL = 'data/kbc-corpus.json';
 const CATEGORY_TAXONOMY = [
@@ -583,7 +583,7 @@ function renderFilters() {
 function getFilteredQuestions() {
   const searchTerm = state.filters.search.trim().toLowerCase();
   return [...state.questions].filter((question) => {
-    const practiceQuestion = question.question_type === 'practice' || question.source === 'Open Trivia DB';
+    const practiceQuestion = (question.question_type === 'practice' || question.source === 'Open Trivia DB' || question.source === 'The Trivia API') && question.provenance_status !== 'third-party transcript; answer not independently verified';
     const categoryMatch = state.filters.category === 'all' || question.category === state.filters.category;
     const tierMatch = state.filters.tier === 'all' || determineTier(question) === state.filters.tier;
     const searchMatch = !searchTerm || question.question_text.toLowerCase().includes(searchTerm) || (question.tags || []).join(' ').toLowerCase().includes(searchTerm);

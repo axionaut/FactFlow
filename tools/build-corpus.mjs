@@ -74,6 +74,11 @@ function tagsFor(text) {
     .slice(0, 5);
 }
 
+function isKbcCompatible(text, category = '') {
+  const value = `${text} ${category}`.toLowerCase();
+  return !/anime|manga|video game|gaming|xbox|playstation|nintendo|minecraft|fortnite|club penguin|superhero|comic book|cartoon|role-playing game|mmorpg/.test(value);
+}
+
 function shuffleOptions(options, correctAnswer) {
   const shuffled = [...options].sort(() => Math.random() - 0.5);
   return { options: shuffled, correctOptionIndex: shuffled.indexOf(correctAnswer) };
@@ -115,7 +120,7 @@ async function fetchFreshTrivia() {
       ladder_position: null,
       provenance_status: 'public trivia API; answer supplied by source'
     };
-  });
+  }).filter((question) => isKbcCompatible(question.question_text, question.subcategory));
 }
 
 async function fetchTheTriviaApi() {
@@ -154,7 +159,7 @@ async function fetchTheTriviaApi() {
       ladder_position: null,
       provenance_status: 'public trivia API; answer supplied by source'
     };
-  }).filter((question) => question.question_text && question.options.length === 4 && question.correct_option_index >= 0);
+  }).filter((question) => question.question_text && question.options.length === 4 && question.correct_option_index >= 0 && isKbcCompatible(question.question_text, question.subcategory));
 }
 
 function parseQuestions(html, metadata) {
@@ -287,7 +292,9 @@ async function main() {
       console.warn(`Fresh trivia source unavailable: ${error.message}`);
     }
   }
-  const combinedQuestions = [...new Map([...deduped, ...freshTrivia].map((question) => [question.question_text.toLowerCase().replace(/[^a-z0-9]/g, ''), question])).values()];
+  const combinedQuestions = [...new Map([...deduped, ...freshTrivia]
+    .filter((question) => question.question_type !== 'practice' || isKbcCompatible(question.question_text, question.subcategory))
+    .map((question) => [question.question_text.toLowerCase().replace(/[^a-z0-9]/g, ''), question])).values()];
   const payload = {
     schema_version: 1,
     generated_at: new Date().toISOString(),
