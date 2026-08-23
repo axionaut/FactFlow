@@ -5,13 +5,14 @@ A mobile-first single-page study app for quiz and trivia preparation. It helps y
 ## Features
 
 - Bulk import of CSV/JSON question banks
-- Manual question entry
 - Fuzzy deduplication against existing data
 - Recency-aware prioritization and study queue
 - Pattern analysis for categories, tiers, seasons, and recurring tags
 - Drill mode for targeted revision
 - Current-affairs intake that feeds into the same bank model
 - Informational reference panel for current KBC mechanics
+
+> The product is intentionally built around bulk archival ingestion and pattern discovery. It does not rely on the user manually typing in question sets or guessing the content in advance.
 
 ## Run locally
 

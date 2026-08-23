@@ -13,7 +13,7 @@
           <p class="eyebrow">Study smarter</p>
           <div class="title-row">
             <h1>FactFlow</h1>
-            <span id="appVersionLabel" class="version-pill">v1</span>
+            <span id="appVersionLabel" class="version-pill">v3</span>
           </div>
         </div>
         <div class="header-actions">
@@ -96,77 +96,6 @@
               </div>
             </section>
 
-            <section class="panel">
-              <div class="panel-header">
-                <h3>Add question manually</h3>
-              </div>
-              <form id="manualQuestionForm" class="stacked-form">
-                <div class="field-row two-col">
-                  <label>
-                    Season
-                    <input name="season" type="number" min="1" max="18" value="18" required />
-                  </label>
-                  <label>
-                    Episode
-                    <input name="episode" type="number" min="1" value="1" />
-                  </label>
-                </div>
-                <label>
-                  Question text
-                  <textarea name="question_text" rows="3" required></textarea>
-                </label>
-                <div class="field-row two-col">
-                  <label>
-                    Option A
-                    <input name="option_0" type="text" required />
-                  </label>
-                  <label>
-                    Option B
-                    <input name="option_1" type="text" required />
-                  </label>
-                </div>
-                <div class="field-row two-col">
-                  <label>
-                    Option C
-                    <input name="option_2" type="text" required />
-                  </label>
-                  <label>
-                    Option D
-                    <input name="option_3" type="text" required />
-                  </label>
-                </div>
-                <div class="field-row two-col">
-                  <label>
-                    Correct option
-                    <select name="correct_option_index">
-                      <option value="0">A</option>
-                      <option value="1">B</option>
-                      <option value="2">C</option>
-                      <option value="3">D</option>
-                    </select>
-                  </label>
-                  <label>
-                    Category
-                    <select name="category" id="manualCategorySelect"></select>
-                  </label>
-                </div>
-                <div class="field-row two-col">
-                  <label>
-                    Ladder position (1-16)
-                    <input name="ladder_position" type="number" min="1" max="16" value="1" />
-                  </label>
-                  <label>
-                    Prize value
-                    <input name="prize_level_asked_at" type="number" min="0" step="1000" value="5000" />
-                  </label>
-                </div>
-                <label>
-                  Tags (comma separated)
-                  <input name="tags" type="text" placeholder="freedom-struggle, 1857, british-raj" />
-                </label>
-                <button class="primary-button" type="submit">Add to bank</button>
-              </form>
-            </section>
           </div>
 
           <section class="panel">

@@ -1,4 +1,4 @@
-const APP_VERSION = 2;
+const APP_VERSION = 3;
 const STORAGE_KEY = 'kbc-prep-app-v1';
 const CATEGORY_TAXONOMY = [
   'Indian History',
@@ -466,30 +466,6 @@ function normalizeRecord(record) {
   };
 }
 
-function addQuestionToBank(question) {
-  const ensured = {
-    ...question,
-    id: question.id || `q-${Date.now()}-${Math.random().toString(16).slice(2)}`,
-    difficulty_tier: determineTier(question),
-    tags: Array.isArray(question.tags) ? question.tags : [],
-    question_text: String(question.question_text).trim(),
-    options: parseOptions(question.options, 4).map((option) => String(option).trim()),
-    season: Number(question.season || 18),
-    episode: question.episode || null,
-    source: question.source || 'manual'
-  };
-
-  if (!ensured.question_text) return;
-  if (!dedupeQuestion(ensured, state.questions)) {
-    alert('This question appears to duplicate an existing bank entry.');
-    return;
-  }
-
-  state.questions.push(ensured);
-  persistQuestions();
-  renderAll();
-}
-
 function addCurrentAffairsEntry(data) {
   const factText = String(data.fact_text || '').trim();
   if (!factText) return;
@@ -809,17 +785,12 @@ function renderReference() {
 }
 
 function populateCategorySelects() {
-  const selections = [
-    document.getElementById('manualCategorySelect'),
-    document.getElementById('factCategorySelect')
-  ];
+  const select = document.getElementById('factCategorySelect');
+  if (!select) return;
 
-  selections.forEach((select) => {
-    if (!select) return;
-    select.innerHTML = CATEGORY_TAXONOMY.map((category) => `
-      <option value="${category}">${category}</option>
-    `).join('');
-  });
+  select.innerHTML = CATEGORY_TAXONOMY.map((category) => `
+    <option value="${category}">${category}</option>
+  `).join('');
 }
 
 function attachListeners() {
@@ -829,32 +800,6 @@ function attachListeners() {
       document.querySelectorAll('.nav-button').forEach((navButton) => navButton.classList.toggle('active', navButton === button));
       document.querySelectorAll('.tab-panel').forEach((panel) => panel.classList.toggle('active', panel.id === `tab-${state.selectedTab}`));
     });
-  });
-
-  document.getElementById('manualQuestionForm').addEventListener('submit', (event) => {
-    event.preventDefault();
-    const formData = new FormData(event.currentTarget);
-    const question = {
-      season: Number(formData.get('season')) || 18,
-      episode: Number(formData.get('episode')) || null,
-      question_text: String(formData.get('question_text') || '').trim(),
-      options: [
-        formData.get('option_0'),
-        formData.get('option_1'),
-        formData.get('option_2'),
-        formData.get('option_3')
-      ].map((option) => String(option || '').trim()),
-      correct_option_index: Number(formData.get('correct_option_index')) || 0,
-      category: formData.get('category') || 'Miscellaneous/Trivia',
-      tags: String(formData.get('tags') || '').split(',').map((tag) => tag.trim()).filter(Boolean),
-      source: 'manual',
-      prize_level_asked_at: Number(formData.get('prize_level_asked_at')) || 5000,
-      ladder_position: Number(formData.get('ladder_position')) || 1,
-      id: `manual-${Date.now()}`
-    };
-
-    addQuestionToBank(question);
-    event.currentTarget.reset();
   });
 
   document.getElementById('currentAffairsForm').addEventListener('submit', (event) => {
