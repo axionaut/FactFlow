@@ -9,7 +9,7 @@ A mobile-first GK and current-affairs preparation app. It keeps the user ready t
 - Recency-aware prioritization and study queue
 - Category, tier, and tag-based drill mode
 - Contextual recommendation logic for recurring topic clusters
-- Bundled, provenance-labelled archive corpus for research and training data
+- Bundled, provenance-labelled archive corpus plus fresh public trivia questions
 
 > The main objective is to keep the user prepared on GK and current affairs. Pattern analysis helps surface weak spots and high-yield topics; it is not the product center.
 
@@ -29,9 +29,11 @@ http://localhost:8000
 
 Serving over HTTP is required for the bundled JSON corpus. Opening `index.html` directly falls back to locally saved or demo data because browsers block local `fetch()` requests.
 
+The repository refreshes its corpus automatically through GitHub Actions every six hours. The scheduled job gathers the public KBC archive and fresh answer-keyed questions from Open Trivia DB, normalizes them, and commits the updated JSON for the browser app to consume.
+
 ## Corpus
 
-`data/kbc-corpus.json` contains normalized questions extracted from the public [IQgarage KBC episode archive](https://www.iqgarage.com/kbc-questions-and-answers/). Current coverage is partial (Seasons 6–9), is not official Sony data, and its answers have not been independently verified. Missing seasons must not be inferred from.
+`data/kbc-corpus.json` contains normalized questions extracted from the public [IQgarage KBC episode archive](https://www.iqgarage.com/kbc-questions-and-answers/) and fresh questions from [Open Trivia DB](https://opentdb.com/). KBC coverage is partial (Seasons 6–9), is not official Sony data, and its archive answers have not been independently verified. Missing seasons must not be inferred from.
 
 Rebuild it with `node tools/build-corpus.mjs`. The generator retains a source URL and provenance status on every record and rejects questions without four options and a resolvable answer.
 

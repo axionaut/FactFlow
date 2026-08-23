@@ -1,6 +1,7 @@
 import { mkdir, writeFile } from 'node:fs/promises';
 
 const INDEX_URL = 'https://www.iqgarage.com/kbc-questions-and-answers/';
+const TRIVIA_URL = 'https://opentdb.com/api.php?amount=50&type=multiple';
 const OUTPUT_PATH = new URL('../data/kbc-corpus.json', import.meta.url);
 
 function decodeHtml(value) {
@@ -70,6 +71,49 @@ function tagsFor(text) {
   return [...new Set(text.toLowerCase().match(/[a-z][a-z-]{3,}/g) || [])]
     .filter((word) => !stop.has(word))
     .slice(0, 5);
+}
+
+function shuffleOptions(options, correctAnswer) {
+  const shuffled = [...options].sort(() => Math.random() - 0.5);
+  return { options: shuffled, correctOptionIndex: shuffled.indexOf(correctAnswer) };
+}
+
+async function fetchFreshTrivia() {
+  const response = await fetch(TRIVIA_URL);
+  if (!response.ok) throw new Error(`Trivia API returned ${response.status}`);
+  const payload = await response.json();
+  if (payload.response_code !== 0 || !Array.isArray(payload.results)) return [];
+
+  return payload.results.map((item, index) => {
+    const questionText = decodeHtml(item.question);
+    const correctAnswer = decodeHtml(item.correct_answer);
+    const { options, correctOptionIndex } = shuffleOptions([
+      correctAnswer,
+      ...item.incorrect_answers.map((answer) => decodeHtml(answer))
+    ], correctAnswer);
+    const combined = `${questionText} ${options.join(' ')}`;
+    return {
+      id: `trivia-${Date.now()}-${index + 1}`,
+      season: null,
+      episode: null,
+      air_date: new Date().toISOString().slice(0, 10),
+      question_text: questionText,
+      options,
+      correct_option_index: correctOptionIndex,
+      category: item.category === 'Science: Computers' ? 'Science & Technology' : 'Miscellaneous/Trivia',
+      subcategory: item.category,
+      difficulty_tier: item.difficulty === 'hard' ? 'Tier 4' : item.difficulty === 'medium' ? 'Tier 2' : 'Tier 1',
+      prize_level_asked_at: null,
+      source: 'Open Trivia DB',
+      source_url: 'https://opentdb.com/',
+      source_accessed_at: new Date().toISOString().slice(0, 10),
+      tags: tagsFor(combined),
+      seen_count: 0,
+      last_correct: null,
+      ladder_position: null,
+      provenance_status: 'public trivia API; answer supplied by source'
+    };
+  });
 }
 
 function parseQuestions(html, metadata) {
@@ -181,18 +225,29 @@ async function main() {
   }
 
   const deduped = [...new Map(questions.map((question) => [question.question_text.toLowerCase().replace(/[^a-z0-9]/g, ''), question])).values()];
+  let freshTrivia = [];
+  try {
+    freshTrivia = await fetchFreshTrivia();
+  } catch (error) {
+    console.warn(`Fresh trivia source unavailable: ${error.message}`);
+  }
+  const combinedQuestions = [...deduped, ...freshTrivia];
   const payload = {
     schema_version: 1,
     generated_at: new Date().toISOString(),
-    corpus_scope: 'Partial public archive of KBC Seasons 6–9; not an all-season official corpus.',
-    source: { name: 'IQgarage KBC Questions and Answers', url: INDEX_URL, license: 'No explicit reuse license found; retain attribution and review before redistribution.' },
+    corpus_scope: 'Public KBC archive plus freshly gathered general-knowledge questions; not an official Sony corpus.',
+    sources: [
+      { name: 'IQgarage KBC Questions and Answers', url: INDEX_URL, license: 'No explicit reuse license found; retain attribution and review before redistribution.' },
+      { name: 'Open Trivia DB', url: 'https://opentdb.com/', license: 'CC BY-SA 4.0; retain attribution.' }
+    ],
     coverage: [6, 7, 8, 9].map((season) => ({ season, questions: deduped.filter((item) => item.season === season).length, pages: pages.filter((item) => item.season === season && item.questions > 0).length })),
+    fresh_questions: freshTrivia.length,
     pages,
-    questions: deduped
+    questions: combinedQuestions
   };
   await mkdir(new URL('../data/', import.meta.url), { recursive: true });
   await writeFile(OUTPUT_PATH, `${JSON.stringify(payload, null, 2)}\n`);
-  process.stdout.write(`\nWrote ${deduped.length} unique questions to ${OUTPUT_PATH.pathname}\n`);
+  process.stdout.write(`\nWrote ${combinedQuestions.length} questions (${freshTrivia.length} fresh) to ${OUTPUT_PATH.pathname}\n`);
 }
 
 main().catch((error) => {

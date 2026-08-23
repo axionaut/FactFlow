@@ -1,4 +1,4 @@
-const APP_VERSION = 9;
+const APP_VERSION = 10;
 const STORAGE_KEY = 'kbc-prep-app-v1';
 const CORPUS_URL = 'data/kbc-corpus.json';
 const CATEGORY_TAXONOMY = [
@@ -600,6 +600,9 @@ function renderDrill() {
   }
 
   list.innerHTML = filteredQuestions.map((question) => `
+    ${(() => {
+      const answered = question.last_result === 'correct' || question.last_result === 'incorrect';
+      return `
     <article class="question-card">
       <div class="header-row">
         <span class="meta-pill">${question.category}</span>
@@ -612,14 +615,17 @@ function renderDrill() {
       </div>
       <ul class="option-list">
         ${(question.options || []).map((option, index) => `
-          <li class="${index === Number(question.correct_option_index) ? 'correct' : ''}">${String.fromCharCode(65 + index)}. ${option || '—'}</li>
+          <li class="${answered && index === Number(question.correct_option_index) ? 'correct' : ''}">${String.fromCharCode(65 + index)}. ${option || '—'}</li>
         `).join('')}
       </ul>
+      ${answered ? `<p class="answer-feedback ${question.last_result === 'correct' ? 'success' : 'danger'}">${question.last_result === 'correct' ? 'Correct. Keep this in active recall.' : `Review this one. Correct answer: ${String.fromCharCode(65 + Number(question.correct_option_index))}.`}</p>` : '<p class="helper-text">Answer mentally, then record your result.</p>'}
       <div class="action-row">
         <button class="secondary-button" data-action="incorrect" data-id="${question.id}" type="button">Mark wrong</button>
         <button class="primary-button" data-action="correct" data-id="${question.id}" type="button">Mark correct</button>
       </div>
     </article>
+      `;
+    })()}
   `).join('');
 }
 
@@ -659,9 +665,11 @@ function attachListeners() {
     if (!question) return;
 
     question.seen_count = (question.seen_count || 0) + 1;
-    question.last_correct = button.dataset.action === 'correct' ? new Date().toISOString().slice(0, 10) : question.last_correct;
+    question.last_result = button.dataset.action;
+    question.last_correct = button.dataset.action === 'correct' ? new Date().toISOString().slice(0, 10) : null;
     persistQuestions();
-    renderAll();
+    renderSummary();
+    renderDrill();
   });
 }
 
