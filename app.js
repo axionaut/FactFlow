@@ -747,11 +747,15 @@ function reviewQuestions() {
 }
 
 function startReview(questionKey) {
+  const questionKeys = [
+    questionKey,
+    ...reviewQuestions().map((question) => question.key).filter((key) => key !== questionKey)
+  ];
   state.reviewSession = {
     id: `review-${Date.now()}`,
     date: Learning.dateKey(),
     mode: 'review',
-    questionKeys: [questionKey],
+    questionKeys,
     cursor: 0,
     responses: {},
     completedAt: null
