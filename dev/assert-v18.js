@@ -81,6 +81,11 @@ check('attempts are separate and incorrect answers enter review', () => {
   assert.equal(sample.last_result, undefined);
 });
 
+check('continuous Today numbering survives state normalization', () => {
+  assert.equal(Learning.normalizeLearningState({ todayQuestionNumber: 37 }).todayQuestionNumber, 37);
+  assert.equal(Learning.normalizeLearningState({ todayQuestionNumber: 'bad' }).todayQuestionNumber, 0);
+});
+
 check('a correct retry clears the mistake and expands the interval', () => {
   const state = Learning.createLearningState();
   const sample = question(2, 'Tier 2', 'Indian History');
@@ -217,9 +222,9 @@ check('HTML loads cache-aligned assets and every main screen', () => {
   for (const id of ['tab-today', 'tab-challenge', 'tab-review', 'tab-progress', 'tab-insights']) {
     assert.ok(html.includes('id="' + id + '"'), 'missing ' + id);
   }
-  assert.ok(html.includes('styles.css?v=32'));
-  assert.ok(html.includes('learning.js?v=32'));
-  assert.ok(html.includes('app.js?v=32'));
+  assert.ok(html.includes('styles.css?v=33'));
+  assert.ok(html.includes('learning.js?v=33'));
+  assert.ok(html.includes('app.js?v=33'));
   assert.equal(html.includes('translateHindiButton'), false);
   assert.equal(html.includes('translationPendingCount'), false);
   assert.ok(app.includes("localStorage.removeItem(RETIRED_TRANSLATION_STORAGE_KEY)"));

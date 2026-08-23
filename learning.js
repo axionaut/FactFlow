@@ -219,6 +219,7 @@
       challengeHistory: [],
       settings: { sessionSize: 10 },
       recentQuestionKeys: [],
+      todayQuestionNumber: 0,
       migrations: {}
     };
   }
@@ -235,6 +236,7 @@
       challengeHistory: Array.isArray(input.challengeHistory) ? input.challengeHistory : [],
       settings: { ...base.settings, ...(input.settings || {}) },
       recentQuestionKeys: Array.isArray(input.recentQuestionKeys) ? input.recentQuestionKeys : [],
+      todayQuestionNumber: Math.max(0, Number(input.todayQuestionNumber) || 0),
       migrations: { ...(input.migrations || {}) }
     };
   }

@@ -1,6 +1,6 @@
 'use strict';
 
-const APP_VERSION = 32;
+const APP_VERSION = 33;
 const CORPUS_URL = 'data/kbc-corpus.json';
 const LEARNING_STORAGE_KEY = 'factflow-learning-v2';
 const LEGACY_STORAGE_KEY = 'kbc-prep-app-v1';
@@ -583,9 +583,12 @@ function renderQuestion(container, question, response) {
   const weights = Learning.archivePatternWeights(state.archiveQuestions);
   const priority = Learning.questionPriority(state.learning, question, weights);
   const stage = element('article', { className: 'question-stage' });
+  const questionNumber = session.mode === 'daily'
+    ? state.learning.todayQuestionNumber + 1
+    : session.cursor + 1;
   stage.append(
     element('div', { className: 'question-top' }, [
-      element('span', { className: 'question-number', text: `Question ${session.cursor + 1}` }),
+      element('span', { className: 'question-number', text: `Question ${questionNumber}` }),
       element('span', { className: 'priority-score', text: `Learning priority ${priority}/100` })
     ]),
     element('h4', { text: question.question_text }),
@@ -671,6 +674,7 @@ function answerQuestion(selectedIndex) {
 function advanceSession() {
   const session = activeSession();
   if (!session || !activeResponse()) return;
+  if (session.mode === 'daily') state.learning.todayQuestionNumber += 1;
   session.cursor += 1;
   state.activeQuestionKey = null;
   state.questionStartedAt = Date.now();
@@ -955,7 +959,9 @@ async function init() {
   window.setInterval(() => void runBackgroundMaintenance(), BACKGROUND_REFRESH_MS);
   document.addEventListener('visibilitychange', () => {
     if (document.visibilityState === 'visible') void runBackgroundMaintenance();
+    else saveLearningState();
   });
+  window.addEventListener('pagehide', saveLearningState);
   const requestedTab = window.location.hash.slice(1);
   if (['today', 'challenge', 'review', 'progress', 'insights'].includes(requestedTab)) switchTab(requestedTab);
 }
