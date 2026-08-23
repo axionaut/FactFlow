@@ -1,7 +1,8 @@
-import { mkdir, writeFile } from 'node:fs/promises';
+import { mkdir, readFile, writeFile } from 'node:fs/promises';
 
 const INDEX_URL = 'https://www.iqgarage.com/kbc-questions-and-answers/';
 const TRIVIA_URL = 'https://opentdb.com/api.php?amount=50&type=multiple';
+const TRIVIA_API_URL = 'https://the-trivia-api.com/v2/questions?limit=50';
 const OUTPUT_PATH = new URL('../data/kbc-corpus.json', import.meta.url);
 
 function decodeHtml(value) {
@@ -100,6 +101,7 @@ async function fetchFreshTrivia() {
       question_text: questionText,
       options,
       correct_option_index: correctOptionIndex,
+      question_type: 'practice',
       category: item.category === 'Science: Computers' ? 'Science & Technology' : 'Miscellaneous/Trivia',
       subcategory: item.category,
       difficulty_tier: item.difficulty === 'hard' ? 'Tier 4' : item.difficulty === 'medium' ? 'Tier 2' : 'Tier 1',
@@ -114,6 +116,45 @@ async function fetchFreshTrivia() {
       provenance_status: 'public trivia API; answer supplied by source'
     };
   });
+}
+
+async function fetchTheTriviaApi() {
+  const response = await fetch(TRIVIA_API_URL);
+  if (!response.ok) throw new Error(`The Trivia API returned ${response.status}`);
+  const results = await response.json();
+  if (!Array.isArray(results)) return [];
+
+  return results.map((item, index) => {
+    const questionText = decodeHtml(item.question?.text || '');
+    const correctAnswer = decodeHtml(item.correctAnswer || '');
+    const { options, correctOptionIndex } = shuffleOptions([
+      correctAnswer,
+      ...(item.incorrectAnswers || []).map((answer) => decodeHtml(answer))
+    ], correctAnswer);
+    const combined = `${questionText} ${options.join(' ')}`;
+    return {
+      id: `trivia-api-${Date.now()}-${index + 1}`,
+      season: null,
+      episode: null,
+      air_date: new Date().toISOString().slice(0, 10),
+      question_text: questionText,
+      options,
+      correct_option_index: correctOptionIndex,
+      question_type: 'practice',
+      category: 'Miscellaneous/Trivia',
+      subcategory: item.category || '',
+      difficulty_tier: item.difficulty === 'hard' ? 'Tier 4' : item.difficulty === 'medium' ? 'Tier 2' : 'Tier 1',
+      prize_level_asked_at: null,
+      source: 'The Trivia API',
+      source_url: 'https://the-trivia-api.com/',
+      source_accessed_at: new Date().toISOString().slice(0, 10),
+      tags: tagsFor(combined),
+      seen_count: 0,
+      last_correct: null,
+      ladder_position: null,
+      provenance_status: 'public trivia API; answer supplied by source'
+    };
+  }).filter((question) => question.question_text && question.options.length === 4 && question.correct_option_index >= 0);
 }
 
 function parseQuestions(html, metadata) {
@@ -143,9 +184,9 @@ function parseQuestions(html, metadata) {
 
     let answer = '';
     for (let cursor = answerLineIndex; cursor <= Math.min(answerLineIndex + 4, lines.length - 1); cursor += 1) {
-      const match = lines[cursor].match(/^(?:right\s+)?ans(?:wer)?\.?\s*[:.)-]\s*(?:([A-D])[.)]?\s*)?(.*)$/i);
+      const match = lines[cursor].match(/^(?:right\s+)?ans(?:wer)?\.?\s*[:.)-]\s*(.*)$/i);
       if (match) {
-        answer = match[1] || match[2].trim();
+        answer = match[1].trim();
         break;
       }
     }
@@ -165,6 +206,7 @@ function parseQuestions(html, metadata) {
       question_text: questionText,
       options,
       correct_option_index: correctOptionIndex,
+      question_type: 'archive',
       category: categoryFor(combined),
       subcategory: '',
       difficulty_tier: '',
@@ -207,12 +249,24 @@ function archiveLinks(indexHtml) {
 }
 
 async function main() {
+  let previousCorpus = { questions: [], pages: [] };
+  try {
+    previousCorpus = JSON.parse(await readFile(OUTPUT_PATH, 'utf8'));
+  } catch {
+    // First run starts with an empty corpus.
+  }
+
   const indexResponse = await fetch(INDEX_URL);
   if (!indexResponse.ok) throw new Error(`Archive index returned ${indexResponse.status}`);
   const links = archiveLinks(await indexResponse.text());
-  const questions = [];
-  const pages = [];
-  for (const [position, link] of links.entries()) {
+  const knownPages = new Set((previousCorpus.pages || []).map((page) => page.url));
+  const newLinks = links.filter((link) => !knownPages.has(link.url));
+  const questions = (previousCorpus.questions || []).map((question) => ({
+    ...question,
+    question_type: question.source === 'Open Trivia DB' || question.source === 'The Trivia API' ? 'practice' : 'archive'
+  }));
+  const pages = [...(previousCorpus.pages || [])];
+  for (const [position, link] of newLinks.entries()) {
     const response = await fetch(link.url);
     if (!response.ok) {
       pages.push({ ...link, status: response.status, questions: 0 });
@@ -221,17 +275,19 @@ async function main() {
     const extracted = parseQuestions(await response.text(), link);
     questions.push(...extracted);
     pages.push({ season: link.season, episode: link.episode, url: link.url, status: response.status, questions: extracted.length });
-    process.stdout.write(`\r${position + 1}/${links.length} pages; ${questions.length} questions`);
+    process.stdout.write(`\r${position + 1}/${newLinks.length} new pages; ${questions.length} questions`);
   }
 
   const deduped = [...new Map(questions.map((question) => [question.question_text.toLowerCase().replace(/[^a-z0-9]/g, ''), question])).values()];
-  let freshTrivia = [];
-  try {
-    freshTrivia = await fetchFreshTrivia();
-  } catch (error) {
-    console.warn(`Fresh trivia source unavailable: ${error.message}`);
+  const freshTrivia = [];
+  for (const gather of [fetchFreshTrivia, fetchTheTriviaApi]) {
+    try {
+      freshTrivia.push(...await gather());
+    } catch (error) {
+      console.warn(`Fresh trivia source unavailable: ${error.message}`);
+    }
   }
-  const combinedQuestions = [...deduped, ...freshTrivia];
+  const combinedQuestions = [...new Map([...deduped, ...freshTrivia].map((question) => [question.question_text.toLowerCase().replace(/[^a-z0-9]/g, ''), question])).values()];
   const payload = {
     schema_version: 1,
     generated_at: new Date().toISOString(),
@@ -239,6 +295,7 @@ async function main() {
     sources: [
       { name: 'IQgarage KBC Questions and Answers', url: INDEX_URL, license: 'No explicit reuse license found; retain attribution and review before redistribution.' },
       { name: 'Open Trivia DB', url: 'https://opentdb.com/', license: 'CC BY-SA 4.0; retain attribution.' }
+      , { name: 'The Trivia API', url: 'https://the-trivia-api.com/', license: 'Check source terms before redistribution.' }
     ],
     coverage: [6, 7, 8, 9].map((season) => ({ season, questions: deduped.filter((item) => item.season === season).length, pages: pages.filter((item) => item.season === season && item.questions > 0).length })),
     fresh_questions: freshTrivia.length,
