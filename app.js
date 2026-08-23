@@ -1,6 +1,6 @@
 'use strict';
 
-const APP_VERSION = 22;
+const APP_VERSION = 23;
 const CORPUS_URL = 'data/kbc-corpus.json';
 const LEARNING_STORAGE_KEY = 'factflow-learning-v2';
 const LEGACY_STORAGE_KEY = 'kbc-prep-app-v1';
@@ -672,6 +672,11 @@ function advanceSession() {
   session.cursor += 1;
   state.activeQuestionKey = null;
   state.questionStartedAt = Date.now();
+  if (session.cursor >= session.questionKeys.length && session.mode === 'daily') {
+    createNewDailySession();
+    renderAll();
+    return;
+  }
   if (session.cursor >= session.questionKeys.length) session.completedAt = new Date().toISOString();
   if (!state.reviewSession) saveLearningState();
   renderAll();

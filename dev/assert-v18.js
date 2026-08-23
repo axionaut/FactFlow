@@ -217,9 +217,9 @@ check('HTML loads cache-aligned assets and every main screen', () => {
   for (const id of ['tab-today', 'tab-challenge', 'tab-review', 'tab-progress', 'tab-insights']) {
     assert.ok(html.includes('id="' + id + '"'), 'missing ' + id);
   }
-  assert.ok(html.includes('styles.css?v=22'));
-  assert.ok(html.includes('learning.js?v=22'));
-  assert.ok(html.includes('app.js?v=22'));
+  assert.ok(html.includes('styles.css?v=23'));
+  assert.ok(html.includes('learning.js?v=23'));
+  assert.ok(html.includes('app.js?v=23'));
   assert.equal(html.includes('translateHindiButton'), false);
   assert.equal(html.includes('translationPendingCount'), false);
   assert.ok(app.includes("localStorage.removeItem(RETIRED_TRANSLATION_STORAGE_KEY)"));
