@@ -3,7 +3,7 @@
 ## Release rule
 - `APP_VERSION` is tracked in `app.js`.
 - Every completed iteration must end with: commit, push to GitHub, and a concise update to this file.
-- Current live version: `v13`.
+- Current live version: `v14`.
 - Release format: `v1`, `v2`, `v3`, ...
 
 ## Product direction

@@ -3,199 +3,205 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="theme-color" content="#132b50" />
+    <meta name="description" content="Adaptive GK practice informed by recurring KBC topic patterns." />
     <title>FactFlow</title>
     <link rel="icon" type="image/svg+xml" href="favicon.svg" />
-    <link rel="stylesheet" href="styles.css" />
+    <link rel="stylesheet" href="styles.css?v=14" />
   </head>
   <body>
     <div class="app-shell">
       <header class="topbar">
-        <div class="title-wrap">
-          <p class="eyebrow">Study smarter</p>
-          <div class="title-row">
-            <h1>FactFlow</h1>
-            <span id="appVersionLabel" class="version-pill">v9</span>
+        <div class="brand-lockup">
+          <span class="brand-mark" aria-hidden="true">F</span>
+          <div>
+            <p class="eyebrow">KBC-patterned GK practice</p>
+            <div class="title-row">
+              <h1>FactFlow</h1>
+              <span id="appVersionLabel" class="version-pill">v14</span>
+            </div>
           </div>
         </div>
+        <p id="corpusStatus" class="corpus-status" role="status">Loading question bank…</p>
       </header>
 
       <nav class="main-nav" aria-label="Primary navigation">
-        <button class="nav-button active" data-tab="drill" type="button">Drill Mode</button>
-        <button class="nav-button" data-tab="dashboard" type="button">Dashboard</button>
-        <button class="nav-button" data-tab="analysis" type="button">Pattern Analysis</button>
-        <button class="nav-button" data-tab="reference" type="button">Reference</button>
+        <button class="nav-button active" data-tab="today" type="button">Today</button>
+        <button class="nav-button" data-tab="challenge" type="button">KBC Challenge</button>
+        <button class="nav-button" data-tab="review" type="button">Review <span id="reviewNavCount" class="nav-count">0</span></button>
+        <button class="nav-button" data-tab="progress" type="button">Progress</button>
+        <button class="nav-button" data-tab="insights" type="button">KBC Insights</button>
       </nav>
 
       <main>
-        <section class="tab-panel" id="tab-dashboard">
-          <div class="hero-card">
+        <section class="tab-panel active" id="tab-today">
+          <div class="study-hero">
             <div>
-              <p class="eyebrow">Current affairs + GK prep</p>
-              <h2>Build recall, pattern sense, and revision depth for real quiz prep.</h2>
+              <p class="eyebrow light">Adaptive daily practice</p>
+              <h2>Build recall one useful question at a time.</h2>
+              <p id="sessionSummary" class="hero-copy">Your queue balances due reviews, weak areas, and new material.</p>
             </div>
-            <div class="hero-stats">
-              <div>
-                <strong id="statTotalQuestions">0</strong>
-                <span>Questions</span>
-              </div>
-              <div>
-                <strong id="statRecentTopics">0</strong>
-                <span>High-impact topics</span>
-              </div>
+            <div class="streak-card">
+              <strong id="todayStreak">0</strong>
+              <span>day streak</span>
             </div>
           </div>
 
-          <div class="stats-grid">
-            <article class="stat-card accent">
-              <span class="label">Prioritized categories</span>
-              <strong id="summaryTopCategory">—</strong>
-              <small id="summaryTopCategoryValue">0</small>
-            </article>
-            <article class="stat-card">
-              <span class="label">Tier 1-5 mix</span>
-              <strong id="summaryTierMix">—</strong>
-              <small>questions by ladder tier</small>
-            </article>
-            <article class="stat-card">
-              <span class="label">Recency-weighted target</span>
-              <strong id="summaryTarget">—</strong>
-              <small>weighted study focus</small>
-            </article>
-          </div>
-
-          <div class="panel-grid">
-            <section class="panel">
-              <div class="panel-header">
-                <h3>Priority revision queue</h3>
-              </div>
-              <div id="priorityList" class="priority-list"></div>
-            </section>
-            <section class="panel">
-              <div class="panel-header">
-                <h3>Repeat-topic watchlist</h3>
-              </div>
-              <ul id="repeatTopicsList" class="tag-list"></ul>
-            </section>
-          </div>
-        </section>
-
-        <section class="tab-panel" id="tab-analysis">
-          <section class="panel corpus-panel">
-            <div class="panel-header">
+          <section class="session-panel" aria-labelledby="sessionHeading">
+            <div class="session-header">
               <div>
-                <h3>Question sources</h3>
-                <p id="corpusCoverageSummary" class="helper-text">Loading autonomous corpus…</p>
+                <p class="eyebrow" id="sessionModeLabel">Today’s practice</p>
+                <h3 id="sessionHeading">Daily session</h3>
               </div>
-              <a class="source-link" href="https://www.iqgarage.com/kbc-questions-and-answers/" target="_blank" rel="noreferrer">Source archive</a>
+              <div class="session-actions">
+                <label class="compact-field" for="sessionSize">
+                  Questions
+                  <select id="sessionSize">
+                    <option value="5">5</option>
+                    <option value="10">10</option>
+                    <option value="15">15</option>
+                    <option value="20">20</option>
+                  </select>
+                </label>
+                <button id="newSessionButton" class="secondary-button" type="button">New session</button>
+              </div>
             </div>
-            <p class="corpus-warning">Archived KBC questions are used as pattern evidence. Drill Mode uses separately gathered practice questions so archive recall is never mistaken for preparation.</p>
+            <div class="progress-track" aria-hidden="true"><span id="sessionProgressBar"></span></div>
+            <p id="sessionProgressText" class="progress-label">Question 1 of 10</p>
+            <div id="sessionArea"></div>
+            <div id="sessionFeedback" class="sr-live" aria-live="polite"></div>
           </section>
-          <div class="stats-grid">
-            <article class="stat-card">
-              <span class="label">Categories tracked</span>
-              <strong id="analysisCategoryCount">0</strong>
-              <small>taxonomic groups</small>
-            </article>
-            <article class="stat-card">
-              <span class="label">Study focus</span>
-              <strong id="analysisFocusLabel">—</strong>
-              <small>top pattern cluster</small>
-            </article>
-            <article class="stat-card">
-              <span class="label">Top tag cluster</span>
-              <strong id="analysisTopTag">—</strong>
-              <small>co-occurrence leader</small>
-            </article>
-          </div>
-
-          <div class="panel-grid two-columns">
-            <section class="panel">
-              <div class="panel-header">
-                <h3>Category frequency overall</h3>
-              </div>
-              <div id="categoryChart" class="chart-stack"></div>
-            </section>
-            <section class="panel">
-              <div class="panel-header">
-                <h3>Tier distribution</h3>
-              </div>
-              <div id="tierChart" class="chart-stack"></div>
-            </section>
-          </div>
-
-          <div class="panel-grid two-columns">
-            <section class="panel">
-              <div class="panel-header">
-                <h3>Recurring topic signals</h3>
-              </div>
-              <div id="repeatTopicChart" class="topic-list"></div>
-            </section>
-            <section class="panel">
-              <div class="panel-header">
-                <h3>Tag co-occurrence</h3>
-              </div>
-              <div id="tagClusterList" class="cluster-grid"></div>
-            </section>
-          </div>
-
         </section>
 
-        <section class="tab-panel active" id="tab-drill">
-          <div class="drill-toolbar panel">
-            <div class="field-row three-col">
-              <label>
-                Category
-                <select id="filterCategory"></select>
-              </label>
-              <label>
-                Tier
-                <select id="filterTier">
-                  <option value="all">All tiers</option>
-                  <option value="Tier 1">Tier 1</option>
-                  <option value="Tier 2">Tier 2</option>
-                  <option value="Tier 3">Tier 3</option>
-                  <option value="Tier 4">Tier 4</option>
-                </select>
-              </label>
-              <label>
-                Search
-                <input id="filterSearch" type="text" placeholder="keyword" />
-              </label>
+        <section class="tab-panel" id="tab-challenge">
+          <div class="page-heading challenge-heading">
+            <div>
+              <p class="eyebrow">KBC-style pressure test</p>
+              <h2>Climb the 15-question ladder</h2>
+              <p>Questions become harder as you climb. Choose an option, lock it, and see how far your preparation carries you.</p>
+            </div>
+            <button id="newChallengeButton" class="primary-button" type="button">New challenge</button>
+          </div>
+          <div class="stats-grid three-stats">
+            <article class="stat-card accent-tint"><span class="label">Best run</span><strong id="challengeBest">0 / 15</strong><small>correct answers</small></article>
+            <article class="stat-card"><span class="label">Runs completed</span><strong id="challengePlayed">0</strong><small>challenge history</small></article>
+            <article class="stat-card"><span class="label">Current position</span><strong id="challengePosition">—</strong><small>classic practice ladder</small></article>
+          </div>
+          <div class="challenge-layout">
+            <aside class="ladder-panel panel" aria-label="Question ladder">
+              <div class="panel-header"><div><p class="eyebrow">Classic ladder</p><h3>15 questions</h3></div></div>
+              <ol id="challengeLadder" class="challenge-ladder" reversed></ol>
+            </aside>
+            <section class="challenge-stage panel">
+              <div id="challengeArea"></div>
+              <div id="challengeFeedback" class="sr-live" aria-live="polite"></div>
+            </section>
+          </div>
+        </section>
+
+        <section class="tab-panel" id="tab-review">
+          <div class="page-heading">
+            <div>
+              <p class="eyebrow">Make mistakes useful</p>
+              <h2>Review queue</h2>
+              <p>Wrong answers stay here until you answer them correctly. Scheduled questions return when they are due.</p>
             </div>
           </div>
-
-          <div id="drillList" class="drill-list"></div>
+          <div class="stats-grid two-stats">
+            <article class="stat-card danger-tint">
+              <span class="label">Needs another look</span>
+              <strong id="reviewWrongCount">0</strong>
+              <small>incorrect questions</small>
+            </article>
+            <article class="stat-card">
+              <span class="label">Due today</span>
+              <strong id="reviewDueCount">0</strong>
+              <small>scheduled reviews</small>
+            </article>
+          </div>
+          <div id="reviewList" class="review-list"></div>
         </section>
 
-        <section class="tab-panel" id="tab-reference">
-          <div class="panel-grid two-columns">
+        <section class="tab-panel" id="tab-progress">
+          <div class="page-heading">
+            <div>
+              <p class="eyebrow">Your evidence, not corpus volume</p>
+              <h2>Learning progress</h2>
+              <p>Accuracy becomes meaningful as you practise. Mastery combines correctness with repetition depth.</p>
+            </div>
+          </div>
+          <div class="stats-grid four-stats">
+            <article class="stat-card accent-tint">
+              <span class="label">Accuracy</span>
+              <strong id="progressAccuracy">—</strong>
+              <small id="progressAccuracyDetail">No answers yet</small>
+            </article>
+            <article class="stat-card">
+              <span class="label">Questions practised</span>
+              <strong id="progressPracticed">0</strong>
+              <small>unique questions</small>
+            </article>
+            <article class="stat-card">
+              <span class="label">Answers recorded</span>
+              <strong id="progressAttempts">0</strong>
+              <small>all attempts retained</small>
+            </article>
+            <article class="stat-card">
+              <span class="label">Study streak</span>
+              <strong id="progressStreak">0 days</strong>
+              <small>consecutive practice days</small>
+            </article>
+          </div>
+          <div class="content-grid">
             <section class="panel">
               <div class="panel-header">
-                <h3>Prep model</h3>
+                <div><p class="eyebrow">Weakest first</p><h3>Topic mastery</h3></div>
               </div>
-              <ul class="info-list">
-                <li><strong>Main objective:</strong> keep you prepared on GK and current affairs through high-yield revision.</li>
-                <li><strong>Supporting layer:</strong> category frequency, tier spread, tag overlap, and repeated topic clusters.</li>
-                <li><strong>Use case:</strong> identify weak areas, reinforce them, and build stronger recall for real quiz conditions.</li>
-                <li><strong>Out of scope:</strong> season-by-season archive browsing or episode-by-episode transcript review.</li>
-              </ul>
+              <div id="topicProgress" class="mastery-list"></div>
             </section>
             <section class="panel">
               <div class="panel-header">
-                <h3>Difficulty ladder</h3>
+                <div><p class="eyebrow">Latest answers</p><h3>Recent activity</h3></div>
               </div>
-              <ul class="info-list compact">
-                <li>Tier 1: foundational recall</li>
-                <li>Tier 2: medium pressure and breadth</li>
-                <li>Tier 3: harder, more lateral patterning</li>
-                <li>Tier 4: highest-intensity study focus</li>
-              </ul>
+              <div id="recentActivity" class="activity-list"></div>
             </section>
           </div>
+        </section>
+
+        <section class="tab-panel" id="tab-insights">
+          <div class="page-heading">
+            <div>
+              <p class="eyebrow">Pattern evidence</p>
+              <h2>What historical KBC questions emphasize</h2>
+              <p>The archive influences topic balance only. Its third-party answers are not served as practice questions.</p>
+            </div>
+          </div>
+          <div class="stats-grid four-stats">
+            <article class="stat-card"><span class="label">Practice bank</span><strong id="insightPracticeCount">0</strong><small>answer-keyed questions</small></article>
+            <article class="stat-card"><span class="label">Pattern archive</span><strong id="insightArchiveCount">0</strong><small>not used in drills</small></article>
+            <article class="stat-card"><span class="label">Practice topics</span><strong id="insightCategoryCount">0</strong><small>inferred categories</small></article>
+            <article class="stat-card"><span class="label">Corpus refreshed</span><strong id="insightGeneratedAt">—</strong><small>bundled data timestamp</small></article>
+          </div>
+          <div class="content-grid">
+            <section class="panel">
+              <div class="panel-header"><div><p class="eyebrow">Historical distribution</p><h3>High-frequency KBC categories</h3></div></div>
+              <div id="archiveCategoryChart" class="chart-stack"></div>
+            </section>
+            <section class="panel">
+              <div class="panel-header"><div><p class="eyebrow">Data boundaries</p><h3>Source quality</h3></div></div>
+              <div id="sourceQualityList" class="source-list"></div>
+            </section>
+          </div>
+          <section class="panel coverage-panel">
+            <div class="panel-header"><div><p class="eyebrow">Third-party archive</p><h3>Known KBC coverage</h3></div></div>
+            <p id="coverageSummary" class="helper-text">Loading coverage…</p>
+            <div id="corpusCoverageGrid" class="coverage-grid"></div>
+          </section>
         </section>
       </main>
     </div>
 
-    <script src="app.js"></script>
+    <script src="learning.js?v=14"></script>
+    <script src="app.js?v=14"></script>
   </body>
 </html>

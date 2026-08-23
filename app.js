@@ -1,727 +1,792 @@
-const APP_VERSION = 13;
-const STORAGE_KEY = 'kbc-prep-app-v1';
+'use strict';
+
+const APP_VERSION = 14;
 const CORPUS_URL = 'data/kbc-corpus.json';
-const CATEGORY_TAXONOMY = [
-  'Indian History',
-  'World History',
-  'Geography (India)',
-  'Geography (World)',
-  'Polity & Constitution',
-  'Science & Technology',
-  'Sports',
-  'Awards & Honours',
-  'Cinema (Bollywood)',
-  'Cinema (Regional/World)',
-  'Literature & Authors',
-  'Mythology & Religion',
-  'Current Affairs',
-  'Business & Economy',
-  'Art & Culture',
-  'Miscellaneous/Trivia'
-];
+const LEARNING_STORAGE_KEY = 'factflow-learning-v2';
+const LEGACY_STORAGE_KEY = 'kbc-prep-app-v1';
+const Learning = window.FactFlowLearning;
 
 const state = {
-  questions: [],
   corpus: null,
-  selectedTab: 'dashboard',
-  filters: {
-    category: 'all',
-    tier: 'all',
-    search: ''
-  }
+  questions: [],
+  practiceQuestions: [],
+  archiveQuestions: [],
+  questionMap: new Map(),
+  learning: Learning.createLearningState(),
+  selectedTab: 'today',
+  reviewSession: null,
+  challengeSelection: null,
+  activeQuestionKey: null,
+  questionStartedAt: Date.now(),
+  usingDemo: false
 };
 
-async function loadState() {
-  let savedQuestions = [];
-  try {
-    const raw = localStorage.getItem(STORAGE_KEY);
-    const parsed = raw ? JSON.parse(raw) : [];
-    savedQuestions = Array.isArray(parsed) ? parsed : [];
-  } catch (error) {
-    console.warn('Unable to load local question data.', error);
-  }
-
-  try {
-    const response = await fetch(CORPUS_URL);
-    if (!response.ok) throw new Error(`Corpus request returned ${response.status}`);
-    const corpus = await response.json();
-    const archiveQuestions = Array.isArray(corpus.questions) ? corpus.questions : [];
-    state.corpus = corpus;
-    const userQuestions = savedQuestions.filter((question) => question.source !== 'seed' && !String(question.id || '').startsWith('iqg-'));
-    const merged = new Map(archiveQuestions.map((question) => [normalizeText(question.question_text), question]));
-    userQuestions.forEach((question) => merged.set(normalizeText(question.question_text), question));
-    state.questions = [...merged.values()];
-  } catch (error) {
-    console.warn('Bundled corpus unavailable; using saved or demo data.', error);
-    state.questions = savedQuestions.length ? savedQuestions : buildSeedQuestions();
-  }
-  persistQuestions();
+function byId(id) {
+  return document.getElementById(id);
 }
 
-function persistQuestions() {
-  localStorage.setItem(STORAGE_KEY, JSON.stringify(state.questions));
+function setText(id, value) {
+  const node = byId(id);
+  if (node) node.textContent = String(value);
 }
 
-function buildSeedQuestions() {
-  return [
-    {
-      id: 'seed-1',
-      season: 17,
-      episode: 6,
-      air_date: '2025-08-30',
-      question_text: 'Which movement led to the formation of the Indian National Congress in 1885?',
-      options: ['Swadeshi Movement', 'Home Rule Movement', 'Partition of Bengal agitation', 'Moderate reform movement'],
-      correct_option_index: 3,
-      category: 'Indian History',
-      subcategory: 'Freedom struggle',
-      difficulty_tier: 'Tier 1',
-      prize_level_asked_at: 10000,
-      source: 'seed',
-      tags: ['congress', 'history', 'freedom-struggle'],
-      seen_count: 1,
-      last_correct: '2026-08-14',
-      ladder_position: 2
-    },
-    {
-      id: 'seed-2',
-      season: 15,
-      episode: 11,
-      air_date: '2023-11-19',
-      question_text: 'Which Indian city is known as the Pink City?',
-      options: ['Jaipur', 'Udaipur', 'Jodhpur', 'Bikaner'],
-      correct_option_index: 0,
-      category: 'Geography (India)',
-      subcategory: 'Cities',
-      difficulty_tier: 'Tier 1',
-      prize_level_asked_at: 5000,
-      source: 'seed',
-      tags: ['cities', 'india', 'tourism'],
-      seen_count: 2,
-      last_correct: '2025-01-20',
-      ladder_position: 1
-    },
-    {
-      id: 'seed-3',
-      season: 14,
-      episode: 9,
-      air_date: '2022-09-16',
-      question_text: 'Who was the first woman President of India?',
-      options: ['Sonia Gandhi', 'Indira Gandhi', 'Pratibha Patil', 'Meira Kumar'],
-      correct_option_index: 2,
-      category: 'Polity & Constitution',
-      subcategory: 'Leadership',
-      difficulty_tier: 'Tier 2',
-      prize_level_asked_at: 80000,
-      source: 'seed',
-      tags: ['president', 'women', 'constitution'],
-      seen_count: 1,
-      last_correct: null,
-      ladder_position: 7
-    },
-    {
-      id: 'seed-4',
-      season: 11,
-      episode: 2,
-      air_date: '2019-11-15',
-      question_text: 'Which planet is known as the Red Planet?',
-      options: ['Mars', 'Venus', 'Jupiter', 'Mercury'],
-      correct_option_index: 0,
-      category: 'Science & Technology',
-      subcategory: 'Space',
-      difficulty_tier: 'Tier 1',
-      prize_level_asked_at: 2000,
-      source: 'seed',
-      tags: ['space', 'planets', 'science'],
-      seen_count: 3,
-      last_correct: '2026-06-01',
-      ladder_position: 4
-    },
-    {
-      id: 'seed-5',
-      season: 8,
-      episode: 14,
-      air_date: '2016-10-01',
-      question_text: 'Which Indian cricketer is known as the "Master Blaster"?',
-      options: ['Virat Kohli', 'Rohit Sharma', 'Sachin Tendulkar', 'MS Dhoni'],
-      correct_option_index: 2,
-      category: 'Sports',
-      subcategory: 'Cricket',
-      difficulty_tier: 'Tier 1',
-      prize_level_asked_at: 5000,
-      source: 'seed',
-      tags: ['sports', 'cricket', 'records'],
-      seen_count: 2,
-      last_correct: '2026-03-12',
-      ladder_position: 3
-    },
-    {
-      id: 'seed-6',
-      season: 16,
-      episode: 13,
-      air_date: '2024-11-09',
-      question_text: 'Which national award is often called the "Dadasaheb Phalke Award" in cinema?',
-      options: ['Padma Shri', 'National Film Award', 'Dadasaheb Phalke Award', 'Filmfare Award'],
-      correct_option_index: 2,
-      category: 'Awards & Honours',
-      subcategory: 'Cinema',
-      difficulty_tier: 'Tier 2',
-      prize_level_asked_at: 160000,
-      source: 'seed',
-      tags: ['awards', 'cinema', 'honours'],
-      seen_count: 0,
-      last_correct: null,
-      ladder_position: 8
-    },
-    {
-      id: 'seed-7',
-      season: 18,
-      episode: 2,
-      air_date: '2026-08-12',
-      question_text: 'Which Indian mission performed a soft landing near the Moon south pole region?',
-      options: ['Chandrayaan-2', 'Chandrayaan-3', 'Aditya-L1', 'Mangalyaan'],
-      correct_option_index: 1,
-      category: 'Science & Technology',
-      subcategory: 'Space',
-      difficulty_tier: 'Tier 3',
-      prize_level_asked_at: 320000,
-      source: 'seed',
-      tags: ['chandrayaan', 'space', 'moon'],
-      seen_count: 0,
-      last_correct: null,
-      ladder_position: 12
-    },
-    {
-      id: 'seed-8',
-      season: 18,
-      episode: 5,
-      air_date: '2026-08-17',
-      question_text: 'Which constitutional amendment introduced the Goods and Services Tax regime in India?',
-      options: ['101st Amendment', '74th Amendment', '73rd Amendment', '42nd Amendment'],
-      correct_option_index: 0,
-      category: 'Polity & Constitution',
-      subcategory: 'Constitutional amendments',
-      difficulty_tier: 'Tier 3',
-      prize_level_asked_at: 1600000,
-      source: 'seed',
-      tags: ['gst', 'constitutional-amendments', 'economy'],
-      seen_count: 0,
-      last_correct: null,
-      ladder_position: 11
-    },
-    {
-      id: 'seed-9',
-      season: 7,
-      episode: 7,
-      air_date: '2015-10-11',
-      question_text: 'Who wrote the epic poem "Ramcharitmanas"?',
-      options: ['Kalidasa', 'Tulsidas', 'Bhavabhuti', 'Kabir'],
-      correct_option_index: 1,
-      category: 'Mythology & Religion',
-      subcategory: 'Literature',
-      difficulty_tier: 'Tier 2',
-      prize_level_asked_at: 80000,
-      source: 'seed',
-      tags: ['mythology', 'literature', 'ram'],
-      seen_count: 1,
-      last_correct: '2025-12-04',
-      ladder_position: 6
-    },
-    {
-      id: 'seed-10',
-      season: 13,
-      episode: 9,
-      air_date: '2021-11-30',
-      question_text: 'Which Indian author wrote the novel "A Suitable Boy"?',
-      options: ['Anita Desai', 'Vikram Seth', 'Arundhati Roy', 'Nayantara Sahgal'],
-      correct_option_index: 1,
-      category: 'Literature & Authors',
-      subcategory: 'Writers',
-      difficulty_tier: 'Tier 2',
-      prize_level_asked_at: 160000,
-      source: 'seed',
-      tags: ['authors', 'novels', 'literature'],
-      seen_count: 1,
-      last_correct: null,
-      ladder_position: 9
-    },
-    {
-      id: 'seed-11',
-      season: 17,
-      episode: 15,
-      air_date: '2025-12-05',
-      question_text: 'Which award is given to the best film at the International Film Festival of India?',
-      options: ['Swarna Kamal', 'Dadasaheb Phalke Award', 'Padma Bhushan', 'Rajat Kamal'],
-      correct_option_index: 3,
-      category: 'Awards & Honours',
-      subcategory: 'Film awards',
-      difficulty_tier: 'Tier 3',
-      prize_level_asked_at: 320000,
-      source: 'seed',
-      tags: ['awards', 'film', 'festivals'],
-      seen_count: 0,
-      last_correct: null,
-      ladder_position: 13
-    },
-    {
-      id: 'seed-12',
-      season: 10,
-      episode: 6,
-      air_date: '2018-12-18',
-      question_text: 'Which Indian state is famous for the Konark Sun Temple?',
-      options: ['Odisha', 'Tamil Nadu', 'Karnataka', 'Andhra Pradesh'],
-      correct_option_index: 0,
-      category: 'Art & Culture',
-      subcategory: 'heritage',
-      difficulty_tier: 'Tier 2',
-      prize_level_asked_at: 40000,
-      source: 'seed',
-      tags: ['heritage', 'odisha', 'temples'],
-      seen_count: 0,
-      last_correct: null,
-      ladder_position: 7
-    }
+function clear(node) {
+  while (node?.firstChild) node.removeChild(node.firstChild);
+}
+
+function element(tag, options = {}, children = []) {
+  const node = document.createElement(tag);
+  if (options.className) node.className = options.className;
+  if (options.text !== undefined) node.textContent = String(options.text);
+  if (options.type) node.type = options.type;
+  if (options.href) node.href = options.href;
+  if (options.target) node.target = options.target;
+  if (options.rel) node.rel = options.rel;
+  if (options.dataset) Object.assign(node.dataset, options.dataset);
+  if (options.disabled) node.disabled = true;
+  if (options.attributes) {
+    Object.entries(options.attributes).forEach(([name, value]) => node.setAttribute(name, value));
+  }
+  const childList = Array.isArray(children) ? children : [children];
+  childList.filter(Boolean).forEach((child) => node.append(child));
+  return node;
+}
+
+function buildDemoQuestions() {
+  const rows = [
+    ['Which Indian city is known as the Pink City?', ['Jaipur', 'Udaipur', 'Jodhpur', 'Bikaner'], 0, 'Geography (India)', 'Tier 1'],
+    ['Who was the first woman President of India?', ['Sonia Gandhi', 'Indira Gandhi', 'Pratibha Patil', 'Meira Kumar'], 2, 'Polity & Constitution', 'Tier 2'],
+    ['Which planet is known as the Red Planet?', ['Venus', 'Mars', 'Jupiter', 'Mercury'], 1, 'Science & Technology', 'Tier 1'],
+    ['Who wrote the epic poem Ramcharitmanas?', ['Kabir', 'Tulsidas', 'Kalidasa', 'Surdas'], 1, 'Literature & Authors', 'Tier 2'],
+    ['The Konark Sun Temple is in which Indian state?', ['Odisha', 'Gujarat', 'Madhya Pradesh', 'Tamil Nadu'], 0, 'Art & Culture', 'Tier 1'],
+    ['Which constitutional amendment introduced GST in India?', ['99th', '100th', '101st', '102nd'], 2, 'Polity & Constitution', 'Tier 3'],
+    ['Which gas is most abundant in Earth’s atmosphere?', ['Oxygen', 'Carbon dioxide', 'Nitrogen', 'Hydrogen'], 2, 'Science & Technology', 'Tier 1'],
+    ['Who composed India’s national anthem?', ['Bankim Chandra Chattopadhyay', 'Rabindranath Tagore', 'Sarojini Naidu', 'Subramania Bharati'], 1, 'Art & Culture', 'Tier 1'],
+    ['Which river is called the Sorrow of Bihar?', ['Kosi', 'Son', 'Gandak', 'Damodar'], 0, 'Geography (India)', 'Tier 2'],
+    ['The Dadasaheb Phalke Award is India’s highest honour in which field?', ['Literature', 'Cinema', 'Sport', 'Science'], 1, 'Awards & Honours', 'Tier 1']
   ];
+  return rows.map(([questionText, options, answer, category, tier], index) => ({
+    id: `demo-${index + 1}`,
+    question_text: questionText,
+    options,
+    correct_option_index: answer,
+    question_type: 'practice',
+    category,
+    difficulty_tier: tier,
+    source: 'FactFlow demo',
+    source_url: '',
+    tags: [],
+    provenance_status: 'bundled demo; answer supplied by app'
+  }));
 }
 
-function normalizeText(value) {
-  return (value || '').toLowerCase().replace(/[^a-z0-9\s]/g, ' ').replace(/\s+/g, ' ').trim();
+function loadLearningState() {
+  try {
+    const raw = localStorage.getItem(LEARNING_STORAGE_KEY);
+    state.learning = Learning.normalizeLearningState(raw ? JSON.parse(raw) : null);
+  } catch (error) {
+    console.warn('Unable to load learning history.', error);
+    state.learning = Learning.createLearningState();
+  }
 }
 
-function computeSimilarity(a, b) {
-  const x = normalizeText(a);
-  const y = normalizeText(b);
-  if (!x || !y) return 0;
-  if (x === y) return 1;
-  const longer = x.length > y.length ? x : y;
-  const shorter = x.length > y.length ? y : x;
-  if (longer.length === 0) return 1;
-  const editDistance = levenshteinDistance(longer, shorter);
-  return 1 - editDistance / longer.length;
+function saveLearningState() {
+  try {
+    localStorage.setItem(LEARNING_STORAGE_KEY, JSON.stringify(state.learning));
+    return true;
+  } catch (error) {
+    console.warn('Unable to save learning history.', error);
+    setText('corpusStatus', 'Practice works, but this browser could not save progress.');
+    return false;
+  }
 }
 
-function levenshteinDistance(a, b) {
-  const dp = Array.from({ length: a.length + 1 }, () => Array(b.length + 1).fill(0));
-  for (let i = 0; i <= a.length; i += 1) dp[i][0] = i;
-  for (let j = 0; j <= b.length; j += 1) dp[0][j] = j;
-
-  for (let i = 1; i <= a.length; i += 1) {
-    for (let j = 1; j <= b.length; j += 1) {
-      const cost = a[i - 1] === b[j - 1] ? 0 : 1;
-      dp[i][j] = Math.min(
-        dp[i - 1][j] + 1,
-        dp[i][j - 1] + 1,
-        dp[i - 1][j - 1] + cost
-      );
+function migrateLegacyProgress() {
+  if (state.learning.migrations.legacyQuestionState) return;
+  try {
+    const raw = localStorage.getItem(LEGACY_STORAGE_KEY);
+    const legacyQuestions = raw ? JSON.parse(raw) : [];
+    if (Array.isArray(legacyQuestions)) {
+      legacyQuestions
+        .filter((question) => ['correct', 'incorrect'].includes(question?.last_result))
+        .forEach((legacyQuestion) => {
+          const question = Learning.prepareQuestion(legacyQuestion);
+          let selectedIndex = Number(legacyQuestion.last_answer);
+          if (!Number.isInteger(selectedIndex)) {
+            selectedIndex = legacyQuestion.last_result === 'correct'
+              ? Number(legacyQuestion.correct_option_index)
+              : (Number(legacyQuestion.correct_option_index) + 1) % 4;
+          }
+          const answeredAt = legacyQuestion.last_correct
+            ? `${legacyQuestion.last_correct}T12:00:00.000Z`
+            : new Date().toISOString();
+          Learning.recordAttempt(state.learning, question, selectedIndex, { answeredAt, mode: 'legacy' });
+        });
     }
+  } catch (error) {
+    console.warn('Unable to migrate previous answer state.', error);
   }
-
-  return dp[a.length][b.length];
+  state.learning.migrations.legacyQuestionState = new Date().toISOString();
+  saveLearningState();
 }
 
-function dedupeQuestion(question, existingQuestions) {
-  return !existingQuestions.some((item) => computeSimilarity(item.question_text, question.question_text) > 0.88);
-}
-
-function calculateTierFromPrize(prizeValue) {
-  if (!prizeValue || Number(prizeValue) <= 40000) return 'Tier 1';
-  if (Number(prizeValue) <= 320000) return 'Tier 2';
-  if (Number(prizeValue) <= 3200000) return 'Tier 3';
-  return 'Tier 4';
-}
-
-function determineTier(question) {
-  if (question.difficulty_tier) return question.difficulty_tier;
-  if (typeof question.ladder_position === 'number' && question.ladder_position >= 1) {
-    if (question.ladder_position <= 5) return 'Tier 1';
-    if (question.ladder_position <= 10) return 'Tier 2';
-    if (question.ladder_position <= 15) return 'Tier 3';
-    return 'Tier 4';
+async function loadCorpus() {
+  try {
+    const response = await fetch(CORPUS_URL, { cache: 'no-cache' });
+    if (!response.ok) throw new Error(`Corpus request returned ${response.status}`);
+    state.corpus = await response.json();
+    state.questions = (Array.isArray(state.corpus.questions) ? state.corpus.questions : []).map(Learning.prepareQuestion);
+  } catch (error) {
+    console.warn('Bundled corpus unavailable; using the offline demo bank.', error);
+    state.usingDemo = true;
+    state.corpus = {
+      generated_at: null,
+      coverage: [],
+      sources: [{ name: 'FactFlow demo', url: '', license: 'Bundled offline demonstration questions.' }]
+    };
+    state.questions = buildDemoQuestions().map(Learning.prepareQuestion);
   }
-  return calculateTierFromPrize(question.prize_level_asked_at || 5000);
+  state.practiceQuestions = state.questions.filter(Learning.isPracticeQuestion);
+  state.archiveQuestions = state.questions.filter((question) => !Learning.isPracticeQuestion(question));
+  state.questionMap = new Map(state.practiceQuestions.map((question) => [question.key, question]));
 }
 
-function parseOptions(rawOptions, fallbackCount = 4) {
-  if (Array.isArray(rawOptions)) {
-    const options = rawOptions.map((option) => String(option).trim()).filter(Boolean);
-    if (options.length >= 2) {
-      const padded = [...options];
-      while (padded.length < fallbackCount) padded.push('');
-      return padded.slice(0, fallbackCount);
-    }
-  }
-  return Array.from({ length: fallbackCount }, () => '');
+function validDailySession(session) {
+  return session
+    && session.date === Learning.dateKey()
+    && Array.isArray(session.questionKeys)
+    && session.questionKeys.length > 0
+    && session.questionKeys.some((key) => state.questionMap.has(key));
 }
 
-function parseCsvToRows(content) {
-  const rows = [];
-  let current = '';
-  let row = [];
-  let inQuotes = false;
+function createNewDailySession() {
+  state.learning.dailySession = Learning.createDailySession(
+    state.learning,
+    state.practiceQuestions,
+    state.archiveQuestions,
+    { size: state.learning.settings.sessionSize }
+  );
+  state.reviewSession = null;
+  state.activeQuestionKey = null;
+  state.questionStartedAt = Date.now();
+  saveLearningState();
+}
 
-  for (let i = 0; i < content.length; i += 1) {
-    const char = content[i];
-    const next = content[i + 1];
+function ensureDailySession() {
+  if (!validDailySession(state.learning.dailySession)) createNewDailySession();
+}
 
-    if (char === '"') {
-      if (inQuotes && next === '"') {
-        current += '"';
-        i += 1;
-      } else {
-        inQuotes = !inQuotes;
-      }
-    } else if (char === ',' && !inQuotes) {
-      row.push(current);
-      current = '';
-    } else if ((char === '\n' || char === '\r') && !inQuotes) {
-      if (char === '\r' && next === '\n') i += 1;
-      row.push(current);
-      if (row.some((cell) => cell.trim())) rows.push(row);
-      row = [];
-      current = '';
+function activeSession() {
+  return state.reviewSession || state.learning.dailySession;
+}
+
+function activeQuestion() {
+  const session = activeSession();
+  if (!session || session.cursor >= session.questionKeys.length) return null;
+  return state.questionMap.get(session.questionKeys[session.cursor]) || null;
+}
+
+function activeResponse() {
+  const session = activeSession();
+  const question = activeQuestion();
+  if (!session || !question) return null;
+  const attemptId = session.responses?.[question.key];
+  return attemptId ? state.learning.attempts.find((attempt) => attempt.id === attemptId) || null : null;
+}
+
+function switchTab(tabName) {
+  state.selectedTab = tabName;
+  document.querySelectorAll('.nav-button').forEach((button) => {
+    const active = button.dataset.tab === tabName;
+    button.classList.toggle('active', active);
+    button.setAttribute('aria-current', active ? 'page' : 'false');
+  });
+  document.querySelectorAll('.tab-panel').forEach((panel) => {
+    panel.classList.toggle('active', panel.id === `tab-${tabName}`);
+  });
+  if (tabName === 'review') renderReview();
+  if (tabName === 'challenge') renderChallenge();
+  if (tabName === 'progress') renderProgress();
+  if (tabName === 'insights') renderInsights();
+  if (window.location.hash !== `#${tabName}`) history.replaceState(null, '', `#${tabName}`);
+  window.scrollTo({ top: 0, left: 0, behavior: 'auto' });
+}
+
+function formatRupees(value) {
+  return `₹${Number(value || 0).toLocaleString('en-IN')}`;
+}
+
+function startChallenge() {
+  state.learning.currentChallenge = Learning.createChallenge(state.practiceQuestions);
+  state.challengeSelection = null;
+  saveLearningState();
+  renderAll();
+}
+
+function archiveChallenge(game) {
+  if (!game || game.archived) return;
+  const summary = {
+    id: game.id,
+    startedAt: game.startedAt,
+    endedAt: game.endedAt,
+    outcome: game.outcome,
+    correctCount: game.answers.filter((answer) => answer.correct).length,
+    winnings: game.winnings
+  };
+  state.learning.challengeHistory.push(summary);
+  game.archived = true;
+}
+
+function lockChallengeAnswer() {
+  const game = state.learning.currentChallenge;
+  if (!game || game.status !== 'active' || !Number.isInteger(state.challengeSelection)) return;
+  const question = state.questionMap.get(game.questionKeys[game.position]);
+  if (!question) return;
+  const selectedIndex = state.challengeSelection;
+  const attempt = Learning.recordAttempt(state.learning, question, selectedIndex, { mode: 'challenge' });
+  game.answers.push({
+    questionKey: question.key,
+    selectedIndex,
+    correct: attempt.correct,
+    answeredAt: attempt.answeredAt,
+    correctIndex: Number(question.correct_option_index)
+  });
+  if (attempt.correct) {
+    game.winnings = Learning.CHALLENGE_LADDER[game.position];
+    if (game.position >= Learning.CHALLENGE_LADDER.length - 1) {
+      game.status = 'complete';
+      game.outcome = 'jackpot';
+      game.endedAt = new Date().toISOString();
+      archiveChallenge(game);
     } else {
-      current += char;
+      game.position += 1;
     }
+    setText('challengeFeedback', 'Correct. Moving up the ladder.');
+  } else {
+    game.status = 'complete';
+    game.outcome = 'incorrect';
+    game.winnings = Learning.guaranteedWinnings(game.position);
+    game.endedAt = new Date().toISOString();
+    archiveChallenge(game);
+    setText('challengeFeedback', 'Incorrect. The challenge has ended.');
   }
-
-  if (current.length || row.length) {
-    row.push(current);
-    if (row.some((cell) => cell.trim())) rows.push(row);
-  }
-
-  return rows;
+  state.challengeSelection = null;
+  saveLearningState();
+  renderAll();
 }
 
-function getCategoryCounts() {
-  return state.questions.reduce((acc, question) => {
-    const category = question.category || 'Miscellaneous/Trivia';
-    acc[category] = (acc[category] || 0) + 1;
-    return acc;
-  }, {});
-}
-
-function getTierCounts() {
-  return state.questions.reduce((acc, question) => {
-    const tier = determineTier(question);
-    acc[tier] = (acc[tier] || 0) + 1;
-    return acc;
-  }, {});
-}
-
-function getTagPairs() {
-  const pairs = {};
-  state.questions.forEach((question) => {
-    const tags = [...new Set((question.tags || []).map((tag) => String(tag).trim()).filter(Boolean))];
-    for (let i = 0; i < tags.length; i += 1) {
-      for (let j = i + 1; j < tags.length; j += 1) {
-        const key = [tags[i], tags[j]].sort().join(' | ');
-        pairs[key] = (pairs[key] || 0) + 1;
-      }
-    }
+function renderChallengeLadder(game) {
+  const ladder = byId('challengeLadder');
+  clear(ladder);
+  Learning.CHALLENGE_LADDER.forEach((amount, index) => {
+    const classes = ['ladder-step'];
+    if (index === 4 || index === 9) classes.push('safe');
+    if (game && index < game.position) classes.push('passed');
+    if (game?.status === 'active' && index === game.position) classes.push('current');
+    ladder.append(element('li', { className: classes.join(' ') }, [
+      element('span', { text: index + 1 }),
+      element('strong', { text: formatRupees(amount) })
+    ]));
   });
-  return pairs;
 }
 
-function getTopicSignals() {
-  const topicHits = {};
-  state.questions.forEach((question) => {
-    const rawTags = [...(question.tags || [])];
-    rawTags.forEach((tag) => {
-      const clean = tag.trim();
-      if (!clean) return;
-      topicHits[clean] = (topicHits[clean] || 0) + 1;
+function renderChallengeQuestion(container, game, question) {
+  const stage = element('article', { className: 'question-stage' });
+  stage.append(
+    element('div', { className: 'question-top' }, [
+      element('span', { className: 'question-number', text: `Question ${game.position + 1} of 15` }),
+      element('span', { className: 'priority-score', text: formatRupees(Learning.CHALLENGE_LADDER[game.position]) })
+    ]),
+    element('h4', { text: question.question_text }),
+    element('div', { className: 'question-meta' }, [
+      element('span', { className: 'meta-pill', text: question.category }),
+      element('span', { className: 'meta-pill', text: question.difficulty_tier })
+    ])
+  );
+  const options = element('ul', { className: 'option-list' });
+  question.options.forEach((option, index) => {
+    const button = element('button', {
+      className: `option-button${state.challengeSelection === index ? ' selected' : ''}`,
+      type: 'button',
+      attributes: { 'aria-pressed': state.challengeSelection === index ? 'true' : 'false' }
+    }, [
+      element('span', { className: 'option-letter', text: String.fromCharCode(65 + index) }),
+      element('span', { text: option })
+    ]);
+    button.addEventListener('click', () => {
+      state.challengeSelection = index;
+      renderChallenge();
     });
+    options.append(element('li', {}, button));
   });
-  return Object.entries(topicHits).sort((a, b) => b[1] - a[1]).slice(0, 8);
+  stage.append(options);
+  const lockButton = element('button', {
+    className: 'primary-button',
+    type: 'button',
+    text: 'Lock answer',
+    disabled: !Number.isInteger(state.challengeSelection)
+  });
+  lockButton.addEventListener('click', lockChallengeAnswer);
+  stage.append(element('div', { className: 'lock-row' }, [
+    element('p', { className: 'lock-hint', text: Number.isInteger(state.challengeSelection) ? `Option ${String.fromCharCode(65 + state.challengeSelection)} selected` : 'Choose an option before locking.' }),
+    lockButton
+  ]));
+  container.append(stage);
 }
 
-function getPriorityScore(question) {
-  const totalQuestions = Math.max(state.questions.length, 1);
-  const categoryShare = getCategoryCounts()[question.category || 'Miscellaneous/Trivia'] / totalQuestions;
-  const currentSeason = 18;
-  const seasonWeight = question.season >= currentSeason - 2 ? 1.7 : question.season >= currentSeason - 5 ? 1.2 : 0.8;
-  const tierWeight = { 'Tier 1': 1, 'Tier 2': 1.25, 'Tier 3': 1.5, 'Tier 4': 2 }[determineTier(question)] || 1;
-  const tagCountWeight = (question.tags || []).length * 0.5;
-  const seenPenalty = question.seen_count ? question.seen_count * 0.3 : 0;
-  const recencyBoost = question.source === 'current_affairs' ? 1.3 : 0;
-  return Math.round((categoryShare * 150 + seasonWeight * 70 + tierWeight * 30 + tagCountWeight + recencyBoost) - seenPenalty);
+function renderChallengeResult(container, game) {
+  const correctCount = game.answers.filter((answer) => answer.correct).length;
+  const lastAnswer = game.answers[game.answers.length - 1];
+  const failedQuestion = lastAnswer && !lastAnswer.correct ? state.questionMap.get(lastAnswer.questionKey) : null;
+  const copy = element('div', { className: 'challenge-result-copy' }, [
+    element('div', { className: 'completion-icon', text: game.outcome === 'jackpot' ? '★' : correctCount }),
+    element('h3', { text: game.outcome === 'jackpot' ? 'You cleared the ladder' : `Run ended at question ${correctCount + 1}` }),
+    element('p', { text: `You answered ${correctCount} question${correctCount === 1 ? '' : 's'} correctly and finished with ${formatRupees(game.winnings)} on the classic practice ladder.` })
+  ]);
+  if (failedQuestion) {
+    copy.append(element('p', {
+      text: `Correct answer: ${failedQuestion.options[Number(failedQuestion.correct_option_index)]}. This question is now in Review.`
+    }));
+  }
+  const button = element('button', { className: 'primary-button', type: 'button', text: 'Play again' });
+  button.addEventListener('click', startChallenge);
+  copy.append(button);
+  container.append(element('div', { className: 'challenge-result' }, copy));
 }
 
-function renderSummary() {
-  const total = state.questions.length;
-  const categoryCounts = getCategoryCounts();
-  const sortedCategories = Object.entries(categoryCounts).sort((a, b) => b[1] - a[1]);
-  const topCategory = sortedCategories[0] || ['No data', 0];
-  const tierCounts = getTierCounts();
-  const priorityQueue = [...state.questions].sort((a, b) => getPriorityScore(b) - getPriorityScore(a)).slice(0, 5);
-
-  document.getElementById('statTotalQuestions').textContent = total;
-  document.getElementById('statRecentTopics').textContent = getTopicSignals().length;
-  document.getElementById('summaryTopCategory').textContent = topCategory[0];
-  document.getElementById('summaryTopCategoryValue').textContent = `${topCategory[1]} questions`;
-  document.getElementById('summaryTierMix').textContent = Object.entries(tierCounts).map(([key, value]) => `${key}: ${value}`).join(' • ');
-  document.getElementById('summaryTarget').textContent = priorityQueue[0] ? `${getPriorityScore(priorityQueue[0])} / 100` : 'N/A';
-
-  const list = document.getElementById('priorityList');
-  if (!priorityQueue.length) {
-    list.innerHTML = '<div class="empty-state">No study queue yet. Add questions to begin.</div>';
+function renderChallenge() {
+  const game = state.learning.currentChallenge;
+  const history = state.learning.challengeHistory;
+  const best = history.reduce((maximum, item) => Math.max(maximum, Number(item.correctCount || 0)), 0);
+  setText('challengeBest', `${best} / 15`);
+  setText('challengePlayed', history.length);
+  setText('challengePosition', game?.status === 'active' ? `Q${game.position + 1} · ${formatRupees(Learning.CHALLENGE_LADDER[game.position])}` : '—');
+  renderChallengeLadder(game);
+  const container = byId('challengeArea');
+  clear(container);
+  if (!game) {
+    const intro = element('div', { className: 'challenge-intro-copy' }, [
+      element('div', { className: 'completion-icon', text: '15' }),
+      element('h3', { text: 'Ready for a pressure test?' }),
+      element('p', { text: 'The run starts with foundational recall and progresses toward harder questions. There are no theatrical lifelines—just KBC-style questions, four options, and a final lock.' })
+    ]);
+    const button = element('button', { className: 'primary-button', type: 'button', text: 'Start challenge' });
+    button.addEventListener('click', startChallenge);
+    intro.append(button);
+    container.append(element('div', { className: 'challenge-intro' }, intro));
     return;
   }
-
-  list.innerHTML = priorityQueue.map((question) => `
-    <div class="priority-item">
-      <div class="meta">
-        <strong>${question.category}</strong>
-        <small>${question.question_text.slice(0, 74)}${question.question_text.length > 74 ? '…' : ''}</small>
-      </div>
-      <span class="badge">${getPriorityScore(question)}</span>
-    </div>
-  `).join('');
-
-  const repeatTopicList = document.getElementById('repeatTopicsList');
-  const topTopics = getTopicSignals().slice(0, 6);
-  repeatTopicList.innerHTML = topTopics.map(([tag, count]) => `
-    <li class="repeat-topic">
-      <div class="meta">
-        <strong>${tag}</strong>
-        <small>appears in ${count} records</small>
-      </div>
-      <span class="badge">${count}</span>
-    </li>
-  `).join('');
-
-  document.getElementById('analysisCategoryCount').textContent = Object.keys(categoryCounts).length;
-  const strongestPair = Object.entries(getTagPairs()).sort((a, b) => b[1] - a[1])[0];
-  document.getElementById('analysisFocusLabel').textContent = strongestPair ? strongestPair[0].split(' | ')[0] : '—';
-  document.getElementById('analysisTopTag').textContent = strongestPair ? strongestPair[0].split(' | ')[0] : '—';
+  if (game.status === 'complete') {
+    renderChallengeResult(container, game);
+    return;
+  }
+  const question = state.questionMap.get(game.questionKeys[game.position]);
+  if (!question) {
+    container.append(element('div', { className: 'empty-state' }, [
+      element('h3', { text: 'This challenge cannot continue' }),
+      element('p', { text: 'The question bank changed. Start a new challenge to rebuild the ladder.' })
+    ]));
+    return;
+  }
+  renderChallengeQuestion(container, game, question);
 }
 
-function renderCategoryChart() {
-  const container = document.getElementById('categoryChart');
-  const counts = getCategoryCounts();
-  const sorted = Object.entries(counts).sort((a, b) => b[1] - a[1]);
-  const max = Math.max(...Object.values(counts), 1);
-
-  container.innerHTML = sorted.map(([label, value]) => `
-    <div class="chart-row">
-      <div class="chart-label">${label}</div>
-      <div class="chart-bar-track"><span class="chart-bar" style="width:${(value / max) * 100}%"></span></div>
-      <div class="chart-value">${value}</div>
-    </div>
-  `).join('');
+function sourceDescription(question) {
+  const provenance = String(question.provenance_status || '');
+  if (question.source === 'FactFlow demo') return 'Bundled demonstration answer. It is not part of the live corpus.';
+  if (provenance.includes('answer supplied by source')) {
+    return `Answer supplied by ${question.source}; FactFlow has not independently verified it.`;
+  }
+  return provenance || `Answer supplied by ${question.source || 'the question source'}.`;
 }
 
-function renderTierChart() {
-  const container = document.getElementById('tierChart');
-  const counts = getTierCounts();
-  const sorted = Object.entries(counts).sort((a, b) => {
-    const order = { 'Tier 1': 1, 'Tier 2': 2, 'Tier 3': 3, 'Tier 4': 4 };
-    return order[a[0]] - order[b[0]];
+function renderQuestion(container, question, response) {
+  const session = activeSession();
+  const weights = Learning.archivePatternWeights(state.archiveQuestions);
+  const priority = Learning.questionPriority(state.learning, question, weights);
+  const stage = element('article', { className: 'question-stage' });
+  stage.append(
+    element('div', { className: 'question-top' }, [
+      element('span', { className: 'question-number', text: `Question ${session.cursor + 1}` }),
+      element('span', { className: 'priority-score', text: `Learning priority ${priority}/100` })
+    ]),
+    element('h4', { text: question.question_text }),
+    element('div', { className: 'question-meta' }, [
+      element('span', { className: 'meta-pill', text: question.category }),
+      element('span', { className: 'meta-pill', text: question.difficulty_tier }),
+      element('span', { className: 'meta-pill', text: question.category === 'Current Affairs' ? 'Dated current affairs' : 'Evergreen GK' })
+    ])
+  );
+
+  const options = element('ul', { className: 'option-list' });
+  question.options.forEach((option, index) => {
+    const isCorrect = index === Number(question.correct_option_index);
+    const isSelectedWrong = response && index === response.selectedIndex && !response.correct;
+    const button = element('button', {
+      className: `option-button${response && isCorrect ? ' correct' : ''}${isSelectedWrong ? ' incorrect' : ''}`,
+      type: 'button',
+      disabled: Boolean(response),
+      attributes: { 'aria-label': `Option ${String.fromCharCode(65 + index)}: ${option}` }
+    }, [
+      element('span', { className: 'option-letter', text: String.fromCharCode(65 + index) }),
+      element('span', { text: option })
+    ]);
+    if (!response) button.addEventListener('click', () => answerQuestion(index));
+    options.append(element('li', {}, button));
+  });
+  stage.append(options);
+
+  if (response) {
+    const correctAnswer = question.options[Number(question.correct_option_index)];
+    const answerPanel = element('div', { className: `answer-panel ${response.correct ? 'success' : 'danger'}` });
+    answerPanel.append(
+      element('p', { className: 'answer-title', text: response.correct ? 'Correct' : 'Not quite' }),
+      element('p', {
+        className: 'answer-copy',
+        text: response.correct ? 'This question is scheduled for a later review.' : `Correct answer: ${correctAnswer}. It is now in your review queue.`
+      })
+    );
+    if (question.explanation) answerPanel.append(element('p', { className: 'source-note', text: question.explanation }));
+    const sourceLine = element('p', { className: 'source-note', text: sourceDescription(question) });
+    if (question.source_url) {
+      sourceLine.append(' ', element('a', {
+        text: 'Open source',
+        href: question.source_url,
+        target: '_blank',
+        rel: 'noreferrer'
+      }));
+    }
+    answerPanel.append(sourceLine);
+    const nextButton = element('button', {
+      className: 'primary-button',
+      type: 'button',
+      text: session.cursor + 1 >= session.questionKeys.length ? 'Finish session' : 'Next question',
+      attributes: { id: 'nextQuestionButton' }
+    });
+    nextButton.addEventListener('click', advanceSession);
+    answerPanel.append(element('div', { className: 'feedback-actions' }, nextButton));
+    stage.append(answerPanel);
+  }
+  container.append(stage);
+}
+
+function answerQuestion(selectedIndex) {
+  const question = activeQuestion();
+  const session = activeSession();
+  if (!question || activeResponse()) return;
+  const responseMs = Date.now() - state.questionStartedAt;
+  const attempt = Learning.recordAttempt(state.learning, question, selectedIndex, {
+    responseMs,
+    mode: session.mode
+  });
+  if (!session.responses) session.responses = {};
+  session.responses[question.key] = attempt.id;
+  saveLearningState();
+  setText('sessionFeedback', attempt.correct ? 'Correct answer.' : 'Incorrect answer. The question was added to review.');
+  renderAll();
+  requestAnimationFrame(() => byId('nextQuestionButton')?.focus());
+}
+
+function advanceSession() {
+  const session = activeSession();
+  if (!session || !activeResponse()) return;
+  session.cursor += 1;
+  state.activeQuestionKey = null;
+  state.questionStartedAt = Date.now();
+  if (session.cursor >= session.questionKeys.length) session.completedAt = new Date().toISOString();
+  if (!state.reviewSession) saveLearningState();
+  renderAll();
+  byId('sessionHeading')?.focus?.();
+}
+
+function renderCompletion(container, session) {
+  const attemptIds = Object.values(session.responses || {});
+  const attempts = state.learning.attempts.filter((attempt) => attemptIds.includes(attempt.id));
+  const correct = attempts.filter((attempt) => attempt.correct).length;
+  const card = element('div', { className: 'completion-card' }, [
+    element('div', { className: 'completion-icon', text: '✓' }),
+    element('h3', { text: session.mode === 'review' ? 'Review complete' : 'Daily session complete' }),
+    element('p', {
+      text: attempts.length ? `${correct} of ${attempts.length} correct. Wrong answers remain in Review until you clear them.` : 'There were no available questions in this session.'
+    })
+  ]);
+  const action = element('button', {
+    className: 'primary-button',
+    type: 'button',
+    text: session.mode === 'review' ? 'Back to review' : 'Start another session'
+  });
+  action.addEventListener('click', () => {
+    if (session.mode === 'review') {
+      state.reviewSession = null;
+      switchTab('review');
+    } else {
+      createNewDailySession();
+      renderAll();
+    }
+  });
+  card.append(action);
+  container.append(card);
+}
+
+function renderToday() {
+  const session = activeSession();
+  const container = byId('sessionArea');
+  clear(container);
+  setText('todayStreak', Learning.studyStreak(state.learning));
+  setText('sessionModeLabel', session?.mode === 'review' ? 'Focused review' : 'Today’s practice');
+  setText('sessionHeading', session?.mode === 'review' ? 'Review session' : 'Daily session');
+  byId('sessionSize').value = String(state.learning.settings.sessionSize);
+
+  const total = session?.questionKeys.length || 0;
+  const response = activeResponse();
+  const answered = Math.min((session?.cursor || 0) + (response ? 1 : 0), total);
+  const percent = total ? answered / total * 100 : 0;
+  byId('sessionProgressBar').style.width = `${percent}%`;
+  setText('sessionProgressText', total && session.cursor < total ? `Question ${session.cursor + 1} of ${total}` : `${answered} questions completed`);
+
+  const sessionQuestions = (session?.questionKeys || []).map((key) => state.questionMap.get(key)).filter(Boolean);
+  const due = sessionQuestions.filter((question) => Learning.isDue(state.learning, question.key)).length;
+  const newCount = sessionQuestions.filter((question) => Learning.questionStats(state.learning, question.key).attempts === 0).length;
+  setText('sessionSummary', session?.mode === 'review'
+    ? 'A focused retry. Answer correctly to clear this item from your mistake queue.'
+    : `This queue started with ${due} due and ${newCount} new question${newCount === 1 ? '' : 's'}.`);
+
+  const question = activeQuestion();
+  if (!session || !total || !question || session.cursor >= total) {
+    renderCompletion(container, session || { mode: 'daily', responses: {}, questionKeys: [] });
+    return;
+  }
+  if (state.activeQuestionKey !== question.key) {
+    state.activeQuestionKey = question.key;
+    state.questionStartedAt = Date.now();
+  }
+  renderQuestion(container, question, response);
+}
+
+function reviewQuestions() {
+  return state.practiceQuestions
+    .filter((question) => Learning.isDue(state.learning, question.key))
+    .sort((a, b) => {
+      const aSchedule = state.learning.schedule[a.key];
+      const bSchedule = state.learning.schedule[b.key];
+      return Number(Boolean(bSchedule?.needsReview)) - Number(Boolean(aSchedule?.needsReview))
+        || String(aSchedule?.dueDate).localeCompare(String(bSchedule?.dueDate));
+    });
+}
+
+function startReview(questionKey) {
+  state.reviewSession = {
+    id: `review-${Date.now()}`,
+    date: Learning.dateKey(),
+    mode: 'review',
+    questionKeys: [questionKey],
+    cursor: 0,
+    responses: {},
+    completedAt: null
+  };
+  state.activeQuestionKey = null;
+  state.questionStartedAt = Date.now();
+  switchTab('today');
+  renderToday();
+}
+
+function renderReview() {
+  const questions = reviewQuestions();
+  const wrong = questions.filter((question) => state.learning.schedule[question.key]?.needsReview);
+  const scheduled = questions.filter((question) => !state.learning.schedule[question.key]?.needsReview);
+  setText('reviewWrongCount', wrong.length);
+  setText('reviewDueCount', scheduled.length);
+  setText('reviewNavCount', questions.length);
+  const list = byId('reviewList');
+  clear(list);
+  if (!questions.length) {
+    list.append(element('div', { className: 'empty-state' }, [
+      element('h3', { text: 'Nothing due right now' }),
+      element('p', { text: 'Complete a daily session and scheduled reviews will appear here.' })
+    ]));
+    return;
+  }
+  questions.slice(0, 30).forEach((question) => {
+    const schedule = state.learning.schedule[question.key];
+    const copy = element('div', { className: 'review-card-copy' }, [
+      element('h3', { text: question.question_text }),
+      element('p', { text: `${question.category} · ${schedule.needsReview ? 'Incorrect last time' : `Due ${schedule.dueDate}`}` })
+    ]);
+    const button = element('button', { className: 'secondary-button', type: 'button', text: 'Review now' });
+    button.addEventListener('click', () => startReview(question.key));
+    list.append(element('article', { className: 'review-card' }, [copy, button]));
+  });
+}
+
+function formatAttemptTime(value) {
+  const date = new Date(value);
+  return Number.isNaN(date.getTime()) ? '' : date.toLocaleString([], { month: 'short', day: 'numeric', hour: '2-digit', minute: '2-digit' });
+}
+
+function renderProgress() {
+  const attempts = state.learning.attempts;
+  const correct = attempts.filter((attempt) => attempt.correct).length;
+  const practiced = new Set(attempts.map((attempt) => attempt.questionKey)).size;
+  const streak = Learning.studyStreak(state.learning);
+  setText('progressAccuracy', attempts.length ? `${Math.round(correct / attempts.length * 100)}%` : '—');
+  setText('progressAccuracyDetail', attempts.length ? `${correct} correct of ${attempts.length}` : 'No answers yet');
+  setText('progressPracticed', practiced);
+  setText('progressAttempts', attempts.length);
+  setText('progressStreak', `${streak} day${streak === 1 ? '' : 's'}`);
+
+  const mastery = Learning.topicProgress(state.learning, state.practiceQuestions);
+  const masteryList = byId('topicProgress');
+  clear(masteryList);
+  if (!mastery.length) {
+    masteryList.append(element('div', { className: 'empty-state' }, [
+      element('h3', { text: 'Your topic map starts with the first answer' }),
+      element('p', { text: 'FactFlow will put weaker, less-practised topics first.' })
+    ]));
+  } else {
+    mastery.forEach((topic) => {
+      masteryList.append(element('div', { className: 'mastery-row' }, [
+        element('div', { className: 'mastery-name' }, [
+          element('strong', { text: topic.category }),
+          element('small', { text: `${topic.attempts} attempts · ${Math.round(topic.accuracy * 100)}% correct` })
+        ]),
+        element('div', { className: 'mastery-track' }, element('span', { attributes: { style: `width:${topic.mastery}%` } })),
+        element('span', { className: 'mastery-value', text: `${topic.mastery}%` })
+      ]));
+    });
+  }
+
+  const activity = byId('recentActivity');
+  clear(activity);
+  const recent = [...attempts].reverse().slice(0, 12);
+  if (!recent.length) {
+    activity.append(element('div', { className: 'empty-state' }, [
+      element('h3', { text: 'No activity yet' }),
+      element('p', { text: 'Your recent correct and incorrect answers will appear here.' })
+    ]));
+  } else {
+    recent.forEach((attempt) => {
+      const question = state.questionMap.get(attempt.questionKey);
+      activity.append(element('div', { className: 'activity-row' }, [
+        element('span', { className: `activity-dot${attempt.correct ? ' correct' : ''}` }),
+        element('div', { className: 'activity-copy' }, [
+          element('strong', { text: question?.question_text || 'Question no longer in the current bank' }),
+          element('small', { text: attempt.correct ? 'Correct' : 'Needs review' })
+        ]),
+        element('span', { className: 'activity-time', text: formatAttemptTime(attempt.answeredAt) })
+      ]));
+    });
+  }
+}
+
+function renderInsights() {
+  setText('insightPracticeCount', state.practiceQuestions.length);
+  setText('insightArchiveCount', state.archiveQuestions.length);
+  setText('insightCategoryCount', new Set(state.practiceQuestions.map((question) => question.category)).size);
+  const generated = state.corpus?.generated_at ? new Date(state.corpus.generated_at) : null;
+  setText('insightGeneratedAt', generated && !Number.isNaN(generated.getTime())
+    ? generated.toLocaleDateString([], { month: 'short', day: 'numeric' })
+    : state.usingDemo ? 'Offline demo' : '—');
+
+  const counts = {};
+  state.archiveQuestions.forEach((question) => {
+    counts[question.category] = (counts[question.category] || 0) + 1;
+  });
+  const sorted = Object.entries(counts).sort((a, b) => b[1] - a[1]).slice(0, 10);
+  const maximum = Math.max(1, ...sorted.map(([, count]) => count));
+  const chart = byId('archiveCategoryChart');
+  clear(chart);
+  sorted.forEach(([category, count]) => {
+    chart.append(element('div', { className: 'chart-row' }, [
+      element('span', { className: 'chart-label', text: category }),
+      element('div', { className: 'chart-track' }, element('span', { attributes: { style: `width:${count / maximum * 100}%` } })),
+      element('span', { className: 'chart-value', text: count })
+    ]));
   });
 
-  const max = Math.max(...Object.values(counts), 1);
-  container.innerHTML = sorted.map(([label, value]) => `
-    <div class="chart-row">
-      <div class="chart-label">${label}</div>
-      <div class="chart-bar-track"><span class="chart-bar" style="width:${(value / max) * 100}%"></span></div>
-      <div class="chart-value">${value}</div>
-    </div>
-  `).join('');
+  const sources = byId('sourceQualityList');
+  clear(sources);
+  const sourceNotes = [
+    ['Practice questions', 'Answers are supplied by public trivia APIs. They are usable for drills but are not independently fact-checked by FactFlow.'],
+    ['Historical KBC archive', 'Partial Seasons 6–9 coverage from a third-party transcript. It affects topic balance but never appears as a drill.'],
+    ['Current affairs', 'No verified current-affairs feed is connected yet. The app labels this honestly instead of treating recently downloaded trivia as recent news.']
+  ];
+  sourceNotes.forEach(([title, copy]) => {
+    sources.append(element('div', { className: 'source-item' }, [
+      element('strong', { text: title }),
+      element('p', { text: copy })
+    ]));
+  });
+
+  const coverage = Array.isArray(state.corpus?.coverage) ? state.corpus.coverage : [];
+  const coverageGrid = byId('corpusCoverageGrid');
+  clear(coverageGrid);
+  const total = coverage.reduce((sum, item) => sum + Number(item.questions || 0), 0);
+  setText('coverageSummary', coverage.length
+    ? `${total} normalized archive questions. Coverage is incomplete and answer accuracy is not independently verified.`
+    : 'Archive coverage is unavailable in offline demo mode.');
+  coverage.forEach((item) => {
+    coverageGrid.append(element('div', { className: 'coverage-item' }, [
+      element('strong', { text: `Season ${item.season}` }),
+      element('span', { text: `${item.questions} questions · ${item.pages} pages` })
+    ]));
+  });
 }
 
-function renderTopicSignals() {
-  const container = document.getElementById('repeatTopicChart');
-  const signals = getTopicSignals();
-  if (!signals.length) {
-    container.innerHTML = '<div class="empty-state">No recurring topics yet.</div>';
-    return;
-  }
-
-  container.innerHTML = signals.map(([tag, count]) => `
-    <div class="repeat-topic">
-      <div class="meta">
-        <strong>${tag}</strong>
-        <small>high-overlap tag</small>
-      </div>
-      <span class="badge">${count}</span>
-    </div>
-  `).join('');
+function renderHeader() {
+  setText('appVersionLabel', `v${APP_VERSION}`);
+  setText('corpusStatus', state.usingDemo
+    ? 'Offline demo bank · serve over HTTP for the full corpus'
+    : `${state.practiceQuestions.length} practice questions · ${state.archiveQuestions.length} archive patterns`);
 }
 
-function renderClusterList() {
-  const container = document.getElementById('tagClusterList');
-  const pairs = Object.entries(getTagPairs()).sort((a, b) => b[1] - a[1]).slice(0, 12);
-  if (!pairs.length) {
-    container.innerHTML = '<div class="empty-state">Add tags to reveal study clusters.</div>';
-    return;
-  }
-
-  container.innerHTML = pairs.map(([pair, count]) => `
-    <span class="cluster-pill">${pair} <strong>× ${count}</strong></span>
-  `).join('');
-}
-
-function renderAnalysis() {
-  renderCategoryChart();
-  renderTierChart();
-  renderTopicSignals();
-  renderClusterList();
-}
-
-function renderFilters() {
-  const categorySelect = document.getElementById('filterCategory');
-  const categories = ['all', ...CATEGORY_TAXONOMY];
-
-  categorySelect.innerHTML = categories.map((category) => `
-    <option value="${category}">${category === 'all' ? 'All categories' : category}</option>
-  `).join('');
-  categorySelect.value = state.filters.category;
-
-  document.getElementById('filterTier').value = state.filters.tier;
-  document.getElementById('filterSearch').value = state.filters.search;
-}
-
-function getFilteredQuestions() {
-  const searchTerm = state.filters.search.trim().toLowerCase();
-  return [...state.questions].filter((question) => {
-    const practiceQuestion = (question.question_type === 'practice' || question.source === 'Open Trivia DB' || question.source === 'The Trivia API') && question.provenance_status !== 'third-party transcript; answer not independently verified';
-    const categoryMatch = state.filters.category === 'all' || question.category === state.filters.category;
-    const tierMatch = state.filters.tier === 'all' || determineTier(question) === state.filters.tier;
-    const searchMatch = !searchTerm || question.question_text.toLowerCase().includes(searchTerm) || (question.tags || []).join(' ').toLowerCase().includes(searchTerm);
-    return practiceQuestion && categoryMatch && tierMatch && searchMatch;
-  }).sort((a, b) => getPriorityScore(b) - getPriorityScore(a));
-}
-
-function renderDrill() {
-  const list = document.getElementById('drillList');
-  const filteredQuestions = getFilteredQuestions();
-
-  if (!filteredQuestions.length) {
-    list.innerHTML = '<div class="empty-state">No questions match the current filters.</div>';
-    return;
-  }
-
-  list.innerHTML = filteredQuestions.map((question) => `
-    ${(() => {
-      const answered = question.last_result === 'correct' || question.last_result === 'incorrect';
-      return `
-    <article class="question-card">
-      <div class="header-row">
-        <span class="meta-pill">${question.category}</span>
-        <span class="badge">Priority ${getPriorityScore(question)}</span>
-      </div>
-      <h4>${question.question_text}</h4>
-      <div class="question-meta">
-        <span class="meta-pill">${determineTier(question)}</span>
-        <span class="meta-pill">${question.tags?.slice(0, 2).join(', ') || 'untagged'}</span>
-      </div>
-      <ul class="option-list">
-        ${(question.options || []).map((option, index) => `
-          <li><button class="option-button ${answered && index === Number(question.correct_option_index) ? 'correct' : ''} ${answered && index === Number(question.last_answer) && index !== Number(question.correct_option_index) ? 'incorrect' : ''}" data-action="answer" data-index="${index}" data-id="${question.id}" type="button" ${answered ? 'disabled' : ''}>${String.fromCharCode(65 + index)}. ${option || '—'}</button></li>
-        `).join('')}
-      </ul>
-      ${answered ? `<p class="answer-feedback ${question.last_result === 'correct' ? 'success' : 'danger'}">${question.last_result === 'correct' ? 'Correct. Keep this in active recall.' : `Review this one. Correct answer: ${String.fromCharCode(65 + Number(question.correct_option_index))}.`}</p>` : '<p class="helper-text">Select an option to check your answer.</p>'}
-    </article>
-      `;
-    })()}
-  `).join('');
-}
-
-function renderReference() {
-  // static informational panel; no dynamic behavior required
+function renderAll() {
+  renderHeader();
+  renderToday();
+  renderChallenge();
+  renderReview();
+  renderProgress();
+  renderInsights();
 }
 
 function attachListeners() {
   document.querySelectorAll('.nav-button').forEach((button) => {
-    button.addEventListener('click', () => {
-      state.selectedTab = button.dataset.tab;
-      document.querySelectorAll('.nav-button').forEach((navButton) => navButton.classList.toggle('active', navButton === button));
-      document.querySelectorAll('.tab-panel').forEach((panel) => panel.classList.toggle('active', panel.id === `tab-${state.selectedTab}`));
-    });
+    button.addEventListener('click', () => switchTab(button.dataset.tab));
   });
-
-  document.getElementById('filterCategory').addEventListener('change', (event) => {
-    state.filters.category = event.target.value;
-    renderDrill();
+  byId('newSessionButton').addEventListener('click', () => {
+    createNewDailySession();
+    renderAll();
   });
-
-  document.getElementById('filterTier').addEventListener('change', (event) => {
-    state.filters.tier = event.target.value;
-    renderDrill();
+  byId('newChallengeButton').addEventListener('click', startChallenge);
+  byId('sessionSize').addEventListener('change', (event) => {
+    state.learning.settings.sessionSize = Number(event.target.value);
+    createNewDailySession();
+    renderAll();
   });
-
-  document.getElementById('filterSearch').addEventListener('input', (event) => {
-    state.filters.search = event.target.value;
-    renderDrill();
+  window.addEventListener('hashchange', () => {
+    const requested = window.location.hash.slice(1);
+    if (['today', 'challenge', 'review', 'progress', 'insights'].includes(requested)) switchTab(requested);
   });
-
-  document.getElementById('drillList').addEventListener('click', (event) => {
-    const button = event.target.closest('button[data-action]');
-    if (!button) return;
-
-    const question = state.questions.find((item) => item.id === button.dataset.id);
-    if (!question) return;
-
-    if (button.dataset.action !== 'answer') return;
-    const selectedAnswer = Number(button.dataset.index);
-    question.seen_count = (question.seen_count || 0) + 1;
-    question.last_answer = selectedAnswer;
-    question.last_result = selectedAnswer === Number(question.correct_option_index) ? 'correct' : 'incorrect';
-    question.last_correct = question.last_result === 'correct' ? new Date().toISOString().slice(0, 10) : null;
-    persistQuestions();
-    renderSummary();
-    renderDrill();
-  });
-}
-
-function exportBankToJson() {
-  const payload = JSON.stringify(state.questions, null, 2);
-  const blob = new Blob([payload], { type: 'application/json' });
-  const url = URL.createObjectURL(blob);
-  const anchor = document.createElement('a');
-  anchor.href = url;
-  anchor.download = 'factflow-bank.json';
-  document.body.appendChild(anchor);
-  anchor.click();
-  anchor.remove();
-  URL.revokeObjectURL(url);
-}
-
-function renderAll() {
-  renderSummary();
-  renderAnalysis();
-  renderFilters();
-  renderDrill();
-  renderCorpusCoverage();
-}
-
-function renderCorpusCoverage() {
-  const summary = document.getElementById('corpusCoverageSummary');
-  const grid = document.getElementById('corpusCoverageGrid');
-  if (!summary || !grid) return;
-  if (!state.corpus) {
-    summary.textContent = 'Bundled archive could not be loaded. Serve the project over HTTP to enable it.';
-    grid.innerHTML = '';
-    return;
-  }
-  const total = state.corpus.coverage.reduce((sum, item) => sum + Number(item.questions || 0), 0);
-  summary.textContent = `${total} normalized questions from a third-party episode archive. Coverage is partial and answers are not independently verified.`;
-  grid.innerHTML = state.corpus.coverage.map((item) => `
-    <div class="coverage-item">
-      <strong>Season ${item.season}</strong>
-      <span>${item.questions} questions · ${item.pages} episode pages</span>
-    </div>
-  `).join('');
 }
 
 async function init() {
-  const versionLabel = document.getElementById('appVersionLabel');
-  if (versionLabel) {
-    versionLabel.textContent = `v${APP_VERSION}`;
-  }
-
-  await loadState();
+  if (!Learning) throw new Error('FactFlow learning engine failed to load.');
+  loadLearningState();
+  await loadCorpus();
+  migrateLegacyProgress();
+  ensureDailySession();
   attachListeners();
   renderAll();
+  const requestedTab = window.location.hash.slice(1);
+  if (['today', 'challenge', 'review', 'progress', 'insights'].includes(requestedTab)) switchTab(requestedTab);
 }
 
-init();
+init().catch((error) => {
+  console.error(error);
+  setText('corpusStatus', 'FactFlow could not start.');
+  const container = byId('sessionArea');
+  clear(container);
+  container?.append(element('div', { className: 'empty-state' }, [
+    element('h3', { text: 'Unable to start the study session' }),
+    element('p', { text: 'Reload the page. If the problem continues, serve the project over HTTP.' })
+  ]));
+});

@@ -1,65 +1,62 @@
 # FactFlow
 
-A mobile-first GK and current-affairs preparation app. It keeps the user ready through targeted revision, patterned topic analysis, and recency-aware study guidance instead of requiring manual question entry or archive browsing.
+FactFlow is a browser-based GK practice app with two complementary modes:
 
-## Features
+- **Today** builds recall through an adaptive daily queue of new, weak, and due questions.
+- **KBC Challenge** tests that preparation through an escalating 15-question, four-option, lock-answer run.
 
-- GK and current-affairs preparation workflow
-- Pattern analysis as a supporting layer for weak spots and repeated themes
-- Recency-aware prioritization and study queue
-- Category, tier, and tag-based drill mode
-- Answer selection with automatic evaluation and revision tracking
-- KBC-compatible quality filtering for fresh practice intake
-- Contextual recommendation logic for recurring topic clusters
-- Bundled, provenance-labelled archive corpus plus fresh public trivia questions from multiple sources
+Incorrect answers enter Review until answered correctly. Every attempt is retained separately from the read-only question corpus, allowing progress, accuracy, streaks, topic mastery, and scheduled revision to survive corpus refreshes.
 
-> The main objective is to keep the user prepared on GK and current affairs. Pattern analysis helps surface weak spots and high-yield topics; it is not the product center.
+## Product boundaries
+
+- Historical KBC questions are third-party, incomplete pattern evidence. They influence category balance but never appear in drills.
+- Practice answers are supplied by public trivia APIs and are not independently fact-checked by FactFlow.
+- A verified current-affairs feed is not connected yet. Recently downloaded general trivia is not labelled as current affairs.
+- KBC Challenge simulates the question format and escalating difficulty. It does not attempt to reproduce a particular television season, host flow, or lifeline rules.
 
 ## Run locally
 
-Open the app directly in a browser from the repository folder, or serve it with a static file server:
+Serve the repository over HTTP so the browser can fetch the bundled corpus:
 
 ```bash
 python -m http.server 8000
 ```
 
-Then visit:
+Then open `http://localhost:8000`.
 
-```text
-http://localhost:8000
-```
+Opening `index.html` directly uses a small offline demonstration bank because browsers normally block local `fetch()` requests.
 
-Serving over HTTP is required for the bundled JSON corpus. Opening `index.html` directly falls back to locally saved or demo data because browsers block local `fetch()` requests.
+## Architecture
 
-The repository refreshes its corpus automatically through GitHub Actions every six hours. The scheduled job gathers unseen pages from the public KBC archive and fresh answer-keyed questions from Open Trivia DB and The Trivia API, normalizes them, deduplicates them against the stored bank, and commits the updated JSON for the browser app to consume. Previously gathered archive pages are not fetched again.
+- `index.html` — Today, KBC Challenge, Review, Progress, and KBC Insights screens
+- `learning.js` — pure question classification, scheduling, mastery, and challenge selection logic
+- `app.js` — browser state, persistence, safe DOM rendering, and interactions
+- `styles.css` — responsive application styling
+- `data/kbc-corpus.json` — read-only, provenance-labelled question corpus
+- `tools/build-corpus.mjs` — incremental corpus ingestion and normalization
+- `dev/assert-v14.js` — behavioral and corpus regression checks
 
-## Corpus
+User learning state is stored under `factflow-learning-v2` in `localStorage`. The corpus itself is not copied into browser storage. Previous one-answer state from `kbc-prep-app-v1` is migrated once into attempt history.
 
-`data/kbc-corpus.json` contains normalized questions extracted from the public [IQgarage KBC episode archive](https://www.iqgarage.com/kbc-questions-and-answers/) and fresh questions from [Open Trivia DB](https://opentdb.com/) and [The Trivia API](https://the-trivia-api.com/). KBC coverage is partial (Seasons 6–9), is not official Sony data, and its archive answers have not been independently verified. Missing seasons must not be inferred from.
+## Corpus refresh
 
-Rebuild it with `node tools/build-corpus.mjs`. The generator retains a source URL and provenance status on every record and rejects questions without four options and a resolvable answer.
+GitHub Actions runs `node tools/build-corpus.mjs` every six hours. The generator:
 
-## Publish to GitHub Pages
+1. Reuses successfully fetched archive pages.
+2. Retries failed or empty archive pages.
+3. Fetches answer-keyed questions from Open Trivia DB and The Trivia API.
+4. Rejects malformed questions and excluded entertainment/gaming niches.
+5. Uses stable question identities and deduplicates by normalized question text.
+6. Leaves the corpus file untouched when no unique question or archive-page state changed.
 
-1. Create a new public or private GitHub repository.
-2. Push this repository to GitHub:
+The bundled KBC archive currently covers only portions of Seasons 6–9 from [IQgarage](https://www.iqgarage.com/kbc-questions-and-answers/). It is not official Sony data. Source and licensing notes are retained in the corpus.
+
+## Checks
 
 ```bash
-git remote add origin https://github.com/<your-username>/<your-repo>.git
-git branch -M main
-git push -u origin main
+node --check learning.js
+node --check app.js
+node --check tools/build-corpus.mjs
+node dev/assert-v14.js
+git diff --check
 ```
-
-3. In GitHub, open the repository and go to Settings → Pages.
-4. Set Source to `Deploy from a branch`.
-5. Choose the `main` branch and the root folder `/`.
-6. Save. GitHub Pages will provide a URL such as:
-
-```text
-https://<your-username>.github.io/<your-repo>/
-```
-
-## Notes
-
-- The app stores data in `localStorage`, so it works fully client-side without any backend.
-- This is a static app and is suitable for GitHub Pages deployment.

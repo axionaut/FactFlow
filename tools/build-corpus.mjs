@@ -45,6 +45,16 @@ function cleanQuestion(value) {
     .trim();
 }
 
+function stableQuestionId(prefix, questionText) {
+  let hash = 2166136261;
+  const value = questionText.toLowerCase().replace(/[^a-z0-9]/g, '');
+  for (let index = 0; index < value.length; index += 1) {
+    hash ^= value.charCodeAt(index);
+    hash = Math.imul(hash, 16777619);
+  }
+  return `${prefix}-${(hash >>> 0).toString(36)}`;
+}
+
 function parseOptionLine(line) {
   const matches = [...line.matchAll(/(?:^|\s)([A-D])[.)]\s*(.+?)(?=\s+[A-D][.)]\s*|$)/gi)];
   if (matches.length < 2) return null;
@@ -68,7 +78,7 @@ function categoryFor(text) {
 }
 
 function tagsFor(text) {
-  const stop = new Set(['which', 'what', 'when', 'where', 'whose', 'these', 'following', 'from', 'with', 'that', 'this', 'have', 'does', 'name', 'called', 'india', 'indian']);
+  const stop = new Set(['which', 'what', 'when', 'where', 'whose', 'these', 'following', 'from', 'with', 'that', 'this', 'have', 'does', 'name', 'called', 'into', 'most', 'first', 'known', 'used', 'according', 'india', 'indian']);
   return [...new Set(text.toLowerCase().match(/[a-z][a-z-]{3,}/g) || [])]
     .filter((word) => !stop.has(word))
     .slice(0, 5);
@@ -99,7 +109,7 @@ async function fetchFreshTrivia() {
     ], correctAnswer);
     const combined = `${questionText} ${options.join(' ')}`;
     return {
-      id: `trivia-${Date.now()}-${index + 1}`,
+      id: stableQuestionId('otdb', questionText),
       season: null,
       episode: null,
       air_date: new Date().toISOString().slice(0, 10),
@@ -107,14 +117,14 @@ async function fetchFreshTrivia() {
       options,
       correct_option_index: correctOptionIndex,
       question_type: 'practice',
-      category: item.category === 'Science: Computers' ? 'Science & Technology' : 'Miscellaneous/Trivia',
+      category: categoryFor(`${item.category} ${combined}`),
       subcategory: item.category,
       difficulty_tier: item.difficulty === 'hard' ? 'Tier 4' : item.difficulty === 'medium' ? 'Tier 2' : 'Tier 1',
       prize_level_asked_at: null,
       source: 'Open Trivia DB',
       source_url: 'https://opentdb.com/',
       source_accessed_at: new Date().toISOString().slice(0, 10),
-      tags: tagsFor(combined),
+      tags: tagsFor(questionText),
       seen_count: 0,
       last_correct: null,
       ladder_position: null,
@@ -138,7 +148,7 @@ async function fetchTheTriviaApi() {
     ], correctAnswer);
     const combined = `${questionText} ${options.join(' ')}`;
     return {
-      id: `trivia-api-${Date.now()}-${index + 1}`,
+      id: stableQuestionId('trivia-api', questionText),
       season: null,
       episode: null,
       air_date: new Date().toISOString().slice(0, 10),
@@ -146,14 +156,14 @@ async function fetchTheTriviaApi() {
       options,
       correct_option_index: correctOptionIndex,
       question_type: 'practice',
-      category: 'Miscellaneous/Trivia',
+      category: categoryFor(`${item.category || ''} ${combined}`),
       subcategory: item.category || '',
       difficulty_tier: item.difficulty === 'hard' ? 'Tier 4' : item.difficulty === 'medium' ? 'Tier 2' : 'Tier 1',
       prize_level_asked_at: null,
       source: 'The Trivia API',
       source_url: 'https://the-trivia-api.com/',
       source_accessed_at: new Date().toISOString().slice(0, 10),
-      tags: tagsFor(combined),
+      tags: tagsFor(questionText),
       seen_count: 0,
       last_correct: null,
       ladder_position: null,
@@ -264,26 +274,30 @@ async function main() {
   const indexResponse = await fetch(INDEX_URL);
   if (!indexResponse.ok) throw new Error(`Archive index returned ${indexResponse.status}`);
   const links = archiveLinks(await indexResponse.text());
-  const knownPages = new Set((previousCorpus.pages || []).map((page) => page.url));
+  const knownPages = new Set((previousCorpus.pages || [])
+    .filter((page) => Number(page.status) >= 200 && Number(page.status) < 300 && Number(page.questions) > 0)
+    .map((page) => page.url));
   const newLinks = links.filter((link) => !knownPages.has(link.url));
   const questions = (previousCorpus.questions || []).map((question) => ({
     ...question,
     question_type: question.source === 'Open Trivia DB' || question.source === 'The Trivia API' ? 'practice' : 'archive'
   }));
-  const pages = [...(previousCorpus.pages || [])];
+  const pageMap = new Map((previousCorpus.pages || []).map((page) => [page.url, page]));
   for (const [position, link] of newLinks.entries()) {
     const response = await fetch(link.url);
     if (!response.ok) {
-      pages.push({ ...link, status: response.status, questions: 0 });
+      pageMap.set(link.url, { ...link, status: response.status, questions: 0 });
       continue;
     }
     const extracted = parseQuestions(await response.text(), link);
     questions.push(...extracted);
-    pages.push({ season: link.season, episode: link.episode, url: link.url, status: response.status, questions: extracted.length });
+    pageMap.set(link.url, { season: link.season, episode: link.episode, url: link.url, status: response.status, questions: extracted.length });
     process.stdout.write(`\r${position + 1}/${newLinks.length} new pages; ${questions.length} questions`);
   }
 
-  const deduped = [...new Map(questions.map((question) => [question.question_text.toLowerCase().replace(/[^a-z0-9]/g, ''), question])).values()];
+  const pages = [...pageMap.values()];
+  const questionIdentity = (question) => question.question_text.toLowerCase().replace(/[^a-z0-9]/g, '');
+  const deduped = [...new Map(questions.map((question) => [questionIdentity(question), question])).values()];
   const freshTrivia = [];
   for (const gather of [fetchFreshTrivia, fetchTheTriviaApi]) {
     try {
@@ -294,7 +308,14 @@ async function main() {
   }
   const combinedQuestions = [...new Map([...deduped, ...freshTrivia]
     .filter((question) => question.question_type !== 'practice' || isKbcCompatible(question.question_text, question.subcategory))
-    .map((question) => [question.question_text.toLowerCase().replace(/[^a-z0-9]/g, ''), question])).values()];
+    .map((question) => [questionIdentity(question), question])).values()];
+  const previousQuestionKeys = new Set((previousCorpus.questions || []).map(questionIdentity));
+  const addedQuestions = combinedQuestions.filter((question) => !previousQuestionKeys.has(questionIdentity(question)));
+  const pagesChanged = JSON.stringify(pages) !== JSON.stringify(previousCorpus.pages || []);
+  if (!addedQuestions.length && !pagesChanged) {
+    process.stdout.write(`\nNo new unique questions or archive-page changes; corpus left untouched.\n`);
+    return;
+  }
   const payload = {
     schema_version: 1,
     generated_at: new Date().toISOString(),
@@ -305,13 +326,13 @@ async function main() {
       , { name: 'The Trivia API', url: 'https://the-trivia-api.com/', license: 'Check source terms before redistribution.' }
     ],
     coverage: [6, 7, 8, 9].map((season) => ({ season, questions: deduped.filter((item) => item.season === season).length, pages: pages.filter((item) => item.season === season && item.questions > 0).length })),
-    fresh_questions: freshTrivia.length,
+    fresh_questions: addedQuestions.filter((question) => question.question_type === 'practice').length,
     pages,
     questions: combinedQuestions
   };
   await mkdir(new URL('../data/', import.meta.url), { recursive: true });
   await writeFile(OUTPUT_PATH, `${JSON.stringify(payload, null, 2)}\n`);
-  process.stdout.write(`\nWrote ${combinedQuestions.length} questions (${freshTrivia.length} fresh) to ${OUTPUT_PATH.pathname}\n`);
+  process.stdout.write(`\nWrote ${combinedQuestions.length} questions (${addedQuestions.length} newly added) to ${OUTPUT_PATH.pathname}\n`);
 }
 
 main().catch((error) => {
