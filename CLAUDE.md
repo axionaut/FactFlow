@@ -3,17 +3,18 @@
 ## Release rule
 - `APP_VERSION` is tracked in `app.js`.
 - Every completed iteration must end with: commit, push to GitHub, and a concise update to this file.
-- Current live version: `v5`.
+- Current live version: `v6`.
 - Release format: `v1`, `v2`, `v3`, ...
 
 ## Product direction
 - FactFlow is built for bulk archival intake and pattern discovery.
-- There is no manual question-entry flow; the app should infer and analyze from imported data.
+- There is no manual question-entry flow; the app infers and analyzes from imported data.
 - The app is static and browser-only, with `localStorage` persistence and GitHub Pages hosting.
 
 ## Current state
 - Bundled corpus: `data/kbc-corpus.json`.
 - Coverage is partial and explicit: Seasons 6–9 public archive only.
+- The app focuses on question-pattern analysis, not season-by-season episode breakdowns.
 - Data is provenance-labelled and derived from public third-party sources; it is not official Sony material.
 - The app serves best over HTTP because the corpus is fetched via `fetch()`.
 

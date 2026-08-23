@@ -1,4 +1,4 @@
-const APP_VERSION = 5;
+const APP_VERSION = 6;
 const STORAGE_KEY = 'kbc-prep-app-v1';
 const CORPUS_URL = 'data/kbc-corpus.json';
 const CATEGORY_TAXONOMY = [
@@ -27,7 +27,6 @@ const state = {
   filters: {
     category: 'all',
     tier: 'all',
-    season: 'all',
     search: ''
   }
 };
@@ -524,14 +523,6 @@ function getTierCounts() {
   }, {});
 }
 
-function getSeasonCounts() {
-  return state.questions.reduce((acc, question) => {
-    const season = Number(question.season || 18);
-    acc[season] = (acc[season] || 0) + 1;
-    return acc;
-  }, {});
-}
-
 function getTagPairs() {
   const pairs = {};
   state.questions.forEach((question) => {
@@ -577,8 +568,6 @@ function renderSummary() {
   const sortedCategories = Object.entries(categoryCounts).sort((a, b) => b[1] - a[1]);
   const topCategory = sortedCategories[0] || ['No data', 0];
   const tierCounts = getTierCounts();
-  const seasonCounts = getSeasonCounts();
-  const latestSeason = Object.keys(seasonCounts).length ? Math.max(...Object.keys(seasonCounts).map(Number)) : 18;
   const priorityQueue = [...state.questions].sort((a, b) => getPriorityScore(b) - getPriorityScore(a)).slice(0, 5);
 
   document.getElementById('statTotalQuestions').textContent = total;
@@ -617,8 +606,8 @@ function renderSummary() {
   `).join('');
 
   document.getElementById('analysisCategoryCount').textContent = Object.keys(categoryCounts).length;
-  document.getElementById('analysisLatestSeason').textContent = latestSeason;
   const strongestPair = Object.entries(getTagPairs()).sort((a, b) => b[1] - a[1])[0];
+  document.getElementById('analysisFocusLabel').textContent = strongestPair ? strongestPair[0].split(' | ')[0] : '—';
   document.getElementById('analysisTopTag').textContent = strongestPair ? strongestPair[0].split(' | ')[0] : '—';
 }
 
@@ -653,37 +642,6 @@ function renderTierChart() {
       <div class="chart-value">${value}</div>
     </div>
   `).join('');
-}
-
-function renderSeasonChart() {
-  const container = document.getElementById('seasonChart');
-  const counts = getSeasonCounts();
-  const sortedSeasons = Object.entries(counts).sort((a, b) => Number(a[0]) - Number(b[0]));
-  if (!sortedSeasons.length) {
-    container.innerHTML = '<div class="empty-state">No season data yet.</div>';
-    return;
-  }
-
-  const maxValue = Math.max(...sortedSeasons.map(([, value]) => value), 1);
-  const points = sortedSeasons.map(([season, value], index) => {
-    const x = (index / Math.max(sortedSeasons.length - 1, 1)) * 100;
-    const y = 100 - (value / maxValue) * 80;
-    return `${x},${y}`;
-  }).join(' ');
-
-  container.innerHTML = `
-    <svg viewBox="0 0 100 100" width="100%" height="200" preserveAspectRatio="none">
-      <polyline fill="none" stroke="#2d6cdf" stroke-width="2.5" points="${points}"></polyline>
-      ${sortedSeasons.map(([season, value], index) => {
-        const x = (index / Math.max(sortedSeasons.length - 1, 1)) * 100;
-        const y = 100 - (value / maxValue) * 80;
-        return `<circle cx="${x}" cy="${y}" r="2.2" fill="#f5a623"></circle>`;
-      }).join('')}
-    </svg>
-    <div class="chart-row" style="grid-template-columns: repeat(${sortedSeasons.length}, minmax(0, 1fr)); margin-top: 8px; gap: 4px;">
-      ${sortedSeasons.map(([season]) => `<div class="chart-label" style="text-align:center;">${season}</div>`).join('')}
-    </div>
-  `;
 }
 
 function renderTopicSignals() {
@@ -721,27 +679,18 @@ function renderClusterList() {
 function renderAnalysis() {
   renderCategoryChart();
   renderTierChart();
-  renderSeasonChart();
   renderTopicSignals();
   renderClusterList();
 }
 
 function renderFilters() {
   const categorySelect = document.getElementById('filterCategory');
-  const seasonSelect = document.getElementById('filterSeason');
-
   const categories = ['all', ...CATEGORY_TAXONOMY];
-  const seasons = ['all', ...new Set(state.questions.map((item) => String(item.season)))].sort((a, b) => a === 'all' ? -1 : Number(a) - Number(b));
 
   categorySelect.innerHTML = categories.map((category) => `
     <option value="${category}">${category === 'all' ? 'All categories' : category}</option>
   `).join('');
   categorySelect.value = state.filters.category;
-
-  seasonSelect.innerHTML = seasons.map((season) => `
-    <option value="${season}">${season === 'all' ? 'All seasons' : `Season ${season}`}</option>
-  `).join('');
-  seasonSelect.value = state.filters.season;
 
   document.getElementById('filterTier').value = state.filters.tier;
   document.getElementById('filterSearch').value = state.filters.search;
@@ -752,9 +701,8 @@ function getFilteredQuestions() {
   return [...state.questions].filter((question) => {
     const categoryMatch = state.filters.category === 'all' || question.category === state.filters.category;
     const tierMatch = state.filters.tier === 'all' || determineTier(question) === state.filters.tier;
-    const seasonMatch = state.filters.season === 'all' || String(question.season) === String(state.filters.season);
     const searchMatch = !searchTerm || question.question_text.toLowerCase().includes(searchTerm) || (question.tags || []).join(' ').toLowerCase().includes(searchTerm);
-    return categoryMatch && tierMatch && seasonMatch && searchMatch;
+    return categoryMatch && tierMatch && searchMatch;
   }).sort((a, b) => getPriorityScore(b) - getPriorityScore(a));
 }
 
@@ -776,7 +724,6 @@ function renderDrill() {
       <h4>${question.question_text}</h4>
       <div class="question-meta">
         <span class="meta-pill">${determineTier(question)}</span>
-        <span class="meta-pill">Season ${question.season}</span>
         <span class="meta-pill">${question.tags?.slice(0, 2).join(', ') || 'untagged'}</span>
       </div>
       <ul class="option-list">
@@ -865,11 +812,6 @@ function attachListeners() {
 
   document.getElementById('filterTier').addEventListener('change', (event) => {
     state.filters.tier = event.target.value;
-    renderDrill();
-  });
-
-  document.getElementById('filterSeason').addEventListener('change', (event) => {
-    state.filters.season = event.target.value;
     renderDrill();
   });
 

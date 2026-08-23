@@ -4,6 +4,7 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>FactFlow</title>
+    <link rel="icon" type="image/svg+xml" href="favicon.svg" />
     <link rel="stylesheet" href="styles.css" />
   </head>
   <body>
@@ -13,7 +14,7 @@
           <p class="eyebrow">Study smarter</p>
           <div class="title-row">
             <h1>FactFlow</h1>
-            <span id="appVersionLabel" class="version-pill">v4</span>
+            <span id="appVersionLabel" class="version-pill">v6</span>
           </div>
         </div>
         <div class="header-actions">
@@ -24,7 +25,7 @@
 
       <nav class="main-nav" aria-label="Primary navigation">
         <button class="nav-button active" data-tab="dashboard" type="button">Dashboard</button>
-        <button class="nav-button" data-tab="bank" type="button">Question Bank</button>
+        <button class="nav-button" data-tab="bank" type="button">Archive Intake</button>
         <button class="nav-button" data-tab="analysis" type="button">Pattern Analysis</button>
         <button class="nav-button" data-tab="drill" type="button">Drill Mode</button>
         <button class="nav-button" data-tab="reference" type="button">Reference</button>
@@ -34,8 +35,8 @@
         <section class="tab-panel active" id="tab-dashboard">
           <div class="hero-card">
             <div>
-              <p class="eyebrow">Season 18 focus</p>
-              <h2>Sochna Padega: applied reasoning, not rote recall.</h2>
+              <p class="eyebrow">Pattern-first study</p>
+              <h2>Find recurring question patterns, not season trivia.</h2>
             </div>
             <div class="hero-stats">
               <div>
@@ -87,12 +88,12 @@
           <div class="panel-grid two-columns">
             <section class="panel">
               <div class="panel-header">
-                <h3>Bulk import</h3>
+                <h3>Bulk archive intake</h3>
               </div>
               <div class="upload-box">
-                <label for="fileInput" class="upload-label">Upload CSV or JSON</label>
+                <label for="fileInput" class="upload-label">Upload CSV or JSON archive</label>
                 <input id="fileInput" type="file" accept=".csv,.json,text/csv,application/json" />
-                <p class="helper-text">Expected fields: season, episode, air_date, question_text, options, correct_option_index, category, subcategory, difficulty_tier, prize_level_asked_at, source, tags</p>
+                <p class="helper-text">This is archive intake, not manual question entry. Import historical question data or curated batches; the app detects patterns from the data instead of asking you to type questions one by one.</p>
               </div>
             </section>
 
@@ -145,9 +146,9 @@
               <small>taxonomic groups</small>
             </article>
             <article class="stat-card">
-              <span class="label">Latest season</span>
-              <strong id="analysisLatestSeason">0</strong>
-              <small>data window</small>
+              <span class="label">Study focus</span>
+              <strong id="analysisFocusLabel">—</strong>
+              <small>top pattern cluster</small>
             </article>
             <article class="stat-card">
               <span class="label">Top tag cluster</span>
@@ -174,29 +175,23 @@
           <div class="panel-grid two-columns">
             <section class="panel">
               <div class="panel-header">
-                <h3>Season trend</h3>
-              </div>
-              <div id="seasonChart" class="season-chart"></div>
-            </section>
-            <section class="panel">
-              <div class="panel-header">
                 <h3>Recurring topic signals</h3>
               </div>
               <div id="repeatTopicChart" class="topic-list"></div>
             </section>
+            <section class="panel">
+              <div class="panel-header">
+                <h3>Tag co-occurrence</h3>
+              </div>
+              <div id="tagClusterList" class="cluster-grid"></div>
+            </section>
           </div>
 
-          <section class="panel">
-            <div class="panel-header">
-              <h3>Tag co-occurrence</h3>
-            </div>
-            <div id="tagClusterList" class="cluster-grid"></div>
-          </section>
         </section>
 
         <section class="tab-panel" id="tab-drill">
           <div class="drill-toolbar panel">
-            <div class="field-row four-col">
+            <div class="field-row three-col">
               <label>
                 Category
                 <select id="filterCategory"></select>
@@ -212,10 +207,6 @@
                 </select>
               </label>
               <label>
-                Season
-                <select id="filterSeason"></select>
-              </label>
-              <label>
                 Search
                 <input id="filterSearch" type="text" placeholder="keyword" />
               </label>
@@ -229,13 +220,13 @@
           <div class="panel-grid two-columns">
             <section class="panel">
               <div class="panel-header">
-                <h3>Show mechanics</h3>
+                <h3>Study model</h3>
               </div>
               <ul class="info-list">
-                <li><strong>Current season:</strong> Season 18, premiered August 10, 2026, theme “Sochna Padega”.</li>
-                <li><strong>Prize ladder:</strong> 16 questions, ₹7 crore top prize; guaranteed levels at Q5 and Q10.</li>
-                <li><strong>Current lifelines:</strong> 50:50, Audience Poll, Video-a-Friend, Sanket Suchak.</li>
-                <li><strong>Out of scope:</strong> no EV calculator or decision optimizer.</li>
+                <li><strong>Objective:</strong> find pattern repetition across a large question bank, not season-by-season archive browsing.</li>
+                <li><strong>Signals tracked:</strong> category frequency, tier spread, tag overlap, and repeated topic clusters.</li>
+                <li><strong>Use case:</strong> identify weak areas and revise them in a targeted, repeatable way.</li>
+                <li><strong>Out of scope:</strong> no show-by-show transcript archive browsing or episode-level answer tracking.</li>
               </ul>
             </section>
             <section class="panel">
@@ -243,10 +234,10 @@
                 <h3>Difficulty ladder</h3>
               </div>
               <ul class="info-list compact">
-                <li>Tier 1: Q1–5 (₹5,000–₹40,000)</li>
-                <li>Tier 2: Q6–10 (₹80,000–₹3,20,000+)</li>
-                <li>Tier 3: Q11–15 (higher-stakes, lateral)</li>
-                <li>Tier 4: Q16 (₹7 crore, hardest)</li>
+                <li>Tier 1: foundational recall</li>
+                <li>Tier 2: medium pressure and breadth</li>
+                <li>Tier 3: harder, more lateral patterning</li>
+                <li>Tier 4: highest-intensity study focus</li>
               </ul>
             </section>
           </div>
