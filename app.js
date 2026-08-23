@@ -1,3 +1,4 @@
+const APP_VERSION = 1;
 const STORAGE_KEY = 'kbc-prep-app-v1';
 const CATEGORY_TAXONOMY = [
   'Indian History',
@@ -938,6 +939,11 @@ function renderAll() {
 }
 
 function init() {
+  const versionLabel = document.getElementById('appVersionLabel');
+  if (versionLabel) {
+    versionLabel.textContent = `v${APP_VERSION}`;
+  }
+
   loadState();
   populateCategorySelects();
   attachListeners();

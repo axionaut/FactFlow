@@ -54,6 +54,31 @@ button {
   margin-bottom: 18px;
 }
 
+.title-wrap {
+  display: flex;
+  flex-direction: column;
+}
+
+.title-row {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.version-pill {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  background: rgba(31, 58, 102, 0.08);
+  color: var(--brand);
+  border: 1px solid rgba(31, 58, 102, 0.1);
+  border-radius: 999px;
+  padding: 5px 10px;
+  font-size: 0.72rem;
+  font-weight: 800;
+  letter-spacing: 0.06em;
+}
+
 .eyebrow {
   margin: 0 0 6px;
   text-transform: uppercase;
