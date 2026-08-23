@@ -39,7 +39,7 @@ h2 { margin-bottom: 8px; font-size: clamp(1.45rem, 3vw, 2.25rem); letter-spacing
 h3 { margin-bottom: 0; font-size: 1.1rem; }
 a { color: var(--blue); }
 
-.app-shell { width: min(1160px, calc(100% - 28px)); margin: 0 auto; padding: 22px 0 48px; }
+.app-shell { width: min(1440px, calc(100% - 40px)); margin: 0 auto; padding: 22px 0 48px; }
 .topbar { display: flex; align-items: center; justify-content: space-between; gap: 18px; margin-bottom: 18px; }
 .brand-lockup, .title-row, .session-actions, .question-meta, .feedback-actions { display: flex; align-items: center; }
 .brand-lockup { gap: 12px; }
@@ -106,7 +106,7 @@ a { color: var(--blue); }
 .progress-track span { display: block; width: 0; height: 100%; border-radius: inherit; background: linear-gradient(90deg, var(--blue), var(--gold)); transition: width .25s ease; }
 .progress-label { margin: 7px 0 18px; color: var(--muted); font-size: .76rem; text-align: right; }
 
-.question-stage { max-width: 800px; margin: 0 auto; padding: 8px 0 2px; }
+.question-stage { width: min(100%, 1120px); margin: 0 auto; padding: 8px 0 2px; }
 .question-top { margin-bottom: 16px; }
 .question-number { color: var(--muted); font-size: .78rem; font-weight: 800; }
 .priority-score { color: var(--blue); font-size: .78rem; font-weight: 800; }
@@ -131,7 +131,7 @@ a { color: var(--blue); }
 .answer-title { margin-bottom: 5px; font-weight: 900; }
 .answer-copy { margin-bottom: 8px; color: var(--ink); }
 .source-note { margin: 0; color: var(--muted); font-size: .8rem; line-height: 1.5; }
-.feedback-actions { justify-content: flex-end; margin-top: 14px; }
+.feedback-actions { position: sticky; bottom: 20px; z-index: 2; justify-content: flex-end; margin-top: 14px; padding-top: 8px; }
 
 .completion-card { max-width: 650px; margin: 16px auto; padding: 30px; text-align: center; border-radius: 18px; background: var(--surface-alt); border: 1px dashed #aebbd0; }
 .completion-icon { display: grid; place-items: center; width: 54px; height: 54px; margin: 0 auto 14px; border-radius: 50%; color: white; background: var(--green); font-size: 1.5rem; font-weight: 900; }
@@ -240,7 +240,7 @@ a { color: var(--blue); }
   .challenge-ladder { grid-template-columns: repeat(3, 1fr); }
   .lock-row { align-items: stretch; flex-direction: column; }
   .lock-row .primary-button { width: 100%; }
-  .feedback-actions { position: sticky; bottom: 116px; z-index: 2; padding-top: 8px; }
+  .feedback-actions { bottom: 116px; }
   .feedback-actions .primary-button { width: 100%; box-shadow: 0 8px 20px rgba(19,43,80,.18); }
 }
 @media (max-width: 430px) {
