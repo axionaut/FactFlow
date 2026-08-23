@@ -8,6 +8,7 @@ A mobile-first GK and current-affairs preparation app. It keeps the user ready t
 - Pattern analysis as a supporting layer for weak spots and repeated themes
 - Recency-aware prioritization and study queue
 - Category, tier, and tag-based drill mode
+- Answer selection with automatic evaluation and revision tracking
 - Contextual recommendation logic for recurring topic clusters
 - Bundled, provenance-labelled archive corpus plus fresh public trivia questions
 

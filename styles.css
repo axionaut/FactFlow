@@ -498,16 +498,33 @@ textarea {
 }
 
 .option-list li {
+  padding: 0;
+}
+
+.option-button {
+  width: 100%;
+  text-align: left;
   background: var(--card-alt);
   border: 1px solid var(--line);
   border-radius: 10px;
   padding: 9px 10px;
-  font-size: 0.92rem;
+  color: inherit;
+  font: inherit;
+  cursor: pointer;
 }
 
-.option-list li.correct {
+.option-button:hover:not(:disabled) {
+  border-color: var(--brand);
+}
+
+.option-button.correct {
   border-color: rgba(28, 169, 120, 0.4);
   background: rgba(28, 169, 120, 0.08);
+}
+
+.option-button.incorrect {
+  border-color: rgba(203, 72, 72, 0.45);
+  background: rgba(203, 72, 72, 0.08);
 }
 
 .answer-feedback {

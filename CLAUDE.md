@@ -3,7 +3,7 @@
 ## Release rule
 - `APP_VERSION` is tracked in `app.js`.
 - Every completed iteration must end with: commit, push to GitHub, and a concise update to this file.
-- Current live version: `v10`.
+- Current live version: `v11`.
 - Release format: `v1`, `v2`, `v3`, ...
 
 ## Product direction
@@ -16,6 +16,7 @@
 - Bundled corpus: `data/kbc-corpus.json`, refreshed by `tools/build-corpus.mjs` and `.github/workflows/refresh-corpus.yml`.
 - The app is designed to keep the user prepared and updated on GK/current affairs, with pattern analysis helping to surface weak spots and repeat themes.
 - Fresh questions currently come from Open Trivia DB; a dedicated current-affairs feed and answer-generation source is still required for live news questions.
+- Drill Mode is the landing page; selecting an option evaluates and records the answer automatically.
 - Data is provenance-labelled and derived from public third-party sources; it is not official Sony material.
 - The app serves best over HTTP because the corpus is fetched via `fetch()`.
 

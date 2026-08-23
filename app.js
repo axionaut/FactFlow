@@ -1,4 +1,4 @@
-const APP_VERSION = 10;
+const APP_VERSION = 11;
 const STORAGE_KEY = 'kbc-prep-app-v1';
 const CORPUS_URL = 'data/kbc-corpus.json';
 const CATEGORY_TAXONOMY = [
@@ -615,14 +615,10 @@ function renderDrill() {
       </div>
       <ul class="option-list">
         ${(question.options || []).map((option, index) => `
-          <li class="${answered && index === Number(question.correct_option_index) ? 'correct' : ''}">${String.fromCharCode(65 + index)}. ${option || '—'}</li>
+          <li><button class="option-button ${answered && index === Number(question.correct_option_index) ? 'correct' : ''} ${answered && index === Number(question.last_answer) && index !== Number(question.correct_option_index) ? 'incorrect' : ''}" data-action="answer" data-index="${index}" data-id="${question.id}" type="button" ${answered ? 'disabled' : ''}>${String.fromCharCode(65 + index)}. ${option || '—'}</button></li>
         `).join('')}
       </ul>
-      ${answered ? `<p class="answer-feedback ${question.last_result === 'correct' ? 'success' : 'danger'}">${question.last_result === 'correct' ? 'Correct. Keep this in active recall.' : `Review this one. Correct answer: ${String.fromCharCode(65 + Number(question.correct_option_index))}.`}</p>` : '<p class="helper-text">Answer mentally, then record your result.</p>'}
-      <div class="action-row">
-        <button class="secondary-button" data-action="incorrect" data-id="${question.id}" type="button">Mark wrong</button>
-        <button class="primary-button" data-action="correct" data-id="${question.id}" type="button">Mark correct</button>
-      </div>
+      ${answered ? `<p class="answer-feedback ${question.last_result === 'correct' ? 'success' : 'danger'}">${question.last_result === 'correct' ? 'Correct. Keep this in active recall.' : `Review this one. Correct answer: ${String.fromCharCode(65 + Number(question.correct_option_index))}.`}</p>` : '<p class="helper-text">Select an option to check your answer.</p>'}
     </article>
       `;
     })()}
@@ -664,9 +660,12 @@ function attachListeners() {
     const question = state.questions.find((item) => item.id === button.dataset.id);
     if (!question) return;
 
+    if (button.dataset.action !== 'answer') return;
+    const selectedAnswer = Number(button.dataset.index);
     question.seen_count = (question.seen_count || 0) + 1;
-    question.last_result = button.dataset.action;
-    question.last_correct = button.dataset.action === 'correct' ? new Date().toISOString().slice(0, 10) : null;
+    question.last_answer = selectedAnswer;
+    question.last_result = selectedAnswer === Number(question.correct_option_index) ? 'correct' : 'incorrect';
+    question.last_correct = question.last_result === 'correct' ? new Date().toISOString().slice(0, 10) : null;
     persistQuestions();
     renderSummary();
     renderDrill();
