@@ -17,6 +17,8 @@ Incorrect answers enter Review until answered correctly. Every attempt is retain
 - A verified current-affairs feed is not connected yet. Recently downloaded general trivia is not labelled as current affairs.
 - KBC Challenge simulates the question format and escalating difficulty. It does not attempt to reproduce a particular television season, host flow, or lifeline rules.
 - Ordinary practice and Challenge never repeat practised questions. Repetition is confined to Review.
+- Session and Challenge selection cap repeated categories and question families, and prevent adjacent questions from sharing either one when the available difficulty band permits it.
+- Active challenges are rebuilt automatically when a corpus migration removes any question on their ladder.
 - Review options are reshuffled on every presentation. The answer is tracked independently of its displayed letter.
 
 ## Run locally
@@ -41,7 +43,7 @@ Opening `index.html` directly uses a small offline demonstration bank because br
 - `data/gksection-reviewed-en.json` — reviewed Hindi/English question pairs
 - `tools/build-corpus.mjs` — incremental corpus ingestion and normalization
 - `tools/wikidata-source.mjs` — structured-fact queries, distractors, and source cursors
-- `dev/assert-v17.js` — behavioral and corpus regression checks
+- `dev/assert-v18.js` — behavioral and corpus regression checks
 
 User learning state is stored under `factflow-learning-v2` in `localStorage`. The corpus itself is not copied into browser storage. Previous one-answer state from `kbc-prep-app-v1` is migrated once into attempt history.
 
@@ -71,6 +73,6 @@ node --check learning.js
 node --check app.js
 node --check tools/build-corpus.mjs
 node --check tools/wikidata-source.mjs
-node dev/assert-v17.js
+node dev/assert-v18.js
 git diff --check
 ```

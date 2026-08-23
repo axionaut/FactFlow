@@ -141,12 +141,13 @@ check('KBC challenge builds a unique escalating 15-question ladder', () => {
   assert.equal(Learning.guaranteedWinnings(10), 320000);
 });
 
-check('KBC challenge uses historical category patterns without selecting historical questions', () => {
+check('KBC challenge uses historical weights without serial category repetition', () => {
   const selected = Learning.selectChallengeQuestions(bank, {
     seed: 'pattern-weighted',
     patternWeights: { 'Science & Technology': 1, 'Geography (World)': 0 }
   });
-  assert.ok(selected.slice(0, 5).every((item) => item.category === 'Science & Technology'));
+  assert.equal(selected.slice(0, 5).filter((item) => item.category === 'Science & Technology').length, 3);
+  selected.slice(1, 5).forEach((item, index) => assert.notEqual(item.category, selected[index].category));
   assert.ok(selected.every((item) => item.source !== 'IQgarage episode archive'));
 });
 
@@ -158,6 +159,25 @@ check('KBC challenge excludes every previously practised question', () => {
   }));
   const selected = Learning.selectChallengeQuestions(bank, { state, seed: 'unseen-only' });
   assert.ok(selected.every((item) => !used.some((seen) => seen.key === item.key)));
+});
+
+check('the bundled KBC ladder avoids serial categories and question templates', () => {
+  const corpus = JSON.parse(fs.readFileSync(path.join(__dirname, '..', 'data', 'kbc-corpus.json'), 'utf8'));
+  const practice = corpus.questions.map(Learning.prepareQuestion).filter(Learning.isPracticeQuestion);
+  const selected = Learning.selectChallengeQuestions(practice, {
+    seed: 'corpus-diversity',
+    patternWeights: Learning.archivePatternWeights(corpus.questions.filter((item) => item.question_type === 'archive'))
+  });
+  assert.equal(selected.length, 15);
+  const families = selected.map(Learning.questionFamily);
+  selected.slice(1).forEach((item, index) => {
+    assert.notEqual(item.category, selected[index].category, `adjacent category repeated at ${index + 1}`);
+    assert.notEqual(families[index + 1], families[index], `adjacent template repeated at ${index + 1}`);
+  });
+  assert.ok(Math.max(...Object.values(families.reduce((counts, family) => {
+    counts[family] = (counts[family] || 0) + 1;
+    return counts;
+  }, {}))) <= 2);
 });
 
 check('bundled corpus has a large accumulating India-first practice bank', () => {
@@ -193,9 +213,9 @@ check('HTML loads cache-aligned assets and every main screen', () => {
   for (const id of ['tab-today', 'tab-challenge', 'tab-review', 'tab-progress', 'tab-insights']) {
     assert.ok(html.includes('id="' + id + '"'), 'missing ' + id);
   }
-  assert.ok(html.includes('styles.css?v=17'));
-  assert.ok(html.includes('learning.js?v=17'));
-  assert.ok(html.includes('app.js?v=17'));
+  assert.ok(html.includes('styles.css?v=18'));
+  assert.ok(html.includes('learning.js?v=18'));
+  assert.ok(html.includes('app.js?v=18'));
   assert.equal(html.includes('translateHindiButton'), false);
   assert.equal(html.includes('translationPendingCount'), false);
   assert.ok(app.includes("localStorage.removeItem(RETIRED_TRANSLATION_STORAGE_KEY)"));
@@ -205,6 +225,8 @@ check('HTML loads cache-aligned assets and every main screen', () => {
   assert.ok(app.includes('window.setInterval(() => void runBackgroundMaintenance(), BACKGROUND_REFRESH_MS)'));
   assert.ok(app.includes('for (let attempt = 0; attempt < 3 && unseenQuestionCount() < required; attempt += 1)'));
   assert.ok(app.includes('session.questionKeys.every((key) => state.questionMap.has(key))'));
+  assert.ok(app.includes('function repairStaleChallenge()'));
+  assert.equal(app.includes('This challenge cannot continue'), false);
   const referencedIds = [
     ...app.matchAll(/byId\('([^']+)'\)/g),
     ...app.matchAll(/setText\('([^']+)'/g)
@@ -217,5 +239,5 @@ check('HTML loads cache-aligned assets and every main screen', () => {
   assert.equal(new Set(declaredIds).size, declaredIds.length, 'HTML contains duplicate IDs');
 });
 
-console.log('v17 assertions passed: ' + checks.length + '/' + checks.length);
+console.log('v18 assertions passed: ' + checks.length + '/' + checks.length);
 checks.forEach((name, index) => console.log((index + 1) + '. ' + name));

@@ -243,7 +243,7 @@ async function fetchProfile(profile, offset, requested) {
       const response = await fetch(url, {
         headers: {
           accept: 'application/sparql-results+json',
-          'user-agent': 'FactFlow/17 (+https://github.com/axionaut/FactFlow)'
+          'user-agent': 'FactFlow/18 (+https://github.com/axionaut/FactFlow)'
         },
         signal: AbortSignal.timeout(20000)
       });

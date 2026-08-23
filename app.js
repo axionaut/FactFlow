@@ -1,6 +1,6 @@
 'use strict';
 
-const APP_VERSION = 17;
+const APP_VERSION = 18;
 const CORPUS_URL = 'data/kbc-corpus.json';
 const LEARNING_STORAGE_KEY = 'factflow-learning-v2';
 const LEGACY_STORAGE_KEY = 'kbc-prep-app-v1';
@@ -187,6 +187,7 @@ function applyCorpus(corpus) {
     question.source === 'IQgarage episode archive' || !Learning.isPracticeQuestion(question));
   state.questionMap = new Map(state.practiceQuestions.map((question) => [question.key, question]));
   saveLocalFacts();
+  repairStaleChallenge();
 }
 
 async function loadCorpus() {
@@ -347,11 +348,34 @@ function formatRupees(value) {
   return `₹${Number(value || 0).toLocaleString('en-IN')}`;
 }
 
-function startChallenge() {
-  const challenge = Learning.createChallenge(state.practiceQuestions, {
+function buildChallenge() {
+  return Learning.createChallenge(state.practiceQuestions, {
     state: state.learning,
     patternWeights: Learning.archivePatternWeights(state.archiveQuestions)
   });
+}
+
+function repairStaleChallenge() {
+  const current = state.learning.currentChallenge;
+  if (!current || current.status !== 'active') return false;
+  const stale = !Array.isArray(current.questionKeys)
+    || current.questionKeys.length !== Learning.CHALLENGE_LADDER.length
+    || current.questionKeys.some((key) => !state.questionMap.has(key));
+  if (!stale) return false;
+  const replacement = buildChallenge();
+  state.learning.currentChallenge = replacement.questionKeys.length === Learning.CHALLENGE_LADDER.length
+    ? replacement
+    : null;
+  state.challengeSelection = null;
+  state.challengeNotice = replacement.questionKeys.length === Learning.CHALLENGE_LADDER.length
+    ? 'The question bank refreshed, so FactFlow rebuilt the ladder automatically.'
+    : `A full challenge needs 15 unseen questions; ${replacement.questionKeys.length} are available right now.`;
+  saveLearningState();
+  return true;
+}
+
+function startChallenge() {
+  const challenge = buildChallenge();
   if (challenge.questionKeys.length < Learning.CHALLENGE_LADDER.length) {
     state.learning.currentChallenge = null;
     state.challengeNotice = `A full challenge needs 15 unseen questions; ${challenge.questionKeys.length} are available right now. Review questions stay in Review.`;
@@ -529,10 +553,7 @@ function renderChallenge() {
   }
   const question = state.questionMap.get(game.questionKeys[game.position]);
   if (!question) {
-    container.append(element('div', { className: 'empty-state' }, [
-      element('h3', { text: 'This challenge cannot continue' }),
-      element('p', { text: 'The question bank changed. Start a new challenge to rebuild the ladder.' })
-    ]));
+    if (repairStaleChallenge()) renderChallenge();
     return;
   }
   renderChallengeQuestion(container, game, question);

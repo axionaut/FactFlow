@@ -327,6 +327,69 @@
     return Number.parseInt(hashText(`${key}:${day}`).slice(-4), 36) % 1000 / 1000;
   }
 
+  function questionFamily(question) {
+    const subtype = normalizeText(question?.subcategory);
+    const stem = normalizeText(question?.question_text);
+    const identity = `${subtype} ${stem}`;
+    if (/\bcapital\b/.test(identity)) return 'capital';
+    if (/\bbirthplace\b|\bborn\b/.test(identity)) return 'birthplace';
+    if (/\bdirector\b|\bdirected\b/.test(identity)) return 'director';
+    if (/\bauthor\b|\bwrote\b|\bwritten\b/.test(identity)) return 'author';
+    if (/\bcurrency\b/.test(identity)) return 'currency';
+    if (/\bheritage\b.*\bcountry\b/.test(identity)) return 'heritage-location';
+    if (/\bathlete\b.*\bsport\b|\bsport\b.*\bassociated\b/.test(identity)) return 'sport-association';
+    if (/\bchemical\b.*\bsymbol\b/.test(identity)) return 'chemical-symbol';
+    if (subtype) return subtype;
+    return `${question?.category || inferCategory(question)}:${stem.split(' ').slice(0, 5).join('-')}`;
+  }
+
+  function selectDiverseQuestions(candidates, size, options = {}) {
+    const chosen = [];
+    const chosenKeys = new Set();
+    const categoryCounts = {};
+    const familyCounts = {};
+    const categoryCap = Number(options.categoryCap || 2);
+    const familyCap = Number(options.familyCap || 2);
+    const seed = options.seed || dateKey();
+    for (let position = 0; position < size; position += 1) {
+      let ranked = candidates.map((item) => {
+        const question = item.question || item;
+        const base = Number(options.baseScore ? options.baseScore(question, position, item) : item.score || 0);
+        const group = Number(options.priorityGroup ? options.priorityGroup(question, position, item) : 0);
+        return { item, question, base, group, category: question.category || inferCategory(question), family: questionFamily(question) };
+      }).filter((entry) => Number.isFinite(entry.base) && !chosenKeys.has(entry.question.key || questionKey(entry.question)));
+      if (options.priorityGroup && ranked.length) {
+        const preferredGroup = Math.min(...ranked.map((entry) => entry.group));
+        ranked = ranked.filter((entry) => entry.group === preferredGroup);
+      }
+      const previous = chosen[chosen.length - 1];
+      const pools = [
+        ranked.filter((entry) => (categoryCounts[entry.category] || 0) < categoryCap
+          && (familyCounts[entry.family] || 0) < familyCap
+          && entry.category !== previous?.category && entry.family !== previous?.family),
+        ranked.filter((entry) => (categoryCounts[entry.category] || 0) < categoryCap
+          && (familyCounts[entry.family] || 0) < familyCap),
+        ranked.filter((entry) => entry.category !== previous?.category && entry.family !== previous?.family),
+        ranked
+      ];
+      const pool = pools.find((entries) => entries.length);
+      if (!pool) break;
+      pool.sort((a, b) => {
+        const aScore = a.base - (categoryCounts[a.category] || 0) * 18 - (familyCounts[a.family] || 0) * 28
+          + deterministicNoise(a.question.key || questionKey(a.question), `${seed}:${position}`);
+        const bScore = b.base - (categoryCounts[b.category] || 0) * 18 - (familyCounts[b.family] || 0) * 28
+          + deterministicNoise(b.question.key || questionKey(b.question), `${seed}:${position}`);
+        return bScore - aScore;
+      });
+      const selected = pool[0];
+      chosen.push({ question: selected.question, category: selected.category, family: selected.family });
+      chosenKeys.add(selected.question.key || questionKey(selected.question));
+      categoryCounts[selected.category] = (categoryCounts[selected.category] || 0) + 1;
+      familyCounts[selected.family] = (familyCounts[selected.family] || 0) + 1;
+    }
+    return chosen.map((entry) => entry.question);
+  }
+
   function selectSession(state, questions, archiveQuestions, options = {}) {
     const now = options.now || new Date();
     const day = dateKey(now);
@@ -342,26 +405,12 @@
       }))
       .sort((a, b) => b.priority - a.priority || b.noise - a.noise);
 
-    const chosen = [];
-    const chosenKeys = new Set();
-    const categoryCounts = {};
-    const categoryCap = Math.max(2, Math.ceil(size * 0.3));
-    function take(pool, target, enforceCap = true) {
-      for (const item of pool) {
-        if (chosen.length >= target || chosen.length >= size) break;
-        const key = item.question.key;
-        const category = item.question.category;
-        if (chosenKeys.has(key)) continue;
-        if (enforceCap && (categoryCounts[category] || 0) >= categoryCap) continue;
-        chosen.push(item.question);
-        chosenKeys.add(key);
-        categoryCounts[category] = (categoryCounts[category] || 0) + 1;
-      }
-    }
-
-    take(eligible, size);
-    if (chosen.length < size) take(eligible, size, false);
-    return chosen;
+    return selectDiverseQuestions(eligible, size, {
+      seed: day,
+      categoryCap: 2,
+      familyCap: 2,
+      baseScore: (_question, _position, item) => item.priority + item.noise
+    });
   }
 
   function createDailySession(state, questions, archiveQuestions, options = {}) {
@@ -384,38 +433,27 @@
     const practice = questions
       .filter(isPracticeQuestion)
       .filter((question) => !options.state || questionStats(options.state, question.key || questionKey(question)).attempts === 0);
-    const chosen = [];
-    const chosenKeys = new Set();
     const bands = [
       { positions: 5, tiers: ['Tier 1', 'Tier 2'] },
       { positions: 5, tiers: ['Tier 2', 'Tier 1', 'Tier 4'] },
       { positions: 5, tiers: ['Tier 4', 'Tier 3', 'Tier 2'] }
     ];
-    for (const [bandIndex, band] of bands.entries()) {
-      const candidates = practice
-        .filter((question) => band.tiers.includes(question.difficulty_tier))
-        .sort((a, b) => {
-          const tierDifference = band.tiers.indexOf(a.difficulty_tier) - band.tiers.indexOf(b.difficulty_tier);
-          const patternDifference = (patternWeights[b.category] || 0) - (patternWeights[a.category] || 0);
-          return tierDifference || patternDifference
-            || deterministicNoise(b.key, `${day}:${bandIndex}`) - deterministicNoise(a.key, `${day}:${bandIndex}`);
-        });
-      for (const question of candidates) {
-        if (chosen.length >= (bandIndex + 1) * band.positions) break;
-        if (chosenKeys.has(question.key)) continue;
-        chosen.push(question);
-        chosenKeys.add(question.key);
+    return selectDiverseQuestions(practice, CHALLENGE_LADDER.length, {
+      seed: day,
+      categoryCap: 2,
+      familyCap: 2,
+      priorityGroup(question, position) {
+        const band = bands[Math.min(bands.length - 1, Math.floor(position / 5))];
+        const tierIndex = band.tiers.indexOf(question.difficulty_tier);
+        return tierIndex < 0 ? Number.POSITIVE_INFINITY : tierIndex;
+      },
+      baseScore(question, position) {
+        const band = bands[Math.min(bands.length - 1, Math.floor(position / 5))];
+        const tierIndex = band.tiers.indexOf(question.difficulty_tier);
+        if (tierIndex < 0) return Number.NEGATIVE_INFINITY;
+        return 100 + (patternWeights[question.category] || 0) * 10;
       }
-    }
-    if (chosen.length < CHALLENGE_LADDER.length) {
-      practice
-        .filter((question) => !chosenKeys.has(question.key))
-        .sort((a, b) => (patternWeights[b.category] || 0) - (patternWeights[a.category] || 0)
-          || deterministicNoise(b.key, day) - deterministicNoise(a.key, day))
-        .slice(0, CHALLENGE_LADDER.length - chosen.length)
-        .forEach((question) => chosen.push(question));
-    }
-    return chosen.slice(0, CHALLENGE_LADDER.length);
+    });
   }
 
   function createChallenge(questions, options = {}) {
@@ -501,6 +539,7 @@
     normalizeText,
     prepareQuestion,
     presentQuestion,
+    questionFamily,
     questionKey,
     questionPriority,
     questionStats,
