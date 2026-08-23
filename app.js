@@ -1,14 +1,18 @@
 'use strict';
 
-const APP_VERSION = 33;
+const APP_VERSION = 35;
 const CORPUS_URL = 'data/kbc-corpus.json';
 const LEARNING_STORAGE_KEY = 'factflow-learning-v2';
+const LEARNING_DB_NAME = 'factflow-learning';
+const LEARNING_DB_STORE = 'state';
+const LEARNING_DB_KEY = 'current';
 const LEGACY_STORAGE_KEY = 'kbc-prep-app-v1';
 const RETIRED_TRANSLATION_STORAGE_KEY = 'factflow-hi-en-translations-v1';
 const LOCAL_FACT_STORAGE_KEY = 'factflow-wikidata-local-v1';
 const FACT_LOW_WATERMARK = 120;
 const BACKGROUND_REFRESH_MS = 10 * 60 * 1000;
 const Learning = window.FactFlowLearning;
+let learningDatabasePromise = null;
 
 const state = {
   corpus: null,
@@ -88,23 +92,106 @@ function buildDemoQuestions() {
   }));
 }
 
-function loadLearningState() {
+function openLearningDatabase() {
+  if (!window.indexedDB) return Promise.resolve(null);
+  if (learningDatabasePromise) return learningDatabasePromise;
+  learningDatabasePromise = new Promise((resolve) => {
+    try {
+      const request = window.indexedDB.open(LEARNING_DB_NAME, 1);
+      request.onupgradeneeded = () => {
+        if (!request.result.objectStoreNames.contains(LEARNING_DB_STORE)) {
+          request.result.createObjectStore(LEARNING_DB_STORE);
+        }
+      };
+      request.onsuccess = () => resolve(request.result);
+      request.onerror = () => resolve(null);
+      request.onblocked = () => resolve(null);
+    } catch {
+      resolve(null);
+    }
+  });
+  return learningDatabasePromise;
+}
+
+async function readLearningBackup() {
+  const database = await openLearningDatabase();
+  if (!database) return null;
+  return new Promise((resolve) => {
+    try {
+      const request = database.transaction(LEARNING_DB_STORE, 'readonly')
+        .objectStore(LEARNING_DB_STORE).get(LEARNING_DB_KEY);
+      request.onsuccess = () => resolve(request.result || null);
+      request.onerror = () => resolve(null);
+    } catch {
+      resolve(null);
+    }
+  });
+}
+
+async function writeLearningBackup(snapshot) {
+  const database = await openLearningDatabase();
+  if (!database) return false;
+  return new Promise((resolve) => {
+    try {
+      const transaction = database.transaction(LEARNING_DB_STORE, 'readwrite');
+      transaction.objectStore(LEARNING_DB_STORE).put(snapshot, LEARNING_DB_KEY);
+      transaction.oncomplete = () => resolve(true);
+      transaction.onerror = () => resolve(false);
+      transaction.onabort = () => resolve(false);
+    } catch {
+      resolve(false);
+    }
+  });
+}
+
+function learningStateFreshness(value) {
+  return [
+    Math.max(0, Number(value?.persistenceRevision) || 0),
+    Math.max(0, Number(value?.savedAt) || 0),
+    Array.isArray(value?.attempts) ? value.attempts.length : 0
+  ];
+}
+
+function newerLearningState(first, second) {
+  if (!first) return second;
+  if (!second) return first;
+  const a = learningStateFreshness(first);
+  const b = learningStateFreshness(second);
+  for (let index = 0; index < a.length; index += 1) {
+    if (a[index] !== b[index]) return a[index] > b[index] ? first : second;
+  }
+  return first;
+}
+
+async function loadLearningState() {
+  let localState = null;
   try {
     const raw = localStorage.getItem(LEARNING_STORAGE_KEY);
-    state.learning = Learning.normalizeLearningState(raw ? JSON.parse(raw) : null);
+    localState = raw ? JSON.parse(raw) : null;
   } catch (error) {
     console.warn('Unable to load learning history.', error);
-    state.learning = Learning.createLearningState();
+  }
+  const backupState = await readLearningBackup();
+  const selected = newerLearningState(localState, backupState);
+  state.learning = Learning.normalizeLearningState(selected);
+  if (selected === backupState && backupState) {
+    try { localStorage.setItem(LEARNING_STORAGE_KEY, JSON.stringify(state.learning)); } catch { /* IndexedDB remains authoritative. */ }
   }
 }
 
 function saveLearningState() {
+  state.learning.persistenceRevision = Math.max(0, Number(state.learning.persistenceRevision) || 0) + 1;
+  state.learning.savedAt = Date.now();
+  const snapshot = JSON.parse(JSON.stringify(state.learning));
+  void writeLearningBackup(snapshot).then((saved) => {
+    if (!saved) console.warn('Unable to save the IndexedDB learning backup.');
+  });
   try {
-    localStorage.setItem(LEARNING_STORAGE_KEY, JSON.stringify(state.learning));
+    localStorage.setItem(LEARNING_STORAGE_KEY, JSON.stringify(snapshot));
     return true;
   } catch (error) {
     console.warn('Unable to save learning history.', error);
-    setText('corpusStatus', 'Practice works, but this browser could not save progress.');
+    setText('corpusStatus', 'Progress is using the browser’s durable backup.');
     return false;
   }
 }
@@ -689,6 +776,17 @@ function advanceSession() {
   byId('sessionHeading')?.focus?.();
 }
 
+async function finishReviewAndResume(button) {
+  state.reviewSession = null;
+  saveLearningState();
+  const daily = state.learning.dailySession;
+  if (!validDailySession(daily) || daily.cursor >= daily.questionKeys.length) {
+    await startNewDailySession(button);
+  }
+  switchTab('today');
+  renderAll();
+}
+
 function renderCompletion(container, session) {
   const attemptIds = Object.values(session.responses || {});
   const attempts = state.learning.attempts.filter((attempt) => attemptIds.includes(attempt.id));
@@ -705,12 +803,11 @@ function renderCompletion(container, session) {
   const action = element('button', {
     className: 'primary-button',
     type: 'button',
-    text: session.mode === 'review' ? 'Back to review' : 'Start another session'
+    text: session.mode === 'review' ? 'Continue practice' : 'Start another session'
   });
   action.addEventListener('click', () => {
     if (session.mode === 'review') {
-      state.reviewSession = null;
-      switchTab('review');
+      void finishReviewAndResume(action);
     } else {
       void startNewDailySession(action);
     }
@@ -922,6 +1019,7 @@ function renderInsights() {
 function renderHeader() {
   const unseen = unseenQuestionCount();
   setText('appVersionLabel', `v${APP_VERSION}`);
+  setText('mobileVersionLabel', `v${APP_VERSION}`);
   setText('corpusStatus', state.usingDemo
     ? 'Offline demo bank · serve over HTTP for the full corpus'
     : `${unseen} unseen · ${state.practiceQuestions.length} playable English questions`);
@@ -949,7 +1047,7 @@ function attachListeners() {
 
 async function init() {
   if (!Learning) throw new Error('FactFlow learning engine failed to load.');
-  loadLearningState();
+  await loadLearningState();
   await loadCorpus();
   migrateLegacyProgress();
   ensureDailySession();

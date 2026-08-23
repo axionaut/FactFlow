@@ -84,6 +84,15 @@ check('attempts are separate and incorrect answers enter review', () => {
 check('continuous Today numbering survives state normalization', () => {
   assert.equal(Learning.normalizeLearningState({ todayQuestionNumber: 37 }).todayQuestionNumber, 37);
   assert.equal(Learning.normalizeLearningState({ todayQuestionNumber: 'bad' }).todayQuestionNumber, 0);
+  const migrated = Learning.normalizeLearningState({
+    attempts: [
+      { questionKey: 'one', mode: 'daily' },
+      { questionKey: 'two', mode: 'review' },
+      { questionKey: 'three', mode: 'daily' }
+    ]
+  });
+  assert.equal(migrated.todayQuestionNumber, 2);
+  assert.ok(migrated.selectionNonce);
 });
 
 check('a correct retry clears the mistake and expands the interval', () => {
@@ -219,12 +228,25 @@ check('bundled corpus has a large accumulating India-first practice bank', () =>
 check('HTML loads cache-aligned assets and every main screen', () => {
   const html = fs.readFileSync(path.join(__dirname, '..', 'index.html'), 'utf8');
   const app = fs.readFileSync(path.join(__dirname, '..', 'app.js'), 'utf8');
+  const styles = fs.readFileSync(path.join(__dirname, '..', 'styles.css'), 'utf8');
   for (const id of ['tab-today', 'tab-challenge', 'tab-review', 'tab-progress', 'tab-insights']) {
     assert.ok(html.includes('id="' + id + '"'), 'missing ' + id);
   }
-  assert.ok(html.includes('styles.css?v=33'));
-  assert.ok(html.includes('learning.js?v=33'));
-  assert.ok(html.includes('app.js?v=33'));
+  assert.ok(html.includes('styles.css?v=35'));
+  assert.ok(html.includes('learning.js?v=35'));
+  assert.ok(html.includes('app.js?v=35'));
+  assert.ok(html.includes('id="appVersionLabel" class="version-pill">v35</span>'));
+  assert.ok(html.includes('id="mobileVersionLabel" class="mobile-version"'));
+  assert.ok(app.includes("setText('mobileVersionLabel', `v${APP_VERSION}`)"));
+  assert.ok(app.includes("window.indexedDB.open(LEARNING_DB_NAME, 1)"));
+  assert.ok(app.includes('async function readLearningBackup()'));
+  assert.ok(app.includes('async function writeLearningBackup(snapshot)'));
+  assert.ok(app.includes('await loadLearningState()'));
+  assert.ok(app.includes('async function finishReviewAndResume(button)'));
+  assert.ok(app.includes("text: session.mode === 'review' ? 'Continue practice' : 'Start another session'"));
+  assert.ok(styles.includes('.mobile-version { display: block; position: fixed; top: 8px; right: 10px;'));
+  assert.ok(styles.includes('padding-top: 38px'));
+  assert.ok(styles.includes('overflow-wrap: anywhere'));
   assert.equal(html.includes('translateHindiButton'), false);
   assert.equal(html.includes('translationPendingCount'), false);
   assert.ok(app.includes("localStorage.removeItem(RETIRED_TRANSLATION_STORAGE_KEY)"));

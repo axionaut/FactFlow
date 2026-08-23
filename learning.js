@@ -220,6 +220,9 @@
       settings: { sessionSize: 10 },
       recentQuestionKeys: [],
       todayQuestionNumber: 0,
+      selectionNonce: hashText(`${Date.now()}:${Math.random()}`),
+      persistenceRevision: 0,
+      savedAt: 0,
       migrations: {}
     };
   }
@@ -227,16 +230,23 @@
   function normalizeLearningState(input) {
     const base = createLearningState();
     if (!input || typeof input !== 'object' || Array.isArray(input)) return base;
+    const attempts = Array.isArray(input.attempts) ? input.attempts.filter((attempt) => attempt?.questionKey) : [];
+    const storedQuestionNumber = Number(input.todayQuestionNumber);
     return {
       ...base,
       ...input,
       schemaVersion: SCHEMA_VERSION,
-      attempts: Array.isArray(input.attempts) ? input.attempts.filter((attempt) => attempt?.questionKey) : [],
+      attempts,
       schedule: input.schedule && typeof input.schedule === 'object' && !Array.isArray(input.schedule) ? input.schedule : {},
       challengeHistory: Array.isArray(input.challengeHistory) ? input.challengeHistory : [],
       settings: { ...base.settings, ...(input.settings || {}) },
       recentQuestionKeys: Array.isArray(input.recentQuestionKeys) ? input.recentQuestionKeys : [],
-      todayQuestionNumber: Math.max(0, Number(input.todayQuestionNumber) || 0),
+      todayQuestionNumber: Number.isFinite(storedQuestionNumber) && storedQuestionNumber >= 0
+        ? storedQuestionNumber
+        : attempts.filter((attempt) => attempt.mode === 'daily').length,
+      selectionNonce: String(input.selectionNonce || base.selectionNonce),
+      persistenceRevision: Math.max(0, Number(input.persistenceRevision) || 0),
+      savedAt: Math.max(0, Number(input.savedAt) || 0),
       migrations: { ...(input.migrations || {}) }
     };
   }
@@ -430,7 +440,7 @@
 
   function selectSession(state, questions, archiveQuestions, options = {}) {
     const now = options.now || new Date();
-    const day = dateKey(now);
+    const day = `${dateKey(now)}:${state.selectionNonce || ''}`;
     const size = clamp(Number(options.size || state.settings.sessionSize || 10), 1, 30);
     const weights = archivePatternWeights(archiveQuestions);
     const learnerWeights = learnerCategoryWeights(state, questions);
