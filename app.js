@@ -1,0 +1,947 @@
+const STORAGE_KEY = 'kbc-prep-app-v1';
+const CATEGORY_TAXONOMY = [
+  'Indian History',
+  'World History',
+  'Geography (India)',
+  'Geography (World)',
+  'Polity & Constitution',
+  'Science & Technology',
+  'Sports',
+  'Awards & Honours',
+  'Cinema (Bollywood)',
+  'Cinema (Regional/World)',
+  'Literature & Authors',
+  'Mythology & Religion',
+  'Current Affairs',
+  'Business & Economy',
+  'Art & Culture',
+  'Miscellaneous/Trivia'
+];
+
+const state = {
+  questions: [],
+  selectedTab: 'dashboard',
+  filters: {
+    category: 'all',
+    tier: 'all',
+    season: 'all',
+    search: ''
+  }
+};
+
+function loadState() {
+  try {
+    const raw = localStorage.getItem(STORAGE_KEY);
+    if (!raw) {
+      state.questions = buildSeedQuestions();
+      persistQuestions();
+      return;
+    }
+    const parsed = JSON.parse(raw);
+    state.questions = Array.isArray(parsed) && parsed.length ? parsed : buildSeedQuestions();
+  } catch (error) {
+    console.warn('Unable to load local data, resetting demo bank.', error);
+    state.questions = buildSeedQuestions();
+    persistQuestions();
+  }
+}
+
+function persistQuestions() {
+  localStorage.setItem(STORAGE_KEY, JSON.stringify(state.questions));
+}
+
+function buildSeedQuestions() {
+  return [
+    {
+      id: 'seed-1',
+      season: 17,
+      episode: 6,
+      air_date: '2025-08-30',
+      question_text: 'Which movement led to the formation of the Indian National Congress in 1885?',
+      options: ['Swadeshi Movement', 'Home Rule Movement', 'Partition of Bengal agitation', 'Moderate reform movement'],
+      correct_option_index: 3,
+      category: 'Indian History',
+      subcategory: 'Freedom struggle',
+      difficulty_tier: 'Tier 1',
+      prize_level_asked_at: 10000,
+      source: 'seed',
+      tags: ['congress', 'history', 'freedom-struggle'],
+      seen_count: 1,
+      last_correct: '2026-08-14',
+      ladder_position: 2
+    },
+    {
+      id: 'seed-2',
+      season: 15,
+      episode: 11,
+      air_date: '2023-11-19',
+      question_text: 'Which Indian city is known as the Pink City?',
+      options: ['Jaipur', 'Udaipur', 'Jodhpur', 'Bikaner'],
+      correct_option_index: 0,
+      category: 'Geography (India)',
+      subcategory: 'Cities',
+      difficulty_tier: 'Tier 1',
+      prize_level_asked_at: 5000,
+      source: 'seed',
+      tags: ['cities', 'india', 'tourism'],
+      seen_count: 2,
+      last_correct: '2025-01-20',
+      ladder_position: 1
+    },
+    {
+      id: 'seed-3',
+      season: 14,
+      episode: 9,
+      air_date: '2022-09-16',
+      question_text: 'Who was the first woman President of India?',
+      options: ['Sonia Gandhi', 'Indira Gandhi', 'Pratibha Patil', 'Meira Kumar'],
+      correct_option_index: 2,
+      category: 'Polity & Constitution',
+      subcategory: 'Leadership',
+      difficulty_tier: 'Tier 2',
+      prize_level_asked_at: 80000,
+      source: 'seed',
+      tags: ['president', 'women', 'constitution'],
+      seen_count: 1,
+      last_correct: null,
+      ladder_position: 7
+    },
+    {
+      id: 'seed-4',
+      season: 11,
+      episode: 2,
+      air_date: '2019-11-15',
+      question_text: 'Which planet is known as the Red Planet?',
+      options: ['Mars', 'Venus', 'Jupiter', 'Mercury'],
+      correct_option_index: 0,
+      category: 'Science & Technology',
+      subcategory: 'Space',
+      difficulty_tier: 'Tier 1',
+      prize_level_asked_at: 2000,
+      source: 'seed',
+      tags: ['space', 'planets', 'science'],
+      seen_count: 3,
+      last_correct: '2026-06-01',
+      ladder_position: 4
+    },
+    {
+      id: 'seed-5',
+      season: 8,
+      episode: 14,
+      air_date: '2016-10-01',
+      question_text: 'Which Indian cricketer is known as the "Master Blaster"?',
+      options: ['Virat Kohli', 'Rohit Sharma', 'Sachin Tendulkar', 'MS Dhoni'],
+      correct_option_index: 2,
+      category: 'Sports',
+      subcategory: 'Cricket',
+      difficulty_tier: 'Tier 1',
+      prize_level_asked_at: 5000,
+      source: 'seed',
+      tags: ['sports', 'cricket', 'records'],
+      seen_count: 2,
+      last_correct: '2026-03-12',
+      ladder_position: 3
+    },
+    {
+      id: 'seed-6',
+      season: 16,
+      episode: 13,
+      air_date: '2024-11-09',
+      question_text: 'Which national award is often called the "Dadasaheb Phalke Award" in cinema?',
+      options: ['Padma Shri', 'National Film Award', 'Dadasaheb Phalke Award', 'Filmfare Award'],
+      correct_option_index: 2,
+      category: 'Awards & Honours',
+      subcategory: 'Cinema',
+      difficulty_tier: 'Tier 2',
+      prize_level_asked_at: 160000,
+      source: 'seed',
+      tags: ['awards', 'cinema', 'honours'],
+      seen_count: 0,
+      last_correct: null,
+      ladder_position: 8
+    },
+    {
+      id: 'seed-7',
+      season: 18,
+      episode: 2,
+      air_date: '2026-08-12',
+      question_text: 'Which Indian mission performed a soft landing near the Moon south pole region?',
+      options: ['Chandrayaan-2', 'Chandrayaan-3', 'Aditya-L1', 'Mangalyaan'],
+      correct_option_index: 1,
+      category: 'Science & Technology',
+      subcategory: 'Space',
+      difficulty_tier: 'Tier 3',
+      prize_level_asked_at: 320000,
+      source: 'seed',
+      tags: ['chandrayaan', 'space', 'moon'],
+      seen_count: 0,
+      last_correct: null,
+      ladder_position: 12
+    },
+    {
+      id: 'seed-8',
+      season: 18,
+      episode: 5,
+      air_date: '2026-08-17',
+      question_text: 'Which constitutional amendment introduced the Goods and Services Tax regime in India?',
+      options: ['101st Amendment', '74th Amendment', '73rd Amendment', '42nd Amendment'],
+      correct_option_index: 0,
+      category: 'Polity & Constitution',
+      subcategory: 'Constitutional amendments',
+      difficulty_tier: 'Tier 3',
+      prize_level_asked_at: 1600000,
+      source: 'seed',
+      tags: ['gst', 'constitutional-amendments', 'economy'],
+      seen_count: 0,
+      last_correct: null,
+      ladder_position: 11
+    },
+    {
+      id: 'seed-9',
+      season: 7,
+      episode: 7,
+      air_date: '2015-10-11',
+      question_text: 'Who wrote the epic poem "Ramcharitmanas"?',
+      options: ['Kalidasa', 'Tulsidas', 'Bhavabhuti', 'Kabir'],
+      correct_option_index: 1,
+      category: 'Mythology & Religion',
+      subcategory: 'Literature',
+      difficulty_tier: 'Tier 2',
+      prize_level_asked_at: 80000,
+      source: 'seed',
+      tags: ['mythology', 'literature', 'ram'],
+      seen_count: 1,
+      last_correct: '2025-12-04',
+      ladder_position: 6
+    },
+    {
+      id: 'seed-10',
+      season: 13,
+      episode: 9,
+      air_date: '2021-11-30',
+      question_text: 'Which Indian author wrote the novel "A Suitable Boy"?',
+      options: ['Anita Desai', 'Vikram Seth', 'Arundhati Roy', 'Nayantara Sahgal'],
+      correct_option_index: 1,
+      category: 'Literature & Authors',
+      subcategory: 'Writers',
+      difficulty_tier: 'Tier 2',
+      prize_level_asked_at: 160000,
+      source: 'seed',
+      tags: ['authors', 'novels', 'literature'],
+      seen_count: 1,
+      last_correct: null,
+      ladder_position: 9
+    },
+    {
+      id: 'seed-11',
+      season: 17,
+      episode: 15,
+      air_date: '2025-12-05',
+      question_text: 'Which award is given to the best film at the International Film Festival of India?',
+      options: ['Swarna Kamal', 'Dadasaheb Phalke Award', 'Padma Bhushan', 'Rajat Kamal'],
+      correct_option_index: 3,
+      category: 'Awards & Honours',
+      subcategory: 'Film awards',
+      difficulty_tier: 'Tier 3',
+      prize_level_asked_at: 320000,
+      source: 'seed',
+      tags: ['awards', 'film', 'festivals'],
+      seen_count: 0,
+      last_correct: null,
+      ladder_position: 13
+    },
+    {
+      id: 'seed-12',
+      season: 10,
+      episode: 6,
+      air_date: '2018-12-18',
+      question_text: 'Which Indian state is famous for the Konark Sun Temple?',
+      options: ['Odisha', 'Tamil Nadu', 'Karnataka', 'Andhra Pradesh'],
+      correct_option_index: 0,
+      category: 'Art & Culture',
+      subcategory: 'heritage',
+      difficulty_tier: 'Tier 2',
+      prize_level_asked_at: 40000,
+      source: 'seed',
+      tags: ['heritage', 'odisha', 'temples'],
+      seen_count: 0,
+      last_correct: null,
+      ladder_position: 7
+    }
+  ];
+}
+
+function normalizeText(value) {
+  return (value || '').toLowerCase().replace(/[^a-z0-9\s]/g, ' ').replace(/\s+/g, ' ').trim();
+}
+
+function computeSimilarity(a, b) {
+  const x = normalizeText(a);
+  const y = normalizeText(b);
+  if (!x || !y) return 0;
+  if (x === y) return 1;
+  const longer = x.length > y.length ? x : y;
+  const shorter = x.length > y.length ? y : x;
+  if (longer.length === 0) return 1;
+  const editDistance = levenshteinDistance(longer, shorter);
+  return 1 - editDistance / longer.length;
+}
+
+function levenshteinDistance(a, b) {
+  const dp = Array.from({ length: a.length + 1 }, () => Array(b.length + 1).fill(0));
+  for (let i = 0; i <= a.length; i += 1) dp[i][0] = i;
+  for (let j = 0; j <= b.length; j += 1) dp[0][j] = j;
+
+  for (let i = 1; i <= a.length; i += 1) {
+    for (let j = 1; j <= b.length; j += 1) {
+      const cost = a[i - 1] === b[j - 1] ? 0 : 1;
+      dp[i][j] = Math.min(
+        dp[i - 1][j] + 1,
+        dp[i][j - 1] + 1,
+        dp[i - 1][j - 1] + cost
+      );
+    }
+  }
+
+  return dp[a.length][b.length];
+}
+
+function dedupeQuestion(question, existingQuestions) {
+  return !existingQuestions.some((item) => computeSimilarity(item.question_text, question.question_text) > 0.88);
+}
+
+function calculateTierFromPrize(prizeValue) {
+  if (!prizeValue || Number(prizeValue) <= 40000) return 'Tier 1';
+  if (Number(prizeValue) <= 320000) return 'Tier 2';
+  if (Number(prizeValue) <= 3200000) return 'Tier 3';
+  return 'Tier 4';
+}
+
+function determineTier(question) {
+  if (question.difficulty_tier) return question.difficulty_tier;
+  if (typeof question.ladder_position === 'number' && question.ladder_position >= 1) {
+    if (question.ladder_position <= 5) return 'Tier 1';
+    if (question.ladder_position <= 10) return 'Tier 2';
+    if (question.ladder_position <= 15) return 'Tier 3';
+    return 'Tier 4';
+  }
+  return calculateTierFromPrize(question.prize_level_asked_at || 5000);
+}
+
+function parseOptions(rawOptions, fallbackCount = 4) {
+  if (Array.isArray(rawOptions)) {
+    const options = rawOptions.map((option) => String(option).trim()).filter(Boolean);
+    if (options.length >= 2) {
+      const padded = [...options];
+      while (padded.length < fallbackCount) padded.push('');
+      return padded.slice(0, fallbackCount);
+    }
+  }
+  return Array.from({ length: fallbackCount }, () => '');
+}
+
+function parseCsvToRows(content) {
+  const rows = [];
+  let current = '';
+  let row = [];
+  let inQuotes = false;
+
+  for (let i = 0; i < content.length; i += 1) {
+    const char = content[i];
+    const next = content[i + 1];
+
+    if (char === '"') {
+      if (inQuotes && next === '"') {
+        current += '"';
+        i += 1;
+      } else {
+        inQuotes = !inQuotes;
+      }
+    } else if (char === ',' && !inQuotes) {
+      row.push(current);
+      current = '';
+    } else if ((char === '\n' || char === '\r') && !inQuotes) {
+      if (char === '\r' && next === '\n') i += 1;
+      row.push(current);
+      if (row.some((cell) => cell.trim())) rows.push(row);
+      row = [];
+      current = '';
+    } else {
+      current += char;
+    }
+  }
+
+  if (current.length || row.length) {
+    row.push(current);
+    if (row.some((cell) => cell.trim())) rows.push(row);
+  }
+
+  return rows;
+}
+
+function parseImportedFile(file) {
+  return new Promise((resolve, reject) => {
+    const reader = new FileReader();
+    reader.onload = () => {
+      try {
+        const text = String(reader.result || '');
+        if (!text.trim()) {
+          resolve([]);
+          return;
+        }
+
+        const extension = file.name.split('.').pop()?.toLowerCase();
+        if (extension === 'json') {
+          const parsed = JSON.parse(text);
+          const records = Array.isArray(parsed) ? parsed : parsed.questions || [];
+          resolve(records);
+          return;
+        }
+
+        const rows = parseCsvToRows(text);
+        if (!rows.length) {
+          resolve([]);
+          return;
+        }
+
+        const headers = rows[0].map((header) => header.trim().replace(/^['"]|['"]$/g, ''));
+        const dataRows = rows.slice(1).filter((row) => row.some((cell) => cell && cell.trim()));
+        const records = dataRows.map((row) => {
+          const object = {};
+          headers.forEach((header, index) => {
+            object[header] = row[index] ? row[index].trim() : '';
+          });
+          return object;
+        });
+
+        resolve(records);
+      } catch (error) {
+        reject(new Error('Could not parse the uploaded file. Please use CSV or JSON with question fields.'));
+      }
+    };
+    reader.onerror = () => reject(new Error('File read failed.'));
+    reader.readAsText(file);
+  });
+}
+
+function normalizeRecord(record) {
+  const seasonValue = Number(record.season || record.season_no || 18);
+  const episodeValue = Number(record.episode || record.episode_no || 0) || null;
+  const rawOptions = Array.isArray(record.options)
+    ? record.options
+    : [record.option_a, record.option_b, record.option_c, record.option_d].filter(Boolean);
+
+  const category = record.category || 'Miscellaneous/Trivia';
+  const questionText = String(record.question_text || record.question || '').trim();
+
+  if (!questionText) {
+    return null;
+  }
+
+  const tags = Array.isArray(record.tags)
+    ? record.tags
+    : String(record.tags || '').split(',').map((tag) => tag.trim()).filter(Boolean);
+
+  const PrizeValue = Number(record.prize_level_asked_at || record.prize || 0) || 0;
+  const ladderPosition = Number(record.ladder_position || record.position || 1) || 1;
+
+  return {
+    id: record.id || `q-${Date.now()}-${Math.random().toString(16).slice(2)}`,
+    season: Number.isFinite(seasonValue) ? seasonValue : 18,
+    episode: episodeValue,
+    air_date: record.air_date || '',
+    question_text: questionText,
+    options: parseOptions(rawOptions, 4).map((option) => String(option).trim()),
+    correct_option_index: Number(record.correct_option_index ?? record.correct_index ?? 0),
+    category,
+    subcategory: record.subcategory || '',
+    difficulty_tier: record.difficulty_tier || determineTier({ prize_level_asked_at: PrizeValue, ladder_position: ladderPosition }),
+    prize_level_asked_at: PrizeValue,
+    source: record.source || 'upload',
+    tags: tags.map((tag) => String(tag).trim()).filter(Boolean),
+    seen_count: Number(record.seen_count || 0),
+    last_correct: record.last_correct || null,
+    ladder_position: ladderPosition
+  };
+}
+
+function addQuestionToBank(question) {
+  const ensured = {
+    ...question,
+    id: question.id || `q-${Date.now()}-${Math.random().toString(16).slice(2)}`,
+    difficulty_tier: determineTier(question),
+    tags: Array.isArray(question.tags) ? question.tags : [],
+    question_text: String(question.question_text).trim(),
+    options: parseOptions(question.options, 4).map((option) => String(option).trim()),
+    season: Number(question.season || 18),
+    episode: question.episode || null,
+    source: question.source || 'manual'
+  };
+
+  if (!ensured.question_text) return;
+  if (!dedupeQuestion(ensured, state.questions)) {
+    alert('This question appears to duplicate an existing bank entry.');
+    return;
+  }
+
+  state.questions.push(ensured);
+  persistQuestions();
+  renderAll();
+}
+
+function addCurrentAffairsEntry(data) {
+  const factText = String(data.fact_text || '').trim();
+  if (!factText) return;
+
+  const factCategory = data.fact_category || 'Current Affairs';
+  const factTags = String(data.fact_tags || '').split(',').map((tag) => tag.trim()).filter(Boolean);
+  const item = {
+    id: `fact-${Date.now()}`,
+    season: 18,
+    episode: 0,
+    air_date: data.fact_date || new Date().toISOString().slice(0, 10),
+    question_text: factText,
+    options: ['Relevant fact', 'Alternative fact', 'Related event', 'Unrelated note'],
+    correct_option_index: 0,
+    category: factCategory,
+    subcategory: 'Current affairs',
+    difficulty_tier: 'Tier 2',
+    prize_level_asked_at: 80000,
+    source: 'current_affairs',
+    tags: factTags.length ? factTags : ['current-affairs'],
+    seen_count: 0,
+    last_correct: null,
+    ladder_position: 6
+  };
+
+  state.questions.push(item);
+  persistQuestions();
+  renderAll();
+}
+
+function getCategoryCounts() {
+  return state.questions.reduce((acc, question) => {
+    const category = question.category || 'Miscellaneous/Trivia';
+    acc[category] = (acc[category] || 0) + 1;
+    return acc;
+  }, {});
+}
+
+function getTierCounts() {
+  return state.questions.reduce((acc, question) => {
+    const tier = determineTier(question);
+    acc[tier] = (acc[tier] || 0) + 1;
+    return acc;
+  }, {});
+}
+
+function getSeasonCounts() {
+  return state.questions.reduce((acc, question) => {
+    const season = Number(question.season || 18);
+    acc[season] = (acc[season] || 0) + 1;
+    return acc;
+  }, {});
+}
+
+function getTagPairs() {
+  const pairs = {};
+  state.questions.forEach((question) => {
+    const tags = [...new Set((question.tags || []).map((tag) => String(tag).trim()).filter(Boolean))];
+    for (let i = 0; i < tags.length; i += 1) {
+      for (let j = i + 1; j < tags.length; j += 1) {
+        const key = [tags[i], tags[j]].sort().join(' | ');
+        pairs[key] = (pairs[key] || 0) + 1;
+      }
+    }
+  });
+  return pairs;
+}
+
+function getTopicSignals() {
+  const topicHits = {};
+  state.questions.forEach((question) => {
+    const rawTags = [...(question.tags || [])];
+    rawTags.forEach((tag) => {
+      const clean = tag.trim();
+      if (!clean) return;
+      topicHits[clean] = (topicHits[clean] || 0) + 1;
+    });
+  });
+  return Object.entries(topicHits).sort((a, b) => b[1] - a[1]).slice(0, 8);
+}
+
+function getPriorityScore(question) {
+  const totalQuestions = Math.max(state.questions.length, 1);
+  const categoryShare = getCategoryCounts()[question.category || 'Miscellaneous/Trivia'] / totalQuestions;
+  const currentSeason = 18;
+  const seasonWeight = question.season >= currentSeason - 2 ? 1.7 : question.season >= currentSeason - 5 ? 1.2 : 0.8;
+  const tierWeight = { 'Tier 1': 1, 'Tier 2': 1.25, 'Tier 3': 1.5, 'Tier 4': 2 }[determineTier(question)] || 1;
+  const tagCountWeight = (question.tags || []).length * 0.5;
+  const seenPenalty = question.seen_count ? question.seen_count * 0.3 : 0;
+  const recencyBoost = question.source === 'current_affairs' ? 1.3 : 0;
+  return Math.round((categoryShare * 150 + seasonWeight * 70 + tierWeight * 30 + tagCountWeight + recencyBoost) - seenPenalty);
+}
+
+function renderSummary() {
+  const total = state.questions.length;
+  const categoryCounts = getCategoryCounts();
+  const sortedCategories = Object.entries(categoryCounts).sort((a, b) => b[1] - a[1]);
+  const topCategory = sortedCategories[0] || ['No data', 0];
+  const tierCounts = getTierCounts();
+  const seasonCounts = getSeasonCounts();
+  const latestSeason = Object.keys(seasonCounts).length ? Math.max(...Object.keys(seasonCounts).map(Number)) : 18;
+  const priorityQueue = [...state.questions].sort((a, b) => getPriorityScore(b) - getPriorityScore(a)).slice(0, 5);
+
+  document.getElementById('statTotalQuestions').textContent = total;
+  document.getElementById('statRecentTopics').textContent = getTopicSignals().length;
+  document.getElementById('summaryTopCategory').textContent = topCategory[0];
+  document.getElementById('summaryTopCategoryValue').textContent = `${topCategory[1]} questions`;
+  document.getElementById('summaryTierMix').textContent = Object.entries(tierCounts).map(([key, value]) => `${key}: ${value}`).join(' • ');
+  document.getElementById('summaryTarget').textContent = priorityQueue[0] ? `${getPriorityScore(priorityQueue[0])} / 100` : 'N/A';
+
+  const list = document.getElementById('priorityList');
+  if (!priorityQueue.length) {
+    list.innerHTML = '<div class="empty-state">No study queue yet. Add questions to begin.</div>';
+    return;
+  }
+
+  list.innerHTML = priorityQueue.map((question) => `
+    <div class="priority-item">
+      <div class="meta">
+        <strong>${question.category}</strong>
+        <small>${question.question_text.slice(0, 74)}${question.question_text.length > 74 ? '…' : ''}</small>
+      </div>
+      <span class="badge">${getPriorityScore(question)}</span>
+    </div>
+  `).join('');
+
+  const repeatTopicList = document.getElementById('repeatTopicsList');
+  const topTopics = getTopicSignals().slice(0, 6);
+  repeatTopicList.innerHTML = topTopics.map(([tag, count]) => `
+    <li class="repeat-topic">
+      <div class="meta">
+        <strong>${tag}</strong>
+        <small>appears in ${count} records</small>
+      </div>
+      <span class="badge">${count}</span>
+    </li>
+  `).join('');
+
+  document.getElementById('analysisCategoryCount').textContent = Object.keys(categoryCounts).length;
+  document.getElementById('analysisLatestSeason').textContent = latestSeason;
+  const strongestPair = Object.entries(getTagPairs()).sort((a, b) => b[1] - a[1])[0];
+  document.getElementById('analysisTopTag').textContent = strongestPair ? strongestPair[0].split(' | ')[0] : '—';
+}
+
+function renderCategoryChart() {
+  const container = document.getElementById('categoryChart');
+  const counts = getCategoryCounts();
+  const sorted = Object.entries(counts).sort((a, b) => b[1] - a[1]);
+  const max = Math.max(...Object.values(counts), 1);
+
+  container.innerHTML = sorted.map(([label, value]) => `
+    <div class="chart-row">
+      <div class="chart-label">${label}</div>
+      <div class="chart-bar-track"><span class="chart-bar" style="width:${(value / max) * 100}%"></span></div>
+      <div class="chart-value">${value}</div>
+    </div>
+  `).join('');
+}
+
+function renderTierChart() {
+  const container = document.getElementById('tierChart');
+  const counts = getTierCounts();
+  const sorted = Object.entries(counts).sort((a, b) => {
+    const order = { 'Tier 1': 1, 'Tier 2': 2, 'Tier 3': 3, 'Tier 4': 4 };
+    return order[a[0]] - order[b[0]];
+  });
+
+  const max = Math.max(...Object.values(counts), 1);
+  container.innerHTML = sorted.map(([label, value]) => `
+    <div class="chart-row">
+      <div class="chart-label">${label}</div>
+      <div class="chart-bar-track"><span class="chart-bar" style="width:${(value / max) * 100}%"></span></div>
+      <div class="chart-value">${value}</div>
+    </div>
+  `).join('');
+}
+
+function renderSeasonChart() {
+  const container = document.getElementById('seasonChart');
+  const counts = getSeasonCounts();
+  const sortedSeasons = Object.entries(counts).sort((a, b) => Number(a[0]) - Number(b[0]));
+  if (!sortedSeasons.length) {
+    container.innerHTML = '<div class="empty-state">No season data yet.</div>';
+    return;
+  }
+
+  const maxValue = Math.max(...sortedSeasons.map(([, value]) => value), 1);
+  const points = sortedSeasons.map(([season, value], index) => {
+    const x = (index / Math.max(sortedSeasons.length - 1, 1)) * 100;
+    const y = 100 - (value / maxValue) * 80;
+    return `${x},${y}`;
+  }).join(' ');
+
+  container.innerHTML = `
+    <svg viewBox="0 0 100 100" width="100%" height="200" preserveAspectRatio="none">
+      <polyline fill="none" stroke="#2d6cdf" stroke-width="2.5" points="${points}"></polyline>
+      ${sortedSeasons.map(([season, value], index) => {
+        const x = (index / Math.max(sortedSeasons.length - 1, 1)) * 100;
+        const y = 100 - (value / maxValue) * 80;
+        return `<circle cx="${x}" cy="${y}" r="2.2" fill="#f5a623"></circle>`;
+      }).join('')}
+    </svg>
+    <div class="chart-row" style="grid-template-columns: repeat(${sortedSeasons.length}, minmax(0, 1fr)); margin-top: 8px; gap: 4px;">
+      ${sortedSeasons.map(([season]) => `<div class="chart-label" style="text-align:center;">${season}</div>`).join('')}
+    </div>
+  `;
+}
+
+function renderTopicSignals() {
+  const container = document.getElementById('repeatTopicChart');
+  const signals = getTopicSignals();
+  if (!signals.length) {
+    container.innerHTML = '<div class="empty-state">No recurring topics yet.</div>';
+    return;
+  }
+
+  container.innerHTML = signals.map(([tag, count]) => `
+    <div class="repeat-topic">
+      <div class="meta">
+        <strong>${tag}</strong>
+        <small>high-overlap tag</small>
+      </div>
+      <span class="badge">${count}</span>
+    </div>
+  `).join('');
+}
+
+function renderClusterList() {
+  const container = document.getElementById('tagClusterList');
+  const pairs = Object.entries(getTagPairs()).sort((a, b) => b[1] - a[1]).slice(0, 12);
+  if (!pairs.length) {
+    container.innerHTML = '<div class="empty-state">Add tags to reveal study clusters.</div>';
+    return;
+  }
+
+  container.innerHTML = pairs.map(([pair, count]) => `
+    <span class="cluster-pill">${pair} <strong>× ${count}</strong></span>
+  `).join('');
+}
+
+function renderAnalysis() {
+  renderCategoryChart();
+  renderTierChart();
+  renderSeasonChart();
+  renderTopicSignals();
+  renderClusterList();
+}
+
+function renderFilters() {
+  const categorySelect = document.getElementById('filterCategory');
+  const seasonSelect = document.getElementById('filterSeason');
+
+  const categories = ['all', ...CATEGORY_TAXONOMY];
+  const seasons = ['all', ...new Set(state.questions.map((item) => String(item.season)))].sort((a, b) => a === 'all' ? -1 : Number(a) - Number(b));
+
+  categorySelect.innerHTML = categories.map((category) => `
+    <option value="${category}">${category === 'all' ? 'All categories' : category}</option>
+  `).join('');
+  categorySelect.value = state.filters.category;
+
+  seasonSelect.innerHTML = seasons.map((season) => `
+    <option value="${season}">${season === 'all' ? 'All seasons' : `Season ${season}`}</option>
+  `).join('');
+  seasonSelect.value = state.filters.season;
+
+  document.getElementById('filterTier').value = state.filters.tier;
+  document.getElementById('filterSearch').value = state.filters.search;
+}
+
+function getFilteredQuestions() {
+  const searchTerm = state.filters.search.trim().toLowerCase();
+  return [...state.questions].filter((question) => {
+    const categoryMatch = state.filters.category === 'all' || question.category === state.filters.category;
+    const tierMatch = state.filters.tier === 'all' || determineTier(question) === state.filters.tier;
+    const seasonMatch = state.filters.season === 'all' || String(question.season) === String(state.filters.season);
+    const searchMatch = !searchTerm || question.question_text.toLowerCase().includes(searchTerm) || (question.tags || []).join(' ').toLowerCase().includes(searchTerm);
+    return categoryMatch && tierMatch && seasonMatch && searchMatch;
+  }).sort((a, b) => getPriorityScore(b) - getPriorityScore(a));
+}
+
+function renderDrill() {
+  const list = document.getElementById('drillList');
+  const filteredQuestions = getFilteredQuestions();
+
+  if (!filteredQuestions.length) {
+    list.innerHTML = '<div class="empty-state">No questions match the current filters.</div>';
+    return;
+  }
+
+  list.innerHTML = filteredQuestions.map((question) => `
+    <article class="question-card">
+      <div class="header-row">
+        <span class="meta-pill">${question.category}</span>
+        <span class="badge">Priority ${getPriorityScore(question)}</span>
+      </div>
+      <h4>${question.question_text}</h4>
+      <div class="question-meta">
+        <span class="meta-pill">${determineTier(question)}</span>
+        <span class="meta-pill">Season ${question.season}</span>
+        <span class="meta-pill">${question.tags?.slice(0, 2).join(', ') || 'untagged'}</span>
+      </div>
+      <ul class="option-list">
+        ${(question.options || []).map((option, index) => `
+          <li class="${index === Number(question.correct_option_index) ? 'correct' : ''}">${String.fromCharCode(65 + index)}. ${option || '—'}</li>
+        `).join('')}
+      </ul>
+      <div class="action-row">
+        <button class="secondary-button" data-action="incorrect" data-id="${question.id}" type="button">Mark wrong</button>
+        <button class="primary-button" data-action="correct" data-id="${question.id}" type="button">Mark correct</button>
+      </div>
+    </article>
+  `).join('');
+}
+
+function renderReference() {
+  // static informational panel; no dynamic behavior required
+}
+
+function populateCategorySelects() {
+  const selections = [
+    document.getElementById('manualCategorySelect'),
+    document.getElementById('factCategorySelect')
+  ];
+
+  selections.forEach((select) => {
+    if (!select) return;
+    select.innerHTML = CATEGORY_TAXONOMY.map((category) => `
+      <option value="${category}">${category}</option>
+    `).join('');
+  });
+}
+
+function attachListeners() {
+  document.querySelectorAll('.nav-button').forEach((button) => {
+    button.addEventListener('click', () => {
+      state.selectedTab = button.dataset.tab;
+      document.querySelectorAll('.nav-button').forEach((navButton) => navButton.classList.toggle('active', navButton === button));
+      document.querySelectorAll('.tab-panel').forEach((panel) => panel.classList.toggle('active', panel.id === `tab-${state.selectedTab}`));
+    });
+  });
+
+  document.getElementById('manualQuestionForm').addEventListener('submit', (event) => {
+    event.preventDefault();
+    const formData = new FormData(event.currentTarget);
+    const question = {
+      season: Number(formData.get('season')) || 18,
+      episode: Number(formData.get('episode')) || null,
+      question_text: String(formData.get('question_text') || '').trim(),
+      options: [
+        formData.get('option_0'),
+        formData.get('option_1'),
+        formData.get('option_2'),
+        formData.get('option_3')
+      ].map((option) => String(option || '').trim()),
+      correct_option_index: Number(formData.get('correct_option_index')) || 0,
+      category: formData.get('category') || 'Miscellaneous/Trivia',
+      tags: String(formData.get('tags') || '').split(',').map((tag) => tag.trim()).filter(Boolean),
+      source: 'manual',
+      prize_level_asked_at: Number(formData.get('prize_level_asked_at')) || 5000,
+      ladder_position: Number(formData.get('ladder_position')) || 1,
+      id: `manual-${Date.now()}`
+    };
+
+    addQuestionToBank(question);
+    event.currentTarget.reset();
+  });
+
+  document.getElementById('currentAffairsForm').addEventListener('submit', (event) => {
+    event.preventDefault();
+    const formData = new FormData(event.currentTarget);
+    addCurrentAffairsEntry({
+      fact_text: formData.get('fact_text'),
+      fact_category: formData.get('fact_category'),
+      fact_date: formData.get('fact_date'),
+      fact_tags: formData.get('fact_tags')
+    });
+    event.currentTarget.reset();
+  });
+
+  document.getElementById('fileInput').addEventListener('change', async (event) => {
+    const [file] = event.target.files || [];
+    if (!file) return;
+
+    try {
+      const records = await parseImportedFile(file);
+      const normalized = records
+        .map((record) => normalizeRecord(record))
+        .filter(Boolean)
+        .filter((record) => dedupeQuestion(record, state.questions));
+
+      state.questions.push(...normalized);
+      persistQuestions();
+      renderAll();
+      event.target.value = '';
+      alert(`${normalized.length} question(s) added to the bank.`);
+    } catch (error) {
+      alert(error.message || 'Import failed.');
+    }
+  });
+
+  document.getElementById('resetDataButton').addEventListener('click', () => {
+    state.questions = buildSeedQuestions();
+    persistQuestions();
+    renderAll();
+    alert('Demo data restored.');
+  });
+
+  document.getElementById('filterCategory').addEventListener('change', (event) => {
+    state.filters.category = event.target.value;
+    renderDrill();
+  });
+
+  document.getElementById('filterTier').addEventListener('change', (event) => {
+    state.filters.tier = event.target.value;
+    renderDrill();
+  });
+
+  document.getElementById('filterSeason').addEventListener('change', (event) => {
+    state.filters.season = event.target.value;
+    renderDrill();
+  });
+
+  document.getElementById('filterSearch').addEventListener('input', (event) => {
+    state.filters.search = event.target.value;
+    renderDrill();
+  });
+
+  document.getElementById('drillList').addEventListener('click', (event) => {
+    const button = event.target.closest('button[data-action]');
+    if (!button) return;
+
+    const question = state.questions.find((item) => item.id === button.dataset.id);
+    if (!question) return;
+
+    question.seen_count = (question.seen_count || 0) + 1;
+    question.last_correct = button.dataset.action === 'correct' ? new Date().toISOString().slice(0, 10) : question.last_correct;
+    persistQuestions();
+    renderAll();
+  });
+}
+
+function renderAll() {
+  renderSummary();
+  renderAnalysis();
+  renderFilters();
+  renderDrill();
+}
+
+function init() {
+  loadState();
+  populateCategorySelects();
+  attachListeners();
+  renderAll();
+}
+
+init();

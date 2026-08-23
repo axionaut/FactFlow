@@ -1,0 +1,313 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>KBC Prep App</title>
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body>
+    <div class="app-shell">
+      <header class="topbar">
+        <div>
+          <p class="eyebrow">Study smarter</p>
+          <h1>KBC Prep App</h1>
+        </div>
+        <button class="primary-button" id="resetDataButton" type="button">Reset Demo Data</button>
+      </header>
+
+      <nav class="main-nav" aria-label="Primary navigation">
+        <button class="nav-button active" data-tab="dashboard" type="button">Dashboard</button>
+        <button class="nav-button" data-tab="bank" type="button">Question Bank</button>
+        <button class="nav-button" data-tab="analysis" type="button">Pattern Analysis</button>
+        <button class="nav-button" data-tab="drill" type="button">Drill Mode</button>
+        <button class="nav-button" data-tab="reference" type="button">Reference</button>
+      </nav>
+
+      <main>
+        <section class="tab-panel active" id="tab-dashboard">
+          <div class="hero-card">
+            <div>
+              <p class="eyebrow">Season 18 focus</p>
+              <h2>Sochna Padega: applied reasoning, not rote recall.</h2>
+            </div>
+            <div class="hero-stats">
+              <div>
+                <strong id="statTotalQuestions">0</strong>
+                <span>Questions</span>
+              </div>
+              <div>
+                <strong id="statRecentTopics">0</strong>
+                <span>High-impact topics</span>
+              </div>
+            </div>
+          </div>
+
+          <div class="stats-grid">
+            <article class="stat-card accent">
+              <span class="label">Prioritized categories</span>
+              <strong id="summaryTopCategory">—</strong>
+              <small id="summaryTopCategoryValue">0</small>
+            </article>
+            <article class="stat-card">
+              <span class="label">Tier 1-5 mix</span>
+              <strong id="summaryTierMix">—</strong>
+              <small>questions by ladder tier</small>
+            </article>
+            <article class="stat-card">
+              <span class="label">Recency-weighted target</span>
+              <strong id="summaryTarget">—</strong>
+              <small>weighted study focus</small>
+            </article>
+          </div>
+
+          <div class="panel-grid">
+            <section class="panel">
+              <div class="panel-header">
+                <h3>Study queue</h3>
+              </div>
+              <div id="priorityList" class="priority-list"></div>
+            </section>
+            <section class="panel">
+              <div class="panel-header">
+                <h3>Repeat-topic watchlist</h3>
+              </div>
+              <ul id="repeatTopicsList" class="tag-list"></ul>
+            </section>
+          </div>
+        </section>
+
+        <section class="tab-panel" id="tab-bank">
+          <div class="panel-grid two-columns">
+            <section class="panel">
+              <div class="panel-header">
+                <h3>Bulk import</h3>
+              </div>
+              <div class="upload-box">
+                <label for="fileInput" class="upload-label">Upload CSV or JSON</label>
+                <input id="fileInput" type="file" accept=".csv,.json,text/csv,application/json" />
+                <p class="helper-text">Expected fields: season, episode, air_date, question_text, options, correct_option_index, category, subcategory, difficulty_tier, prize_level_asked_at, source, tags</p>
+              </div>
+            </section>
+
+            <section class="panel">
+              <div class="panel-header">
+                <h3>Add question manually</h3>
+              </div>
+              <form id="manualQuestionForm" class="stacked-form">
+                <div class="field-row two-col">
+                  <label>
+                    Season
+                    <input name="season" type="number" min="1" max="18" value="18" required />
+                  </label>
+                  <label>
+                    Episode
+                    <input name="episode" type="number" min="1" value="1" />
+                  </label>
+                </div>
+                <label>
+                  Question text
+                  <textarea name="question_text" rows="3" required></textarea>
+                </label>
+                <div class="field-row two-col">
+                  <label>
+                    Option A
+                    <input name="option_0" type="text" required />
+                  </label>
+                  <label>
+                    Option B
+                    <input name="option_1" type="text" required />
+                  </label>
+                </div>
+                <div class="field-row two-col">
+                  <label>
+                    Option C
+                    <input name="option_2" type="text" required />
+                  </label>
+                  <label>
+                    Option D
+                    <input name="option_3" type="text" required />
+                  </label>
+                </div>
+                <div class="field-row two-col">
+                  <label>
+                    Correct option
+                    <select name="correct_option_index">
+                      <option value="0">A</option>
+                      <option value="1">B</option>
+                      <option value="2">C</option>
+                      <option value="3">D</option>
+                    </select>
+                  </label>
+                  <label>
+                    Category
+                    <select name="category" id="manualCategorySelect"></select>
+                  </label>
+                </div>
+                <div class="field-row two-col">
+                  <label>
+                    Ladder position (1-16)
+                    <input name="ladder_position" type="number" min="1" max="16" value="1" />
+                  </label>
+                  <label>
+                    Prize value
+                    <input name="prize_level_asked_at" type="number" min="0" step="1000" value="5000" />
+                  </label>
+                </div>
+                <label>
+                  Tags (comma separated)
+                  <input name="tags" type="text" placeholder="freedom-struggle, 1857, british-raj" />
+                </label>
+                <button class="primary-button" type="submit">Add to bank</button>
+              </form>
+            </section>
+          </div>
+
+          <section class="panel">
+            <div class="panel-header">
+              <h3>Current affairs intake</h3>
+            </div>
+            <form id="currentAffairsForm" class="stacked-form inline-form">
+              <label>
+                Item / fact to absorb
+                <textarea name="fact_text" rows="2" placeholder="Paste a current-affairs item, award, appointment, launch, or anniversary here..."></textarea>
+              </label>
+              <div class="field-row two-col">
+                <label>
+                  Category
+                  <select name="fact_category" id="factCategorySelect"></select>
+                </label>
+                <label>
+                  Date
+                  <input name="fact_date" type="date" />
+                </label>
+              </div>
+              <label>
+                Tags
+                <input name="fact_tags" type="text" placeholder="awards, india, 2026" />
+              </label>
+              <button class="primary-button" type="submit">Add current affairs item</button>
+            </form>
+          </section>
+        </section>
+
+        <section class="tab-panel" id="tab-analysis">
+          <div class="stats-grid">
+            <article class="stat-card">
+              <span class="label">Categories tracked</span>
+              <strong id="analysisCategoryCount">0</strong>
+              <small>taxonomic groups</small>
+            </article>
+            <article class="stat-card">
+              <span class="label">Latest season</span>
+              <strong id="analysisLatestSeason">0</strong>
+              <small>data window</small>
+            </article>
+            <article class="stat-card">
+              <span class="label">Top tag cluster</span>
+              <strong id="analysisTopTag">—</strong>
+              <small>co-occurrence leader</small>
+            </article>
+          </div>
+
+          <div class="panel-grid two-columns">
+            <section class="panel">
+              <div class="panel-header">
+                <h3>Category frequency overall</h3>
+              </div>
+              <div id="categoryChart" class="chart-stack"></div>
+            </section>
+            <section class="panel">
+              <div class="panel-header">
+                <h3>Tier distribution</h3>
+              </div>
+              <div id="tierChart" class="chart-stack"></div>
+            </section>
+          </div>
+
+          <div class="panel-grid two-columns">
+            <section class="panel">
+              <div class="panel-header">
+                <h3>Season trend</h3>
+              </div>
+              <div id="seasonChart" class="season-chart"></div>
+            </section>
+            <section class="panel">
+              <div class="panel-header">
+                <h3>Recurring topic signals</h3>
+              </div>
+              <div id="repeatTopicChart" class="topic-list"></div>
+            </section>
+          </div>
+
+          <section class="panel">
+            <div class="panel-header">
+              <h3>Tag co-occurrence</h3>
+            </div>
+            <div id="tagClusterList" class="cluster-grid"></div>
+          </section>
+        </section>
+
+        <section class="tab-panel" id="tab-drill">
+          <div class="drill-toolbar panel">
+            <div class="field-row four-col">
+              <label>
+                Category
+                <select id="filterCategory"></select>
+              </label>
+              <label>
+                Tier
+                <select id="filterTier">
+                  <option value="all">All tiers</option>
+                  <option value="Tier 1">Tier 1</option>
+                  <option value="Tier 2">Tier 2</option>
+                  <option value="Tier 3">Tier 3</option>
+                  <option value="Tier 4">Tier 4</option>
+                </select>
+              </label>
+              <label>
+                Season
+                <select id="filterSeason"></select>
+              </label>
+              <label>
+                Search
+                <input id="filterSearch" type="text" placeholder="keyword" />
+              </label>
+            </div>
+          </div>
+
+          <div id="drillList" class="drill-list"></div>
+        </section>
+
+        <section class="tab-panel" id="tab-reference">
+          <div class="panel-grid two-columns">
+            <section class="panel">
+              <div class="panel-header">
+                <h3>Show mechanics</h3>
+              </div>
+              <ul class="info-list">
+                <li><strong>Current season:</strong> Season 18, premiered August 10, 2026, theme “Sochna Padega”.</li>
+                <li><strong>Prize ladder:</strong> 16 questions, ₹7 crore top prize; guaranteed levels at Q5 and Q10.</li>
+                <li><strong>Current lifelines:</strong> 50:50, Audience Poll, Video-a-Friend, Sanket Suchak.</li>
+                <li><strong>Out of scope:</strong> no EV calculator or decision optimizer.</li>
+              </ul>
+            </section>
+            <section class="panel">
+              <div class="panel-header">
+                <h3>Difficulty ladder</h3>
+              </div>
+              <ul class="info-list compact">
+                <li>Tier 1: Q1–5 (₹5,000–₹40,000)</li>
+                <li>Tier 2: Q6–10 (₹80,000–₹3,20,000+)</li>
+                <li>Tier 3: Q11–15 (higher-stakes, lateral)</li>
+                <li>Tier 4: Q16 (₹7 crore, hardest)</li>
+              </ul>
+            </section>
+          </div>
+        </section>
+      </main>
+    </div>
+
+    <script src="app.js"></script>
+  </body>
+</html>

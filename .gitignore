@@ -1,0 +1,13 @@
+# Ignore local user uploads and scratch data
+Scanner Uploads/
+*.csv
+*.xlsx
+*.xls
+
+# Keep the app and saved state tracked
+!index.html
+!Rocket_Brain.json
+
+# Generic local OS noise
+.DS_Store
+Thumbs.db
