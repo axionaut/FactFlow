@@ -1,6 +1,6 @@
 'use strict';
 
-const APP_VERSION = 28;
+const APP_VERSION = 29;
 const CORPUS_URL = 'data/kbc-corpus.json';
 const LEARNING_STORAGE_KEY = 'factflow-learning-v2';
 const LEGACY_STORAGE_KEY = 'kbc-prep-app-v1';
@@ -722,11 +722,6 @@ function renderToday() {
   setText('sessionHeading', session?.mode === 'review' ? 'Review session' : 'Daily session');
   const total = session?.questionKeys.length || 0;
   const response = activeResponse();
-  const answered = Math.min((session?.cursor || 0) + (response ? 1 : 0), total);
-  const percent = total ? answered / total * 100 : 0;
-  byId('sessionProgressBar').style.width = `${percent}%`;
-  setText('sessionProgressText', total && session.cursor < total ? `Question ${session.cursor + 1} of ${total}` : `${answered} questions completed`);
-
   const sessionQuestions = (session?.questionKeys || []).map((key) => state.questionMap.get(key)).filter(Boolean);
   const newCount = sessionQuestions.filter((question) => Learning.questionStats(state.learning, question.key).attempts === 0).length;
   setText('sessionSummary', session?.mode === 'review'
@@ -939,7 +934,6 @@ function attachListeners() {
   document.querySelectorAll('.nav-button').forEach((button) => {
     button.addEventListener('click', () => switchTab(button.dataset.tab));
   });
-  byId('newSessionButton').addEventListener('click', (event) => void startNewDailySession(event.currentTarget));
   byId('newChallengeButton').addEventListener('click', startChallenge);
   window.addEventListener('hashchange', () => {
     const requested = window.location.hash.slice(1);
