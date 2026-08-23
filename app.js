@@ -1,6 +1,6 @@
 'use strict';
 
-const APP_VERSION = 29;
+const APP_VERSION = 30;
 const CORPUS_URL = 'data/kbc-corpus.json';
 const LEARNING_STORAGE_KEY = 'factflow-learning-v2';
 const LEGACY_STORAGE_KEY = 'kbc-prep-app-v1';
@@ -522,9 +522,11 @@ function renderChallengeResult(container, game) {
     element('p', { text: `You answered ${correctCount} question${correctCount === 1 ? '' : 's'} correctly and finished with ${formatRupees(game.winnings)} on the classic practice ladder.` })
   ]);
   if (failedQuestion) {
-    copy.append(element('p', {
-      text: `Correct answer: ${failedQuestion.options[Number(failedQuestion.correct_option_index)]}. This question is now in Review.`
-    }));
+    copy.append(element('div', { className: 'answer-panel success' }, [
+      element('p', { className: 'answer-title', text: 'Correct answer' }),
+      element('strong', { text: failedQuestion.options[Number(failedQuestion.correct_option_index)] }),
+      element('p', { className: 'source-note', text: 'This question is now in Review.' })
+    ]));
   }
   const button = element('button', { className: 'primary-button', type: 'button', text: 'Play again' });
   button.addEventListener('click', startChallenge);
