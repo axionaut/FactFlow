@@ -6,7 +6,7 @@ FactFlow is a mobile-first, single-page study app for quiz and trivia preparatio
 ## Current app versioning rule
 - Version is tracked in `app.js` as `APP_VERSION`.
 - Every push after this point must increment the version number by 1.
-- Current live version: `v3`.
+- Current live version: `v4`.
 - Release convention: `v1`, `v2`, `v3`, ...
 
 ## App input model
@@ -34,6 +34,8 @@ FactFlow is a mobile-first, single-page study app for quiz and trivia preparatio
 - `app.js` — state, scoring, import handling, analysis, drill logic, and local persistence.
 - `README.md` — repo usage, local run, and GitHub Pages deployment notes.
 - `.nojekyll` — disables Jekyll processing on GitHub Pages.
+- `data/kbc-corpus.json` — generated, provenance-labelled third-party archive corpus.
+- `tools/build-corpus.mjs` — dependency-free corpus crawler and normalizer.
 
 ## Deployment and GitHub workflow
 - Repo name: `FactFlow`
@@ -47,3 +49,4 @@ FactFlow is a mobile-first, single-page study app for quiz and trivia preparatio
 - The reference panel is intentionally informational and does not include any simulation or EV logic.
 - The app should remain a clean static front-end, not a backend-heavy product.
 - v3 removes manual question entry and keeps the product centered on bulk archival intake and pattern discovery.
+- v4 bundles the available Seasons 6–9 public archive, merges it with user imports, and makes incomplete coverage explicit.

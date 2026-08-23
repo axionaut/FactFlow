@@ -11,6 +11,7 @@ A mobile-first single-page study app for quiz and trivia preparation. It helps y
 - Drill mode for targeted revision
 - Current-affairs intake that feeds into the same bank model
 - Informational reference panel for current KBC mechanics
+- Bundled, provenance-labelled archive corpus with visible season coverage
 
 > The product is intentionally built around bulk archival ingestion and pattern discovery. It does not rely on the user manually typing in question sets or guessing the content in advance.
 
@@ -27,6 +28,14 @@ Then visit:
 ```text
 http://localhost:8000
 ```
+
+Serving over HTTP is required for the bundled JSON corpus. Opening `index.html` directly falls back to locally saved or demo data because browsers block local `fetch()` requests.
+
+## Corpus
+
+`data/kbc-corpus.json` contains normalized questions extracted from the public [IQgarage KBC episode archive](https://www.iqgarage.com/kbc-questions-and-answers/). Current coverage is partial (Seasons 6–9), is not official Sony data, and its answers have not been independently verified. Missing seasons must not be inferred from.
+
+Rebuild it with `node tools/build-corpus.mjs`. The generator retains a source URL and provenance status on every record and rejects questions without four options and a resolvable answer.
 
 ## Publish to GitHub Pages
 

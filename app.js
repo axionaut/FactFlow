@@ -1,5 +1,6 @@
-const APP_VERSION = 3;
+const APP_VERSION = 4;
 const STORAGE_KEY = 'kbc-prep-app-v1';
+const CORPUS_URL = 'data/kbc-corpus.json';
 const CATEGORY_TAXONOMY = [
   'Indian History',
   'World History',
@@ -21,6 +22,7 @@ const CATEGORY_TAXONOMY = [
 
 const state = {
   questions: [],
+  corpus: null,
   selectedTab: 'dashboard',
   filters: {
     category: 'all',
@@ -30,21 +32,31 @@ const state = {
   }
 };
 
-function loadState() {
+async function loadState() {
+  let savedQuestions = [];
   try {
     const raw = localStorage.getItem(STORAGE_KEY);
-    if (!raw) {
-      state.questions = buildSeedQuestions();
-      persistQuestions();
-      return;
-    }
-    const parsed = JSON.parse(raw);
-    state.questions = Array.isArray(parsed) && parsed.length ? parsed : buildSeedQuestions();
+    const parsed = raw ? JSON.parse(raw) : [];
+    savedQuestions = Array.isArray(parsed) ? parsed : [];
   } catch (error) {
-    console.warn('Unable to load local data, resetting demo bank.', error);
-    state.questions = buildSeedQuestions();
-    persistQuestions();
+    console.warn('Unable to load local question data.', error);
   }
+
+  try {
+    const response = await fetch(CORPUS_URL);
+    if (!response.ok) throw new Error(`Corpus request returned ${response.status}`);
+    const corpus = await response.json();
+    const archiveQuestions = Array.isArray(corpus.questions) ? corpus.questions : [];
+    state.corpus = corpus;
+    const userQuestions = savedQuestions.filter((question) => question.source !== 'seed' && !String(question.id || '').startsWith('iqg-'));
+    const merged = new Map(archiveQuestions.map((question) => [normalizeText(question.question_text), question]));
+    userQuestions.forEach((question) => merged.set(normalizeText(question.question_text), question));
+    state.questions = [...merged.values()];
+  } catch (error) {
+    console.warn('Bundled corpus unavailable; using saved or demo data.', error);
+    state.questions = savedQuestions.length ? savedQuestions : buildSeedQuestions();
+  }
+  persistQuestions();
 }
 
 function persistQuestions() {
@@ -836,10 +848,10 @@ function attachListeners() {
   });
 
   document.getElementById('resetDataButton').addEventListener('click', () => {
-    state.questions = buildSeedQuestions();
+    state.questions = state.corpus?.questions ? [...state.corpus.questions] : buildSeedQuestions();
     persistQuestions();
     renderAll();
-    alert('Demo data restored.');
+    alert(state.corpus ? 'Bundled archive restored.' : 'Demo data restored.');
   });
 
   document.getElementById('exportBankButton').addEventListener('click', () => {
@@ -898,15 +910,35 @@ function renderAll() {
   renderAnalysis();
   renderFilters();
   renderDrill();
+  renderCorpusCoverage();
 }
 
-function init() {
+function renderCorpusCoverage() {
+  const summary = document.getElementById('corpusCoverageSummary');
+  const grid = document.getElementById('corpusCoverageGrid');
+  if (!summary || !grid) return;
+  if (!state.corpus) {
+    summary.textContent = 'Bundled archive could not be loaded. Serve the project over HTTP to enable it.';
+    grid.innerHTML = '';
+    return;
+  }
+  const total = state.corpus.coverage.reduce((sum, item) => sum + Number(item.questions || 0), 0);
+  summary.textContent = `${total} normalized questions from a third-party episode archive. Coverage is partial and answers are not independently verified.`;
+  grid.innerHTML = state.corpus.coverage.map((item) => `
+    <div class="coverage-item">
+      <strong>Season ${item.season}</strong>
+      <span>${item.questions} questions · ${item.pages} episode pages</span>
+    </div>
+  `).join('');
+}
+
+async function init() {
   const versionLabel = document.getElementById('appVersionLabel');
   if (versionLabel) {
     versionLabel.textContent = `v${APP_VERSION}`;
   }
 
-  loadState();
+  await loadState();
   populateCategorySelects();
   attachListeners();
   renderAll();

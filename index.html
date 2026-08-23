@@ -13,12 +13,12 @@
           <p class="eyebrow">Study smarter</p>
           <div class="title-row">
             <h1>FactFlow</h1>
-            <span id="appVersionLabel" class="version-pill">v3</span>
+            <span id="appVersionLabel" class="version-pill">v4</span>
           </div>
         </div>
         <div class="header-actions">
           <button class="secondary-button" id="exportBankButton" type="button">Export Bank</button>
-          <button class="primary-button" id="resetDataButton" type="button">Reset Demo Data</button>
+          <button class="primary-button" id="resetDataButton" type="button">Restore Archive</button>
         </div>
       </header>
 
@@ -127,6 +127,17 @@
         </section>
 
         <section class="tab-panel" id="tab-analysis">
+          <section class="panel corpus-panel">
+            <div class="panel-header">
+              <div>
+                <h3>Corpus coverage</h3>
+                <p id="corpusCoverageSummary" class="helper-text">Loading bundled archive…</p>
+              </div>
+              <a class="source-link" href="https://www.iqgarage.com/kbc-questions-and-answers/" target="_blank" rel="noreferrer">Source archive</a>
+            </div>
+            <div id="corpusCoverageGrid" class="coverage-grid"></div>
+            <p class="corpus-warning">Seasons absent here are excluded from season-pattern conclusions. This is a research corpus assembled from public third-party transcripts, not an official or complete Sony KBC dataset.</p>
+          </section>
           <div class="stats-grid">
             <article class="stat-card">
               <span class="label">Categories tracked</span>
