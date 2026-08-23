@@ -221,6 +221,18 @@ function prepareReviewedQuestion(question) {
   };
 }
 
+function normalizeGeneratedOptions(question) {
+  if (question.subcategory !== 'world-country-currency' || !Array.isArray(question.options)) return question;
+  const options = question.options.map((option) => displayCurrencyName(option));
+  return new Set(options.map(normalizedIdentity)).size === options.length
+    ? { ...question, options }
+    : question;
+}
+
+function displayCurrencyName(value) {
+  return String(value).replace(/^(?:[A-Z][a-z]+(?:\s+[A-Z][a-z]+)?)\s+(?=(?:dollar|rupee|yen|euro|franc|pound|peso|dinar|rial|ruble|won|shilling|krona|krone|lira|rand|baht|dong|ringgit|forint|zloty|lek|taka|vatu|manat|lari|lev|lei|koruna|shekel|dirham|tenge|kyat|kip|tugrik|guarani|real|birr|cedi)\b)/i, '');
+}
+
 async function fetchText(url, label) {
   const response = await fetch(url, { headers: { 'user-agent': 'FactFlow corpus updater/15 (+https://github.com/axionaut/FactFlow)' } });
   if (!response.ok) throw new Error(`${label} returned ${response.status}`);
@@ -305,7 +317,7 @@ async function main() {
     process.stdout.write(`\nWikidata supplied ${wikidata.questions.length} playable questions.`);
   }
 
-  const sourceQuestions = questions;
+  const sourceQuestions = questions.map(normalizeGeneratedOptions);
   const combinedQuestions = [...new Map([...sourceQuestions, ...reviewedQuestions].map((question) => [questionIdentity(question), question])).values()];
   const previousKeys = new Set((previousCorpus.questions || []).map(questionIdentity));
   const addedQuestions = combinedQuestions.filter((question) => !previousKeys.has(questionIdentity(question)));
