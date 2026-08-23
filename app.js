@@ -1,9 +1,10 @@
 'use strict';
 
-const APP_VERSION = 14;
+const APP_VERSION = 15;
 const CORPUS_URL = 'data/kbc-corpus.json';
 const LEARNING_STORAGE_KEY = 'factflow-learning-v2';
 const LEGACY_STORAGE_KEY = 'kbc-prep-app-v1';
+const TRANSLATION_STORAGE_KEY = 'factflow-hi-en-translations-v1';
 const Learning = window.FactFlowLearning;
 
 const state = {
@@ -11,6 +12,9 @@ const state = {
   questions: [],
   practiceQuestions: [],
   archiveQuestions: [],
+  translationCandidates: [],
+  translationCache: {},
+  translating: false,
   questionMap: new Map(),
   learning: Learning.createLearningState(),
   selectedTab: 'today',
@@ -135,7 +139,25 @@ async function loadCorpus() {
     const response = await fetch(CORPUS_URL, { cache: 'no-cache' });
     if (!response.ok) throw new Error(`Corpus request returned ${response.status}`);
     state.corpus = await response.json();
-    state.questions = (Array.isArray(state.corpus.questions) ? state.corpus.questions : []).map(Learning.prepareQuestion);
+    const corpusQuestions = Array.isArray(state.corpus.questions) ? state.corpus.questions : [];
+    state.translationCandidates = corpusQuestions.filter((question) => question.question_type === 'translation_pending');
+    try {
+      const cached = JSON.parse(localStorage.getItem(TRANSLATION_STORAGE_KEY) || '{}');
+      state.translationCache = cached && typeof cached === 'object' && !Array.isArray(cached) ? cached : {};
+    } catch {
+      state.translationCache = {};
+    }
+    const candidateKeys = new Set(state.translationCandidates.map((question) => question.canonical_key));
+    const cachedTranslations = Object.values(state.translationCache).filter((question) =>
+      candidateKeys.has(question?.canonical_key)
+      && question?.question_type === 'practice'
+      && Array.isArray(question?.options)
+      && question.options.length === 4
+    );
+    state.questions = [
+      ...corpusQuestions.filter((question) => question.question_type !== 'translation_pending'),
+      ...cachedTranslations
+    ].map(Learning.prepareQuestion);
   } catch (error) {
     console.warn('Bundled corpus unavailable; using the offline demo bank.', error);
     state.usingDemo = true;
@@ -145,10 +167,90 @@ async function loadCorpus() {
       sources: [{ name: 'FactFlow demo', url: '', license: 'Bundled offline demonstration questions.' }]
     };
     state.questions = buildDemoQuestions().map(Learning.prepareQuestion);
+    state.translationCandidates = [];
+    state.translationCache = {};
   }
   state.practiceQuestions = state.questions.filter(Learning.isPracticeQuestion);
   state.archiveQuestions = state.questions.filter((question) => !Learning.isPracticeQuestion(question));
   state.questionMap = new Map(state.practiceQuestions.map((question) => [question.key, question]));
+}
+
+function untranslatedCandidates() {
+  return state.translationCandidates.filter((question) => !state.translationCache[question.canonical_key]);
+}
+
+function setTranslationStatus(message) {
+  setText('translationStatus', message);
+  setText('translationPendingCount', untranslatedCandidates().length);
+}
+
+async function translateMoreHindiQuestions() {
+  if (state.translating) return;
+  const pending = untranslatedCandidates().slice(0, 20);
+  if (!pending.length) {
+    setTranslationStatus('Every discovered Hindi question has an English version on this device.');
+    return;
+  }
+  if (!('Translator' in window)) {
+    setTranslationStatus('On-device translation needs desktop Chrome 138 or newer. The reviewed English bank remains available.');
+    return;
+  }
+  state.translating = true;
+  const button = byId('translateHindiButton');
+  if (button) button.disabled = true;
+  let translator;
+  let completed = 0;
+  try {
+    const availability = await window.Translator.availability({ sourceLanguage: 'hi', targetLanguage: 'en' });
+    if (availability === 'unavailable') throw new Error('Hindi-to-English translation is unavailable on this device.');
+    translator = await window.Translator.create({
+      sourceLanguage: 'hi',
+      targetLanguage: 'en',
+      monitor(monitor) {
+        monitor.addEventListener('downloadprogress', (event) => {
+          setTranslationStatus(`Downloading the private translation model: ${Math.round(event.loaded * 100)}%`);
+        });
+      }
+    });
+    for (const candidate of pending) {
+      setTranslationStatus(`Translating ${completed + 1} of ${pending.length} questions…`);
+      const questionText = String(await translator.translate(candidate.question_text_hi || candidate.question_text)).trim();
+      const options = [];
+      for (const option of candidate.options_hi || candidate.options) {
+        const value = String(option).trim();
+        options.push(/^\d+(?:[.,]\d+)?$/.test(value) ? value : String(await translator.translate(value)).trim());
+      }
+      if (!questionText || options.length !== 4 || options.some((option) => !option)) continue;
+      const translated = {
+        ...candidate,
+        question_text: questionText,
+        options,
+        question_type: 'practice',
+        source: 'GKSection on-device English translation',
+        translation_status: 'machine-translated to English on this device',
+        provenance_status: 'third-party KBC transcript; answer supplied by source; English machine translation not editorially reviewed'
+      };
+      state.translationCache[candidate.canonical_key] = translated;
+      localStorage.setItem(TRANSLATION_STORAGE_KEY, JSON.stringify(state.translationCache));
+      const prepared = Learning.prepareQuestion(translated);
+      state.questions.push(prepared);
+      state.practiceQuestions.push(prepared);
+      state.questionMap.set(prepared.key, prepared);
+      completed += 1;
+    }
+    if (completed) createNewDailySession();
+    setTranslationStatus(completed
+      ? `${completed} English questions added. The new daily queue is ready.`
+      : 'No translation passed validation; the existing reviewed bank was left unchanged.');
+  } catch (error) {
+    console.warn('Hindi translation unavailable.', error);
+    setTranslationStatus(error.message || 'Hindi translation could not be completed.');
+  } finally {
+    if (translator?.destroy) translator.destroy();
+    state.translating = false;
+    if (button) button.disabled = false;
+    renderAll();
+  }
 }
 
 function validDailySession(session) {
@@ -156,7 +258,7 @@ function validDailySession(session) {
     && session.date === Learning.dateKey()
     && Array.isArray(session.questionKeys)
     && session.questionKeys.length > 0
-    && session.questionKeys.some((key) => state.questionMap.has(key));
+    && session.questionKeys.every((key) => state.questionMap.has(key));
 }
 
 function createNewDailySession() {
@@ -192,6 +294,12 @@ function activeResponse() {
   if (!session || !question) return null;
   const attemptId = session.responses?.[question.key];
   return attemptId ? state.learning.attempts.find((attempt) => attempt.id === attemptId) || null : null;
+}
+
+function presentedQuestion(question, contextKey, response = null) {
+  if (Array.isArray(response?.optionOrder)) return Learning.applyOptionOrder(question, response.optionOrder);
+  const previousOrder = Learning.questionStats(state.learning, question.key).latest?.optionOrder || [];
+  return Learning.presentQuestion(question, contextKey, previousOrder);
 }
 
 function switchTab(tabName) {
@@ -240,16 +348,21 @@ function archiveChallenge(game) {
 function lockChallengeAnswer() {
   const game = state.learning.currentChallenge;
   if (!game || game.status !== 'active' || !Number.isInteger(state.challengeSelection)) return;
-  const question = state.questionMap.get(game.questionKeys[game.position]);
-  if (!question) return;
+  const canonicalQuestion = state.questionMap.get(game.questionKeys[game.position]);
+  if (!canonicalQuestion) return;
+  const question = presentedQuestion(canonicalQuestion, `${game.id}:${game.position}`);
   const selectedIndex = state.challengeSelection;
-  const attempt = Learning.recordAttempt(state.learning, question, selectedIndex, { mode: 'challenge' });
+  const attempt = Learning.recordAttempt(state.learning, question, selectedIndex, {
+    mode: 'challenge',
+    optionOrder: question.option_order
+  });
   game.answers.push({
     questionKey: question.key,
     selectedIndex,
     correct: attempt.correct,
     answeredAt: attempt.answeredAt,
-    correctIndex: Number(question.correct_option_index)
+    correctIndex: Number(question.correct_option_index),
+    optionOrder: question.option_order
   });
   if (attempt.correct) {
     game.winnings = Learning.CHALLENGE_LADDER[game.position];
@@ -291,6 +404,7 @@ function renderChallengeLadder(game) {
 }
 
 function renderChallengeQuestion(container, game, question) {
+  question = presentedQuestion(question, `${game.id}:${game.position}`);
   const stage = element('article', { className: 'question-stage' });
   stage.append(
     element('div', { className: 'question-top' }, [
@@ -402,6 +516,7 @@ function sourceDescription(question) {
 
 function renderQuestion(container, question, response) {
   const session = activeSession();
+  question = presentedQuestion(question, `${session.id}:${session.cursor}`, response);
   const weights = Learning.archivePatternWeights(state.archiveQuestions);
   const priority = Learning.questionPriority(state.learning, question, weights);
   const stage = element('article', { className: 'question-stage' });
@@ -471,13 +586,15 @@ function renderQuestion(container, question, response) {
 }
 
 function answerQuestion(selectedIndex) {
-  const question = activeQuestion();
+  const canonicalQuestion = activeQuestion();
   const session = activeSession();
-  if (!question || activeResponse()) return;
+  if (!canonicalQuestion || activeResponse()) return;
+  const question = presentedQuestion(canonicalQuestion, `${session.id}:${session.cursor}`);
   const responseMs = Date.now() - state.questionStartedAt;
   const attempt = Learning.recordAttempt(state.learning, question, selectedIndex, {
     responseMs,
-    mode: session.mode
+    mode: session.mode,
+    optionOrder: question.option_order
   });
   if (!session.responses) session.responses = {};
   session.responses[question.key] = attempt.id;
@@ -682,6 +799,13 @@ function renderInsights() {
   setText('insightPracticeCount', state.practiceQuestions.length);
   setText('insightArchiveCount', state.archiveQuestions.length);
   setText('insightCategoryCount', new Set(state.practiceQuestions.map((question) => question.category)).size);
+  setText('translationPendingCount', untranslatedCandidates().length);
+  const translationStatus = byId('translationStatus');
+  if (!state.translating && translationStatus?.textContent.includes('Checking')) {
+    translationStatus.textContent = untranslatedCandidates().length
+      ? 'Translate a batch when you want more English questions.'
+      : 'Every discovered Hindi question has an English version on this device.';
+  }
   const generated = state.corpus?.generated_at ? new Date(state.corpus.generated_at) : null;
   setText('insightGeneratedAt', generated && !Number.isNaN(generated.getTime())
     ? generated.toLocaleDateString([], { month: 'short', day: 'numeric' })
@@ -706,9 +830,9 @@ function renderInsights() {
   const sources = byId('sourceQualityList');
   clear(sources);
   const sourceNotes = [
-    ['Practice questions', 'Answers are supplied by public trivia APIs. They are usable for drills but are not independently fact-checked by FactFlow.'],
-    ['Historical KBC archive', 'Partial Seasons 6–9 coverage from a third-party transcript. It affects topic balance but never appears as a drill.'],
-    ['Current affairs', 'No verified current-affairs feed is connected yet. The app labels this honestly instead of treating recently downloaded trivia as recent news.']
+    ['English practice questions', 'India-first questions translated from GKSection retain their original Hindi, four-option order, answer index, and source URL. Source answers are not independently fact-checked.'],
+    ['Hindi translation queue', 'New Hindi records remain non-playable until translated. Desktop Chrome can translate them privately on-device; reviewed translations are bundled for every browser.'],
+    ['Historical pattern archive', 'IQgarage remains non-playable pattern evidence. SonyLIV is referenced for official provenance but is not scraped.']
   ];
   sourceNotes.forEach(([title, copy]) => {
     sources.append(element('div', { className: 'source-item' }, [
@@ -722,12 +846,12 @@ function renderInsights() {
   clear(coverageGrid);
   const total = coverage.reduce((sum, item) => sum + Number(item.questions || 0), 0);
   setText('coverageSummary', coverage.length
-    ? `${total} normalized archive questions. Coverage is incomplete and answer accuracy is not independently verified.`
+    ? `${total} provenance-labelled records. English-ready and translation-pending counts are shown separately.`
     : 'Archive coverage is unavailable in offline demo mode.');
   coverage.forEach((item) => {
     coverageGrid.append(element('div', { className: 'coverage-item' }, [
       element('strong', { text: `Season ${item.season}` }),
-      element('span', { text: `${item.questions} questions · ${item.pages} pages` })
+      element('span', { text: `${item.questions} records · ${Number(item.playable || 0)} English ready · ${Number(item.pending_translation || 0)} awaiting translation` })
     ]));
   });
 }
@@ -736,7 +860,7 @@ function renderHeader() {
   setText('appVersionLabel', `v${APP_VERSION}`);
   setText('corpusStatus', state.usingDemo
     ? 'Offline demo bank · serve over HTTP for the full corpus'
-    : `${state.practiceQuestions.length} practice questions · ${state.archiveQuestions.length} archive patterns`);
+    : `${state.practiceQuestions.length} English KBC questions · ${untranslatedCandidates().length} Hindi awaiting translation`);
 }
 
 function renderAll() {
@@ -757,6 +881,7 @@ function attachListeners() {
     renderAll();
   });
   byId('newChallengeButton').addEventListener('click', startChallenge);
+  byId('translateHindiButton').addEventListener('click', translateMoreHindiQuestions);
   byId('sessionSize').addEventListener('change', (event) => {
     state.learning.settings.sessionSize = Number(event.target.value);
     createNewDailySession();

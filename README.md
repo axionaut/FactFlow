@@ -9,10 +9,13 @@ Incorrect answers enter Review until answered correctly. Every attempt is retain
 
 ## Product boundaries
 
-- Historical KBC questions are third-party, incomplete pattern evidence. They influence category balance but never appear in drills.
-- Practice answers are supplied by public trivia APIs and are not independently fact-checked by FactFlow.
+- Reviewed English translations of Hindi KBC questions are playable and retain the original Hindi, answer index, attribution, and source URL.
+- Machine-translated questions are created privately on the user's device and remain labelled as unreviewed translations.
+- IQgarage records remain third-party, incomplete pattern evidence and never appear in drills.
+- GKSection and IQgarage answers are supplied by those sources and are not independently fact-checked by FactFlow.
 - A verified current-affairs feed is not connected yet. Recently downloaded general trivia is not labelled as current affairs.
 - KBC Challenge simulates the question format and escalating difficulty. It does not attempt to reproduce a particular television season, host flow, or lifeline rules.
+- Options are reshuffled for every new presentation in Today, Review, and KBC Challenge. The answer is tracked independently of its displayed letter.
 
 ## Run locally
 
@@ -33,8 +36,9 @@ Opening `index.html` directly uses a small offline demonstration bank because br
 - `app.js` — browser state, persistence, safe DOM rendering, and interactions
 - `styles.css` — responsive application styling
 - `data/kbc-corpus.json` — read-only, provenance-labelled question corpus
+- `data/gksection-reviewed-en.json` — reviewed Hindi/English question pairs
 - `tools/build-corpus.mjs` — incremental corpus ingestion and normalization
-- `dev/assert-v14.js` — behavioral and corpus regression checks
+- `dev/assert-v15.js` — behavioral and corpus regression checks
 
 User learning state is stored under `factflow-learning-v2` in `localStorage`. The corpus itself is not copied into browser storage. Previous one-answer state from `kbc-prep-app-v1` is migrated once into attempt history.
 
@@ -43,13 +47,14 @@ User learning state is stored under `factflow-learning-v2` in `localStorage`. Th
 GitHub Actions runs `node tools/build-corpus.mjs` every six hours. The generator:
 
 1. Reuses successfully fetched archive pages.
-2. Retries failed or empty archive pages.
-3. Fetches answer-keyed questions from Open Trivia DB and The Trivia API.
-4. Rejects malformed questions and excluded entertainment/gaming niches.
-5. Uses stable question identities and deduplicates by normalized question text.
-6. Leaves the corpus file untouched when no unique question or archive-page state changed.
+2. Fetches bounded batches from GKSection so one source cannot monopolize a refresh.
+3. Preserves Hindi questions, four options, answer indices, season, episode, and provenance.
+4. Rejects malformed records, including ordering questions that do not have four answer choices.
+5. Merges reviewed English translations and removes Open Trivia DB and The Trivia API records.
+6. Retries failed or empty pages after a seven-day cooldown.
+7. Leaves the corpus file untouched when no question or page state changed.
 
-The bundled KBC archive currently covers only portions of Seasons 6–9 from [IQgarage](https://www.iqgarage.com/kbc-questions-and-answers/). It is not official Sony data. Source and licensing notes are retained in the corpus.
+The playable bank now comes from reviewed English translations of the [GKSection Hindi KBC archive](https://www.gksection.com/hindi/hindi-kbc-season-9-quiz/). Newly discovered Hindi records enter a translation queue. Desktop Chrome 138 or newer can translate batches locally using its built-in Translator API; other browsers retain the reviewed bank. IQgarage is retained only for historical topic patterns. None of these third-party sources is official Sony data, and permission is required before public redistribution where the source does not provide a reuse licence.
 
 ## Checks
 
@@ -57,6 +62,6 @@ The bundled KBC archive currently covers only portions of Seasons 6–9 from [IQ
 node --check learning.js
 node --check app.js
 node --check tools/build-corpus.mjs
-node dev/assert-v14.js
+node dev/assert-v15.js
 git diff --check
 ```

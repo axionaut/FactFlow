@@ -1,15 +1,17 @@
 import { mkdir, readFile, writeFile } from 'node:fs/promises';
 
-const INDEX_URL = 'https://www.iqgarage.com/kbc-questions-and-answers/';
-const TRIVIA_URL = 'https://opentdb.com/api.php?amount=50&type=multiple';
-const TRIVIA_API_URL = 'https://the-trivia-api.com/v2/questions?limit=50';
+const IQGARAGE_INDEX_URL = 'https://www.iqgarage.com/kbc-questions-and-answers/';
+const GKSECTION_INDEX_URL = 'https://www.gksection.com/hindi/hindi-kbc-season-9-quiz/';
 const OUTPUT_PATH = new URL('../data/kbc-corpus.json', import.meta.url);
+const REVIEWED_TRANSLATIONS_PATH = new URL('../data/gksection-reviewed-en.json', import.meta.url);
+const OFFLINE = process.argv.includes('--offline');
+const MAX_NEW_IQGARAGE_PAGES = Math.max(1, Number(process.env.IQGARAGE_PAGE_LIMIT || 6));
+const MAX_NEW_GKSECTION_PAGES = Math.max(1, Number(process.env.GKSECTION_PAGE_LIMIT || 6));
+const REMOVED_SOURCES = new Set(['Open Trivia DB', 'The Trivia API']);
 
-function decodeHtml(value) {
-  if (/[Ãâ]/.test(value)) {
-    value = Buffer.from(value, 'latin1').toString('utf8');
-  }
-  return value
+function decodeHtml(value = '') {
+  if (/[ÃƒÃ¢]/.test(value)) value = Buffer.from(value, 'latin1').toString('utf8');
+  return String(value)
     .replace(/&#(\d+);/g, (_, code) => String.fromCodePoint(Number(code)))
     .replace(/&#x([\da-f]+);/gi, (_, code) => String.fromCodePoint(Number.parseInt(code, 16)))
     .replace(/&nbsp;|&#160;/gi, ' ')
@@ -18,9 +20,9 @@ function decodeHtml(value) {
     .replace(/&apos;|&#039;/gi, "'")
     .replace(/&lt;/gi, '<')
     .replace(/&gt;/gi, '>')
-    .replace(/â€™/g, '’')
-    .replace(/â€œ|â€/g, '"')
-    .replace(/Â/g, '');
+    .replace(/Ã¢â‚¬â„¢/g, '’')
+    .replace(/Ã¢â‚¬Å“|Ã¢â‚¬Â/g, '"')
+    .replace(/Ã‚/g, '');
 }
 
 function htmlToLines(html) {
@@ -37,7 +39,20 @@ function htmlToLines(html) {
     .filter(Boolean);
 }
 
-function cleanQuestion(value) {
+function normalizedIdentity(value) {
+  return String(value || '').normalize('NFKC').toLowerCase().replace(/[^\p{L}\p{N}]+/gu, '');
+}
+
+function questionIdentity(question) {
+  return normalizedIdentity(question.canonical_key || question.question_text || question.question_text_hi);
+}
+
+function parseOptionLine(line) {
+  const matches = [...line.matchAll(/(?:^|\s)([A-D])[.)]\s*(.+?)(?=\s+[A-D][.)]\s*|$)/gi)];
+  return matches.length < 2 ? null : matches.map((match) => match[2].trim());
+}
+
+function cleanEnglishQuestion(value) {
   return value
     .replace(/^\((?:[\d,]+|FFF)\)\s*/i, '')
     .replace(/^(?:fastest\s+finger\s+first\s+)?question\s*(?:no\.?\s*)?\d*\s*[:.)-]\s*/i, '')
@@ -45,24 +60,8 @@ function cleanQuestion(value) {
     .trim();
 }
 
-function stableQuestionId(prefix, questionText) {
-  let hash = 2166136261;
-  const value = questionText.toLowerCase().replace(/[^a-z0-9]/g, '');
-  for (let index = 0; index < value.length; index += 1) {
-    hash ^= value.charCodeAt(index);
-    hash = Math.imul(hash, 16777619);
-  }
-  return `${prefix}-${(hash >>> 0).toString(36)}`;
-}
-
-function parseOptionLine(line) {
-  const matches = [...line.matchAll(/(?:^|\s)([A-D])[.)]\s*(.+?)(?=\s+[A-D][.)]\s*|$)/gi)];
-  if (matches.length < 2) return null;
-  return matches.map((match) => match[2].trim());
-}
-
 function categoryFor(text) {
-  const value = text.toLowerCase();
+  const value = String(text).toLowerCase();
   if (/cricket|football|tennis|olympic|sport|player|tournament|hockey|chess/.test(value)) return 'Sports';
   if (/film|actor|actress|cinema|movie|bollywood|song|director/.test(value)) return 'Cinema (Bollywood)';
   if (/constitution|parliament|president|prime minister|government|minister|lok sabha|rajya sabha/.test(value)) return 'Polity & Constitution';
@@ -79,110 +78,20 @@ function categoryFor(text) {
 
 function tagsFor(text) {
   const stop = new Set(['which', 'what', 'when', 'where', 'whose', 'these', 'following', 'from', 'with', 'that', 'this', 'have', 'does', 'name', 'called', 'into', 'most', 'first', 'known', 'used', 'according', 'india', 'indian']);
-  return [...new Set(text.toLowerCase().match(/[a-z][a-z-]{3,}/g) || [])]
-    .filter((word) => !stop.has(word))
-    .slice(0, 5);
+  return [...new Set(String(text).toLowerCase().match(/[a-z][a-z-]{3,}/g) || [])]
+    .filter((word) => !stop.has(word)).slice(0, 5);
 }
 
-function isKbcCompatible(text, category = '') {
-  const value = `${text} ${category}`.toLowerCase();
-  return !/anime|manga|video game|gaming|xbox|playstation|nintendo|minecraft|fortnite|club penguin|superhero|comic book|cartoon|role-playing game|mmorpg/.test(value);
-}
-
-function shuffleOptions(options, correctAnswer) {
-  const shuffled = [...options].sort(() => Math.random() - 0.5);
-  return { options: shuffled, correctOptionIndex: shuffled.indexOf(correctAnswer) };
-}
-
-async function fetchFreshTrivia() {
-  const response = await fetch(TRIVIA_URL);
-  if (!response.ok) throw new Error(`Trivia API returned ${response.status}`);
-  const payload = await response.json();
-  if (payload.response_code !== 0 || !Array.isArray(payload.results)) return [];
-
-  return payload.results.map((item, index) => {
-    const questionText = decodeHtml(item.question);
-    const correctAnswer = decodeHtml(item.correct_answer);
-    const { options, correctOptionIndex } = shuffleOptions([
-      correctAnswer,
-      ...item.incorrect_answers.map((answer) => decodeHtml(answer))
-    ], correctAnswer);
-    const combined = `${questionText} ${options.join(' ')}`;
-    return {
-      id: stableQuestionId('otdb', questionText),
-      season: null,
-      episode: null,
-      air_date: new Date().toISOString().slice(0, 10),
-      question_text: questionText,
-      options,
-      correct_option_index: correctOptionIndex,
-      question_type: 'practice',
-      category: categoryFor(`${item.category} ${combined}`),
-      subcategory: item.category,
-      difficulty_tier: item.difficulty === 'hard' ? 'Tier 4' : item.difficulty === 'medium' ? 'Tier 2' : 'Tier 1',
-      prize_level_asked_at: null,
-      source: 'Open Trivia DB',
-      source_url: 'https://opentdb.com/',
-      source_accessed_at: new Date().toISOString().slice(0, 10),
-      tags: tagsFor(questionText),
-      seen_count: 0,
-      last_correct: null,
-      ladder_position: null,
-      provenance_status: 'public trivia API; answer supplied by source'
-    };
-  }).filter((question) => isKbcCompatible(question.question_text, question.subcategory));
-}
-
-async function fetchTheTriviaApi() {
-  const response = await fetch(TRIVIA_API_URL);
-  if (!response.ok) throw new Error(`The Trivia API returned ${response.status}`);
-  const results = await response.json();
-  if (!Array.isArray(results)) return [];
-
-  return results.map((item, index) => {
-    const questionText = decodeHtml(item.question?.text || '');
-    const correctAnswer = decodeHtml(item.correctAnswer || '');
-    const { options, correctOptionIndex } = shuffleOptions([
-      correctAnswer,
-      ...(item.incorrectAnswers || []).map((answer) => decodeHtml(answer))
-    ], correctAnswer);
-    const combined = `${questionText} ${options.join(' ')}`;
-    return {
-      id: stableQuestionId('trivia-api', questionText),
-      season: null,
-      episode: null,
-      air_date: new Date().toISOString().slice(0, 10),
-      question_text: questionText,
-      options,
-      correct_option_index: correctOptionIndex,
-      question_type: 'practice',
-      category: categoryFor(`${item.category || ''} ${combined}`),
-      subcategory: item.category || '',
-      difficulty_tier: item.difficulty === 'hard' ? 'Tier 4' : item.difficulty === 'medium' ? 'Tier 2' : 'Tier 1',
-      prize_level_asked_at: null,
-      source: 'The Trivia API',
-      source_url: 'https://the-trivia-api.com/',
-      source_accessed_at: new Date().toISOString().slice(0, 10),
-      tags: tagsFor(questionText),
-      seen_count: 0,
-      last_correct: null,
-      ladder_position: null,
-      provenance_status: 'public trivia API; answer supplied by source'
-    };
-  }).filter((question) => question.question_text && question.options.length === 4 && question.correct_option_index >= 0 && isKbcCompatible(question.question_text, question.subcategory));
-}
-
-function parseQuestions(html, metadata) {
+function parseIqgarageQuestions(html, metadata) {
   const lines = htmlToLines(html);
   const records = [];
   for (let index = 0; index < lines.length; index += 1) {
     const prizeMatch = lines[index].match(/^\(([\d,]+|FFF)\)\s*/i);
-    const numberedQuestion = /^(?:(?:fastest\s+finger\s+first\s+)?question|q\.?)\s*(?:no\.?\s*)?\d*\s*[:.)-]/i.test(lines[index]);
-    if (!prizeMatch && !numberedQuestion) continue;
+    const numbered = /^(?:(?:fastest\s+finger\s+first\s+)?question|q\.?)\s*(?:no\.?\s*)?\d*\s*[:.)-]/i.test(lines[index]);
+    if (!prizeMatch && !numbered) continue;
     if (prizeMatch?.[1].toUpperCase() === 'FFF') continue;
-    const questionText = cleanQuestion(lines[index]);
+    const questionText = cleanEnglishQuestion(lines[index]);
     if (questionText.length < 12 || questionText.length > 500) continue;
-
     let options = parseOptionLine(lines[index + 1] || '');
     let answerLineIndex = index + 2;
     if (!options) {
@@ -196,42 +105,26 @@ function parseQuestions(html, metadata) {
       if (optionLines.length === 4) options = optionLines;
     }
     if (!options || options.length !== 4) continue;
-
     let answer = '';
     for (let cursor = answerLineIndex; cursor <= Math.min(answerLineIndex + 4, lines.length - 1); cursor += 1) {
       const match = lines[cursor].match(/^(?:right\s+)?ans(?:wer)?\.?\s*[:.)-]\s*(.*)$/i);
-      if (match) {
-        answer = match[1].trim();
-        break;
-      }
+      if (match) { answer = match[1].trim(); break; }
     }
     let correctOptionIndex = /^[A-D]$/i.test(answer) ? answer.toUpperCase().charCodeAt(0) - 65 : -1;
     if (correctOptionIndex < 0) {
-      const normalizedAnswer = answer.toLowerCase().replace(/[^a-z0-9]/g, '');
-      correctOptionIndex = options.findIndex((option) => option.toLowerCase().replace(/[^a-z0-9]/g, '').includes(normalizedAnswer));
+      const normalizedAnswer = normalizedIdentity(answer);
+      correctOptionIndex = options.findIndex((option) => normalizedIdentity(option).includes(normalizedAnswer));
     }
     if (correctOptionIndex < 0 || correctOptionIndex > 3) continue;
-
     const combined = `${questionText} ${options.join(' ')}`;
     records.push({
       id: `iqg-s${metadata.season}-e${metadata.episode}-${records.length + 1}`,
-      season: metadata.season,
-      episode: metadata.episode,
-      air_date: metadata.airDate,
-      question_text: questionText,
-      options,
-      correct_option_index: correctOptionIndex,
-      question_type: 'archive',
-      category: categoryFor(combined),
-      subcategory: '',
-      difficulty_tier: '',
+      season: metadata.season, episode: metadata.episode, air_date: metadata.airDate,
+      question_text: questionText, options, correct_option_index: correctOptionIndex,
+      question_type: 'archive', category: categoryFor(combined), subcategory: '', difficulty_tier: '',
       prize_level_asked_at: prizeMatch ? Number(prizeMatch[1].replace(/,/g, '')) : null,
-      source: 'IQgarage episode archive',
-      source_url: metadata.url,
-      source_accessed_at: new Date().toISOString().slice(0, 10),
-      tags: tagsFor(combined),
-      seen_count: 0,
-      last_correct: null,
+      source: 'IQgarage episode archive', source_url: metadata.url,
+      source_accessed_at: new Date().toISOString().slice(0, 10), tags: tagsFor(combined),
       ladder_position: records.length + 1,
       provenance_status: 'third-party transcript; answer not independently verified'
     });
@@ -239,103 +132,194 @@ function parseQuestions(html, metadata) {
   return records;
 }
 
-function archiveLinks(indexHtml) {
-  const startMarkers = [
-    { season: 9, marker: 'KBC Season 9' },
-    { season: 8, marker: 'KBC Season 8' },
-    { season: 7, marker: 'KBC Season 7' },
-    { season: 6, marker: 'KBC Season 6' }
+function iqgarageLinks(indexHtml) {
+  const markers = [
+    { season: 9, marker: 'KBC Season 9' }, { season: 8, marker: 'KBC Season 8' },
+    { season: 7, marker: 'KBC Season 7' }, { season: 6, marker: 'KBC Season 6' }
   ].map((item) => ({ ...item, index: indexHtml.indexOf(item.marker) }));
   const links = [];
-  for (let markerIndex = 0; markerIndex < startMarkers.length; markerIndex += 1) {
-    const current = startMarkers[markerIndex];
-    const next = startMarkers[markerIndex + 1];
+  for (const [markerIndex, current] of markers.entries()) {
+    if (current.index < 0) continue;
+    const next = markers[markerIndex + 1];
     const section = indexHtml.slice(current.index, next?.index > current.index ? next.index : current.index + 70000);
     for (const match of section.matchAll(/href=["'](https?:\/\/www\.iqgarage\.com\/kbc-questions-and-answers\/[^"'#?]+)["']/gi)) {
       const url = match[1].replace(/\/$/, '') + '/';
       if (/play-|register|questions-and-answers\/$/.test(url)) continue;
       const slug = new URL(url).pathname;
       const episodeMatch = slug.match(/episode[-_ ]?(\d+)/i) || slug.match(/ep[-_ ]?(\d+)/i);
-      const dateMatch = slug.match(/(january|february|march|april|may|june|july|august|september|october|november|december)[-_](\d{1,2})/i);
-      links.push({ season: current.season, episode: Number(episodeMatch?.[1] || 0), airDate: '', url, dateMatch });
+      links.push({ season: current.season, episode: Number(episodeMatch?.[1] || 0), airDate: '', url });
     }
   }
   return [...new Map(links.map((item) => [item.url, item])).values()];
 }
 
-async function main() {
-  let previousCorpus = { questions: [], pages: [] };
-  try {
-    previousCorpus = JSON.parse(await readFile(OUTPUT_PATH, 'utf8'));
-  } catch {
-    // First run starts with an empty corpus.
+function gksectionLinks(indexHtml) {
+  const links = [];
+  for (const match of indexHtml.matchAll(/href=["']([^"'#]+)["']/gi)) {
+    let url;
+    try { url = new URL(decodeHtml(match[1]), GKSECTION_INDEX_URL); } catch { continue; }
+    if (url.hostname !== 'www.gksection.com') continue;
+    const slug = url.pathname.replace(/\/$/, '');
+    const seasonMatch = slug.match(/^\/kbc-(\d+)-/i);
+    if (!seasonMatch || !/questions|episode/i.test(slug) || !/hindi|kbc-9-|kbc-1[4-7]-questions/i.test(slug)) continue;
+    const season = Number(seasonMatch[1]);
+    if (season < 9 || season > 17) continue;
+    const episodeMatch = slug.match(/episode-(\d+)/i);
+    links.push({ season, episode: Number(episodeMatch?.[1] || 0), airDate: '', url: `${url.origin}${slug}/` });
   }
-
-  const indexResponse = await fetch(INDEX_URL);
-  if (!indexResponse.ok) throw new Error(`Archive index returned ${indexResponse.status}`);
-  const links = archiveLinks(await indexResponse.text());
-  const knownPages = new Set((previousCorpus.pages || [])
-    .filter((page) => Number(page.status) >= 200 && Number(page.status) < 300 && Number(page.questions) > 0)
-    .map((page) => page.url));
-  const newLinks = links.filter((link) => !knownPages.has(link.url));
-  const questions = (previousCorpus.questions || []).map((question) => ({
-    ...question,
-    question_type: question.source === 'Open Trivia DB' || question.source === 'The Trivia API' ? 'practice' : 'archive'
-  }));
-  const pageMap = new Map((previousCorpus.pages || []).map((page) => [page.url, page]));
-  for (const [position, link] of newLinks.entries()) {
-    const response = await fetch(link.url);
-    if (!response.ok) {
-      pageMap.set(link.url, { ...link, status: response.status, questions: 0 });
-      continue;
-    }
-    const extracted = parseQuestions(await response.text(), link);
-    questions.push(...extracted);
-    pageMap.set(link.url, { season: link.season, episode: link.episode, url: link.url, status: response.status, questions: extracted.length });
-    process.stdout.write(`\r${position + 1}/${newLinks.length} new pages; ${questions.length} questions`);
-  }
-
-  const pages = [...pageMap.values()];
-  const questionIdentity = (question) => question.question_text.toLowerCase().replace(/[^a-z0-9]/g, '');
-  const deduped = [...new Map(questions.map((question) => [questionIdentity(question), question])).values()];
-  const freshTrivia = [];
-  for (const gather of [fetchFreshTrivia, fetchTheTriviaApi]) {
-    try {
-      freshTrivia.push(...await gather());
-    } catch (error) {
-      console.warn(`Fresh trivia source unavailable: ${error.message}`);
-    }
-  }
-  const combinedQuestions = [...new Map([...deduped, ...freshTrivia]
-    .filter((question) => question.question_type !== 'practice' || isKbcCompatible(question.question_text, question.subcategory))
-    .map((question) => [questionIdentity(question), question])).values()];
-  const previousQuestionKeys = new Set((previousCorpus.questions || []).map(questionIdentity));
-  const addedQuestions = combinedQuestions.filter((question) => !previousQuestionKeys.has(questionIdentity(question)));
-  const pagesChanged = JSON.stringify(pages) !== JSON.stringify(previousCorpus.pages || []);
-  if (!addedQuestions.length && !pagesChanged) {
-    process.stdout.write(`\nNo new unique questions or archive-page changes; corpus left untouched.\n`);
-    return;
-  }
-  const payload = {
-    schema_version: 1,
-    generated_at: new Date().toISOString(),
-    corpus_scope: 'Public KBC archive plus freshly gathered general-knowledge questions; not an official Sony corpus.',
-    sources: [
-      { name: 'IQgarage KBC Questions and Answers', url: INDEX_URL, license: 'No explicit reuse license found; retain attribution and review before redistribution.' },
-      { name: 'Open Trivia DB', url: 'https://opentdb.com/', license: 'CC BY-SA 4.0; retain attribution.' }
-      , { name: 'The Trivia API', url: 'https://the-trivia-api.com/', license: 'Check source terms before redistribution.' }
-    ],
-    coverage: [6, 7, 8, 9].map((season) => ({ season, questions: deduped.filter((item) => item.season === season).length, pages: pages.filter((item) => item.season === season && item.questions > 0).length })),
-    fresh_questions: addedQuestions.filter((question) => question.question_type === 'practice').length,
-    pages,
-    questions: combinedQuestions
-  };
-  await mkdir(new URL('../data/', import.meta.url), { recursive: true });
-  await writeFile(OUTPUT_PATH, `${JSON.stringify(payload, null, 2)}\n`);
-  process.stdout.write(`\nWrote ${combinedQuestions.length} questions (${addedQuestions.length} newly added) to ${OUTPUT_PATH.pathname}\n`);
+  return [...new Map(links.map((item) => [item.url, item])).values()];
 }
 
-main().catch((error) => {
-  console.error(error);
-  process.exitCode = 1;
-});
+function parseGksectionQuestions(html, metadata) {
+  const lines = htmlToLines(html);
+  const records = [];
+  for (let index = 0; index < lines.length; index += 1) {
+    const questionMatch = lines[index].match(/^(?:Q|प्रश्न|प्रश्‍न)\s*(\d+)\s*[.:।-]\s*(.+)$/iu);
+    if (!questionMatch) continue;
+    const questionTextHi = questionMatch[2].trim();
+    if (questionTextHi.length < 8 || questionTextHi.length > 600) continue;
+    const optionMatches = [];
+    let answerMatch = null;
+    for (let cursor = index + 1; cursor <= Math.min(index + 16, lines.length - 1); cursor += 1) {
+      if (/^(?:Q|प्रश्न|प्रश्‍न)\s*\d+\s*[.:।-]/iu.test(lines[cursor])) break;
+      const option = lines[cursor].match(/^([A-D])\s*[.:.)-]\s*(.+)$/i);
+      if (option) optionMatches.push([option[1].toUpperCase(), option[2].trim()]);
+      const answer = lines[cursor].match(/^(?:उत्तर|Answer)\s*:\s*([A-D])\s*[.:)]?/iu);
+      if (answer) { answerMatch = answer; break; }
+    }
+    if (optionMatches.length !== 4 || !answerMatch) continue;
+    if (optionMatches.some(([letter], optionIndex) => letter.charCodeAt(0) - 65 !== optionIndex)) continue;
+    const optionsHi = optionMatches.map(([, value]) => value);
+    const correctOptionIndex = answerMatch[1].toUpperCase().charCodeAt(0) - 65;
+    const canonicalKey = `gks-${normalizedIdentity(new URL(metadata.url).pathname)}-${records.length + 1}`;
+    records.push({
+      id: canonicalKey, canonical_key: canonicalKey, season: metadata.season, episode: metadata.episode || null,
+      air_date: metadata.airDate, question_text: questionTextHi, options: optionsHi,
+      question_text_hi: questionTextHi, options_hi: optionsHi, correct_option_index: correctOptionIndex,
+      question_type: 'translation_pending', category: 'Miscellaneous/Trivia', subcategory: '',
+      difficulty_tier: '', prize_level_asked_at: null,
+      source: 'GKSection Hindi KBC archive', source_url: metadata.url,
+      source_accessed_at: new Date().toISOString().slice(0, 10), tags: [], ladder_position: records.length + 1,
+      language_original: 'hi', translation_status: 'pending on-device English translation',
+      provenance_status: 'third-party KBC transcript; answer supplied by source; English translation pending'
+    });
+  }
+  return records;
+}
+
+function prepareReviewedQuestion(question) {
+  const combined = `${question.question_text} ${(question.options || []).join(' ')}`;
+  return {
+    air_date: null, subcategory: '', prize_level_asked_at: null,
+    source_accessed_at: new Date().toISOString().slice(0, 10), tags: tagsFor(combined), ...question,
+    question_type: 'practice', source: 'GKSection translated KBC archive', language_original: 'hi',
+    translation_status: 'reviewed English translation',
+    provenance_status: 'third-party KBC transcript; English translation reviewed; answer supplied by source'
+  };
+}
+
+async function fetchText(url, label) {
+  const response = await fetch(url, { headers: { 'user-agent': 'FactFlow corpus updater/15 (+https://github.com/axionaut/FactFlow)' } });
+  if (!response.ok) throw new Error(`${label} returned ${response.status}`);
+  return response.text();
+}
+
+function eligibleForRetry(page) {
+  if (!page) return true;
+  if (!page.last_attempted_at) return false;
+  const elapsed = Date.now() - Date.parse(`${page.last_attempted_at}T00:00:00Z`);
+  return Number.isFinite(elapsed) && elapsed >= 7 * 24 * 60 * 60 * 1000;
+}
+
+async function main() {
+  let previousCorpus = { questions: [], pages: [], translation_pages: [] };
+  try { previousCorpus = JSON.parse(await readFile(OUTPUT_PATH, 'utf8')); } catch { /* First run. */ }
+  const reviewedPayload = JSON.parse(await readFile(REVIEWED_TRANSLATIONS_PATH, 'utf8'));
+  const reviewedQuestions = (reviewedPayload.questions || []).map(prepareReviewedQuestion);
+  const reviewedUrls = new Set(reviewedQuestions.map((question) => question.source_url));
+  const questions = (previousCorpus.questions || [])
+    .filter((question) => !REMOVED_SOURCES.has(question.source))
+    .filter((question) => question.translation_status !== 'reviewed English translation');
+  const fallbackAttemptDate = String(previousCorpus.generated_at || new Date().toISOString()).slice(0, 10);
+  const withAttemptDate = (page) => (page.status !== 'reviewed' && !(Number(page.status) >= 200 && Number(page.status) < 300 && Number(page.questions) > 0) && !page.last_attempted_at)
+    ? { ...page, last_attempted_at: fallbackAttemptDate }
+    : page;
+  const pageMap = new Map((previousCorpus.pages || []).map(withAttemptDate).map((page) => [page.url, page]));
+  const translationPageMap = new Map((previousCorpus.translation_pages || []).map(withAttemptDate).map((page) => [page.url, page]));
+  for (const url of reviewedUrls) {
+    const pageQuestions = reviewedQuestions.filter((question) => question.source_url === url);
+    translationPageMap.set(url, { season: pageQuestions[0]?.season || null, episode: pageQuestions[0]?.episode || null,
+      url, status: 'reviewed', questions: pageQuestions.length });
+  }
+
+  if (!OFFLINE) {
+    try {
+      const known = new Set([...pageMap.values()].filter((page) => Number(page.status) >= 200 && Number(page.status) < 300 && Number(page.questions) > 0).map((page) => page.url));
+      const links = iqgarageLinks(await fetchText(IQGARAGE_INDEX_URL, 'IQgarage index'))
+        .filter((link) => !known.has(link.url) && eligibleForRetry(pageMap.get(link.url)))
+        .slice(0, MAX_NEW_IQGARAGE_PAGES);
+      for (const [position, link] of links.entries()) {
+        try {
+          const extracted = parseIqgarageQuestions(await fetchText(link.url, 'IQgarage page'), link);
+          questions.push(...extracted); pageMap.set(link.url, { ...link, status: 200, questions: extracted.length, last_attempted_at: new Date().toISOString().slice(0, 10) });
+        } catch (error) { pageMap.set(link.url, { ...link, status: 0, questions: 0, error: error.message, last_attempted_at: new Date().toISOString().slice(0, 10) }); }
+        process.stdout.write(`\r${position + 1}/${links.length} new IQgarage pages`);
+      }
+    } catch (error) { console.warn(`IQgarage refresh unavailable: ${error.message}`); }
+
+    try {
+      const known = new Set([...translationPageMap.values()]
+        .filter((page) => page.status === 'reviewed' || (Number(page.status) >= 200 && Number(page.status) < 300 && Number(page.questions) > 0))
+        .map((page) => page.url));
+      const links = gksectionLinks(await fetchText(GKSECTION_INDEX_URL, 'GKSection index'))
+        .filter((link) => !known.has(link.url) && eligibleForRetry(translationPageMap.get(link.url)))
+        .slice(0, MAX_NEW_GKSECTION_PAGES);
+      for (const [position, link] of links.entries()) {
+        try {
+          const extracted = parseGksectionQuestions(await fetchText(link.url, 'GKSection page'), link);
+          questions.push(...extracted); translationPageMap.set(link.url, { ...link, status: 200, questions: extracted.length, last_attempted_at: new Date().toISOString().slice(0, 10) });
+        } catch (error) { translationPageMap.set(link.url, { ...link, status: 0, questions: 0, error: error.message, last_attempted_at: new Date().toISOString().slice(0, 10) }); }
+        process.stdout.write(`\r${position + 1}/${links.length} new GKSection pages`);
+      }
+    } catch (error) { console.warn(`GKSection refresh unavailable: ${error.message}`); }
+  }
+
+  const combinedQuestions = [...new Map([...questions, ...reviewedQuestions].map((question) => [questionIdentity(question), question])).values()];
+  const previousKeys = new Set((previousCorpus.questions || []).map(questionIdentity));
+  const addedQuestions = combinedQuestions.filter((question) => !previousKeys.has(questionIdentity(question)));
+  const removedGenericCount = (previousCorpus.questions || []).filter((question) => REMOVED_SOURCES.has(question.source)).length;
+  const pages = [...pageMap.values()];
+  const translationPages = [...translationPageMap.values()];
+  const seasons = [...new Set(combinedQuestions.map((question) => Number(question.season)).filter(Boolean))].sort((a, b) => a - b);
+  const coverage = seasons.map((season) => {
+    const seasonQuestions = combinedQuestions.filter((question) => Number(question.season) === season);
+    return { season, questions: seasonQuestions.length,
+      playable: seasonQuestions.filter((question) => question.question_type === 'practice').length,
+      pending_translation: seasonQuestions.filter((question) => question.question_type === 'translation_pending').length,
+      pages: new Set(seasonQuestions.map((question) => question.source_url).filter(Boolean)).size };
+  });
+  const payload = {
+    schema_version: 2, generated_at: new Date().toISOString(),
+    corpus_scope: 'India-first KBC question archive with reviewed or on-device English translations; not an official Sony corpus.',
+    sources: [
+      { name: 'GKSection Hindi KBC archive', url: GKSECTION_INDEX_URL, license: 'No explicit reuse license found; retain original Hindi, attribution, and source URL. Permission is required for public redistribution.' },
+      { name: 'IQgarage KBC Questions and Answers', url: IQGARAGE_INDEX_URL, license: 'No explicit reuse license found; retained only as non-playable pattern evidence.' },
+      { name: 'SonyLIV KBC Play Along', url: 'https://origin-staticv2.sonyliv.com/UI_icons/KBC_Hindi_Terms/KBC16_PAG_FAQ.pdf', license: 'Official provenance reference only; SonyLIV content is not scraped or bundled.' }
+    ],
+    coverage, fresh_questions: addedQuestions.filter((question) => question.question_type === 'practice').length,
+    translation_pending: combinedQuestions.filter((question) => question.question_type === 'translation_pending').length,
+    removed_generic_questions: removedGenericCount, pages, translation_pages: translationPages, questions: combinedQuestions
+  };
+  const previousComparable = JSON.stringify({ questions: previousCorpus.questions || [], pages: previousCorpus.pages || [],
+    translation_pages: previousCorpus.translation_pages || [], sources: previousCorpus.sources || [] });
+  const nextComparable = JSON.stringify({ questions: payload.questions, pages: payload.pages,
+    translation_pages: payload.translation_pages, sources: payload.sources });
+  if (!OFFLINE && previousComparable === nextComparable) {
+    process.stdout.write('\nNo corpus changes; bundled data left untouched.\n'); return;
+  }
+  await mkdir(new URL('../data/', import.meta.url), { recursive: true });
+  await writeFile(OUTPUT_PATH, `${JSON.stringify(payload, null, 2)}\n`);
+  process.stdout.write(`\nWrote ${combinedQuestions.length} questions (${addedQuestions.length} added, ${removedGenericCount} generic trivia removed) to ${OUTPUT_PATH.pathname}\n`);
+}
+
+main().catch((error) => { console.error(error); process.exitCode = 1; });

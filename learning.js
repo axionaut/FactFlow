@@ -40,7 +40,7 @@
       .normalize('NFKD')
       .replace(/[\u0300-\u036f]/g, '')
       .toLowerCase()
-      .replace(/[^a-z0-9\s]/g, ' ')
+      .replace(/[^\p{L}\p{N}\s]/gu, ' ')
       .replace(/\s+/g, ' ')
       .trim();
   }
@@ -56,12 +56,52 @@
   }
 
   function questionKey(question) {
-    return `q-${hashText(normalizeText(question?.question_text))}`;
+    return `q-${hashText(normalizeText(question?.canonical_key || question?.question_text))}`;
+  }
+
+  function sameOrder(first, second) {
+    return Array.isArray(first)
+      && Array.isArray(second)
+      && first.length === second.length
+      && first.every((value, index) => Number(value) === Number(second[index]));
+  }
+
+  function shuffledOptionOrder(question, seed, previousOrder = []) {
+    const count = Array.isArray(question?.options) ? question.options.length : 0;
+    const order = Array.from({ length: count }, (_, index) => index);
+    let entropy = Number.parseInt(hashText(`${question?.key || questionKey(question)}:${seed}`), 36) >>> 0;
+    for (let index = count - 1; index > 0; index -= 1) {
+      entropy = (Math.imul(entropy ^ (entropy >>> 15), 2246822519) + 3266489917) >>> 0;
+      const swapIndex = entropy % (index + 1);
+      [order[index], order[swapIndex]] = [order[swapIndex], order[index]];
+    }
+    const identity = Array.from({ length: count }, (_, index) => index);
+    const mustChange = sameOrder(order, previousOrder) || (!previousOrder.length && sameOrder(order, identity));
+    if (mustChange && count > 1) order.push(order.shift());
+    return order;
+  }
+
+  function applyOptionOrder(question, order) {
+    const valid = Array.isArray(order)
+      && order.length === question.options.length
+      && new Set(order.map(Number)).size === question.options.length
+      && order.every((index) => Number.isInteger(Number(index)) && Number(index) >= 0 && Number(index) < question.options.length);
+    const optionOrder = valid ? order.map(Number) : Array.from({ length: question.options.length }, (_, index) => index);
+    return {
+      ...question,
+      options: optionOrder.map((index) => question.options[index]),
+      correct_option_index: optionOrder.indexOf(Number(question.correct_option_index)),
+      option_order: optionOrder
+    };
+  }
+
+  function presentQuestion(question, seed, previousOrder = []) {
+    return applyOptionOrder(question, shuffledOptionOrder(question, seed, previousOrder));
   }
 
   function inferCategory(question) {
     const existing = String(question?.category || '');
-    if (existing === 'Current Affairs' && question?.event_date) return existing;
+    if (CATEGORIES.includes(existing) && existing !== 'Miscellaneous/Trivia') return existing;
 
     const value = normalizeText([
       question?.subcategory,
@@ -82,7 +122,6 @@
     if (/dance|festival|painting|music|culture|architecture|artist|sculpture/.test(value)) return 'Art & Culture';
     if (/bollywood|hindi film|indian cinema/.test(value)) return 'Cinema (Bollywood)';
     if (/film|actor|actress|cinema|movie|television|entertainment|director|sitcom/.test(value)) return 'Cinema (Regional/World)';
-    if (CATEGORIES.includes(existing) && existing !== 'Miscellaneous/Trivia') return existing;
     return 'Miscellaneous/Trivia';
   }
 
@@ -117,7 +156,7 @@
     const options = question?.options;
     const unverifiedArchive = question?.provenance_status === 'third-party transcript; answer not independently verified';
     const practiceType = question?.question_type === 'practice'
-      || ['Open Trivia DB', 'The Trivia API', 'FactFlow demo'].includes(question?.source);
+      || question?.source === 'FactFlow demo';
     return practiceType
       && !unverifiedArchive
       && Number.isInteger(answer)
@@ -213,7 +252,8 @@
       correct,
       answeredAt,
       responseMs: Number.isFinite(options.responseMs) ? Math.max(0, Math.round(options.responseMs)) : null,
-      mode: options.mode || 'daily'
+      mode: options.mode || 'daily',
+      optionOrder: Array.isArray(options.optionOrder) ? options.optionOrder.map(Number) : null
     };
     state.attempts.push(attempt);
     state.schedule[key] = {
@@ -420,6 +460,7 @@
     CHALLENGE_LADDER,
     CATEGORIES,
     addDays,
+    applyOptionOrder,
     archivePatternWeights,
     clamp,
     createDailySession,
@@ -435,6 +476,7 @@
     normalizeLearningState,
     normalizeText,
     prepareQuestion,
+    presentQuestion,
     questionKey,
     questionPriority,
     questionStats,

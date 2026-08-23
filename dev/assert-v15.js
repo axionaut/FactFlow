@@ -14,8 +14,8 @@ function question(index, tier, category) {
     question_type: 'practice',
     difficulty_tier: tier,
     category,
-    source: 'The Trivia API',
-    provenance_status: 'public trivia API; answer supplied by source'
+    source: 'GKSection translated KBC archive',
+    provenance_status: 'third-party KBC transcript; English translation reviewed; answer supplied by source'
   });
 }
 
@@ -29,6 +29,29 @@ check('stable question keys ignore punctuation and case', () => {
   const first = Learning.questionKey({ question_text: 'Who Wrote This?' });
   const second = Learning.questionKey({ question_text: 'who wrote this' });
   assert.equal(first, second);
+});
+
+check('reviewed source categories remain authoritative', () => {
+  assert.equal(Learning.inferCategory({
+    category: 'Indian History',
+    question_text: 'Which book did this Indian revolutionary write?'
+  }), 'Indian History');
+});
+
+check('options reshuffle without changing the correct answer', () => {
+  const sample = question(0, 'Tier 1', 'Indian History');
+  const first = Learning.presentQuestion(sample, 'first-show');
+  const repeated = Learning.presentQuestion(sample, 'review-show', first.option_order);
+  assert.notDeepEqual(first.option_order, [0, 1, 2, 3]);
+  assert.notDeepEqual(repeated.option_order, first.option_order);
+  assert.equal(first.options[first.correct_option_index], 'Beta');
+  assert.equal(repeated.options[repeated.correct_option_index], 'Beta');
+  const restored = Learning.applyOptionOrder(sample, repeated.option_order);
+  assert.deepEqual(restored.options, repeated.options);
+  const state = Learning.createLearningState();
+  const attempt = Learning.recordAttempt(state, repeated, repeated.correct_option_index, { optionOrder: repeated.option_order });
+  assert.equal(attempt.correct, true);
+  assert.deepEqual(attempt.optionOrder, repeated.option_order);
 });
 
 check('attempts are separate and incorrect answers enter review', () => {
@@ -90,14 +113,18 @@ check('KBC challenge builds a unique escalating 15-question ladder', () => {
   assert.equal(Learning.guaranteedWinnings(10), 320000);
 });
 
-check('bundled corpus has valid answer-keyed practice questions', () => {
+check('bundled corpus has India-first translated KBC practice questions', () => {
   const corpus = JSON.parse(fs.readFileSync(path.join(__dirname, '..', 'data', 'kbc-corpus.json'), 'utf8'));
   const prepared = corpus.questions.map(Learning.prepareQuestion);
   const practice = prepared.filter(Learning.isPracticeQuestion);
-  assert.ok(practice.length >= 100);
+  assert.ok(practice.length >= 24);
   assert.ok(practice.every((item) => item.options.length === 4));
   assert.ok(practice.every((item) => Number.isInteger(Number(item.correct_option_index))));
   assert.ok(new Set(practice.map((item) => item.category)).size >= 8);
+  assert.ok(practice.every((item) => item.source.startsWith('GKSection')));
+  assert.ok(practice.every((item) => item.language_original === 'hi'));
+  assert.equal(corpus.questions.some((item) => ['Open Trivia DB', 'The Trivia API'].includes(item.source)), false);
+  assert.ok(corpus.translation_pending >= 1);
 });
 
 check('HTML loads cache-aligned assets and every main screen', () => {
@@ -106,9 +133,12 @@ check('HTML loads cache-aligned assets and every main screen', () => {
   for (const id of ['tab-today', 'tab-challenge', 'tab-review', 'tab-progress', 'tab-insights']) {
     assert.ok(html.includes('id="' + id + '"'), 'missing ' + id);
   }
-  assert.ok(html.includes('styles.css?v=14'));
-  assert.ok(html.includes('learning.js?v=14'));
-  assert.ok(html.includes('app.js?v=14'));
+  assert.ok(html.includes('styles.css?v=15'));
+  assert.ok(html.includes('learning.js?v=15'));
+  assert.ok(html.includes('app.js?v=15'));
+  assert.ok(html.includes('id="translateHindiButton"'));
+  assert.ok(html.includes('id="translationPendingCount"'));
+  assert.ok(app.includes('session.questionKeys.every((key) => state.questionMap.has(key))'));
   const referencedIds = [
     ...app.matchAll(/byId\('([^']+)'\)/g),
     ...app.matchAll(/setText\('([^']+)'/g)
@@ -121,5 +151,5 @@ check('HTML loads cache-aligned assets and every main screen', () => {
   assert.equal(new Set(declaredIds).size, declaredIds.length, 'HTML contains duplicate IDs');
 });
 
-console.log('v14 assertions passed: ' + checks.length + '/' + checks.length);
+console.log('v15 assertions passed: ' + checks.length + '/' + checks.length);
 checks.forEach((name, index) => console.log((index + 1) + '. ' + name));
