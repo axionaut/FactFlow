@@ -1,7 +1,7 @@
-# KBC Prep App Architecture Notes
+# FactFlow Architecture Notes
 
 ## Purpose
-The app is a single-page, local-first study tool for KBC preparation. It ingests a question bank, highlights recurring patterns in topic frequency and tier distribution, and surfaces prioritized drill material based on recent and high-frequency signals.
+The app is a single-page, local-first study tool for quiz preparation. It ingests a question bank, highlights recurring patterns in topic frequency and tier distribution, and surfaces prioritized drill material based on recent and high-frequency signals.
 
 ## Local storage model
 - Storage is implemented with `localStorage` behind a simple data layer in `app.js`.

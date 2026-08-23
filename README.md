@@ -1,6 +1,6 @@
-# KBC Prep App
+# FactFlow
 
-A mobile-first single-page study app for KBC preparation. It helps you ingest questions, detect topic patterns, prioritize high-value study material, and drill through the bank with category and tier filtering.
+A mobile-first single-page study app for quiz and trivia preparation. It helps you ingest questions, detect topic patterns, prioritize high-value study material, and drill through the bank with category and tier filtering.
 
 ## Features
 
