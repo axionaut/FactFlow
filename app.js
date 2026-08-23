@@ -1,6 +1,6 @@
 'use strict';
 
-const APP_VERSION = 21;
+const APP_VERSION = 22;
 const CORPUS_URL = 'data/kbc-corpus.json';
 const LEARNING_STORAGE_KEY = 'factflow-learning-v2';
 const LEGACY_STORAGE_KEY = 'kbc-prep-app-v1';
@@ -619,7 +619,7 @@ function renderQuestion(container, question, response) {
       element('p', { className: 'answer-title', text: response.correct ? 'Correct' : 'Not quite' }),
       element('p', {
         className: 'answer-copy',
-        text: response.correct ? 'This question is scheduled for a later review.' : `Correct answer: ${correctAnswer}. It is now in your review queue.`
+        text: response.correct ? 'Correct. It will return later for spaced reinforcement.' : `Correct answer: ${correctAnswer}. It is now in your review queue.`
       })
     );
     const nextButton = element('button', {
