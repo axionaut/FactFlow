@@ -65,6 +65,13 @@ button {
   gap: 10px;
 }
 
+.header-actions {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  flex-wrap: wrap;
+}
+
 .version-pill {
   display: inline-flex;
   align-items: center;

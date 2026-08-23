@@ -1,4 +1,4 @@
-const APP_VERSION = 1;
+const APP_VERSION = 2;
 const STORAGE_KEY = 'kbc-prep-app-v1';
 const CATEGORY_TAXONOMY = [
   'Indian History',
@@ -897,6 +897,10 @@ function attachListeners() {
     alert('Demo data restored.');
   });
 
+  document.getElementById('exportBankButton').addEventListener('click', () => {
+    exportBankToJson();
+  });
+
   document.getElementById('filterCategory').addEventListener('change', (event) => {
     state.filters.category = event.target.value;
     renderDrill();
@@ -929,6 +933,19 @@ function attachListeners() {
     persistQuestions();
     renderAll();
   });
+}
+
+function exportBankToJson() {
+  const payload = JSON.stringify(state.questions, null, 2);
+  const blob = new Blob([payload], { type: 'application/json' });
+  const url = URL.createObjectURL(blob);
+  const anchor = document.createElement('a');
+  anchor.href = url;
+  anchor.download = 'factflow-bank.json';
+  document.body.appendChild(anchor);
+  anchor.click();
+  anchor.remove();
+  URL.revokeObjectURL(url);
 }
 
 function renderAll() {
