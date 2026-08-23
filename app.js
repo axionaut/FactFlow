@@ -1,6 +1,6 @@
 'use strict';
 
-const APP_VERSION = 30;
+const APP_VERSION = 31;
 const CORPUS_URL = 'data/kbc-corpus.json';
 const LEARNING_STORAGE_KEY = 'factflow-learning-v2';
 const LEGACY_STORAGE_KEY = 'kbc-prep-app-v1';
@@ -627,7 +627,7 @@ function renderQuestion(container, question, response) {
     const nextButton = element('button', {
       className: 'primary-button',
       type: 'button',
-      text: session.cursor + 1 >= session.questionKeys.length ? 'Finish session' : 'Next question',
+      text: session.mode === 'review' && session.cursor + 1 >= session.questionKeys.length ? 'Finish review' : 'Next question',
       attributes: { id: 'nextQuestionButton' }
     });
     nextButton.addEventListener('click', advanceSession);
