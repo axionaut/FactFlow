@@ -221,6 +221,8 @@ a { color: var(--blue); }
   .main-nav { position: fixed; right: 0; bottom: 0; left: 0; z-index: 10; justify-content: space-around; margin: 0; overflow: hidden; border-radius: 0; gap: 2px; padding: 3px; }
   .nav-button { min-width: 0; flex: 1 1 0; padding: 9px 3px; font-size: .68rem; }
   .study-hero { display: none; }
+  .session-header, .progress-track, .progress-label { display: none; }
+  .challenge-heading, .three-stats { display: none; }
   .streak-card { min-width: 90px; }
   .session-panel { padding: 16px; }
   .session-header, .study-hero, .review-card { align-items: flex-start; }
@@ -232,6 +234,9 @@ a { color: var(--blue); }
   .review-card .secondary-button { width: 100%; }
   .challenge-heading { align-items: flex-start; flex-direction: column; }
   .challenge-heading .primary-button { width: 100%; }
+  .challenge-layout { display: flex; flex-direction: column; }
+  .challenge-stage { order: -1; }
+  .ladder-panel { order: 1; width: 100%; }
   .challenge-ladder { grid-template-columns: repeat(3, 1fr); }
   .lock-row { align-items: stretch; flex-direction: column; }
   .lock-row .primary-button { width: 100%; }
