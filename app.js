@@ -1,6 +1,6 @@
 'use strict';
 
-const APP_VERSION = 31;
+const APP_VERSION = 32;
 const CORPUS_URL = 'data/kbc-corpus.json';
 const LEARNING_STORAGE_KEY = 'factflow-learning-v2';
 const LEGACY_STORAGE_KEY = 'kbc-prep-app-v1';
@@ -889,9 +889,9 @@ function renderInsights() {
   const sources = byId('sourceQualityList');
   clear(sources);
   const sourceNotes = [
-    ['English practice questions', 'India-first questions translated from GKSection retain their original Hindi, four-option order, answer index, and source URL. Source answers are not independently fact-checked.'],
+    ['Historical KBC archive questions', 'GKSection translations retain their original Hindi, four-option order, answer index, and source URL as pattern evidence only. They are not learner practice, and source answers are not independently fact-checked.'],
     ['Accumulating fact bank', 'Wikidata contributes English questions from structured India and international facts. Options are generated only from answers of the same fact type.'],
-    ['Historical KBC pattern corpus', 'IQgarage records train the app’s topic, category, and difficulty weighting but never appear in Today, Challenge, or Review. SonyLIV is referenced for official provenance but is not scraped.']
+    ['Historical KBC pattern corpus', 'GKSection and IQgarage records train the app’s topic, category, and difficulty weighting but never appear in Today, Challenge, or Review. SonyLIV is referenced for official provenance but is not scraped.']
   ];
   sourceNotes.forEach(([title, copy]) => {
     sources.append(element('div', { className: 'source-item' }, [
