@@ -1,16 +1,17 @@
 # FactFlow
 
-A mobile-first single-page study app for quiz and trivia preparation. It focuses on pattern analysis and recommendation logic rather than manual question entry or season-by-season browsing.
+A mobile-first GK and current-affairs preparation app. It keeps the user ready through targeted revision, patterned topic analysis, and recency-aware study guidance instead of requiring manual question entry or archive browsing.
 
 ## Features
 
-- Autonomous question-bank discovery and pattern analysis
+- GK and current-affairs preparation workflow
+- Pattern analysis as a supporting layer for weak spots and repeated themes
 - Recency-aware prioritization and study queue
 - Category, tier, and tag-based drill mode
 - Contextual recommendation logic for recurring topic clusters
 - Bundled, provenance-labelled archive corpus for research and training data
 
-> The app is not built around manual uploads or manual question entry. The product model is autonomous data discovery, normalization, and pattern-based study guidance.
+> The main objective is to keep the user prepared on GK and current affairs. Pattern analysis helps surface weak spots and high-yield topics; it is not the product center.
 
 ## Run locally
 

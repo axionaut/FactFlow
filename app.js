@@ -1,4 +1,4 @@
-const APP_VERSION = 8;
+const APP_VERSION = 9;
 const STORAGE_KEY = 'kbc-prep-app-v1';
 const CORPUS_URL = 'data/kbc-corpus.json';
 const CATEGORY_TAXONOMY = [
