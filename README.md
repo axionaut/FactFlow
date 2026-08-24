@@ -20,6 +20,7 @@ Incorrect answers enter Review until answered correctly. Every attempt is retain
 - Session and Challenge selection cap repeated categories and question families, and prevent adjacent questions from sharing either one when the available difficulty band permits it.
 - Active challenges are rebuilt automatically when a corpus migration removes any question on their ladder.
 - Review options are reshuffled on every presentation. The answer is tracked independently of its displayed letter.
+- Review runs inside the Review tab, persists across reloads, requeues another incorrect attempt, and returns to the untouched Today stream only after every active review item is correct.
 
 ## Run locally
 

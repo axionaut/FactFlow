@@ -93,6 +93,12 @@ check('continuous Today numbering survives state normalization', () => {
   });
   assert.equal(migrated.todayQuestionNumber, 2);
   assert.ok(migrated.selectionNonce);
+  const restoredReview = Learning.normalizeLearningState({
+    reviewSession: { questionKeys: ['q-one'], cursor: 0, responses: { 'q-one': 'attempt-one' } }
+  }).reviewSession;
+  assert.equal(restoredReview.mode, 'review');
+  assert.deepEqual(restoredReview.questionKeys, ['q-one']);
+  assert.equal(restoredReview.responses['q-one'], 'attempt-one');
 });
 
 check('a correct retry clears the mistake and expands the interval', () => {
@@ -232,18 +238,22 @@ check('HTML loads cache-aligned assets and every main screen', () => {
   for (const id of ['tab-today', 'tab-challenge', 'tab-review', 'tab-progress', 'tab-insights']) {
     assert.ok(html.includes('id="' + id + '"'), 'missing ' + id);
   }
-  assert.ok(html.includes('styles.css?v=35'));
-  assert.ok(html.includes('learning.js?v=35'));
-  assert.ok(html.includes('app.js?v=35'));
-  assert.ok(html.includes('id="appVersionLabel" class="version-pill">v35</span>'));
+  assert.ok(html.includes('styles.css?v=36'));
+  assert.ok(html.includes('learning.js?v=36'));
+  assert.ok(html.includes('app.js?v=36'));
+  assert.ok(html.includes('id="appVersionLabel" class="version-pill">v36</span>'));
   assert.ok(html.includes('id="mobileVersionLabel" class="mobile-version"'));
   assert.ok(app.includes("setText('mobileVersionLabel', `v${APP_VERSION}`)"));
   assert.ok(app.includes("window.indexedDB.open(LEARNING_DB_NAME, 1)"));
   assert.ok(app.includes('async function readLearningBackup()'));
   assert.ok(app.includes('async function writeLearningBackup(snapshot)'));
   assert.ok(app.includes('await loadLearningState()'));
-  assert.ok(app.includes('async function finishReviewAndResume(button)'));
-  assert.ok(app.includes("text: session.mode === 'review' ? 'Continue practice' : 'Start another session'"));
+  assert.ok(app.includes('state.learning.reviewSession = {'));
+  assert.ok(app.includes("return state.selectedTab === 'review' && state.learning.reviewSession"));
+  assert.ok(app.includes("renderQuestion(list, session, question, responseForSession(session))"));
+  assert.ok(app.includes("reviewQuestions().length === 0 ? 'Continue practice' : 'Next question'"));
+  assert.equal(app.includes('state.reviewSession'), false);
+  assert.ok(html.includes('id="reviewFeedback"'));
   assert.ok(styles.includes('.mobile-version { display: block; position: fixed; top: 8px; right: 10px;'));
   assert.ok(styles.includes('padding-top: 38px'));
   assert.ok(styles.includes('overflow-wrap: anywhere'));

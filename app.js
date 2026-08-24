@@ -1,6 +1,6 @@
 'use strict';
 
-const APP_VERSION = 35;
+const APP_VERSION = 36;
 const CORPUS_URL = 'data/kbc-corpus.json';
 const LEARNING_STORAGE_KEY = 'factflow-learning-v2';
 const LEARNING_DB_NAME = 'factflow-learning';
@@ -26,7 +26,6 @@ const state = {
   questionMap: new Map(),
   learning: Learning.createLearningState(),
   selectedTab: 'today',
-  reviewSession: null,
   challengeSelection: null,
   activeQuestionKey: null,
   questionStartedAt: Date.now(),
@@ -371,7 +370,6 @@ function createNewDailySession() {
   state.learning.recentQuestionKeys = [
     ...new Set([...(state.learning.recentQuestionKeys || []), ...state.learning.dailySession.questionKeys])
   ].slice(-Math.max(30, Math.floor(state.practiceQuestions.length * 0.7)));
-  state.reviewSession = null;
   state.activeQuestionKey = null;
   state.questionStartedAt = Date.now();
   saveLearningState();
@@ -393,21 +391,29 @@ function ensureDailySession() {
 }
 
 function activeSession() {
-  return state.reviewSession || state.learning.dailySession;
+  return state.selectedTab === 'review' && state.learning.reviewSession
+    ? state.learning.reviewSession
+    : state.learning.dailySession;
 }
 
-function activeQuestion() {
-  const session = activeSession();
+function questionForSession(session) {
   if (!session || session.cursor >= session.questionKeys.length) return null;
   return state.questionMap.get(session.questionKeys[session.cursor]) || null;
 }
 
-function activeResponse() {
-  const session = activeSession();
-  const question = activeQuestion();
+function responseForSession(session) {
+  const question = questionForSession(session);
   if (!session || !question) return null;
   const attemptId = session.responses?.[question.key];
   return attemptId ? state.learning.attempts.find((attempt) => attempt.id === attemptId) || null : null;
+}
+
+function activeQuestion() {
+  return questionForSession(activeSession());
+}
+
+function activeResponse() {
+  return responseForSession(activeSession());
 }
 
 function presentedQuestion(question, contextKey, response = null) {
@@ -664,8 +670,7 @@ function sourceDescription(question) {
   return provenance || `Answer supplied by ${question.source || 'the question source'}.`;
 }
 
-function renderQuestion(container, question, response) {
-  const session = activeSession();
+function renderQuestion(container, session, question, response) {
   question = presentedQuestion(question, `${session.id}:${session.cursor}`, response);
   const weights = Learning.archivePatternWeights(state.archiveQuestions);
   const priority = Learning.questionPriority(state.learning, question, weights);
@@ -717,8 +722,8 @@ function renderQuestion(container, question, response) {
     const nextButton = element('button', {
       className: 'primary-button',
       type: 'button',
-      text: session.mode === 'review' && session.cursor + 1 >= session.questionKeys.length ? 'Finish review' : 'Next question',
-      attributes: { id: 'nextQuestionButton' }
+      text: session.mode === 'review' && response.correct && reviewQuestions().length === 0 ? 'Continue practice' : 'Next question',
+      attributes: { id: session.mode === 'review' ? 'nextReviewButton' : 'nextQuestionButton' }
     });
     nextButton.addEventListener('click', advanceSession);
     answerPanel.append(element('div', { className: 'feedback-actions' }, nextButton));
@@ -752,15 +757,43 @@ function answerQuestion(selectedIndex) {
   if (!session.responses) session.responses = {};
   session.responses[question.key] = attempt.id;
   saveLearningState();
-  setText('sessionFeedback', attempt.correct ? 'Correct answer.' : 'Incorrect answer. The question was added to review.');
+  setText(session.mode === 'review' ? 'reviewFeedback' : 'sessionFeedback',
+    attempt.correct ? 'Correct answer.' : 'Incorrect answer. The question remains in review.');
   renderAll();
   void replenishQuestionBank();
-  requestAnimationFrame(() => byId('nextQuestionButton')?.focus());
+  requestAnimationFrame(() => byId(session.mode === 'review' ? 'nextReviewButton' : 'nextQuestionButton')?.focus());
 }
 
 function advanceSession() {
   const session = activeSession();
-  if (!session || !activeResponse()) return;
+  const response = activeResponse();
+  const question = activeQuestion();
+  if (!session || !response || !question) return;
+  if (session.mode === 'review') {
+    if (!response.correct) {
+      delete session.responses[question.key];
+      if (!session.questionKeys.slice(session.cursor + 1).includes(question.key)) session.questionKeys.push(question.key);
+    }
+    session.cursor += 1;
+    state.activeQuestionKey = null;
+    state.questionStartedAt = Date.now();
+    if (session.cursor >= session.questionKeys.length) {
+      const remaining = reviewQuestions().map((item) => item.key);
+      if (remaining.length) {
+        session.questionKeys.push(...remaining.filter((key) => !session.questionKeys.slice(session.cursor).includes(key)));
+      } else {
+        state.learning.reviewSession = null;
+        saveLearningState();
+        ensureDailySession();
+        switchTab('today');
+        renderAll();
+        return;
+      }
+    }
+    saveLearningState();
+    renderAll();
+    return;
+  }
   if (session.mode === 'daily') state.learning.todayQuestionNumber += 1;
   session.cursor += 1;
   state.activeQuestionKey = null;
@@ -771,20 +804,9 @@ function advanceSession() {
     return;
   }
   if (session.cursor >= session.questionKeys.length) session.completedAt = new Date().toISOString();
-  if (!state.reviewSession) saveLearningState();
+  saveLearningState();
   renderAll();
   byId('sessionHeading')?.focus?.();
-}
-
-async function finishReviewAndResume(button) {
-  state.reviewSession = null;
-  saveLearningState();
-  const daily = state.learning.dailySession;
-  if (!validDailySession(daily) || daily.cursor >= daily.questionKeys.length) {
-    await startNewDailySession(button);
-  }
-  switchTab('today');
-  renderAll();
 }
 
 function renderCompletion(container, session) {
@@ -793,7 +815,7 @@ function renderCompletion(container, session) {
   const correct = attempts.filter((attempt) => attempt.correct).length;
   const card = element('div', { className: 'completion-card' }, [
     element('div', { className: 'completion-icon', text: '✓' }),
-    element('h3', { text: session.mode === 'review' ? 'Review complete' : 'Daily session complete' }),
+    element('h3', { text: 'Daily session complete' }),
     element('p', {
       text: attempts.length
         ? `${correct} of ${attempts.length} correct. Wrong answers remain in Review until you clear them.`
@@ -803,35 +825,27 @@ function renderCompletion(container, session) {
   const action = element('button', {
     className: 'primary-button',
     type: 'button',
-    text: session.mode === 'review' ? 'Continue practice' : 'Start another session'
+    text: 'Start another session'
   });
-  action.addEventListener('click', () => {
-    if (session.mode === 'review') {
-      void finishReviewAndResume(action);
-    } else {
-      void startNewDailySession(action);
-    }
-  });
+  action.addEventListener('click', () => void startNewDailySession(action));
   card.append(action);
   container.append(card);
 }
 
 function renderToday() {
-  const session = activeSession();
+  const session = state.learning.dailySession;
   const container = byId('sessionArea');
   clear(container);
   setText('todayStreak', Learning.studyStreak(state.learning));
-  setText('sessionModeLabel', session?.mode === 'review' ? 'Focused review' : 'Today’s practice');
-  setText('sessionHeading', session?.mode === 'review' ? 'Review session' : 'Daily session');
+  setText('sessionModeLabel', 'Today’s practice');
+  setText('sessionHeading', 'Daily session');
   const total = session?.questionKeys.length || 0;
-  const response = activeResponse();
+  const response = responseForSession(session);
   const sessionQuestions = (session?.questionKeys || []).map((key) => state.questionMap.get(key)).filter(Boolean);
   const newCount = sessionQuestions.filter((question) => Learning.questionStats(state.learning, question.key).attempts === 0).length;
-  setText('sessionSummary', session?.mode === 'review'
-    ? 'A focused retry. Answer correctly to clear this item from your mistake queue.'
-    : `${newCount} unseen question${newCount === 1 ? '' : 's'} in this queue. Practised questions return only through Review.`);
+  setText('sessionSummary', `${newCount} unseen question${newCount === 1 ? '' : 's'} in this queue. Practised questions return only through Review.`);
 
-  const question = activeQuestion();
+  const question = questionForSession(session);
   if (!session || !total || !question || session.cursor >= total) {
     renderCompletion(container, session || { mode: 'daily', responses: {}, questionKeys: [] });
     return;
@@ -840,7 +854,7 @@ function renderToday() {
     state.activeQuestionKey = question.key;
     state.questionStartedAt = Date.now();
   }
-  renderQuestion(container, question, response);
+  renderQuestion(container, session, question, response);
 }
 
 function reviewQuestions() {
@@ -859,7 +873,7 @@ function startReview(questionKey) {
     questionKey,
     ...reviewQuestions().map((question) => question.key).filter((key) => key !== questionKey)
   ];
-  state.reviewSession = {
+  state.learning.reviewSession = {
     id: `review-${Date.now()}`,
     date: Learning.dateKey(),
     mode: 'review',
@@ -870,8 +884,8 @@ function startReview(questionKey) {
   };
   state.activeQuestionKey = null;
   state.questionStartedAt = Date.now();
-  switchTab('today');
-  renderToday();
+  saveLearningState();
+  renderAll();
 }
 
 function renderReview() {
@@ -883,6 +897,23 @@ function renderReview() {
   setText('reviewNavCount', questions.length);
   const list = byId('reviewList');
   clear(list);
+  const session = state.learning.reviewSession;
+  if (session) {
+    while (session.cursor < session.questionKeys.length && !state.questionMap.has(session.questionKeys[session.cursor])) {
+      session.cursor += 1;
+    }
+    const question = questionForSession(session);
+    if (question) {
+      if (state.activeQuestionKey !== question.key) {
+        state.activeQuestionKey = question.key;
+        state.questionStartedAt = Date.now();
+      }
+      renderQuestion(list, session, question, responseForSession(session));
+      return;
+    }
+    state.learning.reviewSession = null;
+    saveLearningState();
+  }
   if (!questions.length) {
     list.append(element('div', { className: 'empty-state' }, [
       element('h3', { text: 'Nothing due right now' }),

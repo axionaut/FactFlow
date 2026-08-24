@@ -215,6 +215,7 @@
       attempts: [],
       schedule: {},
       dailySession: null,
+      reviewSession: null,
       currentChallenge: null,
       challengeHistory: [],
       settings: { sessionSize: 10 },
@@ -238,6 +239,17 @@
       schemaVersion: SCHEMA_VERSION,
       attempts,
       schedule: input.schedule && typeof input.schedule === 'object' && !Array.isArray(input.schedule) ? input.schedule : {},
+      reviewSession: input.reviewSession && typeof input.reviewSession === 'object'
+        ? {
+            ...input.reviewSession,
+            mode: 'review',
+            questionKeys: Array.isArray(input.reviewSession.questionKeys) ? input.reviewSession.questionKeys : [],
+            cursor: Math.max(0, Number(input.reviewSession.cursor) || 0),
+            responses: input.reviewSession.responses && typeof input.reviewSession.responses === 'object'
+              ? input.reviewSession.responses
+              : {}
+          }
+        : null,
       challengeHistory: Array.isArray(input.challengeHistory) ? input.challengeHistory : [],
       settings: { ...base.settings, ...(input.settings || {}) },
       recentQuestionKeys: Array.isArray(input.recentQuestionKeys) ? input.recentQuestionKeys : [],
