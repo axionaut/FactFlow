@@ -238,10 +238,10 @@ check('HTML loads cache-aligned assets and every main screen', () => {
   for (const id of ['tab-today', 'tab-challenge', 'tab-review', 'tab-progress', 'tab-insights']) {
     assert.ok(html.includes('id="' + id + '"'), 'missing ' + id);
   }
-  assert.ok(html.includes('styles.css?v=36'));
-  assert.ok(html.includes('learning.js?v=36'));
-  assert.ok(html.includes('app.js?v=36'));
-  assert.ok(html.includes('id="appVersionLabel" class="version-pill">v36</span>'));
+  assert.ok(html.includes('styles.css?v=37'));
+  assert.ok(html.includes('learning.js?v=37'));
+  assert.ok(html.includes('app.js?v=37'));
+  assert.ok(html.includes('id="appVersionLabel" class="version-pill">v37</span>'));
   assert.ok(html.includes('id="mobileVersionLabel" class="mobile-version"'));
   assert.ok(app.includes("setText('mobileVersionLabel', `v${APP_VERSION}`)"));
   assert.ok(app.includes("window.indexedDB.open(LEARNING_DB_NAME, 1)"));
@@ -251,11 +251,17 @@ check('HTML loads cache-aligned assets and every main screen', () => {
   assert.ok(app.includes('state.learning.reviewSession = {'));
   assert.ok(app.includes("return state.selectedTab === 'review' && state.learning.reviewSession"));
   assert.ok(app.includes("renderQuestion(list, session, question, responseForSession(session))"));
-  assert.ok(app.includes("reviewQuestions().length === 0 ? 'Continue practice' : 'Next question'"));
+  assert.ok(app.includes("!reviewSessionHasRemaining(session) ? 'Continue practice' : 'Next question'"));
+  assert.ok(app.includes('const SCHEDULED_REVIEW_BATCH_SIZE = 10'));
+  assert.ok(app.includes('...backlog.scheduled.slice(0, SCHEDULED_REVIEW_BATCH_SIZE)'));
+  assert.ok(app.includes('if (session && session.batchVersion !== 1)'));
+  assert.ok(app.includes("if (!session && state.selectedTab === 'review' && batch.length) session = startReview(batch)"));
+  assert.equal(app.includes("text: 'Review now'"), false);
   assert.equal(app.includes('state.reviewSession'), false);
   assert.ok(html.includes('id="reviewFeedback"'));
-  assert.ok(styles.includes('.mobile-version { display: block; position: fixed; top: 8px; right: 10px;'));
-  assert.ok(styles.includes('padding-top: 38px'));
+  assert.ok(styles.includes('.mobile-version { display: block; position: fixed; right: 8px; bottom: 78px;'));
+  assert.ok(styles.includes('padding-top: 14px'));
+  assert.ok(styles.includes('#tab-review .page-heading, #tab-review > .stats-grid { display: none; }'));
   assert.ok(styles.includes('overflow-wrap: anywhere'));
   assert.equal(html.includes('translateHindiButton'), false);
   assert.equal(html.includes('translationPendingCount'), false);

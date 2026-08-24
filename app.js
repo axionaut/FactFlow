@@ -1,6 +1,6 @@
 'use strict';
 
-const APP_VERSION = 36;
+const APP_VERSION = 37;
 const CORPUS_URL = 'data/kbc-corpus.json';
 const LEARNING_STORAGE_KEY = 'factflow-learning-v2';
 const LEARNING_DB_NAME = 'factflow-learning';
@@ -10,6 +10,7 @@ const LEGACY_STORAGE_KEY = 'kbc-prep-app-v1';
 const RETIRED_TRANSLATION_STORAGE_KEY = 'factflow-hi-en-translations-v1';
 const LOCAL_FACT_STORAGE_KEY = 'factflow-wikidata-local-v1';
 const FACT_LOW_WATERMARK = 120;
+const SCHEDULED_REVIEW_BATCH_SIZE = 10;
 const BACKGROUND_REFRESH_MS = 10 * 60 * 1000;
 const Learning = window.FactFlowLearning;
 let learningDatabasePromise = null;
@@ -722,7 +723,7 @@ function renderQuestion(container, session, question, response) {
     const nextButton = element('button', {
       className: 'primary-button',
       type: 'button',
-      text: session.mode === 'review' && response.correct && reviewQuestions().length === 0 ? 'Continue practice' : 'Next question',
+      text: session.mode === 'review' && response.correct && !reviewSessionHasRemaining(session) ? 'Continue practice' : 'Next question',
       attributes: { id: session.mode === 'review' ? 'nextReviewButton' : 'nextQuestionButton' }
     });
     nextButton.addEventListener('click', advanceSession);
@@ -778,17 +779,12 @@ function advanceSession() {
     state.activeQuestionKey = null;
     state.questionStartedAt = Date.now();
     if (session.cursor >= session.questionKeys.length) {
-      const remaining = reviewQuestions().map((item) => item.key);
-      if (remaining.length) {
-        session.questionKeys.push(...remaining.filter((key) => !session.questionKeys.slice(session.cursor).includes(key)));
-      } else {
-        state.learning.reviewSession = null;
-        saveLearningState();
-        ensureDailySession();
-        switchTab('today');
-        renderAll();
-        return;
-      }
+      state.learning.reviewSession = null;
+      saveLearningState();
+      ensureDailySession();
+      switchTab('today');
+      renderAll();
+      return;
     }
     saveLearningState();
     renderAll();
@@ -868,15 +864,43 @@ function reviewQuestions() {
     });
 }
 
-function startReview(questionKey) {
-  const questionKeys = [
-    questionKey,
-    ...reviewQuestions().map((question) => question.key).filter((key) => key !== questionKey)
+function reviewBacklog() {
+  const questions = reviewQuestions();
+  return {
+    wrong: questions.filter((question) => state.learning.schedule[question.key]?.needsReview),
+    scheduled: questions.filter((question) => !state.learning.schedule[question.key]?.needsReview)
+  };
+}
+
+function reviewBatch(backlog = reviewBacklog()) {
+  return [
+    ...backlog.wrong,
+    ...backlog.scheduled.slice(0, SCHEDULED_REVIEW_BATCH_SIZE)
   ];
+}
+
+function reviewSessionRemainingKeys(session) {
+  if (!session) return [];
+  return [...new Set(session.questionKeys.slice(session.cursor).filter((key) => (
+    state.questionMap.has(key) && Learning.isDue(state.learning, key)
+  )))];
+}
+
+function reviewSessionHasRemaining(session) {
+  if (!session) return false;
+  return session.questionKeys.slice(session.cursor + 1).some((key) => (
+    state.questionMap.has(key) && Learning.isDue(state.learning, key)
+  ));
+}
+
+function startReview(questions = reviewBatch()) {
+  const questionKeys = questions.map((question) => question.key);
+  if (!questionKeys.length) return null;
   state.learning.reviewSession = {
     id: `review-${Date.now()}`,
     date: Learning.dateKey(),
     mode: 'review',
+    batchVersion: 1,
     questionKeys,
     cursor: 0,
     responses: {},
@@ -885,19 +909,23 @@ function startReview(questionKey) {
   state.activeQuestionKey = null;
   state.questionStartedAt = Date.now();
   saveLearningState();
-  renderAll();
+  return state.learning.reviewSession;
 }
 
 function renderReview() {
-  const questions = reviewQuestions();
-  const wrong = questions.filter((question) => state.learning.schedule[question.key]?.needsReview);
-  const scheduled = questions.filter((question) => !state.learning.schedule[question.key]?.needsReview);
-  setText('reviewWrongCount', wrong.length);
-  setText('reviewDueCount', scheduled.length);
-  setText('reviewNavCount', questions.length);
+  const backlog = reviewBacklog();
+  const batch = reviewBatch(backlog);
+  let session = state.learning.reviewSession;
+  if (session && session.batchVersion !== 1) {
+    state.learning.reviewSession = null;
+    session = batch.length ? startReview(batch) : null;
+  }
+  if (!session && state.selectedTab === 'review' && batch.length) session = startReview(batch);
+  setText('reviewWrongCount', backlog.wrong.length);
+  setText('reviewDueCount', Math.min(backlog.scheduled.length, SCHEDULED_REVIEW_BATCH_SIZE));
+  setText('reviewNavCount', session ? reviewSessionRemainingKeys(session).length : batch.length);
   const list = byId('reviewList');
   clear(list);
-  const session = state.learning.reviewSession;
   if (session) {
     while (session.cursor < session.questionKeys.length && !state.questionMap.has(session.questionKeys[session.cursor])) {
       session.cursor += 1;
@@ -914,23 +942,13 @@ function renderReview() {
     state.learning.reviewSession = null;
     saveLearningState();
   }
-  if (!questions.length) {
+  if (!batch.length) {
     list.append(element('div', { className: 'empty-state' }, [
       element('h3', { text: 'Nothing due right now' }),
       element('p', { text: 'Complete a daily session and scheduled reviews will appear here.' })
     ]));
     return;
   }
-  questions.slice(0, 30).forEach((question) => {
-    const schedule = state.learning.schedule[question.key];
-    const copy = element('div', { className: 'review-card-copy' }, [
-      element('h3', { text: question.question_text }),
-      element('p', { text: `${question.category} · ${schedule.needsReview ? 'Incorrect last time' : `Due ${schedule.dueDate}`}` })
-    ]);
-    const button = element('button', { className: 'secondary-button', type: 'button', text: 'Review now' });
-    button.addEventListener('click', () => startReview(question.key));
-    list.append(element('article', { className: 'review-card' }, [copy, button]));
-  });
 }
 
 function formatAttemptTime(value) {

@@ -227,16 +227,17 @@ a { color: var(--blue); }
   .ladder-step strong { text-align: center; }
 }
 @media (max-width: 650px) {
-  .app-shell { width: min(100% - 20px, 1160px); padding-top: 38px; }
+  .app-shell { width: min(100% - 20px, 1160px); padding-top: 14px; }
   body { padding-bottom: 116px; }
   .topbar { display: none; }
-  .mobile-version { display: block; position: fixed; top: 8px; right: 10px; z-index: 11; padding: 3px 7px; color: var(--muted); background: rgba(255,255,255,.9); border: 1px solid var(--line); border-radius: 7px; font-size: .68rem; font-weight: 800; }
+  .mobile-version { display: block; position: fixed; right: 8px; bottom: 78px; z-index: 11; padding: 3px 7px; color: var(--muted); background: rgba(255,255,255,.92); border: 1px solid var(--line); border-radius: 7px; font-size: .68rem; font-weight: 800; }
   .corpus-status { display: none; }
   .main-nav { position: fixed; right: 0; bottom: 0; left: 0; z-index: 10; justify-content: space-around; margin: 0; overflow: hidden; border-radius: 0; gap: 2px; padding: 3px; }
   .nav-button { min-width: 0; flex: 1 1 0; padding: 9px 3px; font-size: .68rem; }
   .study-hero { display: none; }
   .session-header, .progress-track, .progress-label { display: none; }
   .challenge-heading, .three-stats { display: none; }
+  #tab-review .page-heading, #tab-review > .stats-grid { display: none; }
   .streak-card { min-width: 90px; }
   .session-panel { padding: 16px; }
   .session-header, .study-hero, .review-card { align-items: flex-start; }
