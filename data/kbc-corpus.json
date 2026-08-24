@@ -1,6 +1,6 @@
 {
   "schema_version": 3,
-  "generated_at": "2026-08-24T13:17:42.723Z",
+  "generated_at": "2026-08-24T19:05:18.799Z",
   "corpus_scope": "India-first KBC practice combining historical KBC archives with accumulating structured facts; not an official Sony corpus.",
   "sources": [
     {
@@ -61,8 +61,8 @@
       "pages": 5
     }
   ],
-  "fresh_questions": 37,
-  "playable_questions": 628,
+  "fresh_questions": 33,
+  "playable_questions": 661,
   "translation_pending": 78,
   "removed_generic_questions": 0,
   "pages": [
@@ -1712,61 +1712,116 @@
       "status": 200,
       "questions": 0,
       "last_attempted_at": "2026-08-24"
+    },
+    {
+      "season": 17,
+      "episode": 35,
+      "airDate": "",
+      "url": "https://www.gksection.com/kbc-17-questions-and-answers-episode-35/",
+      "status": 200,
+      "questions": 0,
+      "last_attempted_at": "2026-08-24"
+    },
+    {
+      "season": 17,
+      "episode": 34,
+      "airDate": "",
+      "url": "https://www.gksection.com/kbc-17-questions-and-answers-episode-34/",
+      "status": 200,
+      "questions": 0,
+      "last_attempted_at": "2026-08-24"
+    },
+    {
+      "season": 17,
+      "episode": 33,
+      "airDate": "",
+      "url": "https://www.gksection.com/kbc-17-questions-and-answers-episode-33/",
+      "status": 200,
+      "questions": 0,
+      "last_attempted_at": "2026-08-24"
+    },
+    {
+      "season": 17,
+      "episode": 32,
+      "airDate": "",
+      "url": "https://www.gksection.com/kbc-17-questions-and-answers-episode-32/",
+      "status": 200,
+      "questions": 0,
+      "last_attempted_at": "2026-08-24"
+    },
+    {
+      "season": 17,
+      "episode": 31,
+      "airDate": "",
+      "url": "https://www.gksection.com/kbc-17-questions-and-answers-episode-31/",
+      "status": 200,
+      "questions": 0,
+      "last_attempted_at": "2026-08-24"
+    },
+    {
+      "season": 17,
+      "episode": 30,
+      "airDate": "",
+      "url": "https://www.gksection.com/kbc-17-questions-and-answers-episode-30/",
+      "status": 200,
+      "questions": 0,
+      "last_attempted_at": "2026-08-24"
     }
   ],
   "wikidata_source_version": 3,
   "wikidata_state": {
     "india-person-birthplace": {
-      "offset": 140,
-      "last_attempted_at": "2026-08-24T13:17:31.731Z",
+      "offset": 148,
+      "last_attempted_at": "2026-08-24T19:04:05.228Z",
       "last_result_count": 16,
       "exhausted": false
     },
     "india-film-director": {
-      "offset": 140,
-      "last_attempted_at": "2026-08-24T13:17:34.147Z",
+      "offset": 148,
+      "last_attempted_at": "2026-08-24T19:04:15.164Z",
       "last_result_count": 16,
       "exhausted": false
     },
     "india-book-author": {
-      "offset": 16,
-      "last_attempted_at": "2026-08-24T13:17:35.353Z",
-      "last_result_count": 16,
-      "exhausted": false
+      "offset": 0,
+      "last_attempted_at": "2026-08-24T19:04:33.471Z",
+      "last_result_count": 13,
+      "exhausted": true
     },
     "india-state-capital": {
-      "offset": 20,
-      "last_attempted_at": "2026-08-24T13:17:35.899Z",
+      "offset": 24,
+      "last_attempted_at": "2026-08-24T19:04:39.519Z",
       "last_result_count": 12,
       "exhausted": false
     },
     "world-country-capital": {
-      "offset": 70,
-      "last_attempted_at": "2026-08-24T13:17:36.712Z",
+      "offset": 74,
+      "last_attempted_at": "2026-08-24T19:04:43.038Z",
       "last_result_count": 12,
       "exhausted": false
     },
     "world-country-currency": {
-      "offset": 70,
-      "last_attempted_at": "2026-08-24T13:17:38.139Z",
+      "offset": 74,
+      "last_attempted_at": "2026-08-24T19:04:48.951Z",
       "last_result_count": 12,
       "exhausted": false
     },
     "world-heritage-country": {
-      "offset": 70,
-      "last_attempted_at": "2026-08-24T13:17:39.722Z",
+      "offset": 74,
+      "last_attempted_at": "2026-08-24T19:04:55.161Z",
       "last_result_count": 12,
       "exhausted": false
     },
     "india-athlete-sport": {
       "offset": 40,
-      "last_attempted_at": "2026-08-24T13:17:42.086Z",
+      "last_attempted_at": "2026-08-24T19:05:15.776Z",
       "last_result_count": 16,
-      "exhausted": false
+      "exhausted": false,
+      "last_error": "Wikidata india-athlete-sport failed (qlever.dev: 502, query.wikidata.org: The operation was aborted due to timeout)"
     },
     "chemical-element-symbol": {
-      "offset": 70,
-      "last_attempted_at": "2026-08-24T13:17:42.708Z",
+      "offset": 74,
+      "last_attempted_at": "2026-08-24T19:05:18.785Z",
       "last_result_count": 12,
       "exhausted": false
     }
@@ -28886,9 +28941,9 @@
       "air_date": null,
       "question_text": "What is the capital of Kerala?",
       "options": [
-        "Ranchi",
-        "Bhopal",
         "Imphal",
+        "Jaipur",
+        "Bengaluru",
         "Thiruvananthapuram"
       ],
       "correct_option_index": 3,
@@ -28919,10 +28974,10 @@
       "air_date": null,
       "question_text": "What is the capital of Madhya Pradesh?",
       "options": [
-        "Shillong",
+        "Jaipur",
         "Bhopal",
         "Kolkata",
-        "Agartala"
+        "Chennai"
       ],
       "correct_option_index": 1,
       "question_type": "practice",
@@ -28933,7 +28988,7 @@
       "source": "Wikidata structured facts",
       "source_schema_version": 3,
       "source_url": "http://www.wikidata.org/entity/Q1188",
-      "source_accessed_at": "2026-08-23",
+      "source_accessed_at": "2026-08-24",
       "tags": [
         "india",
         "state",
@@ -28952,10 +29007,10 @@
       "air_date": null,
       "question_text": "What is the capital of Manipur?",
       "options": [
-        "Dehradun",
+        "Jaipur",
         "Imphal",
-        "Aizawl",
-        "Gangtok"
+        "Kolkata",
+        "Chennai"
       ],
       "correct_option_index": 1,
       "question_type": "practice",
@@ -28966,7 +29021,7 @@
       "source": "Wikidata structured facts",
       "source_schema_version": 3,
       "source_url": "http://www.wikidata.org/entity/Q1193",
-      "source_accessed_at": "2026-08-23",
+      "source_accessed_at": "2026-08-24",
       "tags": [
         "india",
         "state",
@@ -41680,6 +41735,1095 @@
       "language_original": "en",
       "translation_status": "not required",
       "explanation": "The chemical symbol recorded for beryllium is Be.",
+      "provenance_status": "Wikidata structured fact; options generated from same-type facts; answer not independently verified"
+    },
+    {
+      "id": "wd-india-person-birthplace-Q381477",
+      "canonical_key": "wd-india-person-birthplace-Q381477",
+      "season": null,
+      "episode": null,
+      "air_date": null,
+      "question_text": "In which place was Kamal Haasan born?",
+      "options": [
+        "Jabalpur",
+        "Sohawa Tehsil",
+        "Chennai",
+        "Paramakudi"
+      ],
+      "correct_option_index": 3,
+      "question_type": "practice",
+      "category": "Miscellaneous/Trivia",
+      "subcategory": "india-person-birthplace",
+      "difficulty_tier": "Tier 2",
+      "prize_level_asked_at": null,
+      "source": "Wikidata structured facts",
+      "source_schema_version": 3,
+      "source_url": "http://www.wikidata.org/entity/Q381477",
+      "source_accessed_at": "2026-08-24",
+      "tags": [
+        "india",
+        "people",
+        "birthplace"
+      ],
+      "language_original": "en",
+      "translation_status": "not required",
+      "explanation": "Wikidata records Paramakudi as the birthplace of Kamal Haasan.",
+      "provenance_status": "Wikidata structured fact; options generated from same-type facts; answer not independently verified"
+    },
+    {
+      "id": "wd-india-person-birthplace-Q465047",
+      "canonical_key": "wd-india-person-birthplace-Q465047",
+      "season": null,
+      "episode": null,
+      "air_date": null,
+      "question_text": "In which place was Vijaya Lakshmi Pandit born?",
+      "options": [
+        "Chandigarh",
+        "Prayagraj",
+        "Jabalpur",
+        "Kapilavastu"
+      ],
+      "correct_option_index": 1,
+      "question_type": "practice",
+      "category": "Miscellaneous/Trivia",
+      "subcategory": "india-person-birthplace",
+      "difficulty_tier": "Tier 2",
+      "prize_level_asked_at": null,
+      "source": "Wikidata structured facts",
+      "source_schema_version": 3,
+      "source_url": "http://www.wikidata.org/entity/Q465047",
+      "source_accessed_at": "2026-08-24",
+      "tags": [
+        "india",
+        "people",
+        "birthplace"
+      ],
+      "language_original": "en",
+      "translation_status": "not required",
+      "explanation": "Wikidata records Prayagraj as the birthplace of Vijaya Lakshmi Pandit.",
+      "provenance_status": "Wikidata structured fact; options generated from same-type facts; answer not independently verified"
+    },
+    {
+      "id": "wd-india-person-birthplace-Q468364",
+      "canonical_key": "wd-india-person-birthplace-Q468364",
+      "season": null,
+      "episode": null,
+      "air_date": null,
+      "question_text": "In which place was Dhirubhai Ambani born?",
+      "options": [
+        "Junagadh",
+        "Jabalpur",
+        "Prayagraj",
+        "Hyderabad"
+      ],
+      "correct_option_index": 0,
+      "question_type": "practice",
+      "category": "Miscellaneous/Trivia",
+      "subcategory": "india-person-birthplace",
+      "difficulty_tier": "Tier 2",
+      "prize_level_asked_at": null,
+      "source": "Wikidata structured facts",
+      "source_schema_version": 3,
+      "source_url": "http://www.wikidata.org/entity/Q468364",
+      "source_accessed_at": "2026-08-24",
+      "tags": [
+        "india",
+        "people",
+        "birthplace"
+      ],
+      "language_original": "en",
+      "translation_status": "not required",
+      "explanation": "Wikidata records Junagadh as the birthplace of Dhirubhai Ambani.",
+      "provenance_status": "Wikidata structured fact; options generated from same-type facts; answer not independently verified"
+    },
+    {
+      "id": "wd-india-person-birthplace-Q932829",
+      "canonical_key": "wd-india-person-birthplace-Q932829",
+      "season": null,
+      "episode": null,
+      "air_date": null,
+      "question_text": "In which place was Zakir Naik born?",
+      "options": [
+        "New Delhi",
+        "Paramakudi",
+        "Mumbai",
+        "Chandigarh"
+      ],
+      "correct_option_index": 2,
+      "question_type": "practice",
+      "category": "Miscellaneous/Trivia",
+      "subcategory": "india-person-birthplace",
+      "difficulty_tier": "Tier 2",
+      "prize_level_asked_at": null,
+      "source": "Wikidata structured facts",
+      "source_schema_version": 3,
+      "source_url": "http://www.wikidata.org/entity/Q932829",
+      "source_accessed_at": "2026-08-24",
+      "tags": [
+        "india",
+        "people",
+        "birthplace"
+      ],
+      "language_original": "en",
+      "translation_status": "not required",
+      "explanation": "Wikidata records Mumbai as the birthplace of Zakir Naik.",
+      "provenance_status": "Wikidata structured fact; options generated from same-type facts; answer not independently verified"
+    },
+    {
+      "id": "wd-india-person-birthplace-Q28988",
+      "canonical_key": "wd-india-person-birthplace-Q28988",
+      "season": null,
+      "episode": null,
+      "air_date": null,
+      "question_text": "In which place was Ānanda born?",
+      "options": [
+        "Kapilavastu",
+        "Prayagraj",
+        "Hyderabad",
+        "New Delhi"
+      ],
+      "correct_option_index": 0,
+      "question_type": "practice",
+      "category": "Miscellaneous/Trivia",
+      "subcategory": "india-person-birthplace",
+      "difficulty_tier": "Tier 2",
+      "prize_level_asked_at": null,
+      "source": "Wikidata structured facts",
+      "source_schema_version": 3,
+      "source_url": "http://www.wikidata.org/entity/Q28988",
+      "source_accessed_at": "2026-08-24",
+      "tags": [
+        "india",
+        "people",
+        "birthplace"
+      ],
+      "language_original": "en",
+      "translation_status": "not required",
+      "explanation": "Wikidata records Kapilavastu as the birthplace of Ānanda.",
+      "provenance_status": "Wikidata structured fact; options generated from same-type facts; answer not independently verified"
+    },
+    {
+      "id": "wd-india-person-birthplace-Q108756568",
+      "canonical_key": "wd-india-person-birthplace-Q108756568",
+      "season": null,
+      "episode": null,
+      "air_date": null,
+      "question_text": "In which place was Harnaaz Sandhu born?",
+      "options": [
+        "Paramakudi",
+        "Prayagraj",
+        "Kapilavastu",
+        "Chandigarh"
+      ],
+      "correct_option_index": 3,
+      "question_type": "practice",
+      "category": "Miscellaneous/Trivia",
+      "subcategory": "india-person-birthplace",
+      "difficulty_tier": "Tier 2",
+      "prize_level_asked_at": null,
+      "source": "Wikidata structured facts",
+      "source_schema_version": 3,
+      "source_url": "http://www.wikidata.org/entity/Q108756568",
+      "source_accessed_at": "2026-08-24",
+      "tags": [
+        "india",
+        "people",
+        "birthplace"
+      ],
+      "language_original": "en",
+      "translation_status": "not required",
+      "explanation": "Wikidata records Chandigarh as the birthplace of Harnaaz Sandhu.",
+      "provenance_status": "Wikidata structured fact; options generated from same-type facts; answer not independently verified"
+    },
+    {
+      "id": "wd-india-person-birthplace-Q158233",
+      "canonical_key": "wd-india-person-birthplace-Q158233",
+      "season": null,
+      "episode": null,
+      "air_date": null,
+      "question_text": "In which place was Tabu born?",
+      "options": [
+        "Dhindar",
+        "Hyderabad",
+        "Mumbai",
+        "Sohawa Tehsil"
+      ],
+      "correct_option_index": 1,
+      "question_type": "practice",
+      "category": "Miscellaneous/Trivia",
+      "subcategory": "india-person-birthplace",
+      "difficulty_tier": "Tier 2",
+      "prize_level_asked_at": null,
+      "source": "Wikidata structured facts",
+      "source_schema_version": 3,
+      "source_url": "http://www.wikidata.org/entity/Q158233",
+      "source_accessed_at": "2026-08-24",
+      "tags": [
+        "india",
+        "people",
+        "birthplace"
+      ],
+      "language_original": "en",
+      "translation_status": "not required",
+      "explanation": "Wikidata records Hyderabad as the birthplace of Tabu.",
+      "provenance_status": "Wikidata structured fact; options generated from same-type facts; answer not independently verified"
+    },
+    {
+      "id": "wd-india-person-birthplace-Q16233540",
+      "canonical_key": "wd-india-person-birthplace-Q16233540",
+      "season": null,
+      "episode": null,
+      "air_date": null,
+      "question_text": "In which place was Kriti Sanon born?",
+      "options": [
+        "Kapilavastu",
+        "Chennai",
+        "Dhindar",
+        "New Delhi"
+      ],
+      "correct_option_index": 3,
+      "question_type": "practice",
+      "category": "Miscellaneous/Trivia",
+      "subcategory": "india-person-birthplace",
+      "difficulty_tier": "Tier 2",
+      "prize_level_asked_at": null,
+      "source": "Wikidata structured facts",
+      "source_schema_version": 3,
+      "source_url": "http://www.wikidata.org/entity/Q16233540",
+      "source_accessed_at": "2026-08-24",
+      "tags": [
+        "india",
+        "people",
+        "birthplace"
+      ],
+      "language_original": "en",
+      "translation_status": "not required",
+      "explanation": "Wikidata records New Delhi as the birthplace of Kriti Sanon.",
+      "provenance_status": "Wikidata structured fact; options generated from same-type facts; answer not independently verified"
+    },
+    {
+      "id": "wd-india-film-director-Q979279",
+      "canonical_key": "wd-india-film-director-Q979279",
+      "season": null,
+      "episode": null,
+      "air_date": null,
+      "question_text": "Who directed the Indian film “Karan Arjun”?",
+      "options": [
+        "Mansoor Khan",
+        "Shakun Batra",
+        "Rakesh Roshan",
+        "Advait Chandan"
+      ],
+      "correct_option_index": 2,
+      "question_type": "practice",
+      "category": "Cinema (Bollywood)",
+      "subcategory": "india-film-director",
+      "difficulty_tier": "Tier 2",
+      "prize_level_asked_at": null,
+      "source": "Wikidata structured facts",
+      "source_schema_version": 3,
+      "source_url": "http://www.wikidata.org/entity/Q979279",
+      "source_accessed_at": "2026-08-24",
+      "tags": [
+        "india",
+        "film",
+        "director"
+      ],
+      "language_original": "en",
+      "translation_status": "not required",
+      "explanation": "Wikidata lists Rakesh Roshan as the director of Karan Arjun.",
+      "provenance_status": "Wikidata structured fact; options generated from same-type facts; answer not independently verified"
+    },
+    {
+      "id": "wd-india-film-director-Q1033304",
+      "canonical_key": "wd-india-film-director-Q1033304",
+      "season": null,
+      "episode": null,
+      "air_date": null,
+      "question_text": "Who directed the Indian film “Hum Tum”?",
+      "options": [
+        "Karan Malhotra",
+        "Vishal Bhardwaj",
+        "Paul Mayeda Berges",
+        "Kunal Kohli"
+      ],
+      "correct_option_index": 3,
+      "question_type": "practice",
+      "category": "Cinema (Bollywood)",
+      "subcategory": "india-film-director",
+      "difficulty_tier": "Tier 2",
+      "prize_level_asked_at": null,
+      "source": "Wikidata structured facts",
+      "source_schema_version": 3,
+      "source_url": "http://www.wikidata.org/entity/Q1033304",
+      "source_accessed_at": "2026-08-24",
+      "tags": [
+        "india",
+        "film",
+        "director"
+      ],
+      "language_original": "en",
+      "translation_status": "not required",
+      "explanation": "Wikidata lists Kunal Kohli as the director of Hum Tum.",
+      "provenance_status": "Wikidata structured fact; options generated from same-type facts; answer not independently verified"
+    },
+    {
+      "id": "wd-india-film-director-Q135230927",
+      "canonical_key": "wd-india-film-director-Q135230927",
+      "season": null,
+      "episode": null,
+      "air_date": null,
+      "question_text": "Who directed the Indian film “Dhurandhar”?",
+      "options": [
+        "Paul Mayeda Berges",
+        "Kunal Kohli",
+        "Sujoy Ghosh",
+        "Aditya Dhar"
+      ],
+      "correct_option_index": 3,
+      "question_type": "practice",
+      "category": "Cinema (Bollywood)",
+      "subcategory": "india-film-director",
+      "difficulty_tier": "Tier 2",
+      "prize_level_asked_at": null,
+      "source": "Wikidata structured facts",
+      "source_schema_version": 3,
+      "source_url": "http://www.wikidata.org/entity/Q135230927",
+      "source_accessed_at": "2026-08-24",
+      "tags": [
+        "india",
+        "film",
+        "director"
+      ],
+      "language_original": "en",
+      "translation_status": "not required",
+      "explanation": "Wikidata lists Aditya Dhar as the director of Dhurandhar.",
+      "provenance_status": "Wikidata structured fact; options generated from same-type facts; answer not independently verified"
+    },
+    {
+      "id": "wd-india-film-director-Q1427204",
+      "canonical_key": "wd-india-film-director-Q1427204",
+      "season": null,
+      "episode": null,
+      "air_date": null,
+      "question_text": "Who directed the Indian film “Josh”?",
+      "options": [
+        "Aditya Dhar",
+        "Sujoy Ghosh",
+        "Zoya Akhtar",
+        "Mansoor Khan"
+      ],
+      "correct_option_index": 3,
+      "question_type": "practice",
+      "category": "Cinema (Bollywood)",
+      "subcategory": "india-film-director",
+      "difficulty_tier": "Tier 2",
+      "prize_level_asked_at": null,
+      "source": "Wikidata structured facts",
+      "source_schema_version": 3,
+      "source_url": "http://www.wikidata.org/entity/Q1427204",
+      "source_accessed_at": "2026-08-24",
+      "tags": [
+        "india",
+        "film",
+        "director"
+      ],
+      "language_original": "en",
+      "translation_status": "not required",
+      "explanation": "Wikidata lists Mansoor Khan as the director of Josh.",
+      "provenance_status": "Wikidata structured fact; options generated from same-type facts; answer not independently verified"
+    },
+    {
+      "id": "wd-india-film-director-Q19824742",
+      "canonical_key": "wd-india-film-director-Q19824742",
+      "season": null,
+      "episode": null,
+      "air_date": null,
+      "question_text": "Who directed the Indian film “Kapoor & Sons”?",
+      "options": [
+        "Sujoy Ghosh",
+        "Zoya Akhtar",
+        "Shakun Batra",
+        "Yash Chopra"
+      ],
+      "correct_option_index": 2,
+      "question_type": "practice",
+      "category": "Cinema (Bollywood)",
+      "subcategory": "india-film-director",
+      "difficulty_tier": "Tier 2",
+      "prize_level_asked_at": null,
+      "source": "Wikidata structured facts",
+      "source_schema_version": 3,
+      "source_url": "http://www.wikidata.org/entity/Q19824742",
+      "source_accessed_at": "2026-08-24",
+      "tags": [
+        "india",
+        "film",
+        "director"
+      ],
+      "language_original": "en",
+      "translation_status": "not required",
+      "explanation": "Wikidata lists Shakun Batra as the director of Kapoor & Sons.",
+      "provenance_status": "Wikidata structured fact; options generated from same-type facts; answer not independently verified"
+    },
+    {
+      "id": "wd-india-film-director-Q2066234",
+      "canonical_key": "wd-india-film-director-Q2066234",
+      "season": null,
+      "episode": null,
+      "air_date": null,
+      "question_text": "Who directed the Indian film “Pyaasa”?",
+      "options": [
+        "Advait Chandan",
+        "Karan Malhotra",
+        "Guru Dutt",
+        "Vishal Bhardwaj"
+      ],
+      "correct_option_index": 2,
+      "question_type": "practice",
+      "category": "Cinema (Bollywood)",
+      "subcategory": "india-film-director",
+      "difficulty_tier": "Tier 2",
+      "prize_level_asked_at": null,
+      "source": "Wikidata structured facts",
+      "source_schema_version": 3,
+      "source_url": "http://www.wikidata.org/entity/Q2066234",
+      "source_accessed_at": "2026-08-24",
+      "tags": [
+        "india",
+        "film",
+        "director"
+      ],
+      "language_original": "en",
+      "translation_status": "not required",
+      "explanation": "Wikidata lists Guru Dutt as the director of Pyaasa.",
+      "provenance_status": "Wikidata structured fact; options generated from same-type facts; answer not independently verified"
+    },
+    {
+      "id": "wd-india-film-director-Q219396",
+      "canonical_key": "wd-india-film-director-Q219396",
+      "season": null,
+      "episode": null,
+      "air_date": null,
+      "question_text": "Who directed the Indian film “Kahaani”?",
+      "options": [
+        "Karan Malhotra",
+        "Sujoy Ghosh",
+        "Vishal Bhardwaj",
+        "Paul Mayeda Berges"
+      ],
+      "correct_option_index": 1,
+      "question_type": "practice",
+      "category": "Cinema (Bollywood)",
+      "subcategory": "india-film-director",
+      "difficulty_tier": "Tier 2",
+      "prize_level_asked_at": null,
+      "source": "Wikidata structured facts",
+      "source_schema_version": 3,
+      "source_url": "http://www.wikidata.org/entity/Q219396",
+      "source_accessed_at": "2026-08-24",
+      "tags": [
+        "india",
+        "film",
+        "director"
+      ],
+      "language_original": "en",
+      "translation_status": "not required",
+      "explanation": "Wikidata lists Sujoy Ghosh as the director of Kahaani.",
+      "provenance_status": "Wikidata structured fact; options generated from same-type facts; answer not independently verified"
+    },
+    {
+      "id": "wd-india-film-director-Q2737200",
+      "canonical_key": "wd-india-film-director-Q2737200",
+      "season": null,
+      "episode": null,
+      "air_date": null,
+      "question_text": "Who directed the Indian film “Omkara”?",
+      "options": [
+        "Vishal Bhardwaj",
+        "Kunal Kohli",
+        "Aditya Dhar",
+        "Sujoy Ghosh"
+      ],
+      "correct_option_index": 0,
+      "question_type": "practice",
+      "category": "Cinema (Bollywood)",
+      "subcategory": "india-film-director",
+      "difficulty_tier": "Tier 2",
+      "prize_level_asked_at": null,
+      "source": "Wikidata structured facts",
+      "source_schema_version": 3,
+      "source_url": "http://www.wikidata.org/entity/Q2737200",
+      "source_accessed_at": "2026-08-24",
+      "tags": [
+        "india",
+        "film",
+        "director"
+      ],
+      "language_original": "en",
+      "translation_status": "not required",
+      "explanation": "Wikidata lists Vishal Bhardwaj as the director of Omkara.",
+      "provenance_status": "Wikidata structured fact; options generated from same-type facts; answer not independently verified"
+    },
+    {
+      "id": "wd-india-state-capital-Q1185",
+      "canonical_key": "wd-india-state-capital-Q1185",
+      "season": null,
+      "episode": null,
+      "air_date": null,
+      "question_text": "What is the capital of Karnataka?",
+      "options": [
+        "Bengaluru",
+        "Lucknow",
+        "Bhopal",
+        "Imphal"
+      ],
+      "correct_option_index": 0,
+      "question_type": "practice",
+      "category": "Geography (India)",
+      "subcategory": "india-state-capital",
+      "difficulty_tier": "Tier 1",
+      "prize_level_asked_at": null,
+      "source": "Wikidata structured facts",
+      "source_schema_version": 3,
+      "source_url": "http://www.wikidata.org/entity/Q1185",
+      "source_accessed_at": "2026-08-24",
+      "tags": [
+        "india",
+        "state",
+        "capital"
+      ],
+      "language_original": "en",
+      "translation_status": "not required",
+      "explanation": "Wikidata records Bengaluru as the capital of Karnataka.",
+      "provenance_status": "Wikidata structured fact; options generated from same-type facts; answer not independently verified"
+    },
+    {
+      "id": "wd-world-country-capital-Q1011",
+      "canonical_key": "wd-world-country-capital-Q1011",
+      "season": null,
+      "episode": null,
+      "air_date": null,
+      "question_text": "What is the capital of Cape Verde?",
+      "options": [
+        "Maseru",
+        "Maputo",
+        "Praia",
+        "Niamey"
+      ],
+      "correct_option_index": 2,
+      "question_type": "practice",
+      "category": "Geography (World)",
+      "subcategory": "world-country-capital",
+      "difficulty_tier": "Tier 1",
+      "prize_level_asked_at": null,
+      "source": "Wikidata structured facts",
+      "source_schema_version": 3,
+      "source_url": "http://www.wikidata.org/entity/Q1011",
+      "source_accessed_at": "2026-08-24",
+      "tags": [
+        "world",
+        "country",
+        "capital"
+      ],
+      "language_original": "en",
+      "translation_status": "not required",
+      "explanation": "Wikidata records Praia as the capital of Cape Verde.",
+      "provenance_status": "Wikidata structured fact; options generated from same-type facts; answer not independently verified"
+    },
+    {
+      "id": "wd-world-country-capital-Q1013",
+      "canonical_key": "wd-world-country-capital-Q1013",
+      "season": null,
+      "episode": null,
+      "air_date": null,
+      "question_text": "What is the capital of Lesotho?",
+      "options": [
+        "Maseru",
+        "Tripoli",
+        "Rabat",
+        "Monrovia"
+      ],
+      "correct_option_index": 0,
+      "question_type": "practice",
+      "category": "Geography (World)",
+      "subcategory": "world-country-capital",
+      "difficulty_tier": "Tier 1",
+      "prize_level_asked_at": null,
+      "source": "Wikidata structured facts",
+      "source_schema_version": 3,
+      "source_url": "http://www.wikidata.org/entity/Q1013",
+      "source_accessed_at": "2026-08-24",
+      "tags": [
+        "world",
+        "country",
+        "capital"
+      ],
+      "language_original": "en",
+      "translation_status": "not required",
+      "explanation": "Wikidata records Maseru as the capital of Lesotho.",
+      "provenance_status": "Wikidata structured fact; options generated from same-type facts; answer not independently verified"
+    },
+    {
+      "id": "wd-world-country-capital-Q1014",
+      "canonical_key": "wd-world-country-capital-Q1014",
+      "season": null,
+      "episode": null,
+      "air_date": null,
+      "question_text": "What is the capital of Liberia?",
+      "options": [
+        "Niamey",
+        "Praia",
+        "Rabat",
+        "Monrovia"
+      ],
+      "correct_option_index": 3,
+      "question_type": "practice",
+      "category": "Geography (World)",
+      "subcategory": "world-country-capital",
+      "difficulty_tier": "Tier 1",
+      "prize_level_asked_at": null,
+      "source": "Wikidata structured facts",
+      "source_schema_version": 3,
+      "source_url": "http://www.wikidata.org/entity/Q1014",
+      "source_accessed_at": "2026-08-24",
+      "tags": [
+        "world",
+        "country",
+        "capital"
+      ],
+      "language_original": "en",
+      "translation_status": "not required",
+      "explanation": "Wikidata records Monrovia as the capital of Liberia.",
+      "provenance_status": "Wikidata structured fact; options generated from same-type facts; answer not independently verified"
+    },
+    {
+      "id": "wd-world-country-capital-Q1016",
+      "canonical_key": "wd-world-country-capital-Q1016",
+      "season": null,
+      "episode": null,
+      "air_date": null,
+      "question_text": "What is the capital of Libya?",
+      "options": [
+        "Port Louis",
+        "Tripoli",
+        "Antananarivo",
+        "Maseru"
+      ],
+      "correct_option_index": 1,
+      "question_type": "practice",
+      "category": "Geography (World)",
+      "subcategory": "world-country-capital",
+      "difficulty_tier": "Tier 1",
+      "prize_level_asked_at": null,
+      "source": "Wikidata structured facts",
+      "source_schema_version": 3,
+      "source_url": "http://www.wikidata.org/entity/Q1016",
+      "source_accessed_at": "2026-08-24",
+      "tags": [
+        "world",
+        "country",
+        "capital"
+      ],
+      "language_original": "en",
+      "translation_status": "not required",
+      "explanation": "Wikidata records Tripoli as the capital of Libya.",
+      "provenance_status": "Wikidata structured fact; options generated from same-type facts; answer not independently verified"
+    },
+    {
+      "id": "wd-world-country-currency-Q25279",
+      "canonical_key": "wd-world-country-currency-Q25279",
+      "season": null,
+      "episode": null,
+      "air_date": null,
+      "question_text": "Which currency is associated with Curaçao?",
+      "options": [
+        "Caribbean guilder",
+        "dollar",
+        "dinar",
+        "rand"
+      ],
+      "correct_option_index": 0,
+      "question_type": "practice",
+      "category": "Business & Economy",
+      "subcategory": "world-country-currency",
+      "difficulty_tier": "Tier 2",
+      "prize_level_asked_at": null,
+      "source": "Wikidata structured facts",
+      "source_schema_version": 3,
+      "source_url": "http://www.wikidata.org/entity/Q25279",
+      "source_accessed_at": "2026-08-24",
+      "tags": [
+        "world",
+        "country",
+        "currency"
+      ],
+      "language_original": "en",
+      "translation_status": "not required",
+      "explanation": "Wikidata records Caribbean guilder as the currency of Curaçao.",
+      "provenance_status": "Wikidata structured fact; options generated from same-type facts; answer not independently verified"
+    },
+    {
+      "id": "wd-world-country-currency-Q258",
+      "canonical_key": "wd-world-country-currency-Q258",
+      "season": null,
+      "episode": null,
+      "air_date": null,
+      "question_text": "Which currency is associated with South Africa?",
+      "options": [
+        "dinar",
+        "dollar",
+        "rand",
+        "Uzbek som"
+      ],
+      "correct_option_index": 2,
+      "question_type": "practice",
+      "category": "Business & Economy",
+      "subcategory": "world-country-currency",
+      "difficulty_tier": "Tier 2",
+      "prize_level_asked_at": null,
+      "source": "Wikidata structured facts",
+      "source_schema_version": 3,
+      "source_url": "http://www.wikidata.org/entity/Q258",
+      "source_accessed_at": "2026-08-24",
+      "tags": [
+        "world",
+        "country",
+        "currency"
+      ],
+      "language_original": "en",
+      "translation_status": "not required",
+      "explanation": "Wikidata records rand as the currency of South Africa.",
+      "provenance_status": "Wikidata structured fact; options generated from same-type facts; answer not independently verified"
+    },
+    {
+      "id": "wd-world-country-currency-Q262",
+      "canonical_key": "wd-world-country-currency-Q262",
+      "season": null,
+      "episode": null,
+      "air_date": null,
+      "question_text": "Which currency is associated with Algeria?",
+      "options": [
+        "dollar",
+        "dinar",
+        "Uzbek som",
+        "Caribbean guilder"
+      ],
+      "correct_option_index": 1,
+      "question_type": "practice",
+      "category": "Business & Economy",
+      "subcategory": "world-country-currency",
+      "difficulty_tier": "Tier 2",
+      "prize_level_asked_at": null,
+      "source": "Wikidata structured facts",
+      "source_schema_version": 3,
+      "source_url": "http://www.wikidata.org/entity/Q262",
+      "source_accessed_at": "2026-08-24",
+      "tags": [
+        "world",
+        "country",
+        "currency"
+      ],
+      "language_original": "en",
+      "translation_status": "not required",
+      "explanation": "Wikidata records Algerian dinar as the currency of Algeria.",
+      "provenance_status": "Wikidata structured fact; options generated from same-type facts; answer not independently verified"
+    },
+    {
+      "id": "wd-world-country-currency-Q26273",
+      "canonical_key": "wd-world-country-currency-Q26273",
+      "season": null,
+      "episode": null,
+      "air_date": null,
+      "question_text": "Which currency is associated with Sint Maarten?",
+      "options": [
+        "Uzbek som",
+        "dollar",
+        "dinar",
+        "Caribbean guilder"
+      ],
+      "correct_option_index": 3,
+      "question_type": "practice",
+      "category": "Business & Economy",
+      "subcategory": "world-country-currency",
+      "difficulty_tier": "Tier 2",
+      "prize_level_asked_at": null,
+      "source": "Wikidata structured facts",
+      "source_schema_version": 3,
+      "source_url": "http://www.wikidata.org/entity/Q26273",
+      "source_accessed_at": "2026-08-24",
+      "tags": [
+        "world",
+        "country",
+        "currency"
+      ],
+      "language_original": "en",
+      "translation_status": "not required",
+      "explanation": "Wikidata records Caribbean guilder as the currency of Sint Maarten.",
+      "provenance_status": "Wikidata structured fact; options generated from same-type facts; answer not independently verified"
+    },
+    {
+      "id": "wd-world-heritage-country-Q9213",
+      "canonical_key": "wd-world-heritage-country-Q9213",
+      "season": null,
+      "episode": null,
+      "air_date": null,
+      "question_text": "In which country is the UNESCO World Heritage Site “Lumbini” located?",
+      "options": [
+        "France",
+        "Tanzania",
+        "Nepal",
+        "Zimbabwe"
+      ],
+      "correct_option_index": 2,
+      "question_type": "practice",
+      "category": "Art & Culture",
+      "subcategory": "world-heritage-country",
+      "difficulty_tier": "Tier 3",
+      "prize_level_asked_at": null,
+      "source": "Wikidata structured facts",
+      "source_schema_version": 3,
+      "source_url": "http://www.wikidata.org/entity/Q9213",
+      "source_accessed_at": "2026-08-24",
+      "tags": [
+        "world",
+        "heritage",
+        "country"
+      ],
+      "language_original": "en",
+      "translation_status": "not required",
+      "explanation": "Wikidata locates Lumbini in Nepal.",
+      "provenance_status": "Wikidata structured fact; options generated from same-type facts; answer not independently verified"
+    },
+    {
+      "id": "wd-world-heritage-country-Q106187",
+      "canonical_key": "wd-world-heritage-country-Q106187",
+      "season": null,
+      "episode": null,
+      "air_date": null,
+      "question_text": "In which country is the UNESCO World Heritage Site “Giant's Causeway” located?",
+      "options": [
+        "United Kingdom",
+        "Libya",
+        "Tanzania",
+        "Zimbabwe"
+      ],
+      "correct_option_index": 0,
+      "question_type": "practice",
+      "category": "Art & Culture",
+      "subcategory": "world-heritage-country",
+      "difficulty_tier": "Tier 3",
+      "prize_level_asked_at": null,
+      "source": "Wikidata structured facts",
+      "source_schema_version": 3,
+      "source_url": "http://www.wikidata.org/entity/Q106187",
+      "source_accessed_at": "2026-08-24",
+      "tags": [
+        "world",
+        "heritage",
+        "country"
+      ],
+      "language_original": "en",
+      "translation_status": "not required",
+      "explanation": "Wikidata locates Giant's Causeway in United Kingdom.",
+      "provenance_status": "Wikidata structured fact; options generated from same-type facts; answer not independently verified"
+    },
+    {
+      "id": "wd-world-heritage-country-Q11812902",
+      "canonical_key": "wd-world-heritage-country-Q11812902",
+      "season": null,
+      "episode": null,
+      "air_date": null,
+      "question_text": "In which country is the UNESCO World Heritage Site “Serengeti National Park” located?",
+      "options": [
+        "India",
+        "Tanzania",
+        "Japan",
+        "Libya"
+      ],
+      "correct_option_index": 1,
+      "question_type": "practice",
+      "category": "Art & Culture",
+      "subcategory": "world-heritage-country",
+      "difficulty_tier": "Tier 3",
+      "prize_level_asked_at": null,
+      "source": "Wikidata structured facts",
+      "source_schema_version": 3,
+      "source_url": "http://www.wikidata.org/entity/Q11812902",
+      "source_accessed_at": "2026-08-24",
+      "tags": [
+        "world",
+        "heritage",
+        "country"
+      ],
+      "language_original": "en",
+      "translation_status": "not required",
+      "explanation": "Wikidata locates Serengeti National Park in Tanzania.",
+      "provenance_status": "Wikidata structured fact; options generated from same-type facts; answer not independently verified"
+    },
+    {
+      "id": "wd-world-heritage-country-Q179883",
+      "canonical_key": "wd-world-heritage-country-Q179883",
+      "season": null,
+      "episode": null,
+      "air_date": null,
+      "question_text": "In which country is the UNESCO World Heritage Site “Aeolian Islands” located?",
+      "options": [
+        "France",
+        "Tanzania",
+        "Zimbabwe",
+        "Italy"
+      ],
+      "correct_option_index": 3,
+      "question_type": "practice",
+      "category": "Art & Culture",
+      "subcategory": "world-heritage-country",
+      "difficulty_tier": "Tier 3",
+      "prize_level_asked_at": null,
+      "source": "Wikidata structured facts",
+      "source_schema_version": 3,
+      "source_url": "http://www.wikidata.org/entity/Q179883",
+      "source_accessed_at": "2026-08-24",
+      "tags": [
+        "world",
+        "heritage",
+        "country"
+      ],
+      "language_original": "en",
+      "translation_status": "not required",
+      "explanation": "Wikidata locates Aeolian Islands in Italy.",
+      "provenance_status": "Wikidata structured fact; options generated from same-type facts; answer not independently verified"
+    },
+    {
+      "id": "wd-chemical-element-symbol-Q618",
+      "canonical_key": "wd-chemical-element-symbol-Q618",
+      "season": null,
+      "episode": null,
+      "air_date": null,
+      "question_text": "What is the chemical symbol for boron?",
+      "options": [
+        "N",
+        "O",
+        "B",
+        "F"
+      ],
+      "correct_option_index": 2,
+      "question_type": "practice",
+      "category": "Science & Technology",
+      "subcategory": "chemical-element-symbol",
+      "difficulty_tier": "Tier 1",
+      "prize_level_asked_at": null,
+      "source": "Wikidata structured facts",
+      "source_schema_version": 3,
+      "source_url": "http://www.wikidata.org/entity/Q618",
+      "source_accessed_at": "2026-08-24",
+      "tags": [
+        "science",
+        "chemistry",
+        "element"
+      ],
+      "language_original": "en",
+      "translation_status": "not required",
+      "explanation": "The chemical symbol recorded for boron is B.",
+      "provenance_status": "Wikidata structured fact; options generated from same-type facts; answer not independently verified"
+    },
+    {
+      "id": "wd-chemical-element-symbol-Q623",
+      "canonical_key": "wd-chemical-element-symbol-Q623",
+      "season": null,
+      "episode": null,
+      "air_date": null,
+      "question_text": "What is the chemical symbol for carbon?",
+      "options": [
+        "C",
+        "Na",
+        "Mg",
+        "Al"
+      ],
+      "correct_option_index": 0,
+      "question_type": "practice",
+      "category": "Science & Technology",
+      "subcategory": "chemical-element-symbol",
+      "difficulty_tier": "Tier 1",
+      "prize_level_asked_at": null,
+      "source": "Wikidata structured facts",
+      "source_schema_version": 3,
+      "source_url": "http://www.wikidata.org/entity/Q623",
+      "source_accessed_at": "2026-08-24",
+      "tags": [
+        "science",
+        "chemistry",
+        "element"
+      ],
+      "language_original": "en",
+      "translation_status": "not required",
+      "explanation": "The chemical symbol recorded for carbon is C.",
+      "provenance_status": "Wikidata structured fact; options generated from same-type facts; answer not independently verified"
+    },
+    {
+      "id": "wd-chemical-element-symbol-Q627",
+      "canonical_key": "wd-chemical-element-symbol-Q627",
+      "season": null,
+      "episode": null,
+      "air_date": null,
+      "question_text": "What is the chemical symbol for nitrogen?",
+      "options": [
+        "N",
+        "O",
+        "F",
+        "P"
+      ],
+      "correct_option_index": 0,
+      "question_type": "practice",
+      "category": "Science & Technology",
+      "subcategory": "chemical-element-symbol",
+      "difficulty_tier": "Tier 1",
+      "prize_level_asked_at": null,
+      "source": "Wikidata structured facts",
+      "source_schema_version": 3,
+      "source_url": "http://www.wikidata.org/entity/Q627",
+      "source_accessed_at": "2026-08-24",
+      "tags": [
+        "science",
+        "chemistry",
+        "element"
+      ],
+      "language_original": "en",
+      "translation_status": "not required",
+      "explanation": "The chemical symbol recorded for nitrogen is N.",
+      "provenance_status": "Wikidata structured fact; options generated from same-type facts; answer not independently verified"
+    },
+    {
+      "id": "wd-chemical-element-symbol-Q629",
+      "canonical_key": "wd-chemical-element-symbol-Q629",
+      "season": null,
+      "episode": null,
+      "air_date": null,
+      "question_text": "What is the chemical symbol for oxygen?",
+      "options": [
+        "B",
+        "C",
+        "O",
+        "N"
+      ],
+      "correct_option_index": 2,
+      "question_type": "practice",
+      "category": "Science & Technology",
+      "subcategory": "chemical-element-symbol",
+      "difficulty_tier": "Tier 1",
+      "prize_level_asked_at": null,
+      "source": "Wikidata structured facts",
+      "source_schema_version": 3,
+      "source_url": "http://www.wikidata.org/entity/Q629",
+      "source_accessed_at": "2026-08-24",
+      "tags": [
+        "science",
+        "chemistry",
+        "element"
+      ],
+      "language_original": "en",
+      "translation_status": "not required",
+      "explanation": "The chemical symbol recorded for oxygen is O.",
       "provenance_status": "Wikidata structured fact; options generated from same-type facts; answer not independently verified"
     },
     {
