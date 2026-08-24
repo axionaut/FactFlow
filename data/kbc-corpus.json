@@ -1,6 +1,6 @@
 {
   "schema_version": 3,
-  "generated_at": "2026-08-24T02:01:09.989Z",
+  "generated_at": "2026-08-24T07:32:38.133Z",
   "corpus_scope": "India-first KBC practice combining historical KBC archives with accumulating structured facts; not an official Sony corpus.",
   "sources": [
     {
@@ -61,8 +61,8 @@
       "pages": 5
     }
   ],
-  "fresh_questions": 35,
-  "playable_questions": 552,
+  "fresh_questions": 39,
+  "playable_questions": 591,
   "translation_pending": 78,
   "removed_generic_questions": 0,
   "pages": [
@@ -1603,61 +1603,116 @@
       "status": 200,
       "questions": 0,
       "last_attempted_at": "2026-08-24"
+    },
+    {
+      "season": 17,
+      "episode": 47,
+      "airDate": "",
+      "url": "https://www.gksection.com/kbc-17-questions-and-answers-episode-47/",
+      "status": 200,
+      "questions": 0,
+      "last_attempted_at": "2026-08-24"
+    },
+    {
+      "season": 17,
+      "episode": 46,
+      "airDate": "",
+      "url": "https://www.gksection.com/kbc-17-questions-and-answers-episode-46/",
+      "status": 0,
+      "questions": 0,
+      "error": "GKSection page returned 404",
+      "last_attempted_at": "2026-08-24"
+    },
+    {
+      "season": 17,
+      "episode": 45,
+      "airDate": "",
+      "url": "https://www.gksection.com/kbc-17-questions-and-answers-episode-45/",
+      "status": 200,
+      "questions": 0,
+      "last_attempted_at": "2026-08-24"
+    },
+    {
+      "season": 17,
+      "episode": 44,
+      "airDate": "",
+      "url": "https://www.gksection.com/kbc-17-questions-and-answers-episode-44/",
+      "status": 200,
+      "questions": 0,
+      "last_attempted_at": "2026-08-24"
+    },
+    {
+      "season": 17,
+      "episode": 43,
+      "airDate": "",
+      "url": "https://www.gksection.com/kbc-17-questions-and-answers-episode-43/",
+      "status": 200,
+      "questions": 0,
+      "last_attempted_at": "2026-08-24"
+    },
+    {
+      "season": 17,
+      "episode": 42,
+      "airDate": "",
+      "url": "https://www.gksection.com/kbc-17-questions-and-answers-episode-42/",
+      "status": 200,
+      "questions": 0,
+      "last_attempted_at": "2026-08-24"
     }
   ],
   "wikidata_source_version": 3,
   "wikidata_state": {
     "india-person-birthplace": {
-      "offset": 124,
-      "last_attempted_at": "2026-08-24T02:00:57.722Z",
+      "offset": 132,
+      "last_attempted_at": "2026-08-24T07:32:12.808Z",
       "last_result_count": 16,
       "exhausted": false
     },
     "india-film-director": {
-      "offset": 124,
-      "last_attempted_at": "2026-08-24T02:00:59.295Z",
+      "offset": 132,
+      "last_attempted_at": "2026-08-24T07:32:18.213Z",
       "last_result_count": 16,
       "exhausted": false
     },
     "india-book-author": {
-      "offset": 0,
-      "last_attempted_at": "2026-08-24T02:01:01.130Z",
-      "last_result_count": 13,
-      "exhausted": true
+      "offset": 8,
+      "last_attempted_at": "2026-08-24T07:32:20.100Z",
+      "last_result_count": 16,
+      "exhausted": false
     },
     "india-state-capital": {
-      "offset": 12,
-      "last_attempted_at": "2026-08-24T02:01:02.248Z",
+      "offset": 16,
+      "last_attempted_at": "2026-08-24T07:32:21.755Z",
       "last_result_count": 12,
       "exhausted": false
     },
     "world-country-capital": {
-      "offset": 62,
-      "last_attempted_at": "2026-08-24T02:01:03.971Z",
+      "offset": 66,
+      "last_attempted_at": "2026-08-24T07:32:25.811Z",
       "last_result_count": 12,
       "exhausted": false
     },
     "world-country-currency": {
-      "offset": 62,
-      "last_attempted_at": "2026-08-24T02:01:05.224Z",
+      "offset": 66,
+      "last_attempted_at": "2026-08-24T07:32:29.001Z",
       "last_result_count": 12,
       "exhausted": false
     },
     "world-heritage-country": {
-      "offset": 62,
-      "last_attempted_at": "2026-08-24T02:01:07.396Z",
+      "offset": 66,
+      "last_attempted_at": "2026-08-24T07:32:34.449Z",
       "last_result_count": 12,
       "exhausted": false
     },
     "india-athlete-sport": {
-      "offset": 24,
-      "last_attempted_at": "2026-08-24T02:01:09.088Z",
+      "offset": 32,
+      "last_attempted_at": "2026-08-24T07:32:37.570Z",
       "last_result_count": 16,
       "exhausted": false
     },
     "chemical-element-symbol": {
-      "offset": 62,
-      "last_attempted_at": "2026-08-24T02:01:09.974Z",
+      "offset": 66,
+      "last_attempted_at": "2026-08-24T07:32:38.119Z",
       "last_result_count": 12,
       "exhausted": false
     }
@@ -27360,8 +27415,8 @@
       "options": [
         "Arundhati Roy",
         "Vikram Seth",
-        "Veda Vyasa",
-        "Michael Crichton"
+        "Michael Crichton",
+        "Premchand"
       ],
       "correct_option_index": 0,
       "question_type": "practice",
@@ -27372,7 +27427,7 @@
       "source": "Wikidata structured facts",
       "source_schema_version": 3,
       "source_url": "http://www.wikidata.org/entity/Q378786",
-      "source_accessed_at": "2026-08-23",
+      "source_accessed_at": "2026-08-24",
       "tags": [
         "india",
         "book",
@@ -27391,8 +27446,8 @@
       "air_date": null,
       "question_text": "Who wrote the Indian literary work “Charaka Samhita”?",
       "options": [
+        "Vyasa",
         "Premchand",
-        "Veda Vyasa",
         "Charaka",
         "Vikram Seth"
       ],
@@ -27405,7 +27460,7 @@
       "source": "Wikidata structured facts",
       "source_schema_version": 3,
       "source_url": "http://www.wikidata.org/entity/Q2723566",
-      "source_accessed_at": "2026-08-23",
+      "source_accessed_at": "2026-08-24",
       "tags": [
         "india",
         "book",
@@ -27425,9 +27480,9 @@
       "question_text": "Who wrote the Indian literary work “Tirukkuṟaḷ”?",
       "options": [
         "Thiruvalluvar",
-        "Michael Crichton",
         "Premchand",
-        "Charaka"
+        "Charaka",
+        "Rafeeq Mangalassery"
       ],
       "correct_option_index": 0,
       "question_type": "practice",
@@ -27438,7 +27493,7 @@
       "source": "Wikidata structured facts",
       "source_schema_version": 3,
       "source_url": "http://www.wikidata.org/entity/Q2167085",
-      "source_accessed_at": "2026-08-23",
+      "source_accessed_at": "2026-08-24",
       "tags": [
         "india",
         "book",
@@ -27458,8 +27513,8 @@
       "question_text": "Who wrote the Indian literary work “Kithaab”?",
       "options": [
         "Vikram Seth",
-        "Veda Vyasa",
         "Premchand",
+        "Charaka",
         "Rafeeq Mangalassery"
       ],
       "correct_option_index": 3,
@@ -27471,7 +27526,7 @@
       "source": "Wikidata structured facts",
       "source_schema_version": 3,
       "source_url": "http://www.wikidata.org/entity/Q60686734",
-      "source_accessed_at": "2026-08-23",
+      "source_accessed_at": "2026-08-24",
       "tags": [
         "india",
         "book",
@@ -27504,7 +27559,7 @@
       "source": "Wikidata structured facts",
       "source_schema_version": 3,
       "source_url": "http://www.wikidata.org/entity/Q11169650",
-      "source_accessed_at": "2026-08-23",
+      "source_accessed_at": "2026-08-24",
       "tags": [
         "india",
         "book",
@@ -27523,9 +27578,9 @@
       "air_date": null,
       "question_text": "Who wrote the Indian literary work “The Story of My Experiments with Truth”?",
       "options": [
-        "Veda Vyasa",
         "Rafeeq Mangalassery",
         "Premchand",
+        "Charaka",
         "Mahatma Gandhi"
       ],
       "correct_option_index": 3,
@@ -27537,7 +27592,7 @@
       "source": "Wikidata structured facts",
       "source_schema_version": 3,
       "source_url": "http://www.wikidata.org/entity/Q2719827",
-      "source_accessed_at": "2026-08-23",
+      "source_accessed_at": "2026-08-24",
       "tags": [
         "india",
         "book",
@@ -27557,7 +27612,7 @@
       "question_text": "Who wrote the Indian literary work “Anushasana Parva”?",
       "options": [
         "Chetan Bhagat",
-        "Veda Vyasa",
+        "Vyasa",
         "Mahatma Gandhi",
         "B. R. Ambedkar"
       ],
@@ -27570,7 +27625,7 @@
       "source": "Wikidata structured facts",
       "source_schema_version": 3,
       "source_url": "http://www.wikidata.org/entity/Q14151721",
-      "source_accessed_at": "2026-08-23",
+      "source_accessed_at": "2026-08-24",
       "tags": [
         "india",
         "book",
@@ -27578,7 +27633,7 @@
       ],
       "language_original": "en",
       "translation_status": "not required",
-      "explanation": "Wikidata lists Veda Vyasa as the author of Anushasana Parva.",
+      "explanation": "Wikidata lists Vyasa as the author of Anushasana Parva.",
       "provenance_status": "Wikidata structured fact; options generated from same-type facts; answer not independently verified"
     },
     {
@@ -27589,7 +27644,7 @@
       "air_date": null,
       "question_text": "Who wrote the Indian literary work “A Suitable Boy”?",
       "options": [
-        "Michael Crichton",
+        "Vyasa",
         "Vikram Seth",
         "Rafeeq Mangalassery",
         "Rahmatullah Kairanawi"
@@ -27603,7 +27658,7 @@
       "source": "Wikidata structured facts",
       "source_schema_version": 3,
       "source_url": "http://www.wikidata.org/entity/Q2918491",
-      "source_accessed_at": "2026-08-23",
+      "source_accessed_at": "2026-08-24",
       "tags": [
         "india",
         "book",
@@ -28546,9 +28601,9 @@
       "air_date": null,
       "question_text": "What is the capital of Assam?",
       "options": [
-        "Agartala",
-        "Jaipur",
-        "Chennai",
+        "Raipur",
+        "Panaji",
+        "Shimla",
         "Dispur"
       ],
       "correct_option_index": 3,
@@ -28560,7 +28615,7 @@
       "source": "Wikidata structured facts",
       "source_schema_version": 3,
       "source_url": "http://www.wikidata.org/entity/Q1164",
-      "source_accessed_at": "2026-08-23",
+      "source_accessed_at": "2026-08-24",
       "tags": [
         "india",
         "state",
@@ -28579,10 +28634,10 @@
       "air_date": null,
       "question_text": "What is the capital of Bihar?",
       "options": [
-        "Kolkata",
-        "Agartala",
+        "Thiruvananthapuram",
+        "Dispur",
         "Patna",
-        "Jaipur"
+        "Raipur"
       ],
       "correct_option_index": 2,
       "question_type": "practice",
@@ -28593,7 +28648,7 @@
       "source": "Wikidata structured facts",
       "source_schema_version": 3,
       "source_url": "http://www.wikidata.org/entity/Q1165",
-      "source_accessed_at": "2026-08-23",
+      "source_accessed_at": "2026-08-24",
       "tags": [
         "india",
         "state",
@@ -28612,9 +28667,9 @@
       "air_date": null,
       "question_text": "What is the capital of Chhattisgarh?",
       "options": [
-        "Pondicherry",
-        "Hyderabad",
-        "Daman",
+        "Ranchi",
+        "Bhopal",
+        "Mumbai",
         "Raipur"
       ],
       "correct_option_index": 3,
@@ -28626,7 +28681,7 @@
       "source": "Wikidata structured facts",
       "source_schema_version": 3,
       "source_url": "http://www.wikidata.org/entity/Q1168",
-      "source_accessed_at": "2026-08-23",
+      "source_accessed_at": "2026-08-24",
       "tags": [
         "india",
         "state",
@@ -28645,10 +28700,10 @@
       "air_date": null,
       "question_text": "What is the capital of Goa?",
       "options": [
-        "Dehradun",
+        "Chandigarh",
         "Panaji",
-        "Aizawl",
-        "Gangtok"
+        "Thiruvananthapuram",
+        "Dispur"
       ],
       "correct_option_index": 1,
       "question_type": "practice",
@@ -28659,7 +28714,7 @@
       "source": "Wikidata structured facts",
       "source_schema_version": 3,
       "source_url": "http://www.wikidata.org/entity/Q1171",
-      "source_accessed_at": "2026-08-23",
+      "source_accessed_at": "2026-08-24",
       "tags": [
         "india",
         "state",
@@ -38116,9 +38171,9 @@
       "air_date": null,
       "question_text": "In which place was Jaya Bachchan born?",
       "options": [
-        "Sitamarhi",
-        "Kolkata",
         "Jalandhar",
+        "Bhopal",
+        "Gujranwala",
         "Jabalpur"
       ],
       "correct_option_index": 3,
@@ -39063,6 +39118,1293 @@
       "language_original": "en",
       "translation_status": "not required",
       "explanation": "The chemical symbol recorded for einsteinium is Es.",
+      "provenance_status": "Wikidata structured fact; options generated from same-type facts; answer not independently verified"
+    },
+    {
+      "id": "wd-india-person-birthplace-Q332157",
+      "canonical_key": "wd-india-person-birthplace-Q332157",
+      "season": null,
+      "episode": null,
+      "air_date": null,
+      "question_text": "In which place was Shankar Dayal Sharma born?",
+      "options": [
+        "Peshawar",
+        "Jalandhar",
+        "Bhopal",
+        "Gujranwala"
+      ],
+      "correct_option_index": 2,
+      "question_type": "practice",
+      "category": "Miscellaneous/Trivia",
+      "subcategory": "india-person-birthplace",
+      "difficulty_tier": "Tier 2",
+      "prize_level_asked_at": null,
+      "source": "Wikidata structured facts",
+      "source_schema_version": 3,
+      "source_url": "http://www.wikidata.org/entity/Q332157",
+      "source_accessed_at": "2026-08-24",
+      "tags": [
+        "india",
+        "people",
+        "birthplace"
+      ],
+      "language_original": "en",
+      "translation_status": "not required",
+      "explanation": "Wikidata records Bhopal as the birthplace of Shankar Dayal Sharma.",
+      "provenance_status": "Wikidata structured fact; options generated from same-type facts; answer not independently verified"
+    },
+    {
+      "id": "wd-india-person-birthplace-Q334818",
+      "canonical_key": "wd-india-person-birthplace-Q334818",
+      "season": null,
+      "episode": null,
+      "air_date": null,
+      "question_text": "In which place was Kazi Nazrul Islam born?",
+      "options": [
+        "Chennai",
+        "Jalandhar",
+        "Churulia",
+        "Bhopal"
+      ],
+      "correct_option_index": 2,
+      "question_type": "practice",
+      "category": "Miscellaneous/Trivia",
+      "subcategory": "india-person-birthplace",
+      "difficulty_tier": "Tier 2",
+      "prize_level_asked_at": null,
+      "source": "Wikidata structured facts",
+      "source_schema_version": 3,
+      "source_url": "http://www.wikidata.org/entity/Q334818",
+      "source_accessed_at": "2026-08-24",
+      "tags": [
+        "india",
+        "people",
+        "birthplace"
+      ],
+      "language_original": "en",
+      "translation_status": "not required",
+      "explanation": "Wikidata records Churulia as the birthplace of Kazi Nazrul Islam.",
+      "provenance_status": "Wikidata structured fact; options generated from same-type facts; answer not independently verified"
+    },
+    {
+      "id": "wd-india-person-birthplace-Q159169",
+      "canonical_key": "wd-india-person-birthplace-Q159169",
+      "season": null,
+      "episode": null,
+      "air_date": null,
+      "question_text": "In which place was Nargis born?",
+      "options": [
+        "Kolkata",
+        "Jabalpur",
+        "Bhopal",
+        "Churulia"
+      ],
+      "correct_option_index": 0,
+      "question_type": "practice",
+      "category": "Miscellaneous/Trivia",
+      "subcategory": "india-person-birthplace",
+      "difficulty_tier": "Tier 2",
+      "prize_level_asked_at": null,
+      "source": "Wikidata structured facts",
+      "source_schema_version": 3,
+      "source_url": "http://www.wikidata.org/entity/Q159169",
+      "source_accessed_at": "2026-08-24",
+      "tags": [
+        "india",
+        "people",
+        "birthplace"
+      ],
+      "language_original": "en",
+      "translation_status": "not required",
+      "explanation": "Wikidata records Kolkata as the birthplace of Nargis.",
+      "provenance_status": "Wikidata structured fact; options generated from same-type facts; answer not independently verified"
+    },
+    {
+      "id": "wd-india-person-birthplace-Q1705018",
+      "canonical_key": "wd-india-person-birthplace-Q1705018",
+      "season": null,
+      "episode": null,
+      "air_date": null,
+      "question_text": "In which place was Amrita Pritam born?",
+      "options": [
+        "Ibrahimpatti",
+        "Kolkata",
+        "Chennai",
+        "Gujranwala"
+      ],
+      "correct_option_index": 3,
+      "question_type": "practice",
+      "category": "Miscellaneous/Trivia",
+      "subcategory": "india-person-birthplace",
+      "difficulty_tier": "Tier 2",
+      "prize_level_asked_at": null,
+      "source": "Wikidata structured facts",
+      "source_schema_version": 3,
+      "source_url": "http://www.wikidata.org/entity/Q1705018",
+      "source_accessed_at": "2026-08-24",
+      "tags": [
+        "india",
+        "people",
+        "birthplace"
+      ],
+      "language_original": "en",
+      "translation_status": "not required",
+      "explanation": "Wikidata records Gujranwala as the birthplace of Amrita Pritam.",
+      "provenance_status": "Wikidata structured fact; options generated from same-type facts; answer not independently verified"
+    },
+    {
+      "id": "wd-india-person-birthplace-Q3136554",
+      "canonical_key": "wd-india-person-birthplace-Q3136554",
+      "season": null,
+      "episode": null,
+      "air_date": null,
+      "question_text": "In which place was Prabhas born?",
+      "options": [
+        "Chennai",
+        "Jabalpur",
+        "Bhopal",
+        "Churulia"
+      ],
+      "correct_option_index": 0,
+      "question_type": "practice",
+      "category": "Miscellaneous/Trivia",
+      "subcategory": "india-person-birthplace",
+      "difficulty_tier": "Tier 2",
+      "prize_level_asked_at": null,
+      "source": "Wikidata structured facts",
+      "source_schema_version": 3,
+      "source_url": "http://www.wikidata.org/entity/Q3136554",
+      "source_accessed_at": "2026-08-24",
+      "tags": [
+        "india",
+        "people",
+        "birthplace"
+      ],
+      "language_original": "en",
+      "translation_status": "not required",
+      "explanation": "Wikidata records Chennai as the birthplace of Prabhas.",
+      "provenance_status": "Wikidata structured fact; options generated from same-type facts; answer not independently verified"
+    },
+    {
+      "id": "wd-india-person-birthplace-Q333443",
+      "canonical_key": "wd-india-person-birthplace-Q333443",
+      "season": null,
+      "episode": null,
+      "air_date": null,
+      "question_text": "In which place was Amrish Puri born?",
+      "options": [
+        "Jabalpur",
+        "Churulia",
+        "Gujranwala",
+        "Jalandhar"
+      ],
+      "correct_option_index": 3,
+      "question_type": "practice",
+      "category": "Miscellaneous/Trivia",
+      "subcategory": "india-person-birthplace",
+      "difficulty_tier": "Tier 2",
+      "prize_level_asked_at": null,
+      "source": "Wikidata structured facts",
+      "source_schema_version": 3,
+      "source_url": "http://www.wikidata.org/entity/Q333443",
+      "source_accessed_at": "2026-08-24",
+      "tags": [
+        "india",
+        "people",
+        "birthplace"
+      ],
+      "language_original": "en",
+      "translation_status": "not required",
+      "explanation": "Wikidata records Jalandhar as the birthplace of Amrish Puri.",
+      "provenance_status": "Wikidata structured fact; options generated from same-type facts; answer not independently verified"
+    },
+    {
+      "id": "wd-india-person-birthplace-Q336913",
+      "canonical_key": "wd-india-person-birthplace-Q336913",
+      "season": null,
+      "episode": null,
+      "air_date": null,
+      "question_text": "In which place was Neelam Sanjiva Reddy born?",
+      "options": [
+        "Kotla Sultan Singh",
+        "Bhopal",
+        "Kadapa",
+        "Mysore"
+      ],
+      "correct_option_index": 2,
+      "question_type": "practice",
+      "category": "Miscellaneous/Trivia",
+      "subcategory": "india-person-birthplace",
+      "difficulty_tier": "Tier 2",
+      "prize_level_asked_at": null,
+      "source": "Wikidata structured facts",
+      "source_schema_version": 3,
+      "source_url": "http://www.wikidata.org/entity/Q336913",
+      "source_accessed_at": "2026-08-24",
+      "tags": [
+        "india",
+        "people",
+        "birthplace"
+      ],
+      "language_original": "en",
+      "translation_status": "not required",
+      "explanation": "Wikidata records Kadapa as the birthplace of Neelam Sanjiva Reddy.",
+      "provenance_status": "Wikidata structured fact; options generated from same-type facts; answer not independently verified"
+    },
+    {
+      "id": "wd-india-film-director-Q21646605",
+      "canonical_key": "wd-india-film-director-Q21646605",
+      "season": null,
+      "episode": null,
+      "air_date": null,
+      "question_text": "Who directed the Indian film “K.G.F: Chapter 1”?",
+      "options": [
+        "Muzaffar Ali",
+        "Satyajit Ray",
+        "Madhur Bhandarkar",
+        "Prashanth Neel"
+      ],
+      "correct_option_index": 3,
+      "question_type": "practice",
+      "category": "Cinema (Bollywood)",
+      "subcategory": "india-film-director",
+      "difficulty_tier": "Tier 2",
+      "prize_level_asked_at": null,
+      "source": "Wikidata structured facts",
+      "source_schema_version": 3,
+      "source_url": "http://www.wikidata.org/entity/Q21646605",
+      "source_accessed_at": "2026-08-24",
+      "tags": [
+        "india",
+        "film",
+        "director"
+      ],
+      "language_original": "en",
+      "translation_status": "not required",
+      "explanation": "Wikidata lists Prashanth Neel as the director of K.G.F: Chapter 1.",
+      "provenance_status": "Wikidata structured fact; options generated from same-type facts; answer not independently verified"
+    },
+    {
+      "id": "wd-india-film-director-Q262778",
+      "canonical_key": "wd-india-film-director-Q262778",
+      "season": null,
+      "episode": null,
+      "air_date": null,
+      "question_text": "Who directed the Indian film “Munna Bhai M.B.B.S.”?",
+      "options": [
+        "Dharmesh Darshan",
+        "Manmohan Desai",
+        "Madhur Bhandarkar",
+        "Rajkumar Hirani"
+      ],
+      "correct_option_index": 3,
+      "question_type": "practice",
+      "category": "Cinema (Bollywood)",
+      "subcategory": "india-film-director",
+      "difficulty_tier": "Tier 2",
+      "prize_level_asked_at": null,
+      "source": "Wikidata structured facts",
+      "source_schema_version": 3,
+      "source_url": "http://www.wikidata.org/entity/Q262778",
+      "source_accessed_at": "2026-08-24",
+      "tags": [
+        "india",
+        "film",
+        "director"
+      ],
+      "language_original": "en",
+      "translation_status": "not required",
+      "explanation": "Wikidata lists Rajkumar Hirani as the director of Munna Bhai M.B.B.S..",
+      "provenance_status": "Wikidata structured fact; options generated from same-type facts; answer not independently verified"
+    },
+    {
+      "id": "wd-india-film-director-Q2665454",
+      "canonical_key": "wd-india-film-director-Q2665454",
+      "season": null,
+      "episode": null,
+      "air_date": null,
+      "question_text": "Who directed the Indian film “Fashion”?",
+      "options": [
+        "Siddharth Anand",
+        "Madhur Bhandarkar",
+        "Prashanth Neel",
+        "Manmohan Desai"
+      ],
+      "correct_option_index": 1,
+      "question_type": "practice",
+      "category": "Cinema (Bollywood)",
+      "subcategory": "india-film-director",
+      "difficulty_tier": "Tier 2",
+      "prize_level_asked_at": null,
+      "source": "Wikidata structured facts",
+      "source_schema_version": 3,
+      "source_url": "http://www.wikidata.org/entity/Q2665454",
+      "source_accessed_at": "2026-08-24",
+      "tags": [
+        "india",
+        "film",
+        "director"
+      ],
+      "language_original": "en",
+      "translation_status": "not required",
+      "explanation": "Wikidata lists Madhur Bhandarkar as the director of Fashion.",
+      "provenance_status": "Wikidata structured fact; options generated from same-type facts; answer not independently verified"
+    },
+    {
+      "id": "wd-india-film-director-Q2698933",
+      "canonical_key": "wd-india-film-director-Q2698933",
+      "season": null,
+      "episode": null,
+      "air_date": null,
+      "question_text": "Who directed the Indian film “Raja Hindustani”?",
+      "options": [
+        "Madhur Bhandarkar",
+        "Dharmesh Darshan",
+        "Ali Abbas Zafar",
+        "Siddharth Anand"
+      ],
+      "correct_option_index": 1,
+      "question_type": "practice",
+      "category": "Cinema (Bollywood)",
+      "subcategory": "india-film-director",
+      "difficulty_tier": "Tier 2",
+      "prize_level_asked_at": null,
+      "source": "Wikidata structured facts",
+      "source_schema_version": 3,
+      "source_url": "http://www.wikidata.org/entity/Q2698933",
+      "source_accessed_at": "2026-08-24",
+      "tags": [
+        "india",
+        "film",
+        "director"
+      ],
+      "language_original": "en",
+      "translation_status": "not required",
+      "explanation": "Wikidata lists Dharmesh Darshan as the director of Raja Hindustani.",
+      "provenance_status": "Wikidata structured fact; options generated from same-type facts; answer not independently verified"
+    },
+    {
+      "id": "wd-india-film-director-Q2739153",
+      "canonical_key": "wd-india-film-director-Q2739153",
+      "season": null,
+      "episode": null,
+      "air_date": null,
+      "question_text": "Who directed the Indian film “Roja”?",
+      "options": [
+        "Dharmesh Darshan",
+        "Mani Ratnam",
+        "Madhur Bhandarkar",
+        "Hrishikesh Mukherjee"
+      ],
+      "correct_option_index": 1,
+      "question_type": "practice",
+      "category": "Cinema (Bollywood)",
+      "subcategory": "india-film-director",
+      "difficulty_tier": "Tier 2",
+      "prize_level_asked_at": null,
+      "source": "Wikidata structured facts",
+      "source_schema_version": 3,
+      "source_url": "http://www.wikidata.org/entity/Q2739153",
+      "source_accessed_at": "2026-08-24",
+      "tags": [
+        "india",
+        "film",
+        "director"
+      ],
+      "language_original": "en",
+      "translation_status": "not required",
+      "explanation": "Wikidata lists Mani Ratnam as the director of Roja.",
+      "provenance_status": "Wikidata structured fact; options generated from same-type facts; answer not independently verified"
+    },
+    {
+      "id": "wd-india-film-director-Q28753302",
+      "canonical_key": "wd-india-film-director-Q28753302",
+      "season": null,
+      "episode": null,
+      "air_date": null,
+      "question_text": "Who directed the Indian film “Tiger Zinda Hai”?",
+      "options": [
+        "Madhur Bhandarkar",
+        "Ali Abbas Zafar",
+        "Milan Luthria",
+        "Shekhar Kapur"
+      ],
+      "correct_option_index": 1,
+      "question_type": "practice",
+      "category": "Cinema (Bollywood)",
+      "subcategory": "india-film-director",
+      "difficulty_tier": "Tier 2",
+      "prize_level_asked_at": null,
+      "source": "Wikidata structured facts",
+      "source_schema_version": 3,
+      "source_url": "http://www.wikidata.org/entity/Q28753302",
+      "source_accessed_at": "2026-08-24",
+      "tags": [
+        "india",
+        "film",
+        "director"
+      ],
+      "language_original": "en",
+      "translation_status": "not required",
+      "explanation": "Wikidata lists Ali Abbas Zafar as the director of Tiger Zinda Hai.",
+      "provenance_status": "Wikidata structured fact; options generated from same-type facts; answer not independently verified"
+    },
+    {
+      "id": "wd-india-film-director-Q3090065",
+      "canonical_key": "wd-india-film-director-Q3090065",
+      "season": null,
+      "episode": null,
+      "air_date": null,
+      "question_text": "Who directed the Indian film “The Dirty Picture”?",
+      "options": [
+        "Mira Nair",
+        "Hrishikesh Mukherjee",
+        "Milan Luthria",
+        "Shekhar Kapur"
+      ],
+      "correct_option_index": 2,
+      "question_type": "practice",
+      "category": "Cinema (Bollywood)",
+      "subcategory": "india-film-director",
+      "difficulty_tier": "Tier 2",
+      "prize_level_asked_at": null,
+      "source": "Wikidata structured facts",
+      "source_schema_version": 3,
+      "source_url": "http://www.wikidata.org/entity/Q3090065",
+      "source_accessed_at": "2026-08-24",
+      "tags": [
+        "india",
+        "film",
+        "director"
+      ],
+      "language_original": "en",
+      "translation_status": "not required",
+      "explanation": "Wikidata lists Milan Luthria as the director of The Dirty Picture.",
+      "provenance_status": "Wikidata structured fact; options generated from same-type facts; answer not independently verified"
+    },
+    {
+      "id": "wd-india-film-director-Q4296485",
+      "canonical_key": "wd-india-film-director-Q4296485",
+      "season": null,
+      "episode": null,
+      "air_date": null,
+      "question_text": "Who directed the Indian film “Mr. India”?",
+      "options": [
+        "Muzaffar Ali",
+        "Satyajit Ray",
+        "Rajkumar Hirani",
+        "Shekhar Kapur"
+      ],
+      "correct_option_index": 3,
+      "question_type": "practice",
+      "category": "Cinema (Bollywood)",
+      "subcategory": "india-film-director",
+      "difficulty_tier": "Tier 2",
+      "prize_level_asked_at": null,
+      "source": "Wikidata structured facts",
+      "source_schema_version": 3,
+      "source_url": "http://www.wikidata.org/entity/Q4296485",
+      "source_accessed_at": "2026-08-24",
+      "tags": [
+        "india",
+        "film",
+        "director"
+      ],
+      "language_original": "en",
+      "translation_status": "not required",
+      "explanation": "Wikidata lists Shekhar Kapur as the director of Mr. India.",
+      "provenance_status": "Wikidata structured fact; options generated from same-type facts; answer not independently verified"
+    },
+    {
+      "id": "wd-world-country-capital-Q1000",
+      "canonical_key": "wd-world-country-capital-Q1000",
+      "season": null,
+      "episode": null,
+      "air_date": null,
+      "question_text": "What is the capital of Gabon?",
+      "options": [
+        "Libreville",
+        "Maseru",
+        "Praia",
+        "Yamoussoukro"
+      ],
+      "correct_option_index": 0,
+      "question_type": "practice",
+      "category": "Geography (World)",
+      "subcategory": "world-country-capital",
+      "difficulty_tier": "Tier 1",
+      "prize_level_asked_at": null,
+      "source": "Wikidata structured facts",
+      "source_schema_version": 3,
+      "source_url": "http://www.wikidata.org/entity/Q1000",
+      "source_accessed_at": "2026-08-24",
+      "tags": [
+        "world",
+        "country",
+        "capital"
+      ],
+      "language_original": "en",
+      "translation_status": "not required",
+      "explanation": "Wikidata records Libreville as the capital of Gabon.",
+      "provenance_status": "Wikidata structured fact; options generated from same-type facts; answer not independently verified"
+    },
+    {
+      "id": "wd-world-country-capital-Q1005",
+      "canonical_key": "wd-world-country-capital-Q1005",
+      "season": null,
+      "episode": null,
+      "air_date": null,
+      "question_text": "What is the capital of The Gambia?",
+      "options": [
+        "Yaoundé",
+        "Banjul",
+        "Praia",
+        "Tripoli"
+      ],
+      "correct_option_index": 1,
+      "question_type": "practice",
+      "category": "Geography (World)",
+      "subcategory": "world-country-capital",
+      "difficulty_tier": "Tier 1",
+      "prize_level_asked_at": null,
+      "source": "Wikidata structured facts",
+      "source_schema_version": 3,
+      "source_url": "http://www.wikidata.org/entity/Q1005",
+      "source_accessed_at": "2026-08-24",
+      "tags": [
+        "world",
+        "country",
+        "capital"
+      ],
+      "language_original": "en",
+      "translation_status": "not required",
+      "explanation": "Wikidata records Banjul as the capital of The Gambia.",
+      "provenance_status": "Wikidata structured fact; options generated from same-type facts; answer not independently verified"
+    },
+    {
+      "id": "wd-world-country-capital-Q1006",
+      "canonical_key": "wd-world-country-capital-Q1006",
+      "season": null,
+      "episode": null,
+      "air_date": null,
+      "question_text": "What is the capital of Guinea?",
+      "options": [
+        "Maseru",
+        "Monrovia",
+        "Conakry",
+        "Praia"
+      ],
+      "correct_option_index": 2,
+      "question_type": "practice",
+      "category": "Geography (World)",
+      "subcategory": "world-country-capital",
+      "difficulty_tier": "Tier 1",
+      "prize_level_asked_at": null,
+      "source": "Wikidata structured facts",
+      "source_schema_version": 3,
+      "source_url": "http://www.wikidata.org/entity/Q1006",
+      "source_accessed_at": "2026-08-24",
+      "tags": [
+        "world",
+        "country",
+        "capital"
+      ],
+      "language_original": "en",
+      "translation_status": "not required",
+      "explanation": "Wikidata records Conakry as the capital of Guinea.",
+      "provenance_status": "Wikidata structured fact; options generated from same-type facts; answer not independently verified"
+    },
+    {
+      "id": "wd-world-country-capital-Q1007",
+      "canonical_key": "wd-world-country-capital-Q1007",
+      "season": null,
+      "episode": null,
+      "air_date": null,
+      "question_text": "What is the capital of Guinea-Bissau?",
+      "options": [
+        "Tripoli",
+        "Monrovia",
+        "Libreville",
+        "Bissau"
+      ],
+      "correct_option_index": 3,
+      "question_type": "practice",
+      "category": "Geography (World)",
+      "subcategory": "world-country-capital",
+      "difficulty_tier": "Tier 1",
+      "prize_level_asked_at": null,
+      "source": "Wikidata structured facts",
+      "source_schema_version": 3,
+      "source_url": "http://www.wikidata.org/entity/Q1007",
+      "source_accessed_at": "2026-08-24",
+      "tags": [
+        "world",
+        "country",
+        "capital"
+      ],
+      "language_original": "en",
+      "translation_status": "not required",
+      "explanation": "Wikidata records Bissau as the capital of Guinea-Bissau.",
+      "provenance_status": "Wikidata structured fact; options generated from same-type facts; answer not independently verified"
+    },
+    {
+      "id": "wd-world-country-currency-Q1039",
+      "canonical_key": "wd-world-country-currency-Q1039",
+      "season": null,
+      "episode": null,
+      "air_date": null,
+      "question_text": "Which currency is associated with São Tomé and Príncipe?",
+      "options": [
+        "São Tomé and Príncipe dobra",
+        "dinar",
+        "rand",
+        "West African CFA franc"
+      ],
+      "correct_option_index": 0,
+      "question_type": "practice",
+      "category": "Business & Economy",
+      "subcategory": "world-country-currency",
+      "difficulty_tier": "Tier 2",
+      "prize_level_asked_at": null,
+      "source": "Wikidata structured facts",
+      "source_schema_version": 3,
+      "source_url": "http://www.wikidata.org/entity/Q1039",
+      "source_accessed_at": "2026-08-24",
+      "tags": [
+        "world",
+        "country",
+        "currency"
+      ],
+      "language_original": "en",
+      "translation_status": "not required",
+      "explanation": "Wikidata records São Tomé and Príncipe dobra as the currency of São Tomé and Príncipe.",
+      "provenance_status": "Wikidata structured fact; options generated from same-type facts; answer not independently verified"
+    },
+    {
+      "id": "wd-world-country-currency-Q1041",
+      "canonical_key": "wd-world-country-currency-Q1041",
+      "season": null,
+      "episode": null,
+      "air_date": null,
+      "question_text": "Which currency is associated with Senegal?",
+      "options": [
+        "lilangeni",
+        "West African CFA franc",
+        "shilling",
+        "rupee"
+      ],
+      "correct_option_index": 1,
+      "question_type": "practice",
+      "category": "Business & Economy",
+      "subcategory": "world-country-currency",
+      "difficulty_tier": "Tier 2",
+      "prize_level_asked_at": null,
+      "source": "Wikidata structured facts",
+      "source_schema_version": 3,
+      "source_url": "http://www.wikidata.org/entity/Q1041",
+      "source_accessed_at": "2026-08-24",
+      "tags": [
+        "world",
+        "country",
+        "currency"
+      ],
+      "language_original": "en",
+      "translation_status": "not required",
+      "explanation": "Wikidata records West African CFA franc as the currency of Senegal.",
+      "provenance_status": "Wikidata structured fact; options generated from same-type facts; answer not independently verified"
+    },
+    {
+      "id": "wd-world-country-currency-Q1042",
+      "canonical_key": "wd-world-country-currency-Q1042",
+      "season": null,
+      "episode": null,
+      "air_date": null,
+      "question_text": "Which currency is associated with Seychelles?",
+      "options": [
+        "dinar",
+        "rand",
+        "rupee",
+        "shilling"
+      ],
+      "correct_option_index": 2,
+      "question_type": "practice",
+      "category": "Business & Economy",
+      "subcategory": "world-country-currency",
+      "difficulty_tier": "Tier 2",
+      "prize_level_asked_at": null,
+      "source": "Wikidata structured facts",
+      "source_schema_version": 3,
+      "source_url": "http://www.wikidata.org/entity/Q1042",
+      "source_accessed_at": "2026-08-24",
+      "tags": [
+        "world",
+        "country",
+        "currency"
+      ],
+      "language_original": "en",
+      "translation_status": "not required",
+      "explanation": "Wikidata records Seychellois rupee as the currency of Seychelles.",
+      "provenance_status": "Wikidata structured fact; options generated from same-type facts; answer not independently verified"
+    },
+    {
+      "id": "wd-world-country-currency-Q1044",
+      "canonical_key": "wd-world-country-currency-Q1044",
+      "season": null,
+      "episode": null,
+      "air_date": null,
+      "question_text": "Which currency is associated with Sierra Leone?",
+      "options": [
+        "leone",
+        "West African CFA franc",
+        "São Tomé and Príncipe dobra",
+        "rupee"
+      ],
+      "correct_option_index": 0,
+      "question_type": "practice",
+      "category": "Business & Economy",
+      "subcategory": "world-country-currency",
+      "difficulty_tier": "Tier 2",
+      "prize_level_asked_at": null,
+      "source": "Wikidata structured facts",
+      "source_schema_version": 3,
+      "source_url": "http://www.wikidata.org/entity/Q1044",
+      "source_accessed_at": "2026-08-24",
+      "tags": [
+        "world",
+        "country",
+        "currency"
+      ],
+      "language_original": "en",
+      "translation_status": "not required",
+      "explanation": "Wikidata records leone as the currency of Sierra Leone.",
+      "provenance_status": "Wikidata structured fact; options generated from same-type facts; answer not independently verified"
+    },
+    {
+      "id": "wd-world-heritage-country-Q569766",
+      "canonical_key": "wd-world-heritage-country-Q569766",
+      "season": null,
+      "episode": null,
+      "air_date": null,
+      "question_text": "In which country is the UNESCO World Heritage Site “Shahrisabz” located?",
+      "options": [
+        "Turkey",
+        "United Kingdom",
+        "Uzbekistan",
+        "India"
+      ],
+      "correct_option_index": 2,
+      "question_type": "practice",
+      "category": "Art & Culture",
+      "subcategory": "world-heritage-country",
+      "difficulty_tier": "Tier 3",
+      "prize_level_asked_at": null,
+      "source": "Wikidata structured facts",
+      "source_schema_version": 3,
+      "source_url": "http://www.wikidata.org/entity/Q569766",
+      "source_accessed_at": "2026-08-24",
+      "tags": [
+        "world",
+        "heritage",
+        "country"
+      ],
+      "language_original": "en",
+      "translation_status": "not required",
+      "explanation": "Wikidata locates Shahrisabz in Uzbekistan.",
+      "provenance_status": "Wikidata structured fact; options generated from same-type facts; answer not independently verified"
+    },
+    {
+      "id": "wd-world-heritage-country-Q29317",
+      "canonical_key": "wd-world-heritage-country-Q29317",
+      "season": null,
+      "episode": null,
+      "air_date": null,
+      "question_text": "In which country is the UNESCO World Heritage Site “Bagan” located?",
+      "options": [
+        "Spain",
+        "Myanmar",
+        "Nepal",
+        "Italy"
+      ],
+      "correct_option_index": 1,
+      "question_type": "practice",
+      "category": "Art & Culture",
+      "subcategory": "world-heritage-country",
+      "difficulty_tier": "Tier 3",
+      "prize_level_asked_at": null,
+      "source": "Wikidata structured facts",
+      "source_schema_version": 3,
+      "source_url": "http://www.wikidata.org/entity/Q29317",
+      "source_accessed_at": "2026-08-24",
+      "tags": [
+        "world",
+        "heritage",
+        "country"
+      ],
+      "language_original": "en",
+      "translation_status": "not required",
+      "explanation": "Wikidata locates Bagan in Myanmar.",
+      "provenance_status": "Wikidata structured fact; options generated from same-type facts; answer not independently verified"
+    },
+    {
+      "id": "wd-world-heritage-country-Q5724",
+      "canonical_key": "wd-world-heritage-country-Q5724",
+      "season": null,
+      "episode": null,
+      "air_date": null,
+      "question_text": "In which country is the UNESCO World Heritage Site “Anuradhapura” located?",
+      "options": [
+        "Nepal",
+        "Sri Lanka",
+        "Italy",
+        "United Kingdom"
+      ],
+      "correct_option_index": 1,
+      "question_type": "practice",
+      "category": "Art & Culture",
+      "subcategory": "world-heritage-country",
+      "difficulty_tier": "Tier 3",
+      "prize_level_asked_at": null,
+      "source": "Wikidata structured facts",
+      "source_schema_version": 3,
+      "source_url": "http://www.wikidata.org/entity/Q5724",
+      "source_accessed_at": "2026-08-24",
+      "tags": [
+        "world",
+        "heritage",
+        "country"
+      ],
+      "language_original": "en",
+      "translation_status": "not required",
+      "explanation": "Wikidata locates Anuradhapura in Sri Lanka.",
+      "provenance_status": "Wikidata structured fact; options generated from same-type facts; answer not independently verified"
+    },
+    {
+      "id": "wd-world-heritage-country-Q172613",
+      "canonical_key": "wd-world-heritage-country-Q172613",
+      "season": null,
+      "episode": null,
+      "air_date": null,
+      "question_text": "In which country is the UNESCO World Heritage Site “Teotihuacan” located?",
+      "options": [
+        "Italy",
+        "Tanzania",
+        "Sri Lanka",
+        "Mexico"
+      ],
+      "correct_option_index": 3,
+      "question_type": "practice",
+      "category": "Art & Culture",
+      "subcategory": "world-heritage-country",
+      "difficulty_tier": "Tier 3",
+      "prize_level_asked_at": null,
+      "source": "Wikidata structured facts",
+      "source_schema_version": 3,
+      "source_url": "http://www.wikidata.org/entity/Q172613",
+      "source_accessed_at": "2026-08-24",
+      "tags": [
+        "world",
+        "heritage",
+        "country"
+      ],
+      "language_original": "en",
+      "translation_status": "not required",
+      "explanation": "Wikidata locates Teotihuacan in Mexico.",
+      "provenance_status": "Wikidata structured fact; options generated from same-type facts; answer not independently verified"
+    },
+    {
+      "id": "wd-india-athlete-sport-Q82936",
+      "canonical_key": "wd-india-athlete-sport-Q82936",
+      "season": null,
+      "episode": null,
+      "air_date": null,
+      "question_text": "With which sport is Narain Karthikeyan associated?",
+      "options": [
+        "athletics",
+        "weightlifting",
+        "archery",
+        "auto racing"
+      ],
+      "correct_option_index": 3,
+      "question_type": "practice",
+      "category": "Sports",
+      "subcategory": "india-athlete-sport",
+      "difficulty_tier": "Tier 2",
+      "prize_level_asked_at": null,
+      "source": "Wikidata structured facts",
+      "source_schema_version": 3,
+      "source_url": "http://www.wikidata.org/entity/Q82936",
+      "source_accessed_at": "2026-08-24",
+      "tags": [
+        "india",
+        "athlete",
+        "sport"
+      ],
+      "language_original": "en",
+      "translation_status": "not required",
+      "explanation": "Wikidata associates Narain Karthikeyan with auto racing.",
+      "provenance_status": "Wikidata structured fact; options generated from same-type facts; answer not independently verified"
+    },
+    {
+      "id": "wd-india-athlete-sport-Q269014",
+      "canonical_key": "wd-india-athlete-sport-Q269014",
+      "season": null,
+      "episode": null,
+      "air_date": null,
+      "question_text": "With which sport is Milkha Singh associated?",
+      "options": [
+        "auto racing",
+        "archery",
+        "cricket",
+        "athletics"
+      ],
+      "correct_option_index": 3,
+      "question_type": "practice",
+      "category": "Sports",
+      "subcategory": "india-athlete-sport",
+      "difficulty_tier": "Tier 2",
+      "prize_level_asked_at": null,
+      "source": "Wikidata structured facts",
+      "source_schema_version": 3,
+      "source_url": "http://www.wikidata.org/entity/Q269014",
+      "source_accessed_at": "2026-08-24",
+      "tags": [
+        "india",
+        "athlete",
+        "sport"
+      ],
+      "language_original": "en",
+      "translation_status": "not required",
+      "explanation": "Wikidata associates Milkha Singh with athletics.",
+      "provenance_status": "Wikidata structured fact; options generated from same-type facts; answer not independently verified"
+    },
+    {
+      "id": "wd-india-athlete-sport-Q1756438",
+      "canonical_key": "wd-india-athlete-sport-Q1756438",
+      "season": null,
+      "episode": null,
+      "air_date": null,
+      "question_text": "With which sport is Deepika Kumari associated?",
+      "options": [
+        "freestyle wrestling",
+        "archery",
+        "association football",
+        "cricket"
+      ],
+      "correct_option_index": 1,
+      "question_type": "practice",
+      "category": "Sports",
+      "subcategory": "india-athlete-sport",
+      "difficulty_tier": "Tier 2",
+      "prize_level_asked_at": null,
+      "source": "Wikidata structured facts",
+      "source_schema_version": 3,
+      "source_url": "http://www.wikidata.org/entity/Q1756438",
+      "source_accessed_at": "2026-08-24",
+      "tags": [
+        "india",
+        "athlete",
+        "sport"
+      ],
+      "language_original": "en",
+      "translation_status": "not required",
+      "explanation": "Wikidata associates Deepika Kumari with archery.",
+      "provenance_status": "Wikidata structured fact; options generated from same-type facts; answer not independently verified"
+    },
+    {
+      "id": "wd-india-athlete-sport-Q17415291",
+      "canonical_key": "wd-india-athlete-sport-Q17415291",
+      "season": null,
+      "episode": null,
+      "air_date": null,
+      "question_text": "With which sport is Mirabai Chanu associated?",
+      "options": [
+        "athletics",
+        "weightlifting",
+        "archery",
+        "freestyle wrestling"
+      ],
+      "correct_option_index": 1,
+      "question_type": "practice",
+      "category": "Sports",
+      "subcategory": "india-athlete-sport",
+      "difficulty_tier": "Tier 2",
+      "prize_level_asked_at": null,
+      "source": "Wikidata structured facts",
+      "source_schema_version": 3,
+      "source_url": "http://www.wikidata.org/entity/Q17415291",
+      "source_accessed_at": "2026-08-24",
+      "tags": [
+        "india",
+        "athlete",
+        "sport"
+      ],
+      "language_original": "en",
+      "translation_status": "not required",
+      "explanation": "Wikidata associates Mirabai Chanu with weightlifting.",
+      "provenance_status": "Wikidata structured fact; options generated from same-type facts; answer not independently verified"
+    },
+    {
+      "id": "wd-india-athlete-sport-Q17466423",
+      "canonical_key": "wd-india-athlete-sport-Q17466423",
+      "season": null,
+      "episode": null,
+      "air_date": null,
+      "question_text": "With which sport is Sakshi Malik associated?",
+      "options": [
+        "auto racing",
+        "athletics",
+        "freestyle wrestling",
+        "archery"
+      ],
+      "correct_option_index": 2,
+      "question_type": "practice",
+      "category": "Sports",
+      "subcategory": "india-athlete-sport",
+      "difficulty_tier": "Tier 2",
+      "prize_level_asked_at": null,
+      "source": "Wikidata structured facts",
+      "source_schema_version": 3,
+      "source_url": "http://www.wikidata.org/entity/Q17466423",
+      "source_accessed_at": "2026-08-24",
+      "tags": [
+        "india",
+        "athlete",
+        "sport"
+      ],
+      "language_original": "en",
+      "translation_status": "not required",
+      "explanation": "Wikidata associates Sakshi Malik with freestyle wrestling.",
+      "provenance_status": "Wikidata structured fact; options generated from same-type facts; answer not independently verified"
+    },
+    {
+      "id": "wd-india-athlete-sport-Q333448",
+      "canonical_key": "wd-india-athlete-sport-Q333448",
+      "season": null,
+      "episode": null,
+      "air_date": null,
+      "question_text": "With which sport is Bhaichung Bhutia associated?",
+      "options": [
+        "association football",
+        "shooting sports",
+        "weightlifting",
+        "auto racing"
+      ],
+      "correct_option_index": 0,
+      "question_type": "practice",
+      "category": "Sports",
+      "subcategory": "india-athlete-sport",
+      "difficulty_tier": "Tier 2",
+      "prize_level_asked_at": null,
+      "source": "Wikidata structured facts",
+      "source_schema_version": 3,
+      "source_url": "http://www.wikidata.org/entity/Q333448",
+      "source_accessed_at": "2026-08-24",
+      "tags": [
+        "india",
+        "athlete",
+        "sport"
+      ],
+      "language_original": "en",
+      "translation_status": "not required",
+      "explanation": "Wikidata associates Bhaichung Bhutia with association football.",
+      "provenance_status": "Wikidata structured fact; options generated from same-type facts; answer not independently verified"
+    },
+    {
+      "id": "wd-india-athlete-sport-Q50351453",
+      "canonical_key": "wd-india-athlete-sport-Q50351453",
+      "season": null,
+      "episode": null,
+      "air_date": null,
+      "question_text": "With which sport is Manu Bhaker associated?",
+      "options": [
+        "weightlifting",
+        "auto racing",
+        "freestyle wrestling",
+        "shooting sports"
+      ],
+      "correct_option_index": 3,
+      "question_type": "practice",
+      "category": "Sports",
+      "subcategory": "india-athlete-sport",
+      "difficulty_tier": "Tier 2",
+      "prize_level_asked_at": null,
+      "source": "Wikidata structured facts",
+      "source_schema_version": 3,
+      "source_url": "http://www.wikidata.org/entity/Q50351453",
+      "source_accessed_at": "2026-08-24",
+      "tags": [
+        "india",
+        "athlete",
+        "sport"
+      ],
+      "language_original": "en",
+      "translation_status": "not required",
+      "explanation": "Wikidata associates Manu Bhaker with shooting sports.",
+      "provenance_status": "Wikidata structured fact; options generated from same-type facts; answer not independently verified"
+    },
+    {
+      "id": "wd-india-athlete-sport-Q320610",
+      "canonical_key": "wd-india-athlete-sport-Q320610",
+      "season": null,
+      "episode": null,
+      "air_date": null,
+      "question_text": "With which sport is Abhinav Bindra associated?",
+      "options": [
+        "freestyle wrestling",
+        "shooting sports",
+        "association football",
+        "athletics"
+      ],
+      "correct_option_index": 1,
+      "question_type": "practice",
+      "category": "Sports",
+      "subcategory": "india-athlete-sport",
+      "difficulty_tier": "Tier 2",
+      "prize_level_asked_at": null,
+      "source": "Wikidata structured facts",
+      "source_schema_version": 3,
+      "source_url": "http://www.wikidata.org/entity/Q320610",
+      "source_accessed_at": "2026-08-24",
+      "tags": [
+        "india",
+        "athlete",
+        "sport"
+      ],
+      "language_original": "en",
+      "translation_status": "not required",
+      "explanation": "Wikidata associates Abhinav Bindra with shooting sports.",
+      "provenance_status": "Wikidata structured fact; options generated from same-type facts; answer not independently verified"
+    },
+    {
+      "id": "wd-chemical-element-symbol-Q1896",
+      "canonical_key": "wd-chemical-element-symbol-Q1896",
+      "season": null,
+      "episode": null,
+      "air_date": null,
+      "question_text": "What is the chemical symbol for fermium?",
+      "options": [
+        "N",
+        "Fm",
+        "O",
+        "Md"
+      ],
+      "correct_option_index": 1,
+      "question_type": "practice",
+      "category": "Science & Technology",
+      "subcategory": "chemical-element-symbol",
+      "difficulty_tier": "Tier 1",
+      "prize_level_asked_at": null,
+      "source": "Wikidata structured facts",
+      "source_schema_version": 3,
+      "source_url": "http://www.wikidata.org/entity/Q1896",
+      "source_accessed_at": "2026-08-24",
+      "tags": [
+        "science",
+        "chemistry",
+        "element"
+      ],
+      "language_original": "en",
+      "translation_status": "not required",
+      "explanation": "The chemical symbol recorded for fermium is Fm.",
+      "provenance_status": "Wikidata structured fact; options generated from same-type facts; answer not independently verified"
+    },
+    {
+      "id": "wd-chemical-element-symbol-Q1898",
+      "canonical_key": "wd-chemical-element-symbol-Q1898",
+      "season": null,
+      "episode": null,
+      "air_date": null,
+      "question_text": "What is the chemical symbol for mendelevium?",
+      "options": [
+        "Li",
+        "Be",
+        "H",
+        "Md"
+      ],
+      "correct_option_index": 3,
+      "question_type": "practice",
+      "category": "Science & Technology",
+      "subcategory": "chemical-element-symbol",
+      "difficulty_tier": "Tier 1",
+      "prize_level_asked_at": null,
+      "source": "Wikidata structured facts",
+      "source_schema_version": 3,
+      "source_url": "http://www.wikidata.org/entity/Q1898",
+      "source_accessed_at": "2026-08-24",
+      "tags": [
+        "science",
+        "chemistry",
+        "element"
+      ],
+      "language_original": "en",
+      "translation_status": "not required",
+      "explanation": "The chemical symbol recorded for mendelevium is Md.",
+      "provenance_status": "Wikidata structured fact; options generated from same-type facts; answer not independently verified"
+    },
+    {
+      "id": "wd-chemical-element-symbol-Q1901",
+      "canonical_key": "wd-chemical-element-symbol-Q1901",
+      "season": null,
+      "episode": null,
+      "air_date": null,
+      "question_text": "What is the chemical symbol for nobelium?",
+      "options": [
+        "No",
+        "Lr",
+        "He",
+        "Li"
+      ],
+      "correct_option_index": 0,
+      "question_type": "practice",
+      "category": "Science & Technology",
+      "subcategory": "chemical-element-symbol",
+      "difficulty_tier": "Tier 1",
+      "prize_level_asked_at": null,
+      "source": "Wikidata structured facts",
+      "source_schema_version": 3,
+      "source_url": "http://www.wikidata.org/entity/Q1901",
+      "source_accessed_at": "2026-08-24",
+      "tags": [
+        "science",
+        "chemistry",
+        "element"
+      ],
+      "language_original": "en",
+      "translation_status": "not required",
+      "explanation": "The chemical symbol recorded for nobelium is No.",
+      "provenance_status": "Wikidata structured fact; options generated from same-type facts; answer not independently verified"
+    },
+    {
+      "id": "wd-chemical-element-symbol-Q1905",
+      "canonical_key": "wd-chemical-element-symbol-Q1905",
+      "season": null,
+      "episode": null,
+      "air_date": null,
+      "question_text": "What is the chemical symbol for lawrencium?",
+      "options": [
+        "Lr",
+        "N",
+        "O",
+        "Fm"
+      ],
+      "correct_option_index": 0,
+      "question_type": "practice",
+      "category": "Science & Technology",
+      "subcategory": "chemical-element-symbol",
+      "difficulty_tier": "Tier 1",
+      "prize_level_asked_at": null,
+      "source": "Wikidata structured facts",
+      "source_schema_version": 3,
+      "source_url": "http://www.wikidata.org/entity/Q1905",
+      "source_accessed_at": "2026-08-24",
+      "tags": [
+        "science",
+        "chemistry",
+        "element"
+      ],
+      "language_original": "en",
+      "translation_status": "not required",
+      "explanation": "The chemical symbol recorded for lawrencium is Lr.",
       "provenance_status": "Wikidata structured fact; options generated from same-type facts; answer not independently verified"
     },
     {
