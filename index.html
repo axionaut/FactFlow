@@ -7,7 +7,7 @@
     <meta name="description" content="Adaptive GK practice informed by recurring KBC topic patterns." />
     <title>FactFlow</title>
     <link rel="icon" type="image/svg+xml" href="favicon.svg" />
-    <link rel="stylesheet" href="styles.css?v=37" />
+    <link rel="stylesheet" href="styles.css?v=38" />
   </head>
   <body>
     <div class="app-shell">
@@ -18,7 +18,7 @@
             <p class="eyebrow">KBC-patterned GK practice</p>
             <div class="title-row">
               <h1>FactFlow</h1>
-              <span id="appVersionLabel" class="version-pill">v37</span>
+              <span id="appVersionLabel" class="version-pill">v38</span>
             </div>
           </div>
         </div>
@@ -32,7 +32,7 @@
         <button class="nav-button" data-tab="progress" type="button">Progress</button>
         <button class="nav-button" data-tab="insights" type="button">KBC Insights</button>
       </nav>
-      <span id="mobileVersionLabel" class="mobile-version" aria-label="App version">v37</span>
+      <span id="mobileVersionLabel" class="mobile-version" aria-label="App version">v38</span>
 
       <main>
         <section class="tab-panel active" id="tab-today">
@@ -40,7 +40,7 @@
             <div>
               <p class="eyebrow light">Adaptive daily practice</p>
               <h2>Build recall one useful question at a time.</h2>
-              <p id="sessionSummary" class="hero-copy">New questions appear here. Practised questions return only through Review.</p>
+              <p id="sessionSummary" class="hero-copy">Questions are chosen from your weakest topics first, weighted by what KBC actually asks.</p>
             </div>
             <div class="streak-card">
               <strong id="todayStreak">0</strong>
@@ -149,9 +149,9 @@
             </section>
             <section class="panel">
               <div class="panel-header">
-                <div><p class="eyebrow">Latest answers</p><h3>Recent activity</h3></div>
+                <div><p class="eyebrow">Weighted by what KBC asks</p><h3>What to fix next</h3></div>
               </div>
-              <div id="recentActivity" class="activity-list"></div>
+              <div id="focusList" class="focus-list"></div>
             </section>
           </div>
         </section>
@@ -189,7 +189,7 @@
       </main>
     </div>
 
-    <script src="learning.js?v=37"></script>
-    <script src="app.js?v=37"></script>
+    <script src="learning.js?v=38"></script>
+    <script src="app.js?v=38"></script>
   </body>
 </html>

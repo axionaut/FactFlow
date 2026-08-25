@@ -20,7 +20,11 @@ jobs:
         with:
           node-version: 20
 
+      # Also refreshes current-affairs questions, which expire and are rebuilt
+      # rather than retained, so the schedule doubles as the currency guarantee.
       - name: Gather and normalize questions
+        env:
+          WIKIDATA_BATCH_SIZE: 24
         run: node tools/build-corpus.mjs
 
       - name: Publish updated corpus

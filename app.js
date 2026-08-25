@@ -1,6 +1,6 @@
 'use strict';
 
-const APP_VERSION = 37;
+const APP_VERSION = 38;
 const CORPUS_URL = 'data/kbc-corpus.json';
 const LEARNING_STORAGE_KEY = 'factflow-learning-v2';
 const LEARNING_DB_NAME = 'factflow-learning';
@@ -366,7 +366,12 @@ function createNewDailySession() {
     state.learning,
     state.practiceQuestions,
     state.archiveQuestions,
-    { size: 10, recentQuestionKeys: state.learning.recentQuestionKeys }
+    {
+      size: 10,
+      recentQuestionKeys: state.learning.recentQuestionKeys,
+      // Archive-derived weighting: what KBC actually asks steers what is served.
+      patternMix: state.corpus?.pattern_profile?.category_mix || {}
+    }
   );
   state.learning.recentQuestionKeys = [
     ...new Set([...(state.learning.recentQuestionKeys || []), ...state.learning.dailySession.questionKeys])
@@ -839,7 +844,12 @@ function renderToday() {
   const response = responseForSession(session);
   const sessionQuestions = (session?.questionKeys || []).map((key) => state.questionMap.get(key)).filter(Boolean);
   const newCount = sessionQuestions.filter((question) => Learning.questionStats(state.learning, question.key).attempts === 0).length;
-  setText('sessionSummary', `${newCount} unseen question${newCount === 1 ? '' : 's'} in this queue. Practised questions return only through Review.`);
+  const focusNames = Learning.focusTopics(state.learning, state.questions, {
+    patternMix: state.corpus?.pattern_profile?.category_mix || {}
+  }).filter((topic) => topic.practisable).slice(0, 2).map((topic) => topic.category);
+  setText('sessionSummary', focusNames.length
+    ? `${newCount} new of ${total} in this queue. Focusing on ${focusNames.join(' and ')}.`
+    : `${newCount} new question${newCount === 1 ? '' : 's'} in this queue.`);
 
   const question = questionForSession(session);
   if (!session || !total || !question || session.cursor >= total) {
@@ -900,7 +910,7 @@ function startReview(questions = reviewBatch()) {
     id: `review-${Date.now()}`,
     date: Learning.dateKey(),
     mode: 'review',
-    batchVersion: 1,
+    batchVersion: 2,
     questionKeys,
     cursor: 0,
     responses: {},
@@ -916,16 +926,31 @@ function renderReview() {
   const backlog = reviewBacklog();
   const batch = reviewBatch(backlog);
   let session = state.learning.reviewSession;
-  if (session && session.batchVersion !== 1) {
+  if (session && session.batchVersion !== 2) {
     state.learning.reviewSession = null;
-    session = batch.length ? startReview(batch) : null;
+    session = null;
   }
   if (!session && state.selectedTab === 'review' && batch.length) session = startReview(batch);
+  // A running session used to be frozen at creation, so questions that became
+  // due afterwards were counted in the badge but never actually asked. New due
+  // questions are appended to the tail of the session instead.
+  if (session) {
+    const known = new Set(session.questionKeys);
+    const additions = batch.map((question) => question.key).filter((key) => !known.has(key));
+    if (additions.length) {
+      session.questionKeys.push(...additions);
+      saveLearningState();
+    }
+  }
   setText('reviewWrongCount', backlog.wrong.length);
   setText('reviewDueCount', Math.min(backlog.scheduled.length, SCHEDULED_REVIEW_BATCH_SIZE));
   setText('reviewNavCount', session ? reviewSessionRemainingKeys(session).length : batch.length);
   const list = byId('reviewList');
   clear(list);
+  // renderAll() renders every panel, so without this guard the review question
+  // would claim state.activeQuestionKey and the response timer while the
+  // learner is actually answering on another tab.
+  if (state.selectedTab !== 'review') return;
   if (session) {
     while (session.cursor < session.questionKeys.length && !state.questionMap.has(session.questionKeys[session.cursor])) {
       session.cursor += 1;
@@ -949,11 +974,6 @@ function renderReview() {
     ]));
     return;
   }
-}
-
-function formatAttemptTime(value) {
-  const date = new Date(value);
-  return Number.isNaN(date.getTime()) ? '' : date.toLocaleString([], { month: 'short', day: 'numeric', hour: '2-digit', minute: '2-digit' });
 }
 
 function renderProgress() {
@@ -988,26 +1008,58 @@ function renderProgress() {
     });
   }
 
-  const activity = byId('recentActivity');
-  clear(activity);
-  const recent = [...attempts].reverse().slice(0, 12);
-  if (!recent.length) {
-    activity.append(element('div', { className: 'empty-state' }, [
-      element('h3', { text: 'No activity yet' }),
-      element('p', { text: 'Your recent correct and incorrect answers will appear here.' })
+  renderFocus();
+}
+
+// Replaces the old activity log. A list of answers already given is a record of
+// the past; this says which topics the next sessions will actually target and why.
+function renderFocus() {
+  const container = byId('focusList');
+  if (!container) return;
+  clear(container);
+  const focus = Learning.focusTopics(state.learning, state.questions, {
+    patternMix: state.corpus?.pattern_profile?.category_mix || {}
+  });
+  const actionable = focus.filter((topic) => topic.practisable).slice(0, 6);
+  const blocked = focus.filter((topic) => !topic.practisable && topic.kbcShare > 0);
+
+  if (!actionable.length) {
+    container.append(element('div', { className: 'empty-state' }, [
+      element('h3', { text: 'Answer a few questions to set your focus' }),
+      element('p', { text: 'Topics are ranked by how weak they are and how often KBC asks them.' })
     ]));
-  } else {
-    recent.forEach((attempt) => {
-      const question = state.questionMap.get(attempt.questionKey);
-      activity.append(element('div', { className: 'activity-row' }, [
-        element('span', { className: `activity-dot${attempt.correct ? ' correct' : ''}` }),
-        element('div', { className: 'activity-copy' }, [
-          element('strong', { text: question?.question_text || 'Question no longer in the current bank' }),
-          element('small', { text: attempt.correct ? 'Correct' : 'Needs review' })
-        ]),
-        element('span', { className: 'activity-time', text: formatAttemptTime(attempt.answeredAt) })
-      ]));
-    });
+    return;
+  }
+
+  actionable.forEach((topic, index) => {
+    const reason = !topic.started
+      ? 'Not started yet'
+      : topic.accuracy !== null && topic.accuracy < 0.6
+        ? `Weak: ${Math.round(topic.accuracy * 100)}% correct over ${topic.attempts} attempts`
+        : topic.confidence < 1
+          ? `Thin evidence: only ${topic.attempts} attempt${topic.attempts === 1 ? '' : 's'} so far`
+          : `Holding at ${Math.round((topic.accuracy || 0) * 100)}% correct`;
+    container.append(element('div', { className: 'focus-row' }, [
+      element('span', { className: `focus-rank${index === 0 ? ' leading' : ''}`, text: String(index + 1) }),
+      element('div', { className: 'focus-copy' }, [
+        element('strong', { text: topic.category }),
+        element('small', { text: reason })
+      ]),
+      element('span', {
+        className: 'focus-share',
+        text: `${Math.round(topic.kbcShare * 100)}% of KBC`,
+        attributes: { title: 'Share of the historical KBC archive in this category' }
+      })
+    ]));
+  });
+
+  // Being honest about topics the app cannot currently drill is more useful
+  // than showing a mastery bar for a category with no questions behind it.
+  if (blocked.length) {
+    container.append(element('p', {
+      className: 'focus-note',
+      text: `No questions available yet for ${blocked.map((topic) => topic.category).join(', ')}. The corpus refresh is still building these.`
+    }));
   }
 }
 

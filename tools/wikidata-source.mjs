@@ -2,7 +2,7 @@ const WIKIDATA_ENDPOINTS = [
   'https://qlever.dev/api/wikidata',
   'https://query.wikidata.org/sparql'
 ];
-export const WIKIDATA_SOURCE_VERSION = 3;
+export const WIKIDATA_SOURCE_VERSION = 4;
 
 function relationQuery(where, orderBy = '?item') {
   return `
@@ -15,6 +15,27 @@ SELECT DISTINCT ?item ?itemLabel ?answer ?answerLabel WHERE {
 }
 ORDER BY ${orderBy}`;
 }
+
+
+// KBC's most common shape is set membership ("Which of these four is X?"),
+// not attribute lookup. A membership profile pairs a query for entities that
+// hold a property with a foil query for same-type entities that do not, so the
+// four options are all plausible and only one satisfies the property.
+function membershipQuery(where, orderBy = '?item') {
+  return `
+SELECT DISTINCT ?item ?itemLabel WHERE {
+  ${where}
+  ?item rdfs:label ?itemLabel.
+  FILTER(LANG(?itemLabel) = "en")
+}
+ORDER BY ${orderBy}`;
+}
+
+const NOTABLE_INDIANS = (excludeWhere) => membershipQuery(`
+  ?item wdt:P31 wd:Q5; wdt:P27 wd:Q668; wikibase:sitelinks ?sitelinks.
+  FILTER(?sitelinks >= 30)
+  FILTER NOT EXISTS { ${excludeWhere} }
+`, 'DESC(?sitelinks) ?item');
 
 export const WIKIDATA_PROFILES = [
   {
@@ -140,6 +161,152 @@ SELECT DISTINCT ?item ?itemLabel ?answerLabel WHERE {
   FILTER(?atomicNumber <= 118)
 }
 ORDER BY ?item`
+  },
+  {
+    id: 'india-battle-year',
+    multiplier: 1,
+    category: 'Indian History',
+    tier: 'Tier 3',
+    tags: ['india', 'history', 'battle'],
+    question: (item) => `In which year was the ${item.replace(/^the\s+/i, '')} fought?`,
+    explanation: (item, answer) => `Wikidata dates the ${item.replace(/^the\s+/i, '')} to ${answer}.`,
+    query: `
+SELECT DISTINCT ?item ?itemLabel ?answerLabel WHERE {
+  ?item wdt:P31 wd:Q178561; wdt:P17 wd:Q668; wdt:P585 ?when; wikibase:sitelinks ?sitelinks.
+  FILTER(?sitelinks >= 8)
+  ?item rdfs:label ?itemLabel.
+  BIND(STR(YEAR(?when)) AS ?answerLabel)
+  FILTER(LANG(?itemLabel) = "en")
+}
+ORDER BY DESC(?sitelinks) ?item`
+  },
+  {
+    id: 'award-bharat-ratna',
+    kind: 'membership',
+    multiplier: 2,
+    category: 'Awards & Honours',
+    tier: 'Tier 2',
+    tags: ['india', 'award', 'bharat-ratna'],
+    question: () => 'Which of these people has been awarded the Bharat Ratna?',
+    explanation: (member) => `Wikidata records ${member} as a recipient of the Bharat Ratna, India's highest civilian honour.`,
+    query: membershipQuery(`?item wdt:P166 wd:Q322132.`),
+    foilQuery: NOTABLE_INDIANS('?item wdt:P166 wd:Q322132.')
+  },
+  {
+    id: 'award-param-vir-chakra',
+    kind: 'membership',
+    multiplier: 1,
+    category: 'Awards & Honours',
+    tier: 'Tier 3',
+    tags: ['india', 'award', 'gallantry'],
+    question: () => 'Which of these people was awarded the Param Vir Chakra?',
+    explanation: (member) => `Wikidata records ${member} as a recipient of the Param Vir Chakra, India's highest military decoration.`,
+    query: membershipQuery(`?item wdt:P166 wd:Q1650629.`),
+    foilQuery: NOTABLE_INDIANS('?item wdt:P166 wd:Q1650629.')
+  },
+  {
+    id: 'award-jnanpith',
+    kind: 'membership',
+    multiplier: 1,
+    category: 'Literature & Authors',
+    tier: 'Tier 3',
+    tags: ['india', 'award', 'literature'],
+    question: () => 'Which of these writers has received the Jnanpith Award?',
+    explanation: (member) => `Wikidata records ${member} as a Jnanpith Award laureate.`,
+    query: membershipQuery(`?item wdt:P166 wd:Q916783.`),
+    foilQuery: NOTABLE_INDIANS('?item wdt:P166 wd:Q916783.')
+  },
+  {
+    id: 'award-dadasaheb-phalke',
+    kind: 'membership',
+    multiplier: 1,
+    category: 'Cinema (Bollywood)',
+    tier: 'Tier 3',
+    tags: ['india', 'award', 'cinema'],
+    question: () => 'Which of these figures has received the Dadasaheb Phalke Award?',
+    explanation: (member) => `Wikidata records ${member} as a Dadasaheb Phalke Award recipient.`,
+    query: membershipQuery(`?item wdt:P166 wd:Q2167384.`),
+    foilQuery: NOTABLE_INDIANS('?item wdt:P166 wd:Q2167384.')
+  },
+  {
+    id: 'polity-prime-minister',
+    kind: 'membership',
+    multiplier: 1,
+    category: 'Polity & Constitution',
+    tier: 'Tier 2',
+    tags: ['india', 'polity', 'office'],
+    question: () => 'Which of these people has served as Prime Minister of India?',
+    explanation: (member) => `Wikidata records ${member} as having held the office of Prime Minister of India.`,
+    query: membershipQuery(`?item wdt:P39 wd:Q192711.`),
+    foilQuery: NOTABLE_INDIANS('?item wdt:P39 wd:Q192711.')
+  },
+  {
+    id: 'polity-president',
+    kind: 'membership',
+    multiplier: 1,
+    category: 'Polity & Constitution',
+    tier: 'Tier 2',
+    tags: ['india', 'polity', 'office'],
+    question: () => 'Which of these people has served as President of India?',
+    explanation: (member) => `Wikidata records ${member} as having held the office of President of India.`,
+    query: membershipQuery(`?item wdt:P39 wd:Q313383.`),
+    foilQuery: NOTABLE_INDIANS('?item wdt:P39 wd:Q313383.')
+  },
+  {
+    id: 'polity-chief-justice',
+    kind: 'membership',
+    multiplier: 1,
+    category: 'Polity & Constitution',
+    tier: 'Tier 4',
+    tags: ['india', 'polity', 'judiciary'],
+    question: () => 'Which of these people has served as Chief Justice of India?',
+    explanation: (member) => `Wikidata records ${member} as having held the office of Chief Justice of India.`,
+    query: membershipQuery(`?item wdt:P39 wd:Q3243690.`),
+    foilQuery: NOTABLE_INDIANS('?item wdt:P39 wd:Q3243690.')
+  },
+  {
+    id: 'mythology-mahabharata',
+    kind: 'membership',
+    multiplier: 2,
+    category: 'Mythology & Religion',
+    tier: 'Tier 2',
+    tags: ['india', 'mythology', 'mahabharata'],
+    question: () => 'Which of these characters appears in the Mahabharata?',
+    explanation: (member) => `Wikidata records ${member} as a character present in the Mahabharata.`,
+    query: membershipQuery(`?item wdt:P1441 wd:Q8276.`),
+    foilQuery: membershipQuery(`
+      ?item wdt:P1441 wd:Q37293.
+      FILTER NOT EXISTS { ?item wdt:P1441 wd:Q8276. }
+    `)
+  },
+  {
+    id: 'mythology-ramayana',
+    kind: 'membership',
+    multiplier: 2,
+    category: 'Mythology & Religion',
+    tier: 'Tier 2',
+    tags: ['india', 'mythology', 'ramayana'],
+    question: () => 'Which of these characters appears in the Ramayana?',
+    explanation: (member) => `Wikidata records ${member} as a character present in the Ramayana.`,
+    query: membershipQuery(`?item wdt:P1441 wd:Q37293.`),
+    foilQuery: membershipQuery(`
+      ?item wdt:P1441 wd:Q8276.
+      FILTER NOT EXISTS { ?item wdt:P1441 wd:Q37293. }
+    `)
+  },
+  {
+    id: 'india-monument-state',
+    multiplier: 2,
+    category: 'Geography (India)',
+    tier: 'Tier 3',
+    tags: ['india', 'monument', 'state'],
+    question: (item) => `In which Indian state or union territory is “${item}” located?`,
+    explanation: (item, answer) => `Wikidata locates ${item} in ${answer}.`,
+    query: relationQuery(`
+      ?answer wdt:P31 wd:Q12443800.
+      ?item wdt:P131 ?answer; wdt:P1435 ?heritage; wikibase:sitelinks ?sitelinks.
+      FILTER(?sitelinks >= 8)
+    `, 'DESC(?sitelinks) ?item')
   }
 ];
 
@@ -227,6 +394,7 @@ export function buildWikidataQuestions(profile, bindings, accessedAt = new Date(
       question_type: 'practice',
       category: profile.category,
       subcategory: profile.id,
+      question_shape: 'lookup',
       difficulty_tier: profile.tier,
       prize_level_asked_at: null,
       source: 'Wikidata structured facts',
@@ -242,6 +410,69 @@ export function buildWikidataQuestions(profile, bindings, accessedAt = new Date(
   });
 }
 
+
+function labelRows(bindings) {
+  return bindings.map((binding) => ({
+    itemId: entityId(binding.item?.value),
+    itemUrl: binding.item?.value || '',
+    itemLabel: String(binding.itemLabel?.value || '').trim()
+  })).filter((row) => row.itemId
+    && row.itemLabel.length >= 2
+    && row.itemLabel.length <= 80
+    && !hasBrokenEncoding(row.itemLabel)
+    && !/^Q\d+$/.test(row.itemLabel));
+}
+
+// One question per member: the member is the answer, three same-type
+// non-members are the foils. This reproduces KBC's "Which of these..." shape.
+export function buildMembershipQuestions(profile, memberBindings, foilBindings, accessedAt = new Date().toISOString().slice(0, 10)) {
+  const members = labelRows(memberBindings);
+  const memberIdentities = new Set(members.map((row) => normalized(row.itemLabel)));
+  const foils = labelRows(foilBindings)
+    .filter((row) => !memberIdentities.has(normalized(row.itemLabel)));
+  const foilPool = [...new Map(foils.map((row) => [normalized(row.itemLabel), row.itemLabel])).values()];
+  if (foilPool.length < 3) return [];
+
+  const seen = new Set();
+  return members.flatMap((row) => {
+    const identity = normalized(row.itemLabel);
+    if (seen.has(identity)) return [];
+    seen.add(identity);
+    const ordered = rotate(foilPool, hash(`${profile.id}:${row.itemId}`) % foilPool.length);
+    const distractors = ordered.filter((option) => normalized(option) !== identity).slice(0, 3);
+    if (distractors.length !== 3) return [];
+    const correctSlot = hash(`${row.itemId}:member-slot`) % 4;
+    const options = [...distractors];
+    options.splice(correctSlot, 0, row.itemLabel);
+    const canonicalKey = `wd-${profile.id}-${row.itemId}`;
+    return [{
+      id: canonicalKey,
+      canonical_key: canonicalKey,
+      season: null,
+      episode: null,
+      air_date: null,
+      question_text: profile.question(),
+      options,
+      correct_option_index: correctSlot,
+      question_type: 'practice',
+      category: profile.category,
+      subcategory: profile.id,
+      question_shape: 'membership',
+      difficulty_tier: profile.tier,
+      prize_level_asked_at: null,
+      source: 'Wikidata structured facts',
+      source_schema_version: WIKIDATA_SOURCE_VERSION,
+      source_url: row.itemUrl,
+      source_accessed_at: accessedAt,
+      tags: profile.tags,
+      language_original: 'en',
+      translation_status: 'not required',
+      explanation: profile.explanation(row.itemLabel),
+      provenance_status: 'Wikidata structured fact; distractors are same-type entities lacking the property; answer not independently verified'
+    }];
+  });
+}
+
 async function fetchProfile(profile, offset, requested) {
   const query = `${profile.query}\nLIMIT ${requested}\nOFFSET ${offset}`;
   const errors = [];
@@ -251,7 +482,7 @@ async function fetchProfile(profile, offset, requested) {
       const response = await fetch(url, {
         headers: {
           accept: 'application/sparql-results+json',
-          'user-agent': 'FactFlow/37 (+https://github.com/axionaut/FactFlow)'
+          'user-agent': 'FactFlow/38 (+https://github.com/axionaut/FactFlow)'
         },
         signal: AbortSignal.timeout(20000)
       });
@@ -265,6 +496,35 @@ async function fetchProfile(profile, offset, requested) {
   throw new Error(`Wikidata ${profile.id} failed (${errors.join(', ')})`);
 }
 
+// Foils are the same for every question in a profile, so fetch them once per run.
+const foilCache = new Map();
+async function fetchFoils(profile) {
+  if (foilCache.has(profile.id)) return foilCache.get(profile.id);
+  const query = `${profile.foilQuery}
+LIMIT 60`;
+  const errors = [];
+  for (const endpoint of WIKIDATA_ENDPOINTS) {
+    try {
+      const url = `${endpoint}?query=${encodeURIComponent(query)}&format=json`;
+      const response = await fetch(url, {
+        headers: {
+          accept: 'application/sparql-results+json',
+          'user-agent': 'FactFlow/38 (+https://github.com/axionaut/FactFlow)'
+        },
+        signal: AbortSignal.timeout(20000)
+      });
+      if (!response.ok) throw new Error(`${response.status}`);
+      const payload = await response.json();
+      const bindings = Array.isArray(payload?.results?.bindings) ? payload.results.bindings : [];
+      foilCache.set(profile.id, bindings);
+      return bindings;
+    } catch (error) {
+      errors.push(`${new URL(endpoint).hostname}: ${error.message}`);
+    }
+  }
+  throw new Error(`Wikidata foils for ${profile.id} failed (${errors.join(', ')})`);
+}
+
 export async function gatherWikidataQuestions(previousState = {}, options = {}) {
   const baseBatchSize = Math.max(1, Number(options.batchSize || 4));
   const nextState = { ...previousState };
@@ -276,6 +536,13 @@ export async function gatherWikidataQuestions(previousState = {}, options = {}) 
       const offset = Math.max(0, Number(previousState[profile.id]?.offset || 0));
       const requested = baseBatchSize * profile.multiplier;
       try {
+        if (profile.kind === 'membership') {
+          const [bindings, foilBindings] = await Promise.all([
+            fetchProfile(profile, offset, requested + 8),
+            fetchFoils(profile)
+          ]);
+          return { profile, offset, requested, bindings, foilBindings };
+        }
         const bindings = await fetchProfile(profile, offset, requested + 8);
         return { profile, offset, requested, bindings };
       } catch (error) {
@@ -289,7 +556,9 @@ export async function gatherWikidataQuestions(previousState = {}, options = {}) 
         nextState[result.profile.id] = { ...(previousState[result.profile.id] || {}), last_attempted_at: attemptedAt, last_error: result.error.message };
         continue;
       }
-      const built = buildWikidataQuestions(result.profile, result.bindings).slice(0, result.requested);
+      const built = (result.profile.kind === 'membership'
+        ? buildMembershipQuestions(result.profile, result.bindings, result.foilBindings)
+        : buildWikidataQuestions(result.profile, result.bindings)).slice(0, result.requested);
       questions.push(...built);
       nextState[result.profile.id] = {
         offset: result.bindings.length < result.requested + 8 ? 0 : result.offset + result.requested,

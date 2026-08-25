@@ -220,13 +220,19 @@ check('bundled corpus has a large accumulating India-first practice bank', () =>
   assert.ok(corpus.questions.filter((item) => item.source === 'IQgarage episode archive')
     .every((item) => item.question_type === 'archive'));
   assert.ok(practice.every((item) => item.source.startsWith('GKSection')
-    || item.source === 'Wikidata structured facts'));
+    || item.source === 'Wikidata structured facts'
+    || item.source === 'Wikidata current affairs'));
   assert.equal(practice.some((item) => String(item.translation_status).includes('machine')), false);
   assert.equal(practice.some((item) => Learning.hasBrokenEncoding(item.question_text) || item.options.some(Learning.hasBrokenEncoding)), false);
   assert.equal(practice.some((item) => new Set(item.options.map(Learning.normalizeText)).size !== 4), false);
   assert.equal(practice.some((item) => item.options.some((option) => /^\p{Ll}(?!\p{Lu})/u.test(option))), false);
   assert.equal(practice.some((item) => /unsept|unnil|unquad/i.test(item.question_text)), false);
-  assert.equal(new Set(practice.map((item) => Learning.normalizeText(item.question_text))).size, practice.length);
+  // Membership questions deliberately reuse one stem across many answers
+  // ("Which of these has received the Bharat Ratna?"), so uniqueness is
+  // enforced on the question key rather than on the stem.
+  assert.equal(new Set(practice.map((item) => item.key)).size, practice.length);
+  const lookups = practice.filter((item) => item.question_shape !== 'membership');
+  assert.equal(new Set(lookups.map((item) => Learning.normalizeText(item.question_text))).size, lookups.length);
   assert.equal(corpus.questions.some((item) => ['Open Trivia DB', 'The Trivia API'].includes(item.source)), false);
   assert.ok(corpus.translation_pending >= 1);
 });
@@ -238,10 +244,10 @@ check('HTML loads cache-aligned assets and every main screen', () => {
   for (const id of ['tab-today', 'tab-challenge', 'tab-review', 'tab-progress', 'tab-insights']) {
     assert.ok(html.includes('id="' + id + '"'), 'missing ' + id);
   }
-  assert.ok(html.includes('styles.css?v=37'));
-  assert.ok(html.includes('learning.js?v=37'));
-  assert.ok(html.includes('app.js?v=37'));
-  assert.ok(html.includes('id="appVersionLabel" class="version-pill">v37</span>'));
+  assert.ok(html.includes('styles.css?v=38'));
+  assert.ok(html.includes('learning.js?v=38'));
+  assert.ok(html.includes('app.js?v=38'));
+  assert.ok(html.includes('id="appVersionLabel" class="version-pill">v38</span>'));
   assert.ok(html.includes('id="mobileVersionLabel" class="mobile-version"'));
   assert.ok(app.includes("setText('mobileVersionLabel', `v${APP_VERSION}`)"));
   assert.ok(app.includes("window.indexedDB.open(LEARNING_DB_NAME, 1)"));
@@ -254,7 +260,7 @@ check('HTML loads cache-aligned assets and every main screen', () => {
   assert.ok(app.includes("!reviewSessionHasRemaining(session) ? 'Continue practice' : 'Next question'"));
   assert.ok(app.includes('const SCHEDULED_REVIEW_BATCH_SIZE = 10'));
   assert.ok(app.includes('...backlog.scheduled.slice(0, SCHEDULED_REVIEW_BATCH_SIZE)'));
-  assert.ok(app.includes('if (session && session.batchVersion !== 1)'));
+  assert.ok(app.includes('if (session && session.batchVersion !== 2)'));
   assert.ok(app.includes("if (!session && state.selectedTab === 'review' && batch.length) session = startReview(batch)"));
   assert.equal(app.includes("text: 'Review now'"), false);
   assert.equal(app.includes('state.reviewSession'), false);
@@ -284,6 +290,88 @@ check('HTML loads cache-aligned assets and every main screen', () => {
   ));
   const declaredIds = [...html.matchAll(/\sid="([^"]+)"/g)].map((match) => match[1]);
   assert.equal(new Set(declaredIds).size, declaredIds.length, 'HTML contains duplicate IDs');
+});
+
+check('focus ranks weak and unpractised topics above mastered ones', () => {
+  const state = Learning.createLearningState();
+  const geography = bank.filter((item) => item.category === 'Geography (World)');
+  const history = bank.filter((item) => item.category === 'Indian History');
+  geography.forEach((item) => Learning.recordAttempt(state, item, item.correct_option_index));
+  history.forEach((item) => Learning.recordAttempt(state, item, (item.correct_option_index + 1) % 4));
+  const focus = Learning.focusTopics(state, bank, { patternMix: { 'Indian History': 0.3, 'Geography (World)': 0.3 } });
+  const ranking = focus.map((topic) => topic.category);
+  assert.ok(ranking.indexOf('Indian History') < ranking.indexOf('Geography (World)'),
+    'a failed topic must outrank a mastered one');
+  const mastered = focus.find((topic) => topic.category === 'Geography (World)');
+  assert.equal(mastered.accuracy, 1);
+  // A category with no questions behind it must be reported as unpractisable
+  // rather than shown as a 0% mastery bar the learner cannot act on.
+  const empty = Learning.focusTopics(state, bank, { patternMix: { 'Current Affairs': 0.5 } })
+    .find((topic) => topic.category === 'Current Affairs');
+  assert.equal(empty.practisable, false);
+  assert.equal(empty.available, 0);
+});
+
+check('sessions target weak areas and never repeat a question stem', () => {
+  const corpus = JSON.parse(fs.readFileSync(path.join(__dirname, '..', 'data', 'kbc-corpus.json'), 'utf8'));
+  const prepared = corpus.questions.map(Learning.prepareQuestion);
+  const practice = prepared.filter(Learning.isPracticeQuestion);
+  const archive = prepared.filter((item) => !Learning.isPracticeQuestion(item));
+  const patternMix = corpus.pattern_profile.category_mix;
+  const state = Learning.createLearningState();
+  practice.filter((item) => item.category === 'Mythology & Religion').slice(0, 12)
+    .forEach((item) => Learning.recordAttempt(state, item, (item.correct_option_index + 1) % 4));
+  const session = Learning.selectSession(state, prepared, archive, { size: 10, patternMix });
+  assert.equal(session.length, 10);
+  assert.equal(new Set(session.map((item) => Learning.normalizeText(item.question_text))).size, session.length,
+    'the same question stem must not appear twice in one session');
+  const focusCategories = new Set(Learning.focusTopics(state, prepared, { patternMix })
+    .filter((topic) => topic.practisable).slice(0, 4).map((topic) => topic.category));
+  const targeted = session.filter((item) => focusCategories.has(item.category)).length;
+  assert.ok(targeted >= 5, 'most of a session should come from the learner’s focus areas, got ' + targeted);
+});
+
+check('the corpus covers KBC question shapes and every weighted category', () => {
+  const corpus = JSON.parse(fs.readFileSync(path.join(__dirname, '..', 'data', 'kbc-corpus.json'), 'utf8'));
+  const practice = corpus.questions.map(Learning.prepareQuestion).filter(Learning.isPracticeQuestion);
+  const families = new Set(practice.map(Learning.questionFamily));
+  assert.ok(families.size >= 18, 'expected a broad template mix, got ' + families.size);
+  const membership = practice.filter((item) => item.question_shape === 'membership');
+  assert.ok(membership.length >= 200, 'KBC leans on set-membership questions, got ' + membership.length);
+  // Every membership question must have exactly one correct member among its foils.
+  assert.ok(membership.every((item) => item.options.length === 4
+    && new Set(item.options.map(Learning.normalizeText)).size === 4));
+  const currentAffairs = practice.filter((item) => item.category === 'Current Affairs');
+  assert.ok(currentAffairs.length >= 20, 'current affairs must be a real category, got ' + currentAffairs.length);
+  assert.ok(currentAffairs.every((item) => item.event_date), 'current affairs questions must be dated');
+  // No category the app claims to weight may be left with nothing to serve.
+  const counts = {};
+  practice.forEach((item) => { counts[item.category] = (counts[item.category] || 0) + 1; });
+  Object.keys(corpus.pattern_profile.category_mix).forEach((category) => {
+    assert.ok((counts[category] || 0) > 0, 'no practice questions available for ' + category);
+  });
+});
+
+check('mastered questions can be retired but unmastered ones are kept', () => {
+  const state = Learning.createLearningState();
+  const solid = question(700, 'Tier 1', 'Sports');
+  const shaky = question(701, 'Tier 1', 'Sports');
+  ['2026-01-01', '2026-01-02', '2026-01-05', '2026-01-20', '2026-03-01'].forEach((day) => {
+    Learning.recordAttempt(state, solid, solid.correct_option_index, { answeredAt: day + 'T10:00:00.000Z' });
+  });
+  Learning.recordAttempt(state, shaky, 0, { answeredAt: '2026-01-01T10:00:00.000Z' });
+  Learning.recordAttempt(state, shaky, shaky.correct_option_index, { answeredAt: '2026-01-02T10:00:00.000Z' });
+  const retired = Learning.masteredKeys(state);
+  assert.ok(retired.includes(solid.key), 'a repeatedly correct question should be retirable');
+  assert.equal(retired.includes(shaky.key), false, 'a question that was ever wrong must be kept');
+});
+
+check('the review panel only claims the active question on its own tab', () => {
+  const app = fs.readFileSync(path.join(__dirname, '..', 'app.js'), 'utf8');
+  assert.ok(app.includes("if (state.selectedTab !== 'review') return;"),
+    'renderReview must not hijack activeQuestionKey from other tabs');
+  assert.ok(app.includes('const additions = batch.map((question) => question.key).filter((key) => !known.has(key));'),
+    'a running review session must absorb newly due questions');
 });
 
 console.log('v18 assertions passed: ' + checks.length + '/' + checks.length);

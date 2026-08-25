@@ -1,5 +1,7 @@
 import { mkdir, readFile, writeFile } from 'node:fs/promises';
 import { gatherWikidataQuestions, WIKIDATA_SOURCE_VERSION } from './wikidata-source.mjs';
+import { gatherCurrentAffairsQuestions, CURRENT_AFFAIRS_SOURCE_VERSION } from './current-affairs-source.mjs';
+import { buildPatternProfile, categoryGaps } from './pattern-profile.mjs';
 
 const IQGARAGE_INDEX_URL = 'https://www.iqgarage.com/kbc-questions-and-answers/';
 const GKSECTION_INDEX_URL = 'https://www.gksection.com/hindi/hindi-kbc-season-9-quiz/';
@@ -10,6 +12,77 @@ const MAX_NEW_IQGARAGE_PAGES = Math.max(1, Number(process.env.IQGARAGE_PAGE_LIMI
 const MAX_NEW_GKSECTION_PAGES = Math.max(1, Number(process.env.GKSECTION_PAGE_LIMIT || 6));
 const WIKIDATA_BATCH_SIZE = Math.max(1, Number(process.env.WIKIDATA_BATCH_SIZE || 4));
 const REMOVED_SOURCES = new Set(['Open Trivia DB', 'The Trivia API']);
+const CURRENT_AFFAIRS_LIMIT = 160;
+// The bundled corpus ships to the browser on every load, so the practice pool is
+// capped. The bank is meant to keep growing, so when the cap binds the build
+// sheds the most over-represented question stems rather than the newest arrivals
+// — variety is what the pool is for. Per-learner retirement of questions already
+// mastered happens in the app, against local progress the build cannot see.
+const MAX_PRACTICE_QUESTIONS = 4000;
+const MAX_PER_STEM = 60;
+
+function stemOf(question) {
+  return `${question.subcategory || ''}|${String(question.question_text || '').slice(0, 60)}`;
+}
+
+// Two films named "Devdas" and three Battles of Panipat produce the same
+// question stem with different correct answers, which makes them unanswerable
+// as asked. Membership questions legitimately share a stem, so only lookups are
+// checked, and every side of a genuine clash is dropped rather than guessed at.
+function dropAmbiguousLookups(questions) {
+  const stems = new Map();
+  for (const question of questions) {
+    if (question.question_type !== 'practice') continue;
+    if (question.question_shape === 'membership') continue;
+    const stem = String(question.question_text || '').toLowerCase().replace(/[^\p{L}\p{N}]+/gu, ' ').trim();
+    const answer = String(question.options?.[question.correct_option_index] || '').toLowerCase().trim();
+    if (!stems.has(stem)) stems.set(stem, new Set());
+    stems.get(stem).add(answer);
+  }
+  const ambiguous = new Set([...stems.entries()].filter(([, answers]) => answers.size > 1).map(([stem]) => stem));
+  if (!ambiguous.size) return questions;
+  return questions.filter((question) => {
+    if (question.question_type !== 'practice' || question.question_shape === 'membership') return true;
+    const stem = String(question.question_text || '').toLowerCase().replace(/[^\p{L}\p{N}]+/gu, ' ').trim();
+    return !ambiguous.has(stem);
+  });
+}
+
+function prunePracticePool(input) {
+  const questions = dropAmbiguousLookups(input);
+  const practice = questions.filter((question) => question.question_type === 'practice');
+  const others = questions.filter((question) => question.question_type !== 'practice');
+  if (practice.length <= MAX_PRACTICE_QUESTIONS) {
+    const perStem = new Map();
+    const capped = practice.filter((question) => {
+      const stem = stemOf(question);
+      const count = (perStem.get(stem) || 0) + 1;
+      perStem.set(stem, count);
+      return count <= MAX_PER_STEM;
+    });
+    return [...others, ...capped];
+  }
+  // Over the cap: keep a balanced slice by cycling stems round-robin so no single
+  // template can crowd the pool the way the original nine templates did.
+  const byStem = new Map();
+  for (const question of practice) {
+    const stem = stemOf(question);
+    if (!byStem.has(stem)) byStem.set(stem, []);
+    byStem.get(stem).push(question);
+  }
+  const queues = [...byStem.values()];
+  const kept = [];
+  let progressed = true;
+  while (kept.length < MAX_PRACTICE_QUESTIONS && progressed) {
+    progressed = false;
+    for (const queue of queues) {
+      if (!queue.length || kept.length >= MAX_PRACTICE_QUESTIONS) continue;
+      kept.push(queue.shift());
+      progressed = true;
+    }
+  }
+  return [...others, ...kept];
+}
 
 function decodeHtml(value = '') {
   if (/[ÃƒÃ¢]/.test(value)) value = Buffer.from(value, 'latin1').toString('utf8');
@@ -252,6 +325,8 @@ async function main() {
   const reviewedPayload = JSON.parse(await readFile(REVIEWED_TRANSLATIONS_PATH, 'utf8'));
   const reviewedQuestions = (reviewedPayload.questions || []).map(prepareReviewedQuestion);
   const reviewedUrls = new Set(reviewedQuestions.map((question) => question.source_url));
+  // Anything refreshed more than 60 days ago is re-fetched rather than trusted.
+  const currentAffairsCutoff = new Date(Date.now() - 60 * 24 * 60 * 60 * 1000).toISOString().slice(0, 10);
   const questions = (previousCorpus.questions || [])
     .map((question) => question.source === 'IQgarage episode archive'
       ? {
@@ -263,7 +338,12 @@ async function main() {
     .filter((question) => !REMOVED_SOURCES.has(question.source))
     .filter((question) => question.translation_status !== 'reviewed English translation')
     .filter((question) => question.source !== 'Wikidata structured facts'
-      || Number(question.source_schema_version) === WIKIDATA_SOURCE_VERSION);
+      || Number(question.source_schema_version) === WIKIDATA_SOURCE_VERSION)
+    // Current-affairs questions expire: a stale "who is the current head of
+    // government" answer becomes wrong, so old ones are dropped, not retained.
+    .filter((question) => question.source !== 'Wikidata current affairs'
+      || (Number(question.source_schema_version) === CURRENT_AFFAIRS_SOURCE_VERSION
+        && String(question.source_accessed_at || '') >= currentAffairsCutoff));
   const fallbackAttemptDate = String(previousCorpus.generated_at || new Date().toISOString()).slice(0, 10);
   const withAttemptDate = (page) => (page.status !== 'reviewed' && !(Number(page.status) >= 200 && Number(page.status) < 300 && Number(page.questions) > 0) && !page.last_attempted_at)
     ? { ...page, last_attempted_at: fallbackAttemptDate }
@@ -315,10 +395,16 @@ async function main() {
     wikidataState = wikidata.state;
     if (wikidata.errors.length) console.warn(`Wikidata refresh warnings: ${wikidata.errors.join('; ')}`);
     process.stdout.write(`\nWikidata supplied ${wikidata.questions.length} playable questions.`);
+
+    const currentAffairs = await gatherCurrentAffairsQuestions({ limit: CURRENT_AFFAIRS_LIMIT });
+    questions.push(...currentAffairs.questions);
+    if (currentAffairs.errors.length) console.warn(`Current affairs warnings: ${currentAffairs.errors.join('; ')}`);
+    process.stdout.write(`\nCurrent affairs supplied ${currentAffairs.questions.length} dated questions.`);
   }
 
   const sourceQuestions = questions.map(normalizeGeneratedOptions);
-  const combinedQuestions = [...new Map([...sourceQuestions, ...reviewedQuestions].map((question) => [questionIdentity(question), question])).values()];
+  const deduped = [...new Map([...sourceQuestions, ...reviewedQuestions].map((question) => [questionIdentity(question), question])).values()];
+  const combinedQuestions = prunePracticePool(deduped);
   const previousKeys = new Set((previousCorpus.questions || []).map(questionIdentity));
   const addedQuestions = combinedQuestions.filter((question) => !previousKeys.has(questionIdentity(question)));
   const removedGenericCount = (previousCorpus.questions || []).filter((question) => REMOVED_SOURCES.has(question.source)).length;
@@ -332,20 +418,29 @@ async function main() {
       pending_translation: seasonQuestions.filter((question) => question.question_type === 'translation_pending').length,
       pages: new Set(seasonQuestions.map((question) => question.source_url).filter(Boolean)).size };
   });
+  // Derived from the archive so generation and selection can target the mix,
+  // shapes, and difficulty KBC actually asks. The archive itself is never played.
+  const patternProfile = buildPatternProfile(combinedQuestions);
   const payload = {
-    schema_version: 3, generated_at: new Date().toISOString(),
+    schema_version: 4, generated_at: new Date().toISOString(),
     corpus_scope: 'India-first KBC practice combining historical KBC archives with accumulating structured facts; not an official Sony corpus.',
     sources: [
       { name: 'GKSection Hindi KBC archive', url: GKSECTION_INDEX_URL, license: 'No explicit reuse license found; retain original Hindi, attribution, and source URL. Permission is required for public redistribution.' },
       { name: 'IQgarage KBC Questions and Answers', url: IQGARAGE_INDEX_URL, license: 'No explicit reuse license found. Records are retained only as non-playable KBC pattern evidence for category and difficulty weighting. Permission is required for public redistribution.' },
       { name: 'Wikidata structured facts', url: 'https://www.wikidata.org/wiki/Wikidata:Data_access', license: 'Structured data is available under CC0. FactFlow generates four-option practice questions from same-type facts and retains entity links.' },
+      { name: 'Wikidata current affairs', url: 'https://www.wikidata.org/wiki/Wikidata:Data_access', license: 'Date-qualified CC0 statements refreshed weekly; entries older than the recency window are dropped rather than retained.' },
       { name: 'SonyLIV KBC Play Along', url: 'https://origin-staticv2.sonyliv.com/UI_icons/KBC_Hindi_Terms/KBC16_PAG_FAQ.pdf', license: 'Official provenance reference only; SonyLIV content is not scraped or bundled.' }
     ],
     coverage, fresh_questions: addedQuestions.filter((question) => question.question_type === 'practice').length,
     playable_questions: combinedQuestions.filter((question) => question.question_type === 'practice').length,
     translation_pending: combinedQuestions.filter((question) => question.question_type === 'translation_pending').length,
     removed_generic_questions: removedGenericCount, pages, translation_pages: translationPages,
-    wikidata_source_version: WIKIDATA_SOURCE_VERSION, wikidata_state: wikidataState, questions: combinedQuestions
+    wikidata_source_version: WIKIDATA_SOURCE_VERSION, wikidata_state: wikidataState,
+    current_affairs_source_version: CURRENT_AFFAIRS_SOURCE_VERSION,
+    current_affairs_questions: combinedQuestions.filter((question) => question.source === 'Wikidata current affairs').length,
+    pattern_profile: patternProfile,
+    category_gaps: categoryGaps(patternProfile, combinedQuestions.filter((question) => question.question_type === 'practice')),
+    questions: combinedQuestions
   };
   const previousComparable = JSON.stringify({ questions: previousCorpus.questions || [], pages: previousCorpus.pages || [],
     translation_pages: previousCorpus.translation_pages || [], wikidata_source_version: previousCorpus.wikidata_source_version || 0,

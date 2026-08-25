@@ -372,6 +372,59 @@
     ]));
   }
 
+  // What the learner should work on next, ranked. A category earns focus by
+  // being weak, by being under-practised, and by mattering to KBC (its share of
+  // the archive-derived pattern profile). Categories never attempted at all rank
+  // high but are flagged separately, because "0% mastery" and "not started yet"
+  // call for different messages in the UI.
+  function focusTopics(state, questions, options = {}) {
+    const patternMix = options.patternMix || {};
+    const questionMap = new Map(questions.map((question) => [question.key || questionKey(question), question]));
+    const available = {};
+    for (const question of questions) {
+      if (!isPracticeQuestion(question)) continue;
+      const category = question.category || inferCategory(question);
+      available[category] = (available[category] || 0) + 1;
+    }
+    const buckets = {};
+    for (const attempt of state.attempts) {
+      const question = questionMap.get(attempt.questionKey);
+      if (!question) continue;
+      const category = question.category || inferCategory(question);
+      if (!buckets[category]) buckets[category] = { attempts: 0, correct: 0, unique: new Set() };
+      buckets[category].attempts += 1;
+      buckets[category].correct += attempt.correct ? 1 : 0;
+      buckets[category].unique.add(attempt.questionKey);
+    }
+    const categories = new Set([...Object.keys(available), ...Object.keys(buckets), ...Object.keys(patternMix)]);
+    const maxShare = Math.max(0.01, ...Object.values(patternMix));
+    return [...categories].map((category) => {
+      const bucket = buckets[category] || { attempts: 0, correct: 0, unique: new Set() };
+      const accuracy = bucket.attempts ? bucket.correct / bucket.attempts : null;
+      // Eight attempts is where an accuracy figure starts to mean something.
+      const confidence = clamp(bucket.attempts / 8, 0, 1);
+      // A topic that has been attempted and failed is a sharper signal than one
+      // never tried, so an unknown accuracy counts as less than total deficiency.
+      const deficiency = accuracy === null ? 0.7 : 1 - accuracy;
+      const importance = (patternMix[category] || 0) / maxShare;
+      const priority = (deficiency * 0.75 + (1 - confidence) * 0.25) * (0.5 + 0.5 * importance);
+      return {
+        category,
+        attempts: bucket.attempts,
+        practiced: bucket.unique.size,
+        accuracy,
+        confidence: Number(confidence.toFixed(2)),
+        mastery: clamp(Math.round((accuracy === null ? 0 : accuracy) * confidence * 100), 0, 100),
+        kbcShare: Number((patternMix[category] || 0).toFixed(4)),
+        available: available[category] || 0,
+        // A category with nothing to serve cannot be practised, however weak it is.
+        practisable: (available[category] || 0) > 0,
+        started: bucket.attempts > 0,
+        priority: Number(priority.toFixed(4))
+      };
+    }).sort((first, second) => second.priority - first.priority);
+  }
+
   function deterministicNoise(key, day) {
     return Number.parseInt(hashText(`${key}:${day}`).slice(-4), 36) % 1000 / 1000;
   }
@@ -397,6 +450,10 @@
     const chosenKeys = new Set();
     const categoryCounts = {};
     const familyCounts = {};
+    // Membership questions share one stem across many answers ("Which of these
+    // has received the Bharat Ratna?"), so a family cap alone still lets the
+    // identical sentence appear twice in a session. Stems are capped at one.
+    const chosenStems = new Set();
     const categoryCap = Number(options.categoryCap || 2);
     const familyCap = Number(options.familyCap || 2);
     const seed = options.seed || dateKey();
@@ -406,7 +463,9 @@
         const base = Number(options.baseScore ? options.baseScore(question, position, item) : item.score || 0);
         const group = Number(options.priorityGroup ? options.priorityGroup(question, position, item) : 0);
         return { item, question, base, group, category: question.category || inferCategory(question), family: questionFamily(question) };
-      }).filter((entry) => Number.isFinite(entry.base) && !chosenKeys.has(entry.question.key || questionKey(entry.question)));
+      }).filter((entry) => Number.isFinite(entry.base)
+        && !chosenKeys.has(entry.question.key || questionKey(entry.question))
+        && !chosenStems.has(normalizeText(entry.question.question_text)));
       const previous = chosen[chosen.length - 1];
       const pools = [
         ranked.filter((entry) => (categoryCounts[entry.category] || 0) < categoryCap
@@ -444,6 +503,7 @@
       const selected = pool[0];
       chosen.push({ question: selected.question, category: selected.category, family: selected.family });
       chosenKeys.add(selected.question.key || questionKey(selected.question));
+      chosenStems.add(normalizeText(selected.question.question_text));
       categoryCounts[selected.category] = (categoryCounts[selected.category] || 0) + 1;
       familyCounts[selected.family] = (familyCounts[selected.family] || 0) + 1;
     }
@@ -457,22 +517,47 @@
     const weights = archivePatternWeights(archiveQuestions);
     const learnerWeights = learnerCategoryWeights(state, questions);
     const recent = new Set(options.recentQuestionKeys || state.recentQuestionKeys || []);
-    const cooldownSize = Math.floor(questions.filter(isPracticeQuestion).length * 0.7);
-    const eligible = questions
-      .filter(isPracticeQuestion)
-      .filter((question) => questionStats(state, question.key || questionKey(question)).attempts === 0)
+    const practice = questions.filter(isPracticeQuestion);
+    const cooldownSize = Math.floor(practice.length * 0.7);
+    const focus = focusTopics(state, questions, { patternMix: options.patternMix });
+    const focusByCategory = Object.fromEntries(focus.map((topic) => [topic.category, topic]));
+    // The top practisable weak areas get first claim on the session.
+    const focusSet = new Set(focus.filter((topic) => topic.practisable).slice(0, 4).map((topic) => topic.category));
+
+    // Previously this was unseen-only, which meant that once a learner had worked
+    // through a category there was nothing left to serve and the session fell back
+    // to whatever template still had stock. Questions that are not yet mastered are
+    // now eligible again, so weak areas can actually be drilled.
+    const eligible = practice
+      .filter((question) => {
+        const key = question.key || questionKey(question);
+        const stats = questionStats(state, key);
+        if (!stats.attempts) return true;
+        // Anything already due belongs to Review, not to a fresh session.
+        if (isDue(state, key, now)) return false;
+        return (stats.accuracy || 0) < 1;
+      })
       .filter((question) => !recent.has(question.key || questionKey(question)) || recent.size < cooldownSize)
-      .map((question) => ({
-        question,
-        priority: questionPriority(state, question, weights, now) + (learnerWeights[question.category] || 0),
-        noise: deterministicNoise(question.key, day)
-      }))
+      .map((question) => {
+        const key = question.key || questionKey(question);
+        const stats = questionStats(state, key);
+        const topic = focusByCategory[question.category];
+        let priority = questionPriority(state, question, weights, now)
+          + (learnerWeights[question.category] || 0)
+          // Weak-area weighting is the point of the progress stats; make it bite.
+          + Math.round((topic?.priority || 0) * 45);
+        if (!stats.attempts) priority += 12;
+        return { question, priority, noise: deterministicNoise(key, day) };
+      })
       .sort((a, b) => b.priority - a.priority || b.noise - a.noise);
 
     return selectDiverseQuestions(eligible, size, {
       seed: day,
-      categoryCap: 2,
+      categoryCap: 3,
       familyCap: 2,
+      // Weak-area questions are served before everything else, while the
+      // diversity caps still stop any one template from dominating.
+      priorityGroup: (question) => (focusSet.has(question.category) ? 0 : 1),
       baseScore: (_question, _position, item) => item.priority + item.noise
     });
   }
@@ -569,6 +654,24 @@
       .sort((a, b) => a.mastery - b.mastery || b.attempts - a.attempts);
   }
 
+  // Questions the learner has demonstrably internalised: answered correctly
+  // enough times, with no recent lapse, and scheduled far enough out that the
+  // spacing algorithm no longer considers them at risk. These have no teaching
+  // value left, so they are the right things to retire when the corpus needs room.
+  function masteredKeys(state, options = {}) {
+    const minimumRepetitions = Math.max(2, Number(options.minimumRepetitions || 3));
+    const minimumIntervalDays = Math.max(7, Number(options.minimumIntervalDays || 30));
+    return Object.entries(state.schedule || {})
+      .filter(([key, schedule]) => {
+        if (!schedule || schedule.needsReview) return false;
+        if (Number(schedule.repetitions || 0) < minimumRepetitions) return false;
+        if (Number(schedule.intervalDays || 0) < minimumIntervalDays) return false;
+        const stats = questionStats(state, key);
+        return stats.attempts > 0 && stats.accuracy === 1;
+      })
+      .map(([key]) => key);
+  }
+
   function studyStreak(state, now = new Date()) {
     const days = new Set(state.attempts.map((attempt) => dateKey(attempt.answeredAt)));
     let cursor = new Date(now);
@@ -611,6 +714,8 @@
     questionPriority,
     questionStats,
     recordAttempt,
+    focusTopics,
+    masteredKeys,
     selectSession,
     selectChallengeQuestions,
     studyStreak,
