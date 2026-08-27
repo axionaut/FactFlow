@@ -42,6 +42,8 @@
 - Review is a finite daily sitting: wrong answers first, at most `SCHEDULED_REVIEW_DAILY_LIMIT` spaced reinforcements, one sitting per question per day, and no mid-sitting refill. A correct answer now earns 4/10/ease-multiplied days instead of returning the next morning.
 - Wikidata currency labels are reduced to the currency noun. A mix of "Macedonian denar" and "cedi" in one option set hands over the answer.
 - Lookup questions about people carry a short Wikidata description ("In which place was the Indian physicist ... born?"). A name alone is name recognition, not knowledge. Birthplaces recorded as administrative units are rejected.
+- Clearing all fifteen Challenge rungs fires a self-contained canvas confetti burst, once per run and never under `prefers-reduced-motion`.
+- Bumping `WIKIDATA_SOURCE_VERSION` discards every question from the previous version, so a bump needs several `tools/build-corpus.mjs` passes to refill the bank. WDQS returns 502/429 above roughly `WIKIDATA_BATCH_SIZE=60`.
 
 ## Key files
 - `index.html` — shell, tabs, version badge, and UI structure.

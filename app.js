@@ -35,6 +35,9 @@ const state = {
   challengeSelection: null,
   activeQuestionKey: null,
   questionStartedAt: Date.now(),
+  // renderAll() re-renders the finished challenge on every tick, so the
+  // celebration is tied to the run that earned it rather than to the render.
+  celebratedChallengeId: null,
   usingDemo: false
 };
 
@@ -590,6 +593,69 @@ function lockChallengeAnswer() {
   renderAll();
 }
 
+// Clearing all fifteen is the one outcome in the app worth a fuss. Self
+// contained canvas so there is no dependency and nothing to load, removed as
+// soon as the last piece falls off screen.
+function launchConfetti() {
+  if (window.matchMedia?.('(prefers-reduced-motion: reduce)')?.matches) return;
+  const canvas = document.createElement('canvas');
+  canvas.className = 'confetti-layer';
+  canvas.setAttribute('aria-hidden', 'true');
+  document.body.append(canvas);
+  const context = canvas.getContext?.('2d');
+  if (!context) {
+    canvas.remove();
+    return;
+  }
+  const scale = window.devicePixelRatio || 1;
+  const width = window.innerWidth;
+  const height = window.innerHeight;
+  canvas.width = width * scale;
+  canvas.height = height * scale;
+  context.scale(scale, scale);
+  const colours = ['#f2b84b', '#ffd47d', '#132b50', '#3f6fb5', '#ffffff', '#e4573d'];
+  const pieces = Array.from({ length: 160 }, () => ({
+    x: width * Math.random(),
+    y: -20 - Math.random() * height * 0.6,
+    size: 6 + Math.random() * 7,
+    tilt: Math.random() * Math.PI,
+    spin: (Math.random() - 0.5) * 0.28,
+    fall: 2.4 + Math.random() * 3.6,
+    drift: (Math.random() - 0.5) * 1.9,
+    colour: colours[Math.floor(Math.random() * colours.length)]
+  }));
+  const startedAt = performance.now();
+  const LIFETIME_MS = 4200;
+  function frame(now) {
+    const elapsed = now - startedAt;
+    context.clearRect(0, 0, width, height);
+    // Fade out rather than vanish mid-air.
+    context.globalAlpha = Math.max(0, Math.min(1, (LIFETIME_MS - elapsed) / 900));
+    let visible = false;
+    for (const piece of pieces) {
+      piece.y += piece.fall;
+      piece.x += piece.drift + Math.sin((piece.y + piece.tilt * 40) / 40) * 0.9;
+      piece.tilt += piece.spin;
+      if (piece.y < height + 30) visible = true;
+      context.save();
+      context.translate(piece.x, piece.y);
+      context.rotate(piece.tilt);
+      context.fillStyle = piece.colour;
+      context.fillRect(-piece.size / 2, -piece.size / 4, piece.size, piece.size / 2);
+      context.restore();
+    }
+    if (visible && elapsed < LIFETIME_MS) window.requestAnimationFrame(frame);
+    else canvas.remove();
+  }
+  window.requestAnimationFrame(frame);
+}
+
+function celebrateChallengeWin(game) {
+  if (game.outcome !== 'jackpot' || state.celebratedChallengeId === game.id) return;
+  state.celebratedChallengeId = game.id;
+  launchConfetti();
+}
+
 function renderChallengeLadder(game) {
   const ladder = byId('challengeLadder');
   clear(ladder);
@@ -651,6 +717,7 @@ function renderChallengeQuestion(container, game, question) {
 }
 
 function renderChallengeResult(container, game) {
+  celebrateChallengeWin(game);
   const correctCount = game.answers.filter((answer) => answer.correct).length;
   const lastAnswer = game.answers[game.answers.length - 1];
   const failedQuestion = lastAnswer && !lastAnswer.correct ? state.questionMap.get(lastAnswer.questionKey) : null;
