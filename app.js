@@ -1,6 +1,6 @@
 'use strict';
 
-const APP_VERSION = 38;
+const APP_VERSION = 39;
 const CORPUS_URL = 'data/kbc-corpus.json';
 const LEARNING_STORAGE_KEY = 'factflow-learning-v2';
 const LEARNING_DB_NAME = 'factflow-learning';
@@ -10,7 +10,12 @@ const LEGACY_STORAGE_KEY = 'kbc-prep-app-v1';
 const RETIRED_TRANSLATION_STORAGE_KEY = 'factflow-hi-en-translations-v1';
 const LOCAL_FACT_STORAGE_KEY = 'factflow-wikidata-local-v1';
 const FACT_LOW_WATERMARK = 120;
-const SCHEDULED_REVIEW_BATCH_SIZE = 10;
+// One review sitting is a finite, completable unit of work. Wrong answers fill
+// it first; previously correct questions only fill what is left over.
+const REVIEW_BATCH_SIZE = 12;
+// Spaced reinforcement is rationed per day so the queue drains to zero instead
+// of topping itself back up from an ever-growing backlog.
+const SCHEDULED_REVIEW_DAILY_LIMIT = 6;
 const BACKGROUND_REFRESH_MS = 10 * 60 * 1000;
 const Learning = window.FactFlowLearning;
 let learningDatabasePromise = null;
@@ -225,6 +230,35 @@ function migrateLegacyProgress() {
   saveLearningState();
 }
 
+// Under the old one-day curve every correctly answered question came due again
+// the next morning, so long-standing learners carry a backlog of hundreds of
+// already-known questions that all claim to be due today. Re-space it once:
+// least-reinforced questions come back first, the rest fan out over the weeks
+// ahead. Wrong answers are untouched — those genuinely are due.
+function migrateReviewBacklog() {
+  if (state.learning.migrations.reviewBacklogSpread) return;
+  const today = Learning.dateKey();
+  const entries = Object.entries(state.learning.schedule || {})
+    .filter(([, schedule]) => schedule && !schedule.needsReview && String(schedule.dueDate || '') <= today)
+    .sort((a, b) => (Number(a[1].repetitions) || 0) - (Number(b[1].repetitions) || 0)
+      || String(a[1].lastAnsweredAt || '').localeCompare(String(b[1].lastAnsweredAt || '')));
+  if (entries.length > SCHEDULED_REVIEW_DAILY_LIMIT) {
+    const perDay = Math.max(SCHEDULED_REVIEW_DAILY_LIMIT, Math.ceil(entries.length / 45));
+    const now = new Date();
+    entries.forEach(([key, schedule], index) => {
+      const offset = Math.floor(index / perDay);
+      if (offset < 1) return;
+      state.learning.schedule[key] = {
+        ...schedule,
+        intervalDays: Math.max(Number(schedule.intervalDays) || 0, offset),
+        dueDate: Learning.addDays(now, offset)
+      };
+    });
+  }
+  state.learning.migrations.reviewBacklogSpread = new Date().toISOString();
+  saveLearningState();
+}
+
 function localFactPayloadFor(corpus) {
   const sourceVersion = Number(corpus?.wikidata_source_version || 0);
   try {
@@ -267,9 +301,14 @@ function applyCorpus(corpus) {
     ...state.localFactQuestions
   ].map((question) => [question.canonical_key || Learning.normalizeText(question.question_text) || question.id, question])).values()];
   state.questions = merged.map(Learning.prepareQuestion);
+  // Uniqueness is per canonical key, never per question text. Membership
+  // questions deliberately share one stem ("Which of these appears in the
+  // Mahabharata?"), so text-keyed deduplication silently deleted almost the
+  // entire Mythology, Polity, and Awards supply. Per-session stem uniqueness is
+  // enforced during selection instead.
   state.practiceQuestions = [...new Map(state.questions
     .filter(Learning.isPracticeQuestion)
-    .map((question) => [Learning.normalizeText(question.question_text), question])).values()];
+    .map((question) => [question.key, question])).values()];
   state.archiveQuestions = state.questions.filter((question) =>
     question.source === 'IQgarage episode archive' || !Learning.isPracticeQuestion(question));
   state.questionMap = new Map(state.practiceQuestions.map((question) => [question.key, question]));
@@ -754,6 +793,7 @@ function answerQuestion(selectedIndex) {
   const session = activeSession();
   if (!canonicalQuestion || activeResponse()) return;
   const question = presentedQuestion(canonicalQuestion, `${session.id}:${session.cursor}`);
+  const wasWrongBeforeAnswer = Boolean(state.learning.schedule[canonicalQuestion.key]?.needsReview);
   const responseMs = Date.now() - state.questionStartedAt;
   const attempt = Learning.recordAttempt(state.learning, question, selectedIndex, {
     responseMs,
@@ -762,6 +802,7 @@ function answerQuestion(selectedIndex) {
   });
   if (!session.responses) session.responses = {};
   session.responses[question.key] = attempt.id;
+  if (session.mode === 'review') recordReviewAnswer(question.key, wasWrongBeforeAnswer);
   saveLearningState();
   setText(session.mode === 'review' ? 'reviewFeedback' : 'sessionFeedback',
     attempt.correct ? 'Correct answer.' : 'Incorrect answer. The question remains in review.');
@@ -776,10 +817,9 @@ function advanceSession() {
   const question = activeQuestion();
   if (!session || !response || !question) return;
   if (session.mode === 'review') {
-    if (!response.correct) {
-      delete session.responses[question.key];
-      if (!session.questionKeys.slice(session.cursor + 1).includes(question.key)) session.questionKeys.push(question.key);
-    }
+    // A missed question used to be pushed back onto the tail of the same
+    // sitting, so a question the learner could not get right kept the sitting
+    // running forever. It stays flagged and returns tomorrow instead.
     session.cursor += 1;
     state.activeQuestionKey = null;
     state.questionStartedAt = Date.now();
@@ -844,7 +884,7 @@ function renderToday() {
   const response = responseForSession(session);
   const sessionQuestions = (session?.questionKeys || []).map((key) => state.questionMap.get(key)).filter(Boolean);
   const newCount = sessionQuestions.filter((question) => Learning.questionStats(state.learning, question.key).attempts === 0).length;
-  const focusNames = Learning.focusTopics(state.learning, state.questions, {
+  const focusNames = Learning.focusTopics(state.learning, state.practiceQuestions, {
     patternMix: state.corpus?.pattern_profile?.category_mix || {}
   }).filter((topic) => topic.practisable).slice(0, 2).map((topic) => topic.category);
   setText('sessionSummary', focusNames.length
@@ -863,8 +903,20 @@ function renderToday() {
   renderQuestion(container, session, question, response);
 }
 
+function reviewProgressToday() {
+  const progress = state.learning.reviewProgress || { date: '', scheduledDone: 0, attemptedKeys: [] };
+  return progress.date === Learning.dateKey()
+    ? { ...progress, attemptedKeys: progress.attemptedKeys || [] }
+    : { date: Learning.dateKey(), scheduledDone: 0, attemptedKeys: [] };
+}
+
 function reviewQuestions() {
+  // A question gets one sitting per day. Without this, a question missed again
+  // during a sitting re-entered the queue the moment it ended, so the counter
+  // could never reach zero however much work the learner did.
+  const attemptedToday = new Set(reviewProgressToday().attemptedKeys);
   return state.practiceQuestions
+    .filter((question) => !attemptedToday.has(question.key))
     .filter((question) => Learning.isDue(state.learning, question.key))
     .sort((a, b) => {
       const aSchedule = state.learning.schedule[a.key];
@@ -882,25 +934,39 @@ function reviewBacklog() {
   };
 }
 
+// Reinforcements already answered today, so a finished sitting stays finished
+// instead of immediately refilling from the backlog.
+function scheduledReviewAllowance() {
+  return Math.max(0, SCHEDULED_REVIEW_DAILY_LIMIT - reviewProgressToday().scheduledDone);
+}
+
+function recordReviewAnswer(questionKey, wasWrongBeforeAnswer) {
+  const progress = reviewProgressToday();
+  state.learning.reviewProgress = {
+    date: progress.date,
+    scheduledDone: progress.scheduledDone + (wasWrongBeforeAnswer ? 0 : 1),
+    attemptedKeys: [...new Set([...progress.attemptedKeys, questionKey])]
+  };
+}
+
 function reviewBatch(backlog = reviewBacklog()) {
-  return [
-    ...backlog.wrong,
-    ...backlog.scheduled.slice(0, SCHEDULED_REVIEW_BATCH_SIZE)
-  ];
+  const wrong = backlog.wrong.slice(0, REVIEW_BATCH_SIZE);
+  const room = Math.min(REVIEW_BATCH_SIZE - wrong.length, scheduledReviewAllowance());
+  return [...wrong, ...backlog.scheduled.slice(0, Math.max(0, room))];
 }
 
 function reviewSessionRemainingKeys(session) {
   if (!session) return [];
+  const attemptedToday = new Set(reviewProgressToday().attemptedKeys);
   return [...new Set(session.questionKeys.slice(session.cursor).filter((key) => (
-    state.questionMap.has(key) && Learning.isDue(state.learning, key)
+    state.questionMap.has(key) && !attemptedToday.has(key) && Learning.isDue(state.learning, key)
   )))];
 }
 
+// Called after an answer is recorded, so the question just answered is already
+// counted as attempted today and drops out of the remaining set.
 function reviewSessionHasRemaining(session) {
-  if (!session) return false;
-  return session.questionKeys.slice(session.cursor + 1).some((key) => (
-    state.questionMap.has(key) && Learning.isDue(state.learning, key)
-  ));
+  return reviewSessionRemainingKeys(session).length > 0;
 }
 
 function startReview(questions = reviewBatch()) {
@@ -910,7 +976,7 @@ function startReview(questions = reviewBatch()) {
     id: `review-${Date.now()}`,
     date: Learning.dateKey(),
     mode: 'review',
-    batchVersion: 2,
+    batchVersion: 3,
     questionKeys,
     cursor: 0,
     responses: {},
@@ -926,24 +992,16 @@ function renderReview() {
   const backlog = reviewBacklog();
   const batch = reviewBatch(backlog);
   let session = state.learning.reviewSession;
-  if (session && session.batchVersion !== 2) {
+  if (session && session.batchVersion !== 3) {
     state.learning.reviewSession = null;
     session = null;
   }
   if (!session && state.selectedTab === 'review' && batch.length) session = startReview(batch);
-  // A running session used to be frozen at creation, so questions that became
-  // due afterwards were counted in the badge but never actually asked. New due
-  // questions are appended to the tail of the session instead.
-  if (session) {
-    const known = new Set(session.questionKeys);
-    const additions = batch.map((question) => question.key).filter((key) => !known.has(key));
-    if (additions.length) {
-      session.questionKeys.push(...additions);
-      saveLearningState();
-    }
-  }
+  // A running sitting is a fixed batch. It used to absorb every question that
+  // became due while it ran, so the counter refilled as fast as it drained and
+  // could never reach zero.
   setText('reviewWrongCount', backlog.wrong.length);
-  setText('reviewDueCount', Math.min(backlog.scheduled.length, SCHEDULED_REVIEW_BATCH_SIZE));
+  setText('reviewDueCount', Math.min(backlog.scheduled.length, scheduledReviewAllowance()));
   setText('reviewNavCount', session ? reviewSessionRemainingKeys(session).length : batch.length);
   const list = byId('reviewList');
   clear(list);
@@ -968,10 +1026,27 @@ function renderReview() {
     saveLearningState();
   }
   if (!batch.length) {
-    list.append(element('div', { className: 'empty-state' }, [
-      element('h3', { text: 'Nothing due right now' }),
-      element('p', { text: 'Complete a daily session and scheduled reviews will appear here.' })
-    ]));
+    const held = backlog.scheduled.length;
+    const attemptedToday = reviewProgressToday().attemptedKeys.length;
+    const cleared = (held > 0 || attemptedToday > 0) && !backlog.wrong.length;
+    const card = element('div', { className: 'empty-state' }, [
+      element('h3', { text: cleared ? 'Review cleared for today' : 'Nothing due right now' }),
+      element('p', {
+        text: cleared
+          ? `${attemptedToday ? `${attemptedToday} reviewed today. ` : ''}Nothing is waiting on another look. ${held} question${held === 1 ? '' : 's'} you already answered correctly ${held === 1 ? 'is' : 'are'} held for spaced reinforcement and ${held === 1 ? 'returns' : 'return'} a few at a time.`
+          : 'Complete a daily session and scheduled reviews will appear here.'
+      })
+    ]);
+    if (cleared) {
+      const more = element('button', { className: 'secondary-button', type: 'button', text: 'Reinforce more anyway' });
+      more.addEventListener('click', () => {
+        state.learning.reviewProgress = { ...reviewProgressToday(), scheduledDone: 0 };
+        saveLearningState();
+        renderAll();
+      });
+      card.append(more);
+    }
+    list.append(card);
     return;
   }
 }
@@ -1017,7 +1092,7 @@ function renderFocus() {
   const container = byId('focusList');
   if (!container) return;
   clear(container);
-  const focus = Learning.focusTopics(state.learning, state.questions, {
+  const focus = Learning.focusTopics(state.learning, state.practiceQuestions, {
     patternMix: state.corpus?.pattern_profile?.category_mix || {}
   });
   const actionable = focus.filter((topic) => topic.practisable).slice(0, 6);
@@ -1151,6 +1226,7 @@ async function init() {
   await loadLearningState();
   await loadCorpus();
   migrateLegacyProgress();
+  migrateReviewBacklog();
   ensureDailySession();
   attachListeners();
   renderAll();

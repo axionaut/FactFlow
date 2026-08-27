@@ -3,7 +3,7 @@
 ## Release rule
 - `APP_VERSION` is tracked in `app.js`.
 - Every completed iteration must end with: commit, push to GitHub, and a concise update to this file.
-- Current live version: `v38`.
+- Current live version: `v39`.
 - Release format: `v1`, `v2`, `v3`, ...
 
 ## Product direction
@@ -35,6 +35,13 @@
 - Lookup questions whose stem is ambiguous (two films named Devdas, three Battles of Panipat) are dropped at build time.
 - The bank keeps growing; `MAX_PRACTICE_QUESTIONS` prunes round-robin by stem so no template can dominate. `Learning.masteredKeys` identifies per-learner questions safe to retire.
 - Progress shows "What to fix next" instead of an activity log, and names categories that have no questions available rather than showing an unactionable 0% bar.
+- v39 fixed the supply, the review queue, and two question-quality defects.
+- Practice questions are deduplicated on `canonical_key` only. Text-keyed deduplication deleted 98% of Mythology, 97% of Awards, and 96% of Polity, because membership questions share one stem by design. Per-session stem uniqueness belongs in selection, not in loading.
+- `focusTopics` must be given the servable practice pool, not `state.questions`; otherwise Progress ranks topics it cannot actually serve and the two Progress panels disagree.
+- Weak areas claim at most half a session. An unrestricted gate starves every category the learner is already good at, which KBC still asks about.
+- Review is a finite daily sitting: wrong answers first, at most `SCHEDULED_REVIEW_DAILY_LIMIT` spaced reinforcements, one sitting per question per day, and no mid-sitting refill. A correct answer now earns 4/10/ease-multiplied days instead of returning the next morning.
+- Wikidata currency labels are reduced to the currency noun. A mix of "Macedonian denar" and "cedi" in one option set hands over the answer.
+- Lookup questions about people carry a short Wikidata description ("In which place was the Indian physicist ... born?"). A name alone is name recognition, not knowledge. Birthplaces recorded as administrative units are rejected.
 
 ## Key files
 - `index.html` — shell, tabs, version badge, and UI structure.

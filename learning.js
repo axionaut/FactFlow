@@ -224,7 +224,20 @@
       selectionNonce: hashText(`${Date.now()}:${Math.random()}`),
       persistenceRevision: 0,
       savedAt: 0,
+      // Today's review work: how many spaced reinforcements have been done, and
+      // which questions have already had their sitting. One sitting per question
+      // per day is what lets the queue actually reach zero.
+      reviewProgress: { date: '', scheduledDone: 0, attemptedKeys: [] },
       migrations: {}
+    };
+  }
+
+  function normalizeReviewProgress(input, base) {
+    if (!input || typeof input !== 'object' || Array.isArray(input)) return { ...base };
+    return {
+      date: String(input.date || ''),
+      scheduledDone: Math.max(0, Number(input.scheduledDone) || 0),
+      attemptedKeys: Array.isArray(input.attemptedKeys) ? input.attemptedKeys.map(String) : []
     };
   }
 
@@ -259,6 +272,7 @@
       selectionNonce: String(input.selectionNonce || base.selectionNonce),
       persistenceRevision: Math.max(0, Number(input.persistenceRevision) || 0),
       savedAt: Math.max(0, Number(input.savedAt) || 0),
+      reviewProgress: normalizeReviewProgress(input.reviewProgress, base.reviewProgress),
       migrations: { ...(input.migrations || {}) }
     };
   }
@@ -293,11 +307,14 @@
       needsReview: false
     };
     const repetitions = correct ? previous.repetitions + 1 : 0;
+    // A correct answer used to come back the next day, so every question ever
+    // answered re-entered Review within 24 hours and the queue could only grow.
+    // Correct recall earns real spacing; only mistakes return immediately.
     let intervalDays;
     if (!correct) intervalDays = 1;
-    else if (repetitions === 1) intervalDays = 1;
-    else if (repetitions === 2) intervalDays = 3;
-    else intervalDays = clamp(Math.round(Math.max(previous.intervalDays, 1) * previous.ease), 4, 180);
+    else if (repetitions === 1) intervalDays = 4;
+    else if (repetitions === 2) intervalDays = 10;
+    else intervalDays = clamp(Math.round(Math.max(previous.intervalDays, 1) * previous.ease), 12, 240);
 
     const attempt = {
       id: `attempt-${Date.parse(answeredAt) || Date.now()}-${state.attempts.length + 1}`,
@@ -523,6 +540,10 @@
     const focusByCategory = Object.fromEntries(focus.map((topic) => [topic.category, topic]));
     // The top practisable weak areas get first claim on the session.
     const focusSet = new Set(focus.filter((topic) => topic.practisable).slice(0, 4).map((topic) => topic.category));
+    // Weak areas get first claim on part of the session, not all of it. Given
+    // an unrestricted gate they take every slot and the categories the learner
+    // is already good at — which KBC still asks — stop appearing at all.
+    const focusPositions = Math.max(1, Math.ceil(size / 2));
 
     // Previously this was unseen-only, which meant that once a learner had worked
     // through a category there was nothing left to serve and the session fell back
@@ -557,7 +578,7 @@
       familyCap: 2,
       // Weak-area questions are served before everything else, while the
       // diversity caps still stop any one template from dominating.
-      priorityGroup: (question) => (focusSet.has(question.category) ? 0 : 1),
+      priorityGroup: (question, position) => (position < focusPositions && focusSet.has(question.category) ? 0 : 1),
       baseScore: (_question, _position, item) => item.priority + item.noise
     });
   }

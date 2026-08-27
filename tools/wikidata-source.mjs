@@ -2,16 +2,23 @@ const WIKIDATA_ENDPOINTS = [
   'https://qlever.dev/api/wikidata',
   'https://query.wikidata.org/sparql'
 ];
-export const WIKIDATA_SOURCE_VERSION = 4;
+export const WIKIDATA_SOURCE_VERSION = 5;
 
-function relationQuery(where, orderBy = '?item') {
+// `contextWhere` binds ?contextLabel: a short descriptor of the subject, so a
+// question about a person can name who they are instead of assuming the learner
+// already recognises the name.
+function relationQuery(where, orderBy = '?item', contextWhere = '') {
   return `
-SELECT DISTINCT ?item ?itemLabel ?answer ?answerLabel WHERE {
+SELECT DISTINCT ?item ?itemLabel ?answer ?answerLabel${contextWhere ? ' ?contextLabel' : ''} WHERE {
   ${where}
   ?item rdfs:label ?itemLabel.
   ?answer rdfs:label ?answerLabel.
   FILTER(LANG(?itemLabel) = "en")
-  FILTER(LANG(?answerLabel) = "en")
+  FILTER(LANG(?answerLabel) = "en")${contextWhere ? `
+  OPTIONAL {
+    ${contextWhere}
+    FILTER(LANG(?contextLabel) = "en")
+  }` : ''}
 }
 ORDER BY ${orderBy}`;
 }
@@ -44,13 +51,21 @@ export const WIKIDATA_PROFILES = [
     category: 'Miscellaneous/Trivia',
     tier: 'Tier 2',
     tags: ['india', 'people', 'birthplace'],
-    acceptAnswer: (answer) => !/\b(?:district|taluk|ashram|bhavan|hospital|university|presidency|state|province|county)\b/i.test(answer),
-    question: (item) => `In which place was ${item} born?`,
+    // Wikidata often records a birthplace as an administrative unit rather than
+    // a place anyone would name: "Tiruchuli Assembly constituency", "Ziradei
+    // Block". Those make both an unanswerable question and a poor distractor.
+    acceptAnswer: (answer) => !/\b(?:district|taluk|taluka|tehsil|mandal|block|panchayat|constituency|subdivision|sub-district|ashram|bhavan|bhawan|hospital|university|presidency|state|province|county|division|municipality|cantonment)\b/i.test(answer),
+    // "In which place was Ram Narayan born?" is unanswerable unless the learner
+    // already knows who that is. Naming what the person did makes it a question
+    // about knowledge rather than about name recognition.
+    question: (item, context) => (context
+      ? `In which place was the ${context} ${item} born?`
+      : `In which place was ${item} born?`),
     explanation: (item, answer) => `Wikidata records ${answer} as the birthplace of ${item}.`,
     query: relationQuery(`
       ?item wdt:P31 wd:Q5; wdt:P27 wd:Q668; wdt:P19 ?answer; wikibase:sitelinks ?sitelinks.
       FILTER(?sitelinks >= 25)
-    `, 'DESC(?sitelinks) ?item')
+    `, 'DESC(?sitelinks) ?item', '?item schema:description ?contextLabel.')
   },
   {
     id: 'india-film-director',
@@ -337,9 +352,48 @@ function rotate(values, amount) {
   return [...values.slice(offset), ...values.slice(0, offset)];
 }
 
+// Wikidata currency labels mix bare nouns ("shilling", "cedi") with
+// place-qualified ones ("Macedonian denar", "West African CFA franc"). Mixed
+// into one set of options, the qualified ones are visibly wrong for the country
+// the question names, so the answer is free. The old fix matched a fixed list of
+// currency nouns and missed everything not on it. A currency's own noun is what
+// is being asked for: drop everything up to and including the last capitalised
+// word, which is where a place qualifier always sits, and leave labels that have
+// no qualifier alone ("pound sterling", "convertible mark").
+function currencyNoun(label) {
+  const tokens = String(label || '').trim().split(/\s+/).filter(Boolean);
+  if (tokens.length < 2) return String(label || '').trim();
+  let lastCapitalised = -1;
+  tokens.forEach((token, index) => {
+    if (/^\p{Lu}/u.test(token)) lastCapitalised = index;
+  });
+  if (lastCapitalised < 0) return tokens.join(' ');
+  const remainder = tokens.slice(lastCapitalised + 1);
+  return (remainder.length ? remainder : tokens.slice(lastCapitalised)).join(' ');
+}
+
+// A usable one-line descriptor of the question's subject, from the Wikidata
+// short description. Descriptions trail off into biography ("Indian lawyer,
+// anti-colonial nationalist and political ethicist (1869-1948)"), so only the
+// leading phrase is kept — enough to place the person, short enough to sit
+// inside a question stem.
+function subjectContext(value) {
+  const label = String(value || '')
+    .trim()
+    .replace(/\s*\([^)]*\)\s*$/, '')
+    .split(/,| and /)[0]
+    .replace(/[.;:]+$/, '')
+    .trim();
+  if (!label || label.length < 4 || label.length > 40) return '';
+  if (!/^[\p{L}][\p{L}\p{N}\s'’-]*$/u.test(label)) return '';
+  // A description that only restates the class of thing teaches nothing.
+  if (/^(?:human|person|man|woman|indian|researcher|professional)$/i.test(label)) return '';
+  return label;
+}
+
 function displayAnswer(profile, answer) {
   if (profile.id !== 'world-country-currency') return answer;
-  return answer.replace(/^(?:[A-Z][a-z]+(?:\s+[A-Z][a-z]+)?)\s+(?=(?:dollar|rupee|yen|euro|franc|pound|peso|dinar|rial|ruble|won|shilling|krona|krone|lira|rand|baht|dong|ringgit|forint|zloty|lek|taka|vatu|manat|lari|lev|lei|koruna|shekel|dirham|tenge|kyat|kip|tugrik|guarani|real|birr|cedi)\b)/i, '');
+  return currencyNoun(answer);
 }
 
 export function buildWikidataQuestions(profile, bindings, accessedAt = new Date().toISOString().slice(0, 10)) {
@@ -348,7 +402,8 @@ export function buildWikidataQuestions(profile, bindings, accessedAt = new Date(
     itemUrl: binding.item?.value || '',
     itemLabel: String(binding.itemLabel?.value || '').trim(),
     answerId: entityId(binding.answer?.value),
-    answerLabel: String(binding.answerLabel?.value || '').trim()
+    answerLabel: String(binding.answerLabel?.value || '').trim(),
+    contextLabel: subjectContext(binding.contextLabel?.value)
   })).filter((row) => row.itemId
     && row.itemLabel.length >= 2 && row.itemLabel.length <= 120
     && row.answerLabel.length >= 1 && row.answerLabel.length <= 100
@@ -365,7 +420,10 @@ export function buildWikidataQuestions(profile, bindings, accessedAt = new Date(
   }
   const rows = [...grouped.values()]
     .filter((group) => new Set(group.map((row) => normalized(row.answerLabel))).size === 1)
-    .map((group) => group[0]);
+    .map((group) => ({
+      ...group[0],
+      contextLabel: group.map((row) => row.contextLabel).find(Boolean) || ''
+    }));
   const answerPool = [...new Map(rows.map((row) => [normalized(displayAnswer(profile, row.answerLabel)), displayAnswer(profile, row.answerLabel)])).values()];
   if (answerPool.length < 4) return [];
 
@@ -388,7 +446,7 @@ export function buildWikidataQuestions(profile, bindings, accessedAt = new Date(
       season: null,
       episode: null,
       air_date: null,
-      question_text: profile.question(row.itemLabel),
+      question_text: profile.question(row.itemLabel, row.contextLabel),
       options,
       correct_option_index: correctSlot,
       question_type: 'practice',
