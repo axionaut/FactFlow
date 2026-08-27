@@ -1,6 +1,6 @@
 {
   "schema_version": 4,
-  "generated_at": "2026-08-27T09:58:11.211Z",
+  "generated_at": "2026-08-27T22:26:36.314Z",
   "corpus_scope": "India-first KBC practice combining historical KBC archives with accumulating structured facts; not an official Sony corpus.",
   "sources": [
     {
@@ -66,8 +66,8 @@
       "pages": 5
     }
   ],
-  "fresh_questions": 62,
-  "playable_questions": 2210,
+  "fresh_questions": 49,
+  "playable_questions": 2259,
   "translation_pending": 78,
   "removed_generic_questions": 0,
   "pages": [
@@ -2689,136 +2689,193 @@
       "status": 200,
       "questions": 0,
       "last_attempted_at": "2026-08-27"
+    },
+    {
+      "season": 14,
+      "episode": 72,
+      "airDate": "",
+      "url": "https://www.gksection.com/kbc-14-episode-72-questions-answers-hindi/",
+      "status": 200,
+      "questions": 0,
+      "last_attempted_at": "2026-08-27"
+    },
+    {
+      "season": 14,
+      "episode": 69,
+      "airDate": "",
+      "url": "https://www.gksection.com/kbc-14-episode-69-questions-answers-hindi/",
+      "status": 200,
+      "questions": 0,
+      "last_attempted_at": "2026-08-27"
+    },
+    {
+      "season": 14,
+      "episode": 68,
+      "airDate": "",
+      "url": "https://www.gksection.com/kbc-14-episode-68-questions-answers-hindi/",
+      "status": 200,
+      "questions": 0,
+      "last_attempted_at": "2026-08-27"
+    },
+    {
+      "season": 14,
+      "episode": 67,
+      "airDate": "",
+      "url": "https://www.gksection.com/kbc-14-episode-67-questions-answers-hindi/",
+      "status": 200,
+      "questions": 0,
+      "last_attempted_at": "2026-08-27"
+    },
+    {
+      "season": 14,
+      "episode": 66,
+      "airDate": "",
+      "url": "https://www.gksection.com/kbc-14-episode-66-questions-answers-hindi/",
+      "status": 200,
+      "questions": 0,
+      "last_attempted_at": "2026-08-27"
+    },
+    {
+      "season": 14,
+      "episode": 65,
+      "airDate": "",
+      "url": "https://www.gksection.com/kbc-14-episode-65-questions-answers-hindi/",
+      "status": 200,
+      "questions": 0,
+      "last_attempted_at": "2026-08-27"
     }
   ],
   "wikidata_source_version": 5,
   "wikidata_state": {
     "india-person-birthplace": {
-      "offset": 408,
-      "last_attempted_at": "2026-08-27T09:57:18.222Z",
+      "offset": 456,
+      "last_attempted_at": "2026-08-27T22:24:44.341Z",
       "last_result_count": 56,
       "exhausted": false
     },
     "india-film-director": {
-      "offset": 48,
-      "last_attempted_at": "2026-08-27T09:57:20.591Z",
+      "offset": 96,
+      "last_attempted_at": "2026-08-27T22:24:45.720Z",
       "last_result_count": 56,
       "exhausted": false
     },
     "india-book-author": {
       "offset": 0,
-      "last_attempted_at": "2026-08-27T09:57:23.164Z",
+      "last_attempted_at": "2026-08-27T22:24:53.799Z",
       "last_result_count": 29,
       "exhausted": true
     },
     "india-state-capital": {
-      "offset": 24,
-      "last_attempted_at": "2026-08-27T09:57:24.446Z",
-      "last_result_count": 32,
-      "exhausted": false
+      "offset": 0,
+      "last_attempted_at": "2026-08-27T22:24:55.670Z",
+      "last_result_count": 17,
+      "exhausted": true
     },
     "world-country-capital": {
-      "offset": 24,
-      "last_attempted_at": "2026-08-27T09:57:26.149Z",
+      "offset": 48,
+      "last_attempted_at": "2026-08-27T22:25:03.177Z",
       "last_result_count": 32,
       "exhausted": false
     },
     "world-country-currency": {
-      "offset": 24,
-      "last_attempted_at": "2026-08-27T09:57:27.598Z",
+      "offset": 48,
+      "last_attempted_at": "2026-08-27T22:25:05.289Z",
       "last_result_count": 32,
       "exhausted": false
     },
     "world-heritage-country": {
       "offset": 264,
-      "last_attempted_at": "2026-08-27T09:57:29.761Z",
+      "last_attempted_at": "2026-08-27T22:25:05.825Z",
       "last_result_count": 32,
-      "exhausted": false
+      "exhausted": false,
+      "last_error": "Wikidata world-heritage-country failed (qlever.dev: 400, query.wikidata.org: 429)"
     },
     "india-athlete-sport": {
       "offset": 48,
-      "last_attempted_at": "2026-08-27T09:57:31.700Z",
+      "last_attempted_at": "2026-08-27T22:25:26.233Z",
       "last_result_count": 56,
-      "exhausted": false
+      "exhausted": false,
+      "last_error": "Wikidata india-athlete-sport failed (qlever.dev: 400, query.wikidata.org: The operation was aborted due to timeout)"
     },
     "chemical-element-symbol": {
-      "offset": 24,
-      "last_attempted_at": "2026-08-27T09:57:32.624Z",
+      "offset": 48,
+      "last_attempted_at": "2026-08-27T22:25:27.720Z",
       "last_result_count": 32,
       "exhausted": false
     },
     "india-battle-year": {
       "offset": 0,
-      "last_attempted_at": "2026-08-27T09:57:33.818Z",
+      "last_attempted_at": "2026-08-27T22:25:34.518Z",
       "last_result_count": 25,
       "exhausted": true
     },
     "award-bharat-ratna": {
       "offset": 0,
-      "last_attempted_at": "2026-08-27T09:57:38.468Z",
-      "last_result_count": 49,
+      "last_attempted_at": "2026-08-27T22:25:44.558Z",
+      "last_result_count": 48,
       "exhausted": true
     },
     "award-param-vir-chakra": {
       "offset": 0,
-      "last_attempted_at": "2026-08-27T09:57:41.578Z",
+      "last_attempted_at": "2026-08-27T22:25:57.070Z",
       "last_result_count": 21,
       "exhausted": true
     },
     "award-jnanpith": {
-      "offset": 24,
-      "last_attempted_at": "2026-08-27T09:57:44.927Z",
+      "offset": 48,
+      "last_attempted_at": "2026-08-27T22:26:03.241Z",
       "last_result_count": 32,
       "exhausted": false
     },
     "award-dadasaheb-phalke": {
-      "offset": 24,
-      "last_attempted_at": "2026-08-27T09:57:50.351Z",
+      "offset": 48,
+      "last_attempted_at": "2026-08-27T22:26:06.705Z",
       "last_result_count": 32,
       "exhausted": false
     },
     "polity-prime-minister": {
       "offset": 0,
-      "last_attempted_at": "2026-08-27T09:57:55.285Z",
+      "last_attempted_at": "2026-08-27T22:26:09.948Z",
       "last_result_count": 14,
       "exhausted": true
     },
     "polity-president": {
       "offset": 0,
-      "last_attempted_at": "2026-08-27T09:58:02.244Z",
+      "last_attempted_at": "2026-08-27T22:26:19.313Z",
       "last_result_count": 17,
       "exhausted": true
     },
     "polity-chief-justice": {
-      "offset": 24,
-      "last_attempted_at": "2026-08-27T09:58:05.792Z",
-      "last_result_count": 32,
-      "exhausted": false
+      "offset": 0,
+      "last_attempted_at": "2026-08-27T22:26:29.358Z",
+      "last_result_count": 27,
+      "exhausted": true
     },
     "mythology-mahabharata": {
-      "offset": 48,
-      "last_attempted_at": "2026-08-27T09:58:06.482Z",
+      "offset": 96,
+      "last_attempted_at": "2026-08-27T22:26:30.212Z",
       "last_result_count": 56,
       "exhausted": false
     },
     "mythology-ramayana": {
       "offset": 48,
-      "last_attempted_at": "2026-08-27T09:58:07.206Z",
+      "last_attempted_at": "2026-08-27T22:26:30.529Z",
       "last_result_count": 56,
-      "exhausted": false
+      "exhausted": false,
+      "last_error": "Wikidata foils for mythology-ramayana failed (qlever.dev: 400, query.wikidata.org: 429)"
     },
     "india-monument-state": {
-      "offset": 48,
-      "last_attempted_at": "2026-08-27T09:58:09.184Z",
-      "last_result_count": 56,
-      "exhausted": false
+      "offset": 0,
+      "last_attempted_at": "2026-08-27T22:26:33.585Z",
+      "last_result_count": 8,
+      "exhausted": true
     }
   },
   "current_affairs_source_version": 1,
   "current_affairs_questions": 63,
   "pattern_profile": {
     "derived_from": 601,
-    "derived_at": "2026-08-27T09:58:11.210Z",
+    "derived_at": "2026-08-27T22:26:36.314Z",
     "note": "Archive questions are pattern evidence only and are never served as practice.",
     "category_mix": {
       "Miscellaneous/Trivia": 0.5008,
@@ -2851,80 +2908,80 @@
     {
       "category": "Miscellaneous/Trivia",
       "target": 0.5008,
-      "actual": 0.1729,
-      "gap": 0.3279
-    },
-    {
-      "category": "Geography (India)",
-      "target": 0.0782,
-      "actual": 0.0371,
-      "gap": 0.0411
+      "actual": 0.1903,
+      "gap": 0.3105
     },
     {
       "category": "Polity & Constitution",
       "target": 0.0782,
-      "actual": 0.0371,
-      "gap": 0.0411
+      "actual": 0.0363,
+      "gap": 0.0419
+    },
+    {
+      "category": "Geography (India)",
+      "target": 0.0782,
+      "actual": 0.0367,
+      "gap": 0.0415
     },
     {
       "category": "Sports",
       "target": 0.0982,
-      "actual": 0.0697,
-      "gap": 0.0285
+      "actual": 0.0682,
+      "gap": 0.03
     },
     {
       "category": "Indian History",
       "target": 0.025,
-      "actual": 0.0104,
-      "gap": 0.0146
+      "actual": 0.0102,
+      "gap": 0.0148
     },
     {
       "category": "Awards & Honours",
       "target": 0.02,
-      "actual": 0.0317,
-      "gap": -0.0117
+      "actual": 0.031,
+      "gap": -0.011
     },
     {
       "category": "Science & Technology",
       "target": 0.0366,
-      "actual": 0.0534,
-      "gap": -0.0168
+      "actual": 0.0522,
+      "gap": -0.0156
     },
     {
       "category": "Literature & Authors",
       "target": 0.0166,
-      "actual": 0.0403,
-      "gap": -0.0237
+      "actual": 0.0394,
+      "gap": -0.0228
     },
     {
       "category": "Mythology & Religion",
       "target": 0.03,
-      "actual": 0.0543,
-      "gap": -0.0243
+      "actual": 0.0531,
+      "gap": -0.0231
     },
     {
       "category": "Current Affairs",
       "target": 0.0017,
-      "actual": 0.0285,
-      "gap": -0.0268
+      "actual": 0.0279,
+      "gap": -0.0262
     },
     {
       "category": "Business & Economy",
       "target": 0.0183,
-      "actual": 0.0742,
-      "gap": -0.0559
+      "actual": 0.0726,
+      "gap": -0.0543
     },
     {
       "category": "Art & Culture",
       "target": 0.0183,
-      "actual": 0.1005,
-      "gap": -0.0822
+      "actual": 0.0983,
+      "gap": -0.08
     },
     {
       "category": "Cinema (Bollywood)",
       "target": 0.0782,
-      "actual": 0.2045,
-      "gap": -0.1263
+      "actual": 0.2001,
+      "gap": -0.1219
     }
   ],
   "questions": [
@@ -23178,9 +23235,9 @@
       "question_text": "Who is the current head of government of United Kingdom?",
       "options": [
         "Christian Stocker",
-        "Yamandú Orsi",
+        "Raffaella Petrini",
         "Andy Burnham",
-        "Raffaella Petrini"
+        "Yamandú Orsi"
       ],
       "correct_option_index": 2,
       "question_type": "practice",
@@ -23212,7 +23269,7 @@
       "air_date": null,
       "question_text": "Who is the current head of government of Ukraine?",
       "options": [
-        "Raffaella Petrini",
+        "Yamandú Orsi",
         "Nawaf Salam",
         "Bart De Wever",
         "Serhii Koretskyi"
@@ -23494,8 +23551,8 @@
       "options": [
         "Jens-Frederik Nielsen",
         "Rob Jetten",
-        "Elijah Ngurare",
-        "Sarra Zaafrani"
+        "Sarra Zaafrani",
+        "Elijah Ngurare"
       ],
       "correct_option_index": 1,
       "question_type": "practice",
@@ -24124,7 +24181,7 @@
       "options": [
         "Alexander Turchyn",
         "Christian Stocker",
-        "Yamandú Orsi",
+        "Raffaella Petrini",
         "Salem Saleh bin Braik"
       ],
       "correct_option_index": 3,
@@ -24157,7 +24214,7 @@
       "air_date": null,
       "question_text": "Who is the current head of government of Trinidad and Tobago?",
       "options": [
-        "Sarra Zaafrani",
+        "Elijah Ngurare",
         "Kamla Persad-Bissessar",
         "Mark Carney",
         "Alexander Turchyn"
@@ -24545,7 +24602,7 @@
         "Brigitte Haas",
         "Jens-Frederik Nielsen",
         "Bart De Wever",
-        "Elijah Ngurare"
+        "Sarra Zaafrani"
       ],
       "correct_option_index": 2,
       "question_type": "practice",
@@ -24614,8 +24671,8 @@
       "options": [
         "Donald Trump",
         "Jens-Frederik Nielsen",
-        "Elijah Ngurare",
-        "Sarra Zaafrani"
+        "Sarra Zaafrani",
+        "Elijah Ngurare"
       ],
       "correct_option_index": 0,
       "question_type": "practice",
@@ -25033,7 +25090,7 @@
       "question_text": "Which of these people was awarded the Nobel Prize in Chemistry in 2025?",
       "options": [
         "Richard Robson",
-        "John M. Martinis",
+        "John Clarke",
         "Shimon Sakaguchi",
         "Fred Ramsdell"
       ],
@@ -25067,10 +25124,10 @@
       "air_date": null,
       "question_text": "Which of these people was awarded the Nobel Prize in Chemistry in 2025?",
       "options": [
-        "John Clarke",
         "Michel Devoret",
+        "John M. Martinis",
         "Omar M. Yaghi",
-        "John M. Martinis"
+        "John Clarke"
       ],
       "correct_option_index": 2,
       "question_type": "practice",
@@ -25105,7 +25162,7 @@
         "Fred Ramsdell",
         "Mary E. Brunkow",
         "Susumu Kitagawa",
-        "John Hopfield"
+        "Geoffrey Hinton"
       ],
       "correct_option_index": 2,
       "question_type": "practice",
@@ -25137,10 +25194,10 @@
       "air_date": null,
       "question_text": "Which of these people was awarded the Nobel Prize in Physiology or Medicine in 2025?",
       "options": [
-        "Michel Devoret",
+        "Omar M. Yaghi",
         "Shimon Sakaguchi",
-        "John M. Martinis",
-        "John Hopfield"
+        "Susumu Kitagawa",
+        "Geoffrey Hinton"
       ],
       "correct_option_index": 1,
       "question_type": "practice",
@@ -25172,9 +25229,9 @@
       "air_date": null,
       "question_text": "Which of these people was awarded the Nobel Prize in Physiology or Medicine in 2025?",
       "options": [
-        "John Hopfield",
         "Geoffrey Hinton",
-        "Richard Robson",
+        "John Hopfield",
+        "Michel Devoret",
         "Fred Ramsdell"
       ],
       "correct_option_index": 3,
@@ -25208,9 +25265,9 @@
       "question_text": "Which of these people was awarded the Nobel Prize in Physiology or Medicine in 2025?",
       "options": [
         "Mary E. Brunkow",
-        "Susumu Kitagawa",
-        "Michel Devoret",
-        "John M. Martinis"
+        "Richard Robson",
+        "Omar M. Yaghi",
+        "Susumu Kitagawa"
       ],
       "correct_option_index": 0,
       "question_type": "practice",
@@ -26774,9 +26831,9 @@
       "air_date": null,
       "question_text": "Who directed the Indian film “Dabangg”?",
       "options": [
-        "Mehboob Khan",
-        "Ritesh Batra",
-        "Karan Johar",
+        "Gauri Shinde",
+        "Ram Madhvani",
+        "Amol Palekar",
         "Abhinav Kashyap"
       ],
       "correct_option_index": 3,
@@ -26808,9 +26865,9 @@
       "air_date": null,
       "question_text": "Who directed the Indian film “Disco Dancer”?",
       "options": [
-        "Anurag Basu",
-        "Ashutosh Gowariker",
-        "Shawn Levy",
+        "S. Shankar",
+        "Juan J. Campanella",
+        "Sooraj R. Barjatya",
         "Babbar Subhash"
       ],
       "correct_option_index": 3,
@@ -26842,10 +26899,10 @@
       "air_date": null,
       "question_text": "Who directed the Indian film “The Lunchbox”?",
       "options": [
-        "Karan Johar",
+        "Kabir Khan",
         "Ritesh Batra",
-        "Aditya Chopra",
-        "Nitesh Tiwari"
+        "Farah Khan",
+        "Peter Weir"
       ],
       "correct_option_index": 1,
       "question_type": "practice",
@@ -26876,10 +26933,10 @@
       "air_date": null,
       "question_text": "Who directed the Indian film “The Hundred-Foot Journey”?",
       "options": [
-        "Vishal Bhardwaj",
-        "Steven Spielberg",
+        "Subhash Ghai",
+        "Ayan Mukerji",
         "Lasse Hallström",
-        "Babbar Subhash"
+        "Deepa Mehta"
       ],
       "correct_option_index": 2,
       "question_type": "practice",
@@ -26911,9 +26968,9 @@
       "question_text": "Who directed the Indian film “Swades”?",
       "options": [
         "Ashutosh Gowariker",
-        "Deepa Mehta",
-        "Zoya Akhtar",
-        "Kunal Kohli"
+        "Sooraj R. Barjatya",
+        "A. R. Murugadoss",
+        "Abhinav Kashyap"
       ],
       "correct_option_index": 0,
       "question_type": "practice",
@@ -26945,9 +27002,9 @@
       "question_text": "Who directed the Indian film “Aparajito”?",
       "options": [
         "Satyajit Ray",
-        "Shekhar Kapur",
-        "Kunal Kohli",
-        "Omung Kumar"
+        "Vikas Bahl",
+        "Raj Kanwar",
+        "S. Shankar"
       ],
       "correct_option_index": 0,
       "question_type": "practice",
@@ -26978,9 +27035,9 @@
       "air_date": null,
       "question_text": "Who directed the Indian film “Mohabbatein”?",
       "options": [
-        "Bill Condon",
-        "Pete Travis",
-        "Shimit Amin",
+        "Dev Patel",
+        "Mira Nair",
+        "Ashutosh Gowariker",
         "Aditya Chopra"
       ],
       "correct_option_index": 3,
@@ -27012,10 +27069,10 @@
       "air_date": null,
       "question_text": "Who directed the Indian film “Don 2”?",
       "options": [
-        "Mira Nair",
-        "Dev Patel",
+        "Ram Madhvani",
+        "Amol Palekar",
         "Farhan Akhtar",
-        "Madhur Bhandarkar"
+        "Subhash Ghai"
       ],
       "correct_option_index": 2,
       "question_type": "practice",
@@ -27046,10 +27103,10 @@
       "air_date": null,
       "question_text": "Who directed the Indian film “Ek Tha Tiger”?",
       "options": [
-        "Subhash Ghai",
+        "Mohit Suri",
         "Kabir Khan",
-        "Ayan Mukerji",
-        "Tarsem Singh"
+        "Vikas Bahl",
+        "Raj Kanwar"
       ],
       "correct_option_index": 1,
       "question_type": "practice",
@@ -27082,8 +27139,8 @@
       "options": [
         "Farah Khan",
         "S. S. Rajamouli",
-        "Abhinav Kashyap",
-        "Lasse Hallström"
+        "Siddharth Anand",
+        "Martin Campbell"
       ],
       "correct_option_index": 0,
       "question_type": "practice",
@@ -27114,10 +27171,10 @@
       "air_date": null,
       "question_text": "Who directed the Indian film “The Way Back”?",
       "options": [
-        "Dev Patel",
-        "Deepa Mehta",
+        "Satyajit Ray",
+        "Rohit Shetty",
         "Peter Weir",
-        "Zoya Akhtar"
+        "Gauri Shinde"
       ],
       "correct_option_index": 2,
       "question_type": "practice",
@@ -27148,10 +27205,10 @@
       "air_date": null,
       "question_text": "Who directed the Indian film “Apur Sansar”?",
       "options": [
-        "Sanjay Leela Bhansali",
+        "S. Shankar",
         "Satyajit Ray",
-        "Vijay Krishna Acharya",
-        "Rakeysh Omprakash Mehra"
+        "Raj Kapoor",
+        "Abhinav Kashyap"
       ],
       "correct_option_index": 1,
       "question_type": "practice",
@@ -27183,9 +27240,9 @@
       "question_text": "Who directed the Indian film “Monkey Man”?",
       "options": [
         "Dev Patel",
-        "Abhishek Chaubey",
-        "Dharmesh Darshan",
-        "Madhur Bhandarkar"
+        "Sooraj R. Barjatya",
+        "Sanjay Leela Bhansali",
+        "Mira Nair"
       ],
       "correct_option_index": 0,
       "question_type": "practice",
@@ -27216,10 +27273,10 @@
       "air_date": null,
       "question_text": "Who directed the Indian film “Dilwale”?",
       "options": [
-        "Feroz Abbas Khan",
+        "Babbar Subhash",
         "Rohit Shetty",
-        "Abhishek Chaubey",
-        "Dharmesh Darshan"
+        "Kabir Khan",
+        "Farah Khan"
       ],
       "correct_option_index": 1,
       "question_type": "practice",
@@ -27251,9 +27308,9 @@
       "question_text": "Who directed the Indian film “Water”?",
       "options": [
         "Deepa Mehta",
-        "Mohit Suri",
-        "Amol Palekar",
-        "Vikas Bahl"
+        "Raj Kapoor",
+        "Aditya Chopra",
+        "Farhan Akhtar"
       ],
       "correct_option_index": 0,
       "question_type": "practice",
@@ -27284,10 +27341,10 @@
       "air_date": null,
       "question_text": "Who directed the Indian film “Rab Ne Bana Di Jodi”?",
       "options": [
-        "Abhishek Chaubey",
-        "Dharmesh Darshan",
+        "Ashutosh Gowariker",
+        "Juan J. Campanella",
         "Aditya Chopra",
-        "Mira Nair"
+        "Sooraj R. Barjatya"
       ],
       "correct_option_index": 2,
       "question_type": "practice",
@@ -27318,9 +27375,9 @@
       "air_date": null,
       "question_text": "Who directed the Indian film “Main Hoon Na”?",
       "options": [
-        "Bill Condon",
-        "Pete Travis",
-        "Shimit Amin",
+        "Payal Kapadia",
+        "Ramin Bahrani",
+        "Shekhar Kapur",
         "Farah Khan"
       ],
       "correct_option_index": 3,
@@ -27352,10 +27409,10 @@
       "air_date": null,
       "question_text": "Who directed the Indian film “Brothers”?",
       "options": [
-        "Shawn Levy",
-        "Farah Khan",
+        "Siddharth Anand",
+        "Payal Kapadia",
         "Karan Malhotra",
-        "Raj Kapoor"
+        "Ramin Bahrani"
       ],
       "correct_option_index": 2,
       "question_type": "practice",
@@ -27387,9 +27444,9 @@
       "question_text": "Who directed the Indian film “Bajrangi Bhaijaan”?",
       "options": [
         "Kabir Khan",
-        "Maneesh Sharma",
-        "Prashanth Neel",
-        "Rajkumar Hirani"
+        "Sanjay Leela Bhansali",
+        "Farah Khan",
+        "Peter Weir"
       ],
       "correct_option_index": 0,
       "question_type": "practice",
@@ -27420,9 +27477,9 @@
       "air_date": null,
       "question_text": "Who directed the Indian film “English Vinglish”?",
       "options": [
-        "Bill Condon",
-        "Pete Travis",
-        "Rakesh Roshan",
+        "Sanjay Leela Bhansali",
+        "Ritesh Batra",
+        "Satyajit Ray",
         "Gauri Shinde"
       ],
       "correct_option_index": 3,
@@ -27454,9 +27511,9 @@
       "air_date": null,
       "question_text": "Who directed the Indian film “Dil To Pagal Hai”?",
       "options": [
-        "Subhash Ghai",
-        "Ayan Mukerji",
-        "Imtiaz Ali",
+        "Mira Nair",
+        "Santosh Sivan",
+        "Payal Kapadia",
         "Yash Chopra"
       ],
       "correct_option_index": 3,
@@ -27489,9 +27546,9 @@
       "question_text": "Who directed the Indian film “Lage Raho Munna Bhai”?",
       "options": [
         "Rajkumar Hirani",
-        "Zoya Akhtar",
-        "Kunal Kohli",
-        "Omung Kumar"
+        "Peter Weir",
+        "Mohit Suri",
+        "Vikas Bahl"
       ],
       "correct_option_index": 0,
       "question_type": "practice",
@@ -27522,10 +27579,10 @@
       "air_date": null,
       "question_text": "Who directed the Indian film “Fire”?",
       "options": [
-        "Aditya Chopra",
+        "Karan Malhotra",
         "Deepa Mehta",
-        "Nitesh Tiwari",
-        "Nikhil Advani"
+        "Rahul Dholakia",
+        "Abhinav Kashyap"
       ],
       "correct_option_index": 1,
       "question_type": "practice",
@@ -27556,10 +27613,10 @@
       "air_date": null,
       "question_text": "Who directed the Indian film “The Namesake”?",
       "options": [
-        "Karan Johar",
-        "Scott Waugh",
+        "Farah Khan",
+        "Peter Weir",
         "Mira Nair",
-        "Bill Condon"
+        "Mohit Suri"
       ],
       "correct_option_index": 2,
       "question_type": "practice",
@@ -27590,10 +27647,10 @@
       "air_date": null,
       "question_text": "Who directed the Indian film “Raees”?",
       "options": [
-        "Mohit Suri",
-        "Vikas Bahl",
+        "Abhinav Kashyap",
+        "Lasse Hallström",
         "Rahul Dholakia",
-        "Raj Kanwar"
+        "Aditya Chopra"
       ],
       "correct_option_index": 2,
       "question_type": "practice",
@@ -27624,10 +27681,10 @@
       "air_date": null,
       "question_text": "Who directed the Indian film “Neerja”?",
       "options": [
-        "Kunal Kohli",
-        "Omung Kumar",
+        "Payal Kapadia",
+        "Ramin Bahrani",
         "Ram Madhvani",
-        "Shawn Levy"
+        "Shekhar Kapur"
       ],
       "correct_option_index": 2,
       "question_type": "practice",
@@ -27658,9 +27715,9 @@
       "air_date": null,
       "question_text": "Who directed the Indian film “Zindagi Na Milegi Dobara”?",
       "options": [
-        "Anthony Maras",
-        "Anubhav Sinha",
-        "Farhan Akhtar",
+        "Santosh Sivan",
+        "Payal Kapadia",
+        "Ramin Bahrani",
         "Zoya Akhtar"
       ],
       "correct_option_index": 3,
@@ -27692,9 +27749,9 @@
       "air_date": null,
       "question_text": "Who directed the Indian film “Aashiqui 2”?",
       "options": [
-        "Babbar Subhash",
-        "Karan Malhotra",
-        "Rahul Dholakia",
+        "Dev Patel",
+        "Deepa Mehta",
+        "Yash Chopra",
         "Mohit Suri"
       ],
       "correct_option_index": 3,
@@ -27726,10 +27783,10 @@
       "air_date": null,
       "question_text": "Who directed the Indian film “Aśoka”?",
       "options": [
-        "Aditya Chopra",
+        "Deepa Mehta",
         "Santosh Sivan",
-        "Nitesh Tiwari",
-        "Nikhil Advani"
+        "Yash Chopra",
+        "Rajkumar Hirani"
       ],
       "correct_option_index": 1,
       "question_type": "practice",
@@ -27760,10 +27817,10 @@
       "air_date": null,
       "question_text": "Who directed the Indian film “Paheli”?",
       "options": [
-        "Mani Ratnam",
+        "S. S. Rajamouli",
         "Amol Palekar",
-        "Sanjay Gadhvi",
-        "Anurag Basu"
+        "Siddharth Anand",
+        "Martin Campbell"
       ],
       "correct_option_index": 1,
       "question_type": "practice",
@@ -27794,10 +27851,10 @@
       "air_date": null,
       "question_text": "Who directed the Indian film “Kabhi Alvida Naa Kehna”?",
       "options": [
-        "Ram Madhvani",
-        "Mohit Suri",
+        "Aditya Chopra",
+        "Farhan Akhtar",
         "Karan Johar",
-        "Amol Palekar"
+        "Dev Patel"
       ],
       "correct_option_index": 2,
       "question_type": "practice",
@@ -27828,10 +27885,10 @@
       "air_date": null,
       "question_text": "Who directed the Indian film “Jab Tak Hai Jaan”?",
       "options": [
-        "Subhash Ghai",
+        "Mira Nair",
         "Yash Chopra",
-        "Ayan Mukerji",
-        "Imtiaz Ali"
+        "Santosh Sivan",
+        "Payal Kapadia"
       ],
       "correct_option_index": 1,
       "question_type": "practice",
@@ -27862,10 +27919,10 @@
       "air_date": null,
       "question_text": "Who directed the Indian film “Magadheera”?",
       "options": [
-        "Mansoor Khan",
-        "Karan Johar",
+        "Farah Khan",
+        "Peter Weir",
         "S. S. Rajamouli",
-        "Scott Waugh"
+        "Mohit Suri"
       ],
       "correct_option_index": 2,
       "question_type": "practice",
@@ -27896,10 +27953,10 @@
       "air_date": null,
       "question_text": "Who directed the Indian film “Pathaan”?",
       "options": [
-        "Farhan Akhtar",
-        "Santosh Sivan",
+        "Mira Nair",
+        "Sanjay Leela Bhansali",
         "Siddharth Anand",
-        "Payal Kapadia"
+        "Abhinav Kashyap"
       ],
       "correct_option_index": 2,
       "question_type": "practice",
@@ -27930,9 +27987,9 @@
       "air_date": null,
       "question_text": "Who directed the Indian film “All We Imagine as Light”?",
       "options": [
-        "Lasse Hallström",
-        "Deepa Mehta",
-        "Zoya Akhtar",
+        "Babbar Subhash",
+        "Ritesh Batra",
+        "Satyajit Ray",
         "Payal Kapadia"
       ],
       "correct_option_index": 3,
@@ -27964,9 +28021,9 @@
       "air_date": null,
       "question_text": "Who directed the Indian film “Queen”?",
       "options": [
-        "Ramesh Sippy",
-        "Rohit Shetty",
-        "Satyajit Ray",
+        "Rakesh Roshan",
+        "Babbar Subhash",
+        "Karan Malhotra",
         "Vikas Bahl"
       ],
       "correct_option_index": 3,
@@ -27998,10 +28055,10 @@
       "air_date": null,
       "question_text": "Who directed the Indian film “Deewana”?",
       "options": [
-        "Vijay Krishna Acharya",
+        "Payal Kapadia",
         "Raj Kanwar",
-        "Rakeysh Omprakash Mehra",
-        "Shawn Levy"
+        "Ramin Bahrani",
+        "Shekhar Kapur"
       ],
       "correct_option_index": 1,
       "question_type": "practice",
@@ -28033,9 +28090,9 @@
       "question_text": "Who directed the Indian film “2.0”?",
       "options": [
         "S. Shankar",
-        "Anurag Basu",
-        "Dev Patel",
-        "Deepa Mehta"
+        "S. S. Rajamouli",
+        "Siddharth Anand",
+        "Martin Campbell"
       ],
       "correct_option_index": 0,
       "question_type": "practice",
@@ -28066,10 +28123,10 @@
       "air_date": null,
       "question_text": "Who directed the Indian film “Eega”?",
       "options": [
-        "Steven Spielberg",
+        "S. Shankar",
         "S. S. Rajamouli",
-        "Babbar Subhash",
-        "Karan Malhotra"
+        "Raj Kapoor",
+        "Dev Patel"
       ],
       "correct_option_index": 1,
       "question_type": "practice",
@@ -28100,10 +28157,10 @@
       "air_date": null,
       "question_text": "Who directed the Indian film “Dil Chahta Hai”?",
       "options": [
-        "Nikhil Advani",
-        "Rakesh Roshan",
+        "Dev Patel",
+        "Mira Nair",
         "Farhan Akhtar",
-        "Sanjay Gadhvi"
+        "Ashutosh Gowariker"
       ],
       "correct_option_index": 2,
       "question_type": "practice",
@@ -28134,9 +28191,9 @@
       "air_date": null,
       "question_text": "Who directed the Indian film “Ghajini”?",
       "options": [
-        "Kabir Khan",
-        "Peter Weir",
         "Mohit Suri",
+        "Vikas Bahl",
+        "Raj Kanwar",
         "A. R. Murugadoss"
       ],
       "correct_option_index": 3,
@@ -28168,9 +28225,9 @@
       "air_date": null,
       "question_text": "Who directed the Indian film “Underdogs”?",
       "options": [
-        "Rakeysh Omprakash Mehra",
-        "Rakesh Roshan",
-        "Sanjay Gadhvi",
+        "Rohit Shetty",
+        "Gauri Shinde",
+        "Ram Madhvani",
         "Juan J. Campanella"
       ],
       "correct_option_index": 3,
@@ -28203,9 +28260,9 @@
       "question_text": "Who directed the Indian film “Charulata”?",
       "options": [
         "Satyajit Ray",
-        "Madhur Bhandarkar",
-        "Ashutosh Gowariker",
-        "Juan J. Campanella"
+        "Peter Weir",
+        "Karan Malhotra",
+        "Rahul Dholakia"
       ],
       "correct_option_index": 0,
       "question_type": "practice",
@@ -28236,9 +28293,9 @@
       "air_date": null,
       "question_text": "Who directed the Indian film “The White Tiger”?",
       "options": [
-        "Lasse Hallström",
-        "Deepa Mehta",
-        "Zoya Akhtar",
+        "Ashutosh Gowariker",
+        "Juan J. Campanella",
+        "Sooraj R. Barjatya",
         "Ramin Bahrani"
       ],
       "correct_option_index": 3,
@@ -28271,7 +28328,7 @@
       "question_text": "Who directed the Indian film “Hum Aapke Hain Koun..!”?",
       "options": [
         "Sooraj R. Barjatya",
-        "Atlee",
+        "Mira Nair",
         "Ashutosh Gowariker",
         "Juan J. Campanella"
       ],
@@ -28304,10 +28361,10 @@
       "air_date": null,
       "question_text": "Who directed the Indian film “The Foreigner”?",
       "options": [
-        "S. Shankar",
-        "Kabir Khan",
+        "Ayan Mukerji",
+        "Deepa Mehta",
         "Martin Campbell",
-        "Peter Weir"
+        "Yash Chopra"
       ],
       "correct_option_index": 2,
       "question_type": "practice",
@@ -28339,9 +28396,9 @@
       "question_text": "Who directed the Indian film “Bandit Queen”?",
       "options": [
         "Shekhar Kapur",
-        "Tarun Mansukhani",
-        "Feroz Abbas Khan",
-        "Abhishek Chaubey"
+        "Rakesh Roshan",
+        "Babbar Subhash",
+        "Ritesh Batra"
       ],
       "correct_option_index": 0,
       "question_type": "practice",
@@ -28373,9 +28430,9 @@
       "question_text": "Who directed the Indian film “Hero”?",
       "options": [
         "Subhash Ghai",
-        "Kabir Khan",
-        "Peter Weir",
-        "Karan Malhotra"
+        "Ram Madhvani",
+        "Amol Palekar",
+        "Ayan Mukerji"
       ],
       "correct_option_index": 0,
       "question_type": "practice",
@@ -30854,10 +30911,10 @@
       "air_date": null,
       "question_text": "What is the capital of Manipur?",
       "options": [
-        "Itanagar",
+        "Aizawl",
         "Imphal",
-        "Shillong",
-        "Agartala"
+        "Kohima",
+        "Kolkata"
       ],
       "correct_option_index": 1,
       "question_type": "practice",
@@ -30888,9 +30945,9 @@
       "air_date": null,
       "question_text": "What is the capital of Meghalaya?",
       "options": [
-        "Chennai",
-        "Lucknow",
-        "Dispur",
+        "Agartala",
+        "Dehradun",
+        "Silvassa",
         "Shillong"
       ],
       "correct_option_index": 3,
@@ -30922,10 +30979,10 @@
       "air_date": null,
       "question_text": "What is the capital of West Bengal?",
       "options": [
-        "Agartala",
-        "Jaipur",
+        "Nagpur",
+        "Imphal",
         "Kolkata",
-        "Hyderabad"
+        "Shillong"
       ],
       "correct_option_index": 2,
       "question_type": "practice",
@@ -30956,10 +31013,10 @@
       "air_date": null,
       "question_text": "What is the capital of Tripura?",
       "options": [
-        "Thiruvananthapuram",
-        "Itanagar",
+        "Aizawl",
+        "Kohima",
         "Agartala",
-        "Shillong"
+        "Chandigarh"
       ],
       "correct_option_index": 2,
       "question_type": "practice",
@@ -30990,10 +31047,10 @@
       "air_date": null,
       "question_text": "What is the capital of Rajasthan?",
       "options": [
-        "Shimla",
-        "Ranchi",
+        "Gangtok",
+        "Shillong",
         "Jaipur",
-        "Bhopal"
+        "Agartala"
       ],
       "correct_option_index": 2,
       "question_type": "practice",
@@ -31024,10 +31081,10 @@
       "air_date": null,
       "question_text": "What is the capital of Tamil Nadu?",
       "options": [
-        "Gandhinagar",
+        "Kohima",
         "Chennai",
-        "Thiruvananthapuram",
-        "Kolkata"
+        "Silvassa",
+        "Kavaratti"
       ],
       "correct_option_index": 1,
       "question_type": "practice",
@@ -31058,9 +31115,9 @@
       "air_date": null,
       "question_text": "What is the capital of Uttar Pradesh?",
       "options": [
-        "Bhopal",
-        "Imphal",
-        "Shillong",
+        "Kavaratti",
+        "Chandigarh",
+        "Bhubaneswar",
         "Lucknow"
       ],
       "correct_option_index": 3,
@@ -31092,10 +31149,10 @@
       "air_date": null,
       "question_text": "What is the capital of Uttarakhand?",
       "options": [
+        "Srivijayapuram",
         "Shillong",
-        "Agartala",
         "Dehradun",
-        "Silvassa"
+        "Agartala"
       ],
       "correct_option_index": 2,
       "question_type": "practice",
@@ -31126,9 +31183,9 @@
       "air_date": null,
       "question_text": "What is the capital of Mizoram?",
       "options": [
-        "Amaravati",
-        "Kavaratti",
-        "Chandigarh",
+        "Kolkata",
+        "Chennai",
+        "Lucknow",
         "Aizawl"
       ],
       "correct_option_index": 3,
@@ -31161,9 +31218,9 @@
       "question_text": "What is the capital of Sikkim?",
       "options": [
         "Gangtok",
-        "Kavaratti",
-        "Chandigarh",
-        "Pondicherry"
+        "Chennai",
+        "Lucknow",
+        "Nagpur"
       ],
       "correct_option_index": 0,
       "question_type": "practice",
@@ -31194,9 +31251,9 @@
       "air_date": null,
       "question_text": "What is the capital of Nagaland?",
       "options": [
+        "Nagpur",
         "Imphal",
         "Jaipur",
-        "Aizawl",
         "Kohima"
       ],
       "correct_option_index": 3,
@@ -31228,9 +31285,9 @@
       "air_date": null,
       "question_text": "What is the capital of Odisha?",
       "options": [
-        "Kohima",
-        "Daman",
-        "Patna",
+        "Chandigarh",
+        "Kavaratti",
+        "Shillong",
         "Bhubaneswar"
       ],
       "correct_option_index": 3,
@@ -31262,10 +31319,10 @@
       "air_date": null,
       "question_text": "What is the capital of Punjab?",
       "options": [
-        "Panaji",
+        "Kolkata",
         "Chandigarh",
-        "Shimla",
-        "Ranchi"
+        "Chennai",
+        "Lucknow"
       ],
       "correct_option_index": 1,
       "question_type": "practice",
@@ -31296,9 +31353,9 @@
       "air_date": null,
       "question_text": "What is the capital of Lakshadweep?",
       "options": [
-        "Srivijayapuram",
-        "Thiruvananthapuram",
-        "Hyderabad",
+        "Jaipur",
+        "Aizawl",
+        "Kohima",
         "Kavaratti"
       ],
       "correct_option_index": 3,
@@ -31330,9 +31387,9 @@
       "air_date": null,
       "question_text": "What is the capital of Andaman and Nicobar Islands?",
       "options": [
-        "Shillong",
-        "Agartala",
-        "Dehradun",
+        "Imphal",
+        "Jaipur",
+        "Aizawl",
         "Srivijayapuram"
       ],
       "correct_option_index": 3,
@@ -31364,9 +31421,9 @@
       "air_date": null,
       "question_text": "What is the capital of Dadra and Nagar Haveli district?",
       "options": [
-        "Shimla",
-        "Ranchi",
-        "Bhopal",
+        "Nagpur",
+        "Imphal",
+        "Jaipur",
         "Silvassa"
       ],
       "correct_option_index": 3,
@@ -32214,10 +32271,10 @@
       "air_date": null,
       "question_text": "What is the capital of Albania?",
       "options": [
-        "Tallinn",
+        "Valletta",
         "Tirana",
-        "Sofia",
-        "Nicosia"
+        "Belmopan",
+        "Budapest"
       ],
       "correct_option_index": 1,
       "question_type": "practice",
@@ -32249,9 +32306,9 @@
       "question_text": "What is the capital of Greenland?",
       "options": [
         "Nuuk",
-        "Astana",
-        "Havana",
-        "Dublin"
+        "Stockholm",
+        "Bridgetown",
+        "Copenhagen"
       ],
       "correct_option_index": 0,
       "question_type": "practice",
@@ -32282,9 +32339,9 @@
       "air_date": null,
       "question_text": "What is the capital of Croatia?",
       "options": [
-        "Banjul",
-        "Bissau",
-        "Nairobi",
+        "Dublin",
+        "Madrid",
+        "Warsaw",
         "Zagreb"
       ],
       "correct_option_index": 3,
@@ -32316,10 +32373,10 @@
       "air_date": null,
       "question_text": "What is the capital of Bosnia and Herzegovina?",
       "options": [
-        "Bucharest",
-        "Nicosia",
+        "Tirana",
+        "Zagreb",
         "Sarajevo",
-        "Tbilisi"
+        "Astana"
       ],
       "correct_option_index": 2,
       "question_type": "practice",
@@ -32351,9 +32408,9 @@
       "question_text": "What is the capital of Azerbaijan?",
       "options": [
         "Baku",
+        "Nuuk",
         "Rome",
-        "Bern",
-        "Accra"
+        "Bern"
       ],
       "correct_option_index": 0,
       "question_type": "practice",
@@ -32384,9 +32441,9 @@
       "air_date": null,
       "question_text": "What is the capital of Andorra?",
       "options": [
-        "Bratislava",
-        "Bridgetown",
-        "Copenhagen",
+        "Tirana",
+        "Zagreb",
+        "Astana",
         "Andorra la Vella"
       ],
       "correct_option_index": 3,
@@ -32418,10 +32475,10 @@
       "air_date": null,
       "question_text": "What is the capital of Cyprus?",
       "options": [
-        "Washington, D.C.",
-        "Nairobi",
+        "Rome",
+        "Bern",
         "Nicosia",
-        "Beijing"
+        "Andorra la Vella"
       ],
       "correct_option_index": 2,
       "question_type": "practice",
@@ -32453,9 +32510,9 @@
       "question_text": "What is the capital of Georgia?",
       "options": [
         "Tbilisi",
-        "Brasília",
-        "Moscow",
-        "Ottawa"
+        "Vienna",
+        "Podgorica",
+        "Stockholm"
       ],
       "correct_option_index": 0,
       "question_type": "practice",
@@ -32486,10 +32543,10 @@
       "air_date": null,
       "question_text": "What is the capital of Kazakhstan?",
       "options": [
-        "Banjul",
-        "Bissau",
+        "Tirana",
+        "Zagreb",
         "Astana",
-        "Nairobi"
+        "Havana"
       ],
       "correct_option_index": 2,
       "question_type": "practice",
@@ -32520,9 +32577,9 @@
       "air_date": null,
       "question_text": "What is the capital of Malta?",
       "options": [
-        "London",
-        "Moscow",
-        "Ottawa",
+        "Warsaw",
+        "Vienna",
+        "Nuuk",
         "Valletta"
       ],
       "correct_option_index": 3,
@@ -32554,10 +32611,10 @@
       "air_date": null,
       "question_text": "What is the capital of Montenegro?",
       "options": [
-        "Reykjavík",
-        "Ljubljana",
+        "Budapest",
+        "Brussels",
         "Podgorica",
-        "Bucharest"
+        "Helsinki"
       ],
       "correct_option_index": 2,
       "question_type": "practice",
@@ -32589,9 +32646,9 @@
       "question_text": "What is the capital of Cuba?",
       "options": [
         "Havana",
-        "Stockholm",
-        "Bratislava",
-        "Bridgetown"
+        "Vienna",
+        "Nicosia",
+        "Tbilisi"
       ],
       "correct_option_index": 0,
       "question_type": "practice",
@@ -32622,9 +32679,9 @@
       "air_date": null,
       "question_text": "What is the capital of Belize?",
       "options": [
-        "Sarajevo",
-        "Valletta",
-        "Budapest",
+        "Stockholm",
+        "Vilnius",
+        "Tirana",
         "Belmopan"
       ],
       "correct_option_index": 3,
@@ -32656,10 +32713,10 @@
       "air_date": null,
       "question_text": "What is the capital of Barbados?",
       "options": [
-        "Warsaw",
+        "Sarajevo",
         "Bridgetown",
-        "Vienna",
-        "Athens"
+        "Valletta",
+        "Belmopan"
       ],
       "correct_option_index": 1,
       "question_type": "practice",
@@ -32691,9 +32748,9 @@
       "question_text": "What is the capital of Indonesia?",
       "options": [
         "Jakarta",
-        "Kyiv",
-        "Bratislava",
-        "Nuuk"
+        "Valletta",
+        "Havana",
+        "Belmopan"
       ],
       "correct_option_index": 0,
       "question_type": "practice",
@@ -32724,10 +32781,10 @@
       "air_date": null,
       "question_text": "What is the capital of Ireland?",
       "options": [
+        "Warsaw",
         "Vienna",
-        "Athens",
         "Dublin",
-        "Ankara"
+        "Nicosia"
       ],
       "correct_option_index": 2,
       "question_type": "practice",
@@ -32758,10 +32815,10 @@
       "air_date": null,
       "question_text": "What is the capital of Hungary?",
       "options": [
-        "Baku",
+        "Andorra la Vella",
         "Budapest",
-        "Rome",
-        "Bern"
+        "Washington, D.C.",
+        "Sarajevo"
       ],
       "correct_option_index": 1,
       "question_type": "practice",
@@ -32793,9 +32850,9 @@
       "question_text": "What is the capital of Spain?",
       "options": [
         "Madrid",
-        "Bratislava",
-        "Bridgetown",
-        "Copenhagen"
+        "Vienna",
+        "Nicosia",
+        "Tbilisi"
       ],
       "correct_option_index": 0,
       "question_type": "practice",
@@ -32826,10 +32883,10 @@
       "air_date": null,
       "question_text": "What is the capital of United States?",
       "options": [
-        "Conakry",
-        "London",
+        "Valletta",
+        "Belmopan",
         "Washington, D.C.",
-        "Moscow"
+        "Budapest"
       ],
       "correct_option_index": 2,
       "question_type": "practice",
@@ -32860,9 +32917,9 @@
       "air_date": null,
       "question_text": "What is the capital of Belgium?",
       "options": [
-        "Zagreb",
-        "Astana",
-        "Havana",
+        "Vienna",
+        "Nuuk",
+        "Baku",
         "Brussels"
       ],
       "correct_option_index": 3,
@@ -32894,10 +32951,10 @@
       "air_date": null,
       "question_text": "What is the capital of Finland?",
       "options": [
-        "Prague",
+        "Havana",
         "Helsinki",
-        "Bratislava",
-        "Skopje"
+        "Bridgetown",
+        "Dublin"
       ],
       "correct_option_index": 1,
       "question_type": "practice",
@@ -32928,10 +32985,10 @@
       "air_date": null,
       "question_text": "What is the capital of Sweden?",
       "options": [
-        "Vienna",
-        "Athens",
+        "Rome",
+        "Bern",
         "Stockholm",
-        "Ankara"
+        "Andorra la Vella"
       ],
       "correct_option_index": 2,
       "question_type": "practice",
@@ -32962,9 +33019,9 @@
       "air_date": null,
       "question_text": "What is the capital of Denmark?",
       "options": [
-        "Banjul",
-        "Bissau",
-        "Accra",
+        "Astana",
+        "Havana",
+        "Dublin",
         "Copenhagen"
       ],
       "correct_option_index": 3,
@@ -32997,9 +33054,9 @@
       "question_text": "What is the capital of Poland?",
       "options": [
         "Warsaw",
-        "Brasília",
-        "Oslo",
-        "Riga"
+        "Sarajevo",
+        "Baku",
+        "Valletta"
       ],
       "correct_option_index": 0,
       "question_type": "practice",
@@ -34255,9 +34312,9 @@
       "question_text": "Which currency is associated with Cuba?",
       "options": [
         "peso",
-        "Leu",
-        "denar",
-        "lek"
+        "krone",
+        "złoty",
+        "franc"
       ],
       "correct_option_index": 0,
       "question_type": "practice",
@@ -34288,9 +34345,9 @@
       "air_date": null,
       "question_text": "Which currency is associated with Belize?",
       "options": [
-        "peso",
-        "lira",
-        "bir",
+        "franc",
+        "pound",
+        "dinar",
         "dollar"
       ],
       "correct_option_index": 3,
@@ -34322,10 +34379,10 @@
       "air_date": null,
       "question_text": "Which currency is associated with Barbados?",
       "options": [
-        "bir",
+        "krona",
         "dollar",
-        "yen",
-        "Leu"
+        "krone",
+        "złoty"
       ],
       "correct_option_index": 1,
       "question_type": "practice",
@@ -34357,9 +34414,9 @@
       "question_text": "Which currency is associated with Indonesia?",
       "options": [
         "rupiah",
-        "shilling",
-        "cedi",
-        "renminbi"
+        "krone",
+        "złoty",
+        "franc"
       ],
       "correct_option_index": 0,
       "question_type": "practice",
@@ -34390,10 +34447,10 @@
       "air_date": null,
       "question_text": "Which currency is associated with Hungary?",
       "options": [
-        "Leu",
+        "dollar",
         "forint",
-        "lek",
-        "shekel"
+        "rupiah",
+        "dalasi"
       ],
       "correct_option_index": 1,
       "question_type": "practice",
@@ -34424,10 +34481,10 @@
       "air_date": null,
       "question_text": "Which currency is associated with United States?",
       "options": [
-        "forint",
-        "dalasi",
+        "pound",
+        "dinar",
         "dollar",
-        "escudo"
+        "ouguiya"
       ],
       "correct_option_index": 2,
       "question_type": "practice",
@@ -34458,10 +34515,10 @@
       "air_date": null,
       "question_text": "Which currency is associated with Sweden?",
       "options": [
-        "tenge",
-        "złoty",
+        "rupee",
+        "peso",
         "krona",
-        "pound"
+        "dollar"
       ],
       "correct_option_index": 2,
       "question_type": "practice",
@@ -34492,9 +34549,9 @@
       "air_date": null,
       "question_text": "Which currency is associated with Denmark?",
       "options": [
-        "ariary",
-        "kwacha",
-        "dirham",
+        "ouguiya",
+        "metical",
+        "shekel",
         "krone"
       ],
       "correct_option_index": 3,
@@ -34527,9 +34584,9 @@
       "question_text": "Which currency is associated with Poland?",
       "options": [
         "złoty",
+        "franc",
         "pound",
-        "dinar",
-        "rupee"
+        "dinar"
       ],
       "correct_option_index": 0,
       "question_type": "practice",
@@ -34560,9 +34617,9 @@
       "air_date": null,
       "question_text": "Which currency is associated with Switzerland?",
       "options": [
-        "yen",
-        "hryvnia",
-        "Leu",
+        "lira",
+        "dalasi",
+        "escudo",
         "franc"
       ],
       "correct_option_index": 3,
@@ -34595,9 +34652,9 @@
       "question_text": "Which currency is associated with Turkey?",
       "options": [
         "lira",
-        "naira",
-        "dobra",
-        "leone"
+        "krona",
+        "krone",
+        "złoty"
       ],
       "correct_option_index": 0,
       "question_type": "practice",
@@ -34628,10 +34685,10 @@
       "air_date": null,
       "question_text": "Which currency is associated with Uruguay?",
       "options": [
-        "dollar",
+        "ouguiya",
         "peso",
-        "koruna",
-        "rupiah"
+        "metical",
+        "shekel"
       ],
       "correct_option_index": 1,
       "question_type": "practice",
@@ -34662,9 +34719,9 @@
       "air_date": null,
       "question_text": "Which currency is associated with Egypt?",
       "options": [
-        "ouguiya",
-        "metical",
-        "shilling",
+        "krone",
+        "złoty",
+        "franc",
         "pound"
       ],
       "correct_option_index": 3,
@@ -34696,10 +34753,10 @@
       "air_date": null,
       "question_text": "Which currency is associated with Mexico?",
       "options": [
-        "metical",
-        "shilling",
+        "dollar",
+        "rupiah",
         "peso",
-        "renminbi"
+        "forint"
       ],
       "correct_option_index": 2,
       "question_type": "practice",
@@ -34730,10 +34787,10 @@
       "air_date": null,
       "question_text": "Which currency is associated with Palestine?",
       "options": [
-        "franc",
+        "metical",
         "shekel",
-        "ruble",
-        "króna"
+        "dollar",
+        "rupiah"
       ],
       "correct_option_index": 1,
       "question_type": "practice",
@@ -34765,9 +34822,9 @@
       "question_text": "Which currency is associated with Gabon?",
       "options": [
         "franc",
-        "escudo",
-        "ariary",
-        "kwacha"
+        "ouguiya",
+        "metical",
+        "shekel"
       ],
       "correct_option_index": 0,
       "question_type": "practice",
@@ -34798,10 +34855,10 @@
       "air_date": null,
       "question_text": "Which currency is associated with The Gambia?",
       "options": [
-        "convertible mark",
+        "rupee",
         "dalasi",
-        "dollar",
-        "koruna"
+        "metical",
+        "peso"
       ],
       "correct_option_index": 1,
       "question_type": "practice",
@@ -34832,8 +34889,8 @@
       "air_date": null,
       "question_text": "Which currency is associated with Guinea?",
       "options": [
-        "lari",
         "peso",
+        "dollar",
         "franc",
         "rupiah"
       ],
@@ -34866,9 +34923,9 @@
       "air_date": null,
       "question_text": "Which currency is associated with Guinea-Bissau?",
       "options": [
+        "metical",
         "shekel",
-        "pound sterling",
-        "convertible mark",
+        "krona",
         "franc"
       ],
       "correct_option_index": 3,
@@ -34901,9 +34958,9 @@
       "question_text": "Which currency is associated with Ivory Coast?",
       "options": [
         "franc",
-        "lek",
-        "ouguiya",
-        "metical"
+        "dinar",
+        "rupee",
+        "peso"
       ],
       "correct_option_index": 0,
       "question_type": "practice",
@@ -34934,10 +34991,10 @@
       "air_date": null,
       "question_text": "Which currency is associated with Cameroon?",
       "options": [
-        "naira",
+        "dirham",
         "franc",
-        "dobra",
-        "leone"
+        "ouguiya",
+        "metical"
       ],
       "correct_option_index": 1,
       "question_type": "practice",
@@ -34968,10 +35025,10 @@
       "air_date": null,
       "question_text": "Which currency is associated with Cape Verde?",
       "options": [
-        "manat",
-        "tenge",
+        "pound",
+        "dinar",
         "escudo",
-        "krona"
+        "ouguiya"
       ],
       "correct_option_index": 2,
       "question_type": "practice",
@@ -35002,9 +35059,9 @@
       "air_date": null,
       "question_text": "Which currency is associated with Liberia?",
       "options": [
-        "real",
-        "lari",
-        "peso",
+        "złoty",
+        "franc",
+        "pound",
         "dollar"
       ],
       "correct_option_index": 3,
@@ -35036,10 +35093,10 @@
       "air_date": null,
       "question_text": "Which currency is associated with Libya?",
       "options": [
-        "Leu",
+        "peso",
         "dinar",
-        "lek",
-        "ouguiya"
+        "dollar",
+        "rupiah"
       ],
       "correct_option_index": 1,
       "question_type": "practice",
@@ -42347,9 +42404,9 @@
       "question_text": "What is the chemical symbol for tantalum?",
       "options": [
         "Ta",
-        "H",
-        "Zr",
-        "Nb"
+        "Mt",
+        "Ds",
+        "Rg"
       ],
       "correct_option_index": 0,
       "question_type": "practice",
@@ -42380,9 +42437,9 @@
       "air_date": null,
       "question_text": "What is the chemical symbol for radium?",
       "options": [
-        "Zr",
-        "Nb",
-        "Mo",
+        "Ho",
+        "Er",
+        "Tm",
         "Ra"
       ],
       "correct_option_index": 3,
@@ -42414,9 +42471,9 @@
       "air_date": null,
       "question_text": "What is the chemical symbol for radon?",
       "options": [
-        "Xe",
-        "Cs",
-        "Pa",
+        "Nh",
+        "Fl",
+        "Mc",
         "Rn"
       ],
       "correct_option_index": 3,
@@ -42448,10 +42505,10 @@
       "air_date": null,
       "question_text": "What is the chemical symbol for rutherfordium?",
       "options": [
-        "Cm",
-        "Bk",
+        "Og",
+        "Ce",
         "Rf",
-        "Cf"
+        "Pr"
       ],
       "correct_option_index": 2,
       "question_type": "practice",
@@ -42482,10 +42539,10 @@
       "air_date": null,
       "question_text": "What is the chemical symbol for dubnium?",
       "options": [
-        "Mo",
+        "Mc",
         "Db",
-        "Tc",
-        "Ru"
+        "Lv",
+        "Ts"
       ],
       "correct_option_index": 1,
       "question_type": "practice",
@@ -42516,9 +42573,9 @@
       "air_date": null,
       "question_text": "What is the chemical symbol for seaborgium?",
       "options": [
-        "Rf",
-        "Db",
-        "Bh",
+        "Og",
+        "Ce",
+        "Pr",
         "Sg"
       ],
       "correct_option_index": 3,
@@ -42550,9 +42607,9 @@
       "air_date": null,
       "question_text": "What is the chemical symbol for bohrium?",
       "options": [
-        "Cf",
-        "Es",
-        "Fm",
+        "Dy",
+        "Ho",
+        "Er",
         "Bh"
       ],
       "correct_option_index": 3,
@@ -42618,10 +42675,10 @@
       "air_date": null,
       "question_text": "What is the chemical symbol for meitnerium?",
       "options": [
-        "Th",
+        "Ds",
         "Mt",
-        "Hf",
-        "Ac"
+        "Rg",
+        "Cn"
       ],
       "correct_option_index": 1,
       "question_type": "practice",
@@ -42652,10 +42709,10 @@
       "air_date": null,
       "question_text": "What is the chemical symbol for darmstadtium?",
       "options": [
-        "Th",
-        "Hf",
+        "Cn",
+        "Nh",
         "Ds",
-        "Ac"
+        "Fl"
       ],
       "correct_option_index": 2,
       "question_type": "practice",
@@ -42686,10 +42743,10 @@
       "air_date": null,
       "question_text": "What is the chemical symbol for roentgenium?",
       "options": [
-        "Np",
+        "Ce",
         "Rg",
-        "Xe",
-        "Cs"
+        "Pr",
+        "Nd"
       ],
       "correct_option_index": 1,
       "question_type": "practice",
@@ -42720,9 +42777,9 @@
       "air_date": null,
       "question_text": "What is the chemical symbol for copernicium?",
       "options": [
-        "Es",
-        "Fm",
-        "Md",
+        "Lv",
+        "Ts",
+        "Og",
         "Cn"
       ],
       "correct_option_index": 3,
@@ -42754,10 +42811,10 @@
       "air_date": null,
       "question_text": "What is the chemical symbol for nihonium?",
       "options": [
-        "Sm",
-        "Gd",
+        "Yb",
+        "Ta",
         "Nh",
-        "Tb"
+        "Ra"
       ],
       "correct_option_index": 2,
       "question_type": "practice",
@@ -42788,10 +42845,10 @@
       "air_date": null,
       "question_text": "What is the chemical symbol for flerovium?",
       "options": [
-        "Zr",
+        "Mc",
         "Fl",
-        "Nb",
-        "Mo"
+        "Lv",
+        "Ts"
       ],
       "correct_option_index": 1,
       "question_type": "practice",
@@ -42823,9 +42880,9 @@
       "question_text": "What is the chemical symbol for moscovium?",
       "options": [
         "Mc",
-        "Xe",
-        "Cs",
-        "Pa"
+        "Tm",
+        "Yb",
+        "Ta"
       ],
       "correct_option_index": 0,
       "question_type": "practice",
@@ -42856,9 +42913,9 @@
       "air_date": null,
       "question_text": "What is the chemical symbol for livermorium?",
       "options": [
-        "Ts",
-        "Og",
-        "Ce",
+        "Nh",
+        "Fl",
+        "Mc",
         "Lv"
       ],
       "correct_option_index": 3,
@@ -42890,10 +42947,10 @@
       "air_date": null,
       "question_text": "What is the chemical symbol for tennessine?",
       "options": [
-        "Ag",
+        "Cn",
         "Ts",
-        "Cd",
-        "In"
+        "Nh",
+        "Fl"
       ],
       "correct_option_index": 1,
       "question_type": "practice",
@@ -42925,9 +42982,9 @@
       "question_text": "What is the chemical symbol for oganesson?",
       "options": [
         "Og",
-        "Ta",
-        "Ra",
-        "Rn"
+        "Ho",
+        "Er",
+        "Tm"
       ],
       "correct_option_index": 0,
       "question_type": "practice",
@@ -42958,10 +43015,10 @@
       "air_date": null,
       "question_text": "What is the chemical symbol for cerium?",
       "options": [
-        "Lu",
-        "Am",
+        "Eu",
+        "La",
         "Ce",
-        "Cm"
+        "Pm"
       ],
       "correct_option_index": 2,
       "question_type": "practice",
@@ -42992,10 +43049,10 @@
       "air_date": null,
       "question_text": "What is the chemical symbol for praseodymium?",
       "options": [
-        "Cd",
+        "Rf",
         "Pr",
-        "In",
-        "Sn"
+        "Db",
+        "Sg"
       ],
       "correct_option_index": 1,
       "question_type": "practice",
@@ -43026,9 +43083,9 @@
       "air_date": null,
       "question_text": "What is the chemical symbol for neodymium?",
       "options": [
-        "Pa",
-        "Ba",
-        "Th",
+        "Rg",
+        "Cn",
+        "Nh",
         "Nd"
       ],
       "correct_option_index": 3,
@@ -43060,10 +43117,10 @@
       "air_date": null,
       "question_text": "What is the chemical symbol for europium?",
       "options": [
-        "Ce",
-        "Pr",
+        "Nh",
+        "Fl",
         "Eu",
-        "Nd"
+        "Mc"
       ],
       "correct_option_index": 2,
       "question_type": "practice",
@@ -43094,10 +43151,10 @@
       "air_date": null,
       "question_text": "What is the chemical symbol for lanthanum?",
       "options": [
-        "Te",
+        "Eu",
         "La",
-        "Pu",
-        "Np"
+        "Pm",
+        "Sm"
       ],
       "correct_option_index": 1,
       "question_type": "practice",
@@ -43128,10 +43185,10 @@
       "air_date": null,
       "question_text": "What is the chemical symbol for promethium?",
       "options": [
-        "Db",
+        "Og",
         "Pm",
-        "Sg",
-        "Bh"
+        "Ce",
+        "Pr"
       ],
       "correct_option_index": 1,
       "question_type": "practice",
@@ -46018,9 +46075,9 @@
       "air_date": null,
       "question_text": "Which of these people was awarded the Param Vir Chakra?",
       "options": [
-        "Shraddha Kapoor",
         "A. C. Bhaktivedanta Swami Prabhupada",
         "Sridevi",
+        "Ramana Maharshi",
         "Dhan Singh Thapa"
       ],
       "correct_option_index": 3,
@@ -46121,9 +46178,9 @@
       "question_text": "Which of these people was awarded the Param Vir Chakra?",
       "options": [
         "Bana Singh",
-        "Amir Khusrau",
         "Raj Kapoor",
-        "Abhishek Bachchan"
+        "Abhishek Bachchan",
+        "Madhuri Dixit"
       ],
       "correct_option_index": 0,
       "question_type": "practice",
@@ -46188,9 +46245,9 @@
       "air_date": null,
       "question_text": "Which of these people was awarded the Param Vir Chakra?",
       "options": [
-        "Shraddha Kapoor",
         "A. C. Bhaktivedanta Swami Prabhupada",
         "Sridevi",
+        "Ramana Maharshi",
         "Rama Raghoba Rane"
       ],
       "correct_option_index": 3,
@@ -46494,10 +46551,10 @@
       "air_date": null,
       "question_text": "Which of these people was awarded the Param Vir Chakra?",
       "options": [
-        "Kailash Satyarthi",
         "Kajol",
+        "Amir Khusrau",
         "Arun Khetarpal",
-        "Amir Khusrau"
+        "Raj Kapoor"
       ],
       "correct_option_index": 2,
       "question_type": "practice",
@@ -46562,10 +46619,10 @@
       "air_date": null,
       "question_text": "Which of these people was awarded the Param Vir Chakra?",
       "options": [
-        "Kailash Satyarthi",
         "Kajol",
+        "Amir Khusrau",
         "Hoshiar Singh",
-        "Amir Khusrau"
+        "Raj Kapoor"
       ],
       "correct_option_index": 2,
       "question_type": "practice",
@@ -46596,9 +46653,9 @@
       "air_date": null,
       "question_text": "Which of these people was awarded the Param Vir Chakra?",
       "options": [
-        "Shraddha Kapoor",
         "A. C. Bhaktivedanta Swami Prabhupada",
         "Sridevi",
+        "Ramana Maharshi",
         "Joginder Singh"
       ],
       "correct_option_index": 3,
@@ -46665,9 +46722,9 @@
       "question_text": "Which of these people was awarded the Param Vir Chakra?",
       "options": [
         "Nirmal Jit Singh Sekhon",
-        "Har Gobind Khorana",
         "Shraddha Kapoor",
-        "A. C. Bhaktivedanta Swami Prabhupada"
+        "A. C. Bhaktivedanta Swami Prabhupada",
+        "Sridevi"
       ],
       "correct_option_index": 0,
       "question_type": "practice",
@@ -47548,10 +47605,10 @@
       "air_date": null,
       "question_text": "Which of these figures has received the Dadasaheb Phalke Award?",
       "options": [
-        "Sridevi",
         "Ramana Maharshi",
+        "Jackie Shroff",
         "Ruby Myers",
-        "Jackie Shroff"
+        "Freida Pinto"
       ],
       "correct_option_index": 2,
       "question_type": "practice",
@@ -47652,8 +47709,8 @@
       "options": [
         "Gulzar",
         "Rajnath Singh",
-        "Sachin Tendulkar",
-        "Ram Nath Kovind"
+        "Ram Nath Kovind",
+        "Rajendra Prasad"
       ],
       "correct_option_index": 0,
       "question_type": "practice",
@@ -47684,9 +47741,9 @@
       "air_date": null,
       "question_text": "Which of these figures has received the Dadasaheb Phalke Award?",
       "options": [
-        "Ram Narayan",
         "Kailash Satyarthi",
         "Kajol",
+        "Amir Khusrau",
         "Bhalji Pendharkar"
       ],
       "correct_option_index": 3,
@@ -47718,10 +47775,10 @@
       "air_date": null,
       "question_text": "Which of these figures has received the Dadasaheb Phalke Award?",
       "options": [
-        "Lal Bahadur Shastri",
-        "Bommireddy Narasimha Reddy",
         "Hrithik Roshan",
-        "Kalpana Chawla"
+        "Bommireddy Narasimha Reddy",
+        "Kalpana Chawla",
+        "Anushka Sharma"
       ],
       "correct_option_index": 1,
       "question_type": "practice",
@@ -47752,9 +47809,9 @@
       "air_date": null,
       "question_text": "Which of these figures has received the Dadasaheb Phalke Award?",
       "options": [
-        "Kalpana Chawla",
         "Anushka Sharma",
         "Hema Malini",
+        "Jhumpa Lahiri",
         "D. Ramanaidu"
       ],
       "correct_option_index": 3,
@@ -47786,10 +47843,10 @@
       "air_date": null,
       "question_text": "Which of these figures has received the Dadasaheb Phalke Award?",
       "options": [
-        "Kajol",
-        "Dinkar D. Patil",
         "Amir Khusrau",
-        "Abhishek Bachchan"
+        "Dinkar D. Patil",
+        "Abhishek Bachchan",
+        "Madhuri Dixit"
       ],
       "correct_option_index": 1,
       "question_type": "practice",
@@ -47820,9 +47877,9 @@
       "air_date": null,
       "question_text": "Which of these figures has received the Dadasaheb Phalke Award?",
       "options": [
-        "Mukesh Ambani",
         "Paramahansa Yogananda",
         "Ram Narayan",
+        "Kailash Satyarthi",
         "Prithviraj Kapoor"
       ],
       "correct_option_index": 3,
@@ -47854,10 +47911,10 @@
       "air_date": null,
       "question_text": "Which of these figures has received the Dadasaheb Phalke Award?",
       "options": [
-        "Ramana Maharshi",
-        "Kasinathuni Viswanath",
         "Jackie Shroff",
-        "Freida Pinto"
+        "Kasinathuni Viswanath",
+        "Freida Pinto",
+        "Vandana Shiva"
       ],
       "correct_option_index": 1,
       "question_type": "practice",
@@ -47889,9 +47946,9 @@
       "question_text": "Which of these figures has received the Dadasaheb Phalke Award?",
       "options": [
         "Adnan Safee",
-        "Amir Khusrau",
         "Abhishek Bachchan",
-        "Madhuri Dixit"
+        "Madhuri Dixit",
+        "Har Gobind Khorana"
       ],
       "correct_option_index": 0,
       "question_type": "practice",
@@ -47956,9 +48013,9 @@
       "air_date": null,
       "question_text": "Which of these figures has received the Dadasaheb Phalke Award?",
       "options": [
-        "Rajendra Prasad",
         "Satyendra Nath Bose",
         "Sardar Vallabhbhai Patel",
+        "Akshay Kumar",
         "Naushad"
       ],
       "correct_option_index": 3,
@@ -48024,10 +48081,10 @@
       "air_date": null,
       "question_text": "Which of these figures has received the Dadasaheb Phalke Award?",
       "options": [
-        "Paramahansa Yogananda",
         "Ram Narayan",
+        "Kailash Satyarthi",
         "Raichand Boral",
-        "Kailash Satyarthi"
+        "Kajol"
       ],
       "correct_option_index": 2,
       "question_type": "practice",
@@ -48162,8 +48219,8 @@
       "options": [
         "Bhupen Hazarika",
         "Rajnath Singh",
-        "Sachin Tendulkar",
-        "Ram Nath Kovind"
+        "Ram Nath Kovind",
+        "Rajendra Prasad"
       ],
       "correct_option_index": 0,
       "question_type": "practice",
@@ -48296,9 +48353,9 @@
       "air_date": null,
       "question_text": "Which of these figures has received the Dadasaheb Phalke Award?",
       "options": [
-        "Kajol",
         "Amir Khusrau",
         "Abhishek Bachchan",
+        "Madhuri Dixit",
         "Dr. Rajkumar"
       ],
       "correct_option_index": 3,
@@ -48636,10 +48693,10 @@
       "air_date": null,
       "question_text": "Which of these people has served as Prime Minister of India?",
       "options": [
-        "Ram Narayan",
-        "Morarji Desai",
         "Kailash Satyarthi",
-        "Kajol"
+        "Morarji Desai",
+        "Kajol",
+        "Amir Khusrau"
       ],
       "correct_option_index": 1,
       "question_type": "practice",
@@ -48705,9 +48762,9 @@
       "question_text": "Which of these people has served as Prime Minister of India?",
       "options": [
         "Lal Bahadur Shastri",
-        "Ramana Maharshi",
         "Jackie Shroff",
-        "Freida Pinto"
+        "Freida Pinto",
+        "Vandana Shiva"
       ],
       "correct_option_index": 0,
       "question_type": "practice",
@@ -48773,9 +48830,9 @@
       "question_text": "Which of these people has served as Prime Minister of India?",
       "options": [
         "P. V. Narasimha Rao",
-        "Har Gobind Khorana",
         "Shraddha Kapoor",
-        "A. C. Bhaktivedanta Swami Prabhupada"
+        "A. C. Bhaktivedanta Swami Prabhupada",
+        "Sridevi"
       ],
       "correct_option_index": 0,
       "question_type": "practice",
@@ -48841,9 +48898,9 @@
       "question_text": "Which of these people has served as Prime Minister of India?",
       "options": [
         "Gulzarilal Nanda",
-        "Hrithik Roshan",
         "Kalpana Chawla",
-        "Anushka Sharma"
+        "Anushka Sharma",
+        "Hema Malini"
       ],
       "correct_option_index": 0,
       "question_type": "practice",
@@ -48875,9 +48932,9 @@
       "question_text": "Which of these people has served as Prime Minister of India?",
       "options": [
         "Charan Singh",
-        "Har Gobind Khorana",
         "Shraddha Kapoor",
-        "A. C. Bhaktivedanta Swami Prabhupada"
+        "A. C. Bhaktivedanta Swami Prabhupada",
+        "Sridevi"
       ],
       "correct_option_index": 0,
       "question_type": "practice",
@@ -48908,9 +48965,9 @@
       "air_date": null,
       "question_text": "Which of these people has served as Prime Minister of India?",
       "options": [
-        "Kajol",
         "Amir Khusrau",
         "Raj Kapoor",
+        "Abhishek Bachchan",
         "Chandra Shekhar"
       ],
       "correct_option_index": 3,
@@ -48978,7 +49035,7 @@
       "options": [
         "Preity Zinta",
         "Rajnath Singh",
-        "Sachin Tendulkar",
+        "Ram Nath Kovind",
         "Jawaharlal Nehru"
       ],
       "correct_option_index": 3,
@@ -49045,9 +49102,9 @@
       "question_text": "Which of these people has served as Prime Minister of India?",
       "options": [
         "Manmohan Singh",
-        "Freida Pinto",
         "Vandana Shiva",
-        "Hrithik Roshan"
+        "Hrithik Roshan",
+        "Kalpana Chawla"
       ],
       "correct_option_index": 0,
       "question_type": "practice",
@@ -49079,9 +49136,9 @@
       "question_text": "Which of these people has served as Prime Minister of India?",
       "options": [
         "Rajiv Gandhi",
-        "Hrithik Roshan",
         "Kalpana Chawla",
-        "Anushka Sharma"
+        "Anushka Sharma",
+        "Hema Malini"
       ],
       "correct_option_index": 0,
       "question_type": "practice",
@@ -49112,10 +49169,10 @@
       "air_date": null,
       "question_text": "Which of these people has served as President of India?",
       "options": [
-        "Kajol",
         "Amir Khusrau",
+        "Raj Kapoor",
         "Zakir Husain",
-        "Raj Kapoor"
+        "Abhishek Bachchan"
       ],
       "correct_option_index": 2,
       "question_type": "practice",
@@ -49214,10 +49271,10 @@
       "air_date": null,
       "question_text": "Which of these people has served as President of India?",
       "options": [
-        "Vandana Shiva",
         "Lal Bahadur Shastri",
+        "Hrithik Roshan",
         "Rajendra Prasad",
-        "Hrithik Roshan"
+        "Kalpana Chawla"
       ],
       "correct_option_index": 2,
       "question_type": "practice",
@@ -49248,10 +49305,10 @@
       "air_date": null,
       "question_text": "Which of these people has served as President of India?",
       "options": [
-        "Madhuri Dixit",
         "Har Gobind Khorana",
+        "Shraddha Kapoor",
         "Droupadi Murmu",
-        "Shraddha Kapoor"
+        "A. C. Bhaktivedanta Swami Prabhupada"
       ],
       "correct_option_index": 2,
       "question_type": "practice",
@@ -49452,9 +49509,9 @@
       "air_date": null,
       "question_text": "Which of these people has served as President of India?",
       "options": [
-        "A. C. Bhaktivedanta Swami Prabhupada",
         "Sridevi",
         "Ramana Maharshi",
+        "Jackie Shroff",
         "Zail Singh"
       ],
       "correct_option_index": 3,
@@ -49520,9 +49577,9 @@
       "air_date": null,
       "question_text": "Which of these people has served as President of India?",
       "options": [
-        "Freida Pinto",
         "Vandana Shiva",
         "Lal Bahadur Shastri",
+        "Hrithik Roshan",
         "Basappa Danappa Jatti"
       ],
       "correct_option_index": 3,
@@ -49555,7 +49612,7 @@
       "question_text": "Which of these people has served as President of India?",
       "options": [
         "Mohammad Hidayatullah",
-        "Jhumpa Lahiri",
+        "Sathya Sai Baba",
         "Mahatma Gandhi",
         "Mother Teresa"
       ],
@@ -49622,10 +49679,10 @@
       "air_date": null,
       "question_text": "Which of these people has served as President of India?",
       "options": [
-        "Har Gobind Khorana",
-        "Pranab Mukherjee",
         "Shraddha Kapoor",
-        "A. C. Bhaktivedanta Swami Prabhupada"
+        "Pranab Mukherjee",
+        "A. C. Bhaktivedanta Swami Prabhupada",
+        "Sridevi"
       ],
       "correct_option_index": 1,
       "question_type": "practice",
@@ -50540,10 +50597,10 @@
       "air_date": null,
       "question_text": "Which of these people has served as Chief Justice of India?",
       "options": [
-        "Raj Kapoor",
         "Abhishek Bachchan",
+        "Madhuri Dixit",
         "Bhuvaneshwar Prasad Sinha",
-        "Madhuri Dixit"
+        "Har Gobind Khorana"
       ],
       "correct_option_index": 2,
       "question_type": "practice",
@@ -50608,10 +50665,10 @@
       "air_date": null,
       "question_text": "Which of these people has served as Chief Justice of India?",
       "options": [
-        "Sardar Vallabhbhai Patel",
         "Akshay Kumar",
+        "Mukesh Ambani",
         "Dhananjaya Yeshwant Chandrachud",
-        "Mukesh Ambani"
+        "Paramahansa Yogananda"
       ],
       "correct_option_index": 2,
       "question_type": "practice",
@@ -50744,7 +50801,7 @@
       "air_date": null,
       "question_text": "Which of these people has served as Chief Justice of India?",
       "options": [
-        "Freida Pinto",
+        "Vandana Shiva",
         "Mahatma Gandhi",
         "Mother Teresa",
         "H. L. Dattu"
@@ -50812,10 +50869,10 @@
       "air_date": null,
       "question_text": "Which of these people has served as Chief Justice of India?",
       "options": [
-        "Akshay Kumar",
-        "Surya Kant",
         "Mukesh Ambani",
-        "Paramahansa Yogananda"
+        "Surya Kant",
+        "Paramahansa Yogananda",
+        "Ram Narayan"
       ],
       "correct_option_index": 1,
       "question_type": "practice",
@@ -50948,10 +51005,10 @@
       "air_date": null,
       "question_text": "Which of these people has served as Chief Justice of India?",
       "options": [
-        "Ramana Maharshi",
-        "Koka Subba Rao",
         "Jackie Shroff",
-        "Freida Pinto"
+        "Koka Subba Rao",
+        "Freida Pinto",
+        "Vandana Shiva"
       ],
       "correct_option_index": 1,
       "question_type": "practice",
@@ -51186,10 +51243,10 @@
       "air_date": null,
       "question_text": "Which of these people has served as Chief Justice of India?",
       "options": [
-        "Har Gobind Khorana",
-        "Ramesh Chandra Lahoti",
         "Shraddha Kapoor",
-        "A. C. Bhaktivedanta Swami Prabhupada"
+        "Ramesh Chandra Lahoti",
+        "A. C. Bhaktivedanta Swami Prabhupada",
+        "Sridevi"
       ],
       "correct_option_index": 1,
       "question_type": "practice",
@@ -51288,7 +51345,7 @@
       "air_date": null,
       "question_text": "Which of these people has served as Chief Justice of India?",
       "options": [
-        "Freida Pinto",
+        "Vandana Shiva",
         "Mahatma Gandhi",
         "Mother Teresa",
         "Sabyasachi Mukharji"
@@ -53023,9 +53080,9 @@
       "question_text": "Which of these characters appears in the Mahabharata?",
       "options": [
         "Ashtabharya",
-        "Guha",
-        "Bharadwaja",
-        "Jaṭāyu"
+        "Prahasta",
+        "Atikaya",
+        "Akshayakumara"
       ],
       "correct_option_index": 0,
       "question_type": "practice",
@@ -53056,9 +53113,9 @@
       "air_date": null,
       "question_text": "Which of these characters appears in the Mahabharata?",
       "options": [
-        "Menakā",
-        "Sampāti",
-        "Mārīca",
+        "Jāmbavān",
+        "Nikumbha",
+        "Māṇḍakarṇi",
         "Lakshmana"
       ],
       "correct_option_index": 3,
@@ -53091,9 +53148,9 @@
       "question_text": "Which of these characters appears in the Mahabharata?",
       "options": [
         "Manasā",
-        "Manibhadra",
-        "Rama",
-        "Jāmbavān"
+        "Guha",
+        "Bharadwaja",
+        "Jaṭāyu"
       ],
       "correct_option_index": 0,
       "question_type": "practice",
@@ -53124,10 +53181,10 @@
       "air_date": null,
       "question_text": "Which of these characters appears in the Mahabharata?",
       "options": [
-        "Rama",
+        "Janaka",
         "Brihadratha",
-        "Jāmbavān",
-        "Nikumbha"
+        "Manibhadra",
+        "Rama"
       ],
       "correct_option_index": 1,
       "question_type": "practice",
@@ -53158,10 +53215,10 @@
       "air_date": null,
       "question_text": "Which of these characters appears in the Mahabharata?",
       "options": [
-        "Dushan",
+        "Hanuman",
         "Sudeshna",
-        "Subahu",
-        "Prahasta"
+        "Garuda",
+        "Sita"
       ],
       "correct_option_index": 1,
       "question_type": "practice",
@@ -53192,10 +53249,10 @@
       "air_date": null,
       "question_text": "Which of these characters appears in the Mahabharata?",
       "options": [
-        "Trijata",
-        "Makardhwaja",
+        "Jāmbavān",
+        "Nikumbha",
         "Uttamaujas",
-        "Viśvāmitra"
+        "Māṇḍakarṇi"
       ],
       "correct_option_index": 2,
       "question_type": "practice",
@@ -53226,9 +53283,9 @@
       "air_date": null,
       "question_text": "Which of these characters appears in the Mahabharata?",
       "options": [
-        "Jaṭāyu",
-        "Maya Sita",
-        "Dilīpa",
+        "Sukesa",
+        "Devavati",
+        "Akampana",
         "Kali"
       ],
       "correct_option_index": 3,
@@ -53260,10 +53317,10 @@
       "air_date": null,
       "question_text": "Which of these characters appears in the Mahabharata?",
       "options": [
-        "Maya Sita",
-        "Dilīpa",
+        "Mantharā",
+        "Menakā",
         "Svecchamrityu",
-        "Mandodarī"
+        "Sampāti"
       ],
       "correct_option_index": 2,
       "question_type": "practice",
@@ -53294,10 +53351,10 @@
       "air_date": null,
       "question_text": "Which of these characters appears in the Mahabharata?",
       "options": [
-        "Sunda",
+        "Kusha",
         "akrodha",
-        "Krishashva",
-        "Jaya"
+        "Trijata",
+        "Makardhwaja"
       ],
       "correct_option_index": 1,
       "question_type": "practice",
@@ -53329,9 +53386,9 @@
       "question_text": "Which of these characters appears in the Mahabharata?",
       "options": [
         "Kaurava",
-        "Sarama",
-        "Hanuman",
-        "Garuda"
+        "Jaṭāyu",
+        "Maya Sita",
+        "Dilīpa"
       ],
       "correct_option_index": 0,
       "question_type": "practice",
@@ -53362,10 +53419,10 @@
       "air_date": null,
       "question_text": "Which of these characters appears in the Mahabharata?",
       "options": [
-        "Guha",
+        "Akshayakumara",
         "Ila",
-        "Bharadwaja",
-        "Jaṭāyu"
+        "Kalanemi",
+        "Kusha"
       ],
       "correct_option_index": 1,
       "question_type": "practice",
@@ -53396,10 +53453,10 @@
       "air_date": null,
       "question_text": "Which of these characters appears in the Mahabharata?",
       "options": [
-        "Mali",
+        "Rama",
         "Bambang Sumitra",
-        "Daksha",
-        "Lava and Kuśa"
+        "Jāmbavān",
+        "Nikumbha"
       ],
       "correct_option_index": 1,
       "question_type": "practice",
@@ -53430,10 +53487,10 @@
       "air_date": null,
       "question_text": "Which of these characters appears in the Mahabharata?",
       "options": [
-        "Jaṭāyu",
+        "Viśvāmitra",
         "Kamatha",
-        "Maya Sita",
-        "Dilīpa"
+        "Khara",
+        "Sukesa"
       ],
       "correct_option_index": 1,
       "question_type": "practice",
@@ -56932,9 +56989,9 @@
       "air_date": null,
       "question_text": "In which Indian state or union territory is “St Thomas Fort” located?",
       "options": [
+        "Odisha",
+        "Karnataka",
         "Tamil Nadu",
-        "Uttarakhand",
-        "West Bengal",
         "Kerala"
       ],
       "correct_option_index": 3,
@@ -56967,9 +57024,9 @@
       "question_text": "In which Indian state or union territory is “Kudremukh National Park” located?",
       "options": [
         "Karnataka",
+        "Tamil Nadu",
         "Kerala",
-        "Uttar Pradesh",
-        "Assam"
+        "Odisha"
       ],
       "correct_option_index": 0,
       "question_type": "practice",
@@ -57000,10 +57057,10 @@
       "air_date": null,
       "question_text": "In which Indian state or union territory is “Chinnar Wildlife Sanctuary” located?",
       "options": [
-        "Maharashtra",
-        "Uttar Pradesh",
+        "Odisha",
+        "Karnataka",
         "Kerala",
-        "Himachal Pradesh"
+        "Tamil Nadu"
       ],
       "correct_option_index": 2,
       "question_type": "practice",
@@ -57034,9 +57091,9 @@
       "air_date": null,
       "question_text": "In which Indian state or union territory is “Palakkad Fort” located?",
       "options": [
-        "Assam",
-        "Manipur",
-        "Bihar",
+        "Karnataka",
+        "Tamil Nadu",
+        "Odisha",
         "Kerala"
       ],
       "correct_option_index": 3,
@@ -57068,10 +57125,10 @@
       "air_date": null,
       "question_text": "In which Indian state or union territory is “Bhitarkanika Mangroves” located?",
       "options": [
-        "Maharashtra",
-        "Uttar Pradesh",
+        "Kerala",
+        "Karnataka",
         "Odisha",
-        "Himachal Pradesh"
+        "Tamil Nadu"
       ],
       "correct_option_index": 2,
       "question_type": "practice",
@@ -57103,9 +57160,9 @@
       "question_text": "In which Indian state or union territory is “Krishnapuram Palace” located?",
       "options": [
         "Kerala",
-        "Rajasthan",
-        "Goa",
-        "Meghalaya"
+        "Tamil Nadu",
+        "Odisha",
+        "Karnataka"
       ],
       "correct_option_index": 0,
       "question_type": "practice",
@@ -57136,10 +57193,10 @@
       "air_date": null,
       "question_text": "In which Indian state or union territory is “Neyyar Wildlife Sanctuary” located?",
       "options": [
-        "Meghalaya",
-        "Kerala",
         "Karnataka",
-        "Tamil Nadu"
+        "Kerala",
+        "Tamil Nadu",
+        "Odisha"
       ],
       "correct_option_index": 1,
       "question_type": "practice",
@@ -57170,10 +57227,10 @@
       "air_date": null,
       "question_text": "In which Indian state or union territory is “Chettinad” located?",
       "options": [
-        "Rajasthan",
+        "Odisha",
         "Tamil Nadu",
-        "West Bengal",
-        "Maharashtra"
+        "Karnataka",
+        "Kerala"
       ],
       "correct_option_index": 1,
       "question_type": "practice",
@@ -74170,9 +74227,9 @@
       "air_date": null,
       "question_text": "Which of these writers has received the Jnanpith Award?",
       "options": [
-        "Sridevi",
         "Ramana Maharshi",
         "Jackie Shroff",
+        "Freida Pinto",
         "Subhash Mukhopadhyay"
       ],
       "correct_option_index": 3,
@@ -74205,9 +74262,9 @@
       "question_text": "Which of these writers has received the Jnanpith Award?",
       "options": [
         "Kuvempu",
-        "A. C. Bhaktivedanta Swami Prabhupada",
         "Sridevi",
-        "Ramana Maharshi"
+        "Ramana Maharshi",
+        "Jackie Shroff"
       ],
       "correct_option_index": 0,
       "question_type": "practice",
@@ -74341,9 +74398,9 @@
       "question_text": "Which of these writers has received the Jnanpith Award?",
       "options": [
         "Girish Karnad",
-        "Ram Nath Kovind",
         "Rajendra Prasad",
-        "Satyendra Nath Bose"
+        "Satyendra Nath Bose",
+        "Sardar Vallabhbhai Patel"
       ],
       "correct_option_index": 0,
       "question_type": "practice",
@@ -74544,10 +74601,10 @@
       "air_date": null,
       "question_text": "Which of these writers has received the Jnanpith Award?",
       "options": [
-        "Sachin Tendulkar",
-        "Amar Kant",
         "Ram Nath Kovind",
-        "Rajendra Prasad"
+        "Amar Kant",
+        "Rajendra Prasad",
+        "Satyendra Nath Bose"
       ],
       "correct_option_index": 1,
       "question_type": "practice",
@@ -74680,10 +74737,10 @@
       "air_date": null,
       "question_text": "Which of these writers has received the Jnanpith Award?",
       "options": [
-        "Ram Narayan",
-        "Singireddy NarayanaReddy",
         "Kailash Satyarthi",
-        "Kajol"
+        "Singireddy NarayanaReddy",
+        "Kajol",
+        "Amir Khusrau"
       ],
       "correct_option_index": 1,
       "question_type": "practice",
@@ -74919,9 +74976,9 @@
       "question_text": "Which of these writers has received the Jnanpith Award?",
       "options": [
         "Chandrashekhara Kambara",
-        "Abhishek Bachchan",
         "Madhuri Dixit",
-        "Har Gobind Khorana"
+        "Har Gobind Khorana",
+        "Shraddha Kapoor"
       ],
       "correct_option_index": 0,
       "question_type": "practice",
@@ -98300,6 +98357,1672 @@
       "language_original": "en",
       "translation_status": "not required",
       "explanation": "Wikidata locates Tsodilo in Botswana.",
+      "provenance_status": "Wikidata structured fact; options generated from same-type facts; answer not independently verified"
+    },
+    {
+      "id": "wd-india-person-birthplace-Q2739159",
+      "canonical_key": "wd-india-person-birthplace-Q2739159",
+      "season": null,
+      "episode": null,
+      "air_date": null,
+      "question_text": "In which place was the Indian politician Maneka Gandhi born?",
+      "options": [
+        "Kannur",
+        "Lahore",
+        "Muddenahalli",
+        "New Delhi"
+      ],
+      "correct_option_index": 3,
+      "question_type": "practice",
+      "category": "Miscellaneous/Trivia",
+      "subcategory": "india-person-birthplace",
+      "question_shape": "lookup",
+      "difficulty_tier": "Tier 2",
+      "prize_level_asked_at": null,
+      "source": "Wikidata structured facts",
+      "source_schema_version": 5,
+      "source_url": "http://www.wikidata.org/entity/Q2739159",
+      "source_accessed_at": "2026-08-27",
+      "tags": [
+        "india",
+        "people",
+        "birthplace"
+      ],
+      "language_original": "en",
+      "translation_status": "not required",
+      "explanation": "Wikidata records New Delhi as the birthplace of Maneka Gandhi.",
+      "provenance_status": "Wikidata structured fact; options generated from same-type facts; answer not independently verified"
+    },
+    {
+      "id": "wd-india-person-birthplace-Q292958",
+      "canonical_key": "wd-india-person-birthplace-Q292958",
+      "season": null,
+      "episode": null,
+      "air_date": null,
+      "question_text": "In which place was the Indian actress Amrita Arora born?",
+      "options": [
+        "Chembur",
+        "Muddenahalli",
+        "Chennai",
+        "Kaluwas"
+      ],
+      "correct_option_index": 0,
+      "question_type": "practice",
+      "category": "Miscellaneous/Trivia",
+      "subcategory": "india-person-birthplace",
+      "question_shape": "lookup",
+      "difficulty_tier": "Tier 2",
+      "prize_level_asked_at": null,
+      "source": "Wikidata structured facts",
+      "source_schema_version": 5,
+      "source_url": "http://www.wikidata.org/entity/Q292958",
+      "source_accessed_at": "2026-08-27",
+      "tags": [
+        "india",
+        "people",
+        "birthplace"
+      ],
+      "language_original": "en",
+      "translation_status": "not required",
+      "explanation": "Wikidata records Chembur as the birthplace of Amrita Arora.",
+      "provenance_status": "Wikidata structured fact; options generated from same-type facts; answer not independently verified"
+    },
+    {
+      "id": "wd-india-person-birthplace-Q299140",
+      "canonical_key": "wd-india-person-birthplace-Q299140",
+      "season": null,
+      "episode": null,
+      "air_date": null,
+      "question_text": "In which place was the Indo Canadian film director Deepa Mehta born?",
+      "options": [
+        "Tiruvalla",
+        "Prayagraj",
+        "Amritsar",
+        "Samrala"
+      ],
+      "correct_option_index": 2,
+      "question_type": "practice",
+      "category": "Miscellaneous/Trivia",
+      "subcategory": "india-person-birthplace",
+      "question_shape": "lookup",
+      "difficulty_tier": "Tier 2",
+      "prize_level_asked_at": null,
+      "source": "Wikidata structured facts",
+      "source_schema_version": 5,
+      "source_url": "http://www.wikidata.org/entity/Q299140",
+      "source_accessed_at": "2026-08-27",
+      "tags": [
+        "india",
+        "people",
+        "birthplace"
+      ],
+      "language_original": "en",
+      "translation_status": "not required",
+      "explanation": "Wikidata records Amritsar as the birthplace of Deepa Mehta.",
+      "provenance_status": "Wikidata structured fact; options generated from same-type facts; answer not independently verified"
+    },
+    {
+      "id": "wd-india-person-birthplace-Q370247",
+      "canonical_key": "wd-india-person-birthplace-Q370247",
+      "season": null,
+      "episode": null,
+      "air_date": null,
+      "question_text": "In which place was the Indian-American mathematician Sathamangalam Ranga Iyengar Srinivasa Varadhan born?",
+      "options": [
+        "Chennai",
+        "Prayagraj",
+        "Delhi",
+        "Chandigarh"
+      ],
+      "correct_option_index": 0,
+      "question_type": "practice",
+      "category": "Miscellaneous/Trivia",
+      "subcategory": "india-person-birthplace",
+      "question_shape": "lookup",
+      "difficulty_tier": "Tier 2",
+      "prize_level_asked_at": null,
+      "source": "Wikidata structured facts",
+      "source_schema_version": 5,
+      "source_url": "http://www.wikidata.org/entity/Q370247",
+      "source_accessed_at": "2026-08-27",
+      "tags": [
+        "india",
+        "people",
+        "birthplace"
+      ],
+      "language_original": "en",
+      "translation_status": "not required",
+      "explanation": "Wikidata records Chennai as the birthplace of Sathamangalam Ranga Iyengar Srinivasa Varadhan.",
+      "provenance_status": "Wikidata structured fact; options generated from same-type facts; answer not independently verified"
+    },
+    {
+      "id": "wd-india-person-birthplace-Q377861",
+      "canonical_key": "wd-india-person-birthplace-Q377861",
+      "season": null,
+      "episode": null,
+      "air_date": null,
+      "question_text": "In which place was the Indian academic Rajendra K. Pachauri born?",
+      "options": [
+        "Guwahati",
+        "New Delhi",
+        "Chembur",
+        "Nainital"
+      ],
+      "correct_option_index": 3,
+      "question_type": "practice",
+      "category": "Miscellaneous/Trivia",
+      "subcategory": "india-person-birthplace",
+      "question_shape": "lookup",
+      "difficulty_tier": "Tier 2",
+      "prize_level_asked_at": null,
+      "source": "Wikidata structured facts",
+      "source_schema_version": 5,
+      "source_url": "http://www.wikidata.org/entity/Q377861",
+      "source_accessed_at": "2026-08-27",
+      "tags": [
+        "india",
+        "people",
+        "birthplace"
+      ],
+      "language_original": "en",
+      "translation_status": "not required",
+      "explanation": "Wikidata records Nainital as the birthplace of Rajendra K. Pachauri.",
+      "provenance_status": "Wikidata structured fact; options generated from same-type facts; answer not independently verified"
+    },
+    {
+      "id": "wd-india-person-birthplace-Q464185",
+      "canonical_key": "wd-india-person-birthplace-Q464185",
+      "season": null,
+      "episode": null,
+      "air_date": null,
+      "question_text": "In which place was the Indian singer Daler Mehndi born?",
+      "options": [
+        "Amritsar",
+        "Patna",
+        "Nainital",
+        "Goalpara"
+      ],
+      "correct_option_index": 1,
+      "question_type": "practice",
+      "category": "Miscellaneous/Trivia",
+      "subcategory": "india-person-birthplace",
+      "question_shape": "lookup",
+      "difficulty_tier": "Tier 2",
+      "prize_level_asked_at": null,
+      "source": "Wikidata structured facts",
+      "source_schema_version": 5,
+      "source_url": "http://www.wikidata.org/entity/Q464185",
+      "source_accessed_at": "2026-08-27",
+      "tags": [
+        "india",
+        "people",
+        "birthplace"
+      ],
+      "language_original": "en",
+      "translation_status": "not required",
+      "explanation": "Wikidata records Patna as the birthplace of Daler Mehndi.",
+      "provenance_status": "Wikidata structured fact; options generated from same-type facts; answer not independently verified"
+    },
+    {
+      "id": "wd-india-person-birthplace-Q4682801",
+      "canonical_key": "wd-india-person-birthplace-Q4682801",
+      "season": null,
+      "episode": null,
+      "air_date": null,
+      "question_text": "In which place was the Indian actor of Iraqi origin Adil Hussain born?",
+      "options": [
+        "Patna",
+        "Rajahmundry",
+        "Goalpara",
+        "Manvi"
+      ],
+      "correct_option_index": 2,
+      "question_type": "practice",
+      "category": "Miscellaneous/Trivia",
+      "subcategory": "india-person-birthplace",
+      "question_shape": "lookup",
+      "difficulty_tier": "Tier 2",
+      "prize_level_asked_at": null,
+      "source": "Wikidata structured facts",
+      "source_schema_version": 5,
+      "source_url": "http://www.wikidata.org/entity/Q4682801",
+      "source_accessed_at": "2026-08-27",
+      "tags": [
+        "india",
+        "people",
+        "birthplace"
+      ],
+      "language_original": "en",
+      "translation_status": "not required",
+      "explanation": "Wikidata records Goalpara as the birthplace of Adil Hussain.",
+      "provenance_status": "Wikidata structured fact; options generated from same-type facts; answer not independently verified"
+    },
+    {
+      "id": "wd-india-person-birthplace-Q470893",
+      "canonical_key": "wd-india-person-birthplace-Q470893",
+      "season": null,
+      "episode": null,
+      "air_date": null,
+      "question_text": "In which place was the Indian boxer Vijender Singh born?",
+      "options": [
+        "Kaluwas",
+        "Chennai",
+        "Gangtok",
+        "Gwalior"
+      ],
+      "correct_option_index": 0,
+      "question_type": "practice",
+      "category": "Miscellaneous/Trivia",
+      "subcategory": "india-person-birthplace",
+      "question_shape": "lookup",
+      "difficulty_tier": "Tier 2",
+      "prize_level_asked_at": null,
+      "source": "Wikidata structured facts",
+      "source_schema_version": 5,
+      "source_url": "http://www.wikidata.org/entity/Q470893",
+      "source_accessed_at": "2026-08-27",
+      "tags": [
+        "india",
+        "people",
+        "birthplace"
+      ],
+      "language_original": "en",
+      "translation_status": "not required",
+      "explanation": "Wikidata records Kaluwas as the birthplace of Vijender Singh.",
+      "provenance_status": "Wikidata structured fact; options generated from same-type facts; answer not independently verified"
+    },
+    {
+      "id": "wd-india-person-birthplace-Q4831843",
+      "canonical_key": "wd-india-person-birthplace-Q4831843",
+      "season": null,
+      "episode": null,
+      "air_date": null,
+      "question_text": "In which place was the Indian actor Ayushmann Khurrana born?",
+      "options": [
+        "Chandigarh",
+        "Ludhiana",
+        "Guwahati",
+        "Muddenahalli"
+      ],
+      "correct_option_index": 0,
+      "question_type": "practice",
+      "category": "Miscellaneous/Trivia",
+      "subcategory": "india-person-birthplace",
+      "question_shape": "lookup",
+      "difficulty_tier": "Tier 2",
+      "prize_level_asked_at": null,
+      "source": "Wikidata structured facts",
+      "source_schema_version": 5,
+      "source_url": "http://www.wikidata.org/entity/Q4831843",
+      "source_accessed_at": "2026-08-27",
+      "tags": [
+        "india",
+        "people",
+        "birthplace"
+      ],
+      "language_original": "en",
+      "translation_status": "not required",
+      "explanation": "Wikidata records Chandigarh as the birthplace of Ayushmann Khurrana.",
+      "provenance_status": "Wikidata structured fact; options generated from same-type facts; answer not independently verified"
+    },
+    {
+      "id": "wd-india-person-birthplace-Q555232",
+      "canonical_key": "wd-india-person-birthplace-Q555232",
+      "season": null,
+      "episode": null,
+      "air_date": null,
+      "question_text": "In which place was the Indian chess player Pendyala Harikrishna born?",
+      "options": [
+        "Nainital",
+        "Goalpara",
+        "Ludhiana",
+        "Guntur"
+      ],
+      "correct_option_index": 3,
+      "question_type": "practice",
+      "category": "Miscellaneous/Trivia",
+      "subcategory": "india-person-birthplace",
+      "question_shape": "lookup",
+      "difficulty_tier": "Tier 2",
+      "prize_level_asked_at": null,
+      "source": "Wikidata structured facts",
+      "source_schema_version": 5,
+      "source_url": "http://www.wikidata.org/entity/Q555232",
+      "source_accessed_at": "2026-08-27",
+      "tags": [
+        "india",
+        "people",
+        "birthplace"
+      ],
+      "language_original": "en",
+      "translation_status": "not required",
+      "explanation": "Wikidata records Guntur as the birthplace of Pendyala Harikrishna.",
+      "provenance_status": "Wikidata structured fact; options generated from same-type facts; answer not independently verified"
+    },
+    {
+      "id": "wd-india-person-birthplace-Q560094",
+      "canonical_key": "wd-india-person-birthplace-Q560094",
+      "season": null,
+      "episode": null,
+      "air_date": null,
+      "question_text": "In which place was the Indian actor Uday Chopra born?",
+      "options": [
+        "Puttur",
+        "Mumbai",
+        "Mysore",
+        "Kannur"
+      ],
+      "correct_option_index": 1,
+      "question_type": "practice",
+      "category": "Miscellaneous/Trivia",
+      "subcategory": "india-person-birthplace",
+      "question_shape": "lookup",
+      "difficulty_tier": "Tier 2",
+      "prize_level_asked_at": null,
+      "source": "Wikidata structured facts",
+      "source_schema_version": 5,
+      "source_url": "http://www.wikidata.org/entity/Q560094",
+      "source_accessed_at": "2026-08-27",
+      "tags": [
+        "india",
+        "people",
+        "birthplace"
+      ],
+      "language_original": "en",
+      "translation_status": "not required",
+      "explanation": "Wikidata records Mumbai as the birthplace of Uday Chopra.",
+      "provenance_status": "Wikidata structured fact; options generated from same-type facts; answer not independently verified"
+    },
+    {
+      "id": "wd-india-person-birthplace-Q834338",
+      "canonical_key": "wd-india-person-birthplace-Q834338",
+      "season": null,
+      "episode": null,
+      "air_date": null,
+      "question_text": "In which place was the Indian actor Boman Irani born?",
+      "options": [
+        "Gwalior",
+        "Kolkata",
+        "Mumbai",
+        "Katur"
+      ],
+      "correct_option_index": 2,
+      "question_type": "practice",
+      "category": "Miscellaneous/Trivia",
+      "subcategory": "india-person-birthplace",
+      "question_shape": "lookup",
+      "difficulty_tier": "Tier 2",
+      "prize_level_asked_at": null,
+      "source": "Wikidata structured facts",
+      "source_schema_version": 5,
+      "source_url": "http://www.wikidata.org/entity/Q834338",
+      "source_accessed_at": "2026-08-27",
+      "tags": [
+        "india",
+        "people",
+        "birthplace"
+      ],
+      "language_original": "en",
+      "translation_status": "not required",
+      "explanation": "Wikidata records Mumbai as the birthplace of Boman Irani.",
+      "provenance_status": "Wikidata structured fact; options generated from same-type facts; answer not independently verified"
+    },
+    {
+      "id": "wd-india-person-birthplace-Q48619",
+      "canonical_key": "wd-india-person-birthplace-Q48619",
+      "season": null,
+      "episode": null,
+      "air_date": null,
+      "question_text": "In which place was the Indian actor Bobby Deol born?",
+      "options": [
+        "Ranchi",
+        "Chembur",
+        "Chennai",
+        "Mumbai"
+      ],
+      "correct_option_index": 3,
+      "question_type": "practice",
+      "category": "Miscellaneous/Trivia",
+      "subcategory": "india-person-birthplace",
+      "question_shape": "lookup",
+      "difficulty_tier": "Tier 2",
+      "prize_level_asked_at": null,
+      "source": "Wikidata structured facts",
+      "source_schema_version": 5,
+      "source_url": "http://www.wikidata.org/entity/Q48619",
+      "source_accessed_at": "2026-08-27",
+      "tags": [
+        "india",
+        "people",
+        "birthplace"
+      ],
+      "language_original": "en",
+      "translation_status": "not required",
+      "explanation": "Wikidata records Mumbai as the birthplace of Bobby Deol.",
+      "provenance_status": "Wikidata structured fact; options generated from same-type facts; answer not independently verified"
+    },
+    {
+      "id": "wd-india-person-birthplace-Q1322453",
+      "canonical_key": "wd-india-person-birthplace-Q1322453",
+      "season": null,
+      "episode": null,
+      "air_date": null,
+      "question_text": "In which place was the Indian film actor Prakash Raj born?",
+      "options": [
+        "Rajahmundry",
+        "Muddenahalli",
+        "Guntur",
+        "Puttur"
+      ],
+      "correct_option_index": 3,
+      "question_type": "practice",
+      "category": "Miscellaneous/Trivia",
+      "subcategory": "india-person-birthplace",
+      "question_shape": "lookup",
+      "difficulty_tier": "Tier 2",
+      "prize_level_asked_at": null,
+      "source": "Wikidata structured facts",
+      "source_schema_version": 5,
+      "source_url": "http://www.wikidata.org/entity/Q1322453",
+      "source_accessed_at": "2026-08-27",
+      "tags": [
+        "india",
+        "people",
+        "birthplace"
+      ],
+      "language_original": "en",
+      "translation_status": "not required",
+      "explanation": "Wikidata records Puttur as the birthplace of Prakash Raj.",
+      "provenance_status": "Wikidata structured fact; options generated from same-type facts; answer not independently verified"
+    },
+    {
+      "id": "wd-india-person-birthplace-Q1376396",
+      "canonical_key": "wd-india-person-birthplace-Q1376396",
+      "season": null,
+      "episode": null,
+      "air_date": null,
+      "question_text": "In which place was the Indian actor Sharman Joshi born?",
+      "options": [
+        "Mumbai",
+        "Bengaluru",
+        "Jalandhar",
+        "Tiruvalla"
+      ],
+      "correct_option_index": 0,
+      "question_type": "practice",
+      "category": "Miscellaneous/Trivia",
+      "subcategory": "india-person-birthplace",
+      "question_shape": "lookup",
+      "difficulty_tier": "Tier 2",
+      "prize_level_asked_at": null,
+      "source": "Wikidata structured facts",
+      "source_schema_version": 5,
+      "source_url": "http://www.wikidata.org/entity/Q1376396",
+      "source_accessed_at": "2026-08-27",
+      "tags": [
+        "india",
+        "people",
+        "birthplace"
+      ],
+      "language_original": "en",
+      "translation_status": "not required",
+      "explanation": "Wikidata records Mumbai as the birthplace of Sharman Joshi.",
+      "provenance_status": "Wikidata structured fact; options generated from same-type facts; answer not independently verified"
+    },
+    {
+      "id": "wd-india-person-birthplace-Q1398708",
+      "canonical_key": "wd-india-person-birthplace-Q1398708",
+      "season": null,
+      "episode": null,
+      "air_date": null,
+      "question_text": "In which place was the Indian businessman N. R. Narayana Murthy born?",
+      "options": [
+        "Gangtok",
+        "Mysore",
+        "Gwalior",
+        "Kolkata"
+      ],
+      "correct_option_index": 1,
+      "question_type": "practice",
+      "category": "Miscellaneous/Trivia",
+      "subcategory": "india-person-birthplace",
+      "question_shape": "lookup",
+      "difficulty_tier": "Tier 2",
+      "prize_level_asked_at": null,
+      "source": "Wikidata structured facts",
+      "source_schema_version": 5,
+      "source_url": "http://www.wikidata.org/entity/Q1398708",
+      "source_accessed_at": "2026-08-27",
+      "tags": [
+        "india",
+        "people",
+        "birthplace"
+      ],
+      "language_original": "en",
+      "translation_status": "not required",
+      "explanation": "Wikidata records Mysore as the birthplace of N. R. Narayana Murthy.",
+      "provenance_status": "Wikidata structured fact; options generated from same-type facts; answer not independently verified"
+    },
+    {
+      "id": "wd-india-person-birthplace-Q1686232",
+      "canonical_key": "wd-india-person-birthplace-Q1686232",
+      "season": null,
+      "episode": null,
+      "air_date": null,
+      "question_text": "In which place was the Indian film actor Jeetendra born?",
+      "options": [
+        "Kaluwas",
+        "Bengaluru",
+        "Gangtok",
+        "Amritsar"
+      ],
+      "correct_option_index": 3,
+      "question_type": "practice",
+      "category": "Miscellaneous/Trivia",
+      "subcategory": "india-person-birthplace",
+      "question_shape": "lookup",
+      "difficulty_tier": "Tier 2",
+      "prize_level_asked_at": null,
+      "source": "Wikidata structured facts",
+      "source_schema_version": 5,
+      "source_url": "http://www.wikidata.org/entity/Q1686232",
+      "source_accessed_at": "2026-08-27",
+      "tags": [
+        "india",
+        "people",
+        "birthplace"
+      ],
+      "language_original": "en",
+      "translation_status": "not required",
+      "explanation": "Wikidata records Amritsar as the birthplace of Jeetendra.",
+      "provenance_status": "Wikidata structured fact; options generated from same-type facts; answer not independently verified"
+    },
+    {
+      "id": "wd-india-person-birthplace-Q2383191",
+      "canonical_key": "wd-india-person-birthplace-Q2383191",
+      "season": null,
+      "episode": null,
+      "air_date": null,
+      "question_text": "In which place was the Indian actor Arjun Kapoor born?",
+      "options": [
+        "Guwahati",
+        "New Delhi",
+        "Mumbai",
+        "Bengaluru"
+      ],
+      "correct_option_index": 2,
+      "question_type": "practice",
+      "category": "Miscellaneous/Trivia",
+      "subcategory": "india-person-birthplace",
+      "question_shape": "lookup",
+      "difficulty_tier": "Tier 2",
+      "prize_level_asked_at": null,
+      "source": "Wikidata structured facts",
+      "source_schema_version": 5,
+      "source_url": "http://www.wikidata.org/entity/Q2383191",
+      "source_accessed_at": "2026-08-27",
+      "tags": [
+        "india",
+        "people",
+        "birthplace"
+      ],
+      "language_original": "en",
+      "translation_status": "not required",
+      "explanation": "Wikidata records Mumbai as the birthplace of Arjun Kapoor.",
+      "provenance_status": "Wikidata structured fact; options generated from same-type facts; answer not independently verified"
+    },
+    {
+      "id": "wd-india-person-birthplace-Q2749279",
+      "canonical_key": "wd-india-person-birthplace-Q2749279",
+      "season": null,
+      "episode": null,
+      "air_date": null,
+      "question_text": "In which place was the Indian actress Jyothika born?",
+      "options": [
+        "Amritsar",
+        "Mumbai",
+        "Nainital",
+        "Goalpara"
+      ],
+      "correct_option_index": 1,
+      "question_type": "practice",
+      "category": "Miscellaneous/Trivia",
+      "subcategory": "india-person-birthplace",
+      "question_shape": "lookup",
+      "difficulty_tier": "Tier 2",
+      "prize_level_asked_at": null,
+      "source": "Wikidata structured facts",
+      "source_schema_version": 5,
+      "source_url": "http://www.wikidata.org/entity/Q2749279",
+      "source_accessed_at": "2026-08-27",
+      "tags": [
+        "india",
+        "people",
+        "birthplace"
+      ],
+      "language_original": "en",
+      "translation_status": "not required",
+      "explanation": "Wikidata records Mumbai as the birthplace of Jyothika.",
+      "provenance_status": "Wikidata structured fact; options generated from same-type facts; answer not independently verified"
+    },
+    {
+      "id": "wd-india-person-birthplace-Q2904990",
+      "canonical_key": "wd-india-person-birthplace-Q2904990",
+      "season": null,
+      "episode": null,
+      "air_date": null,
+      "question_text": "In which place was the Indian ornithologist Salim Ali born?",
+      "options": [
+        "Mumbai",
+        "Tiruvalla",
+        "Prayagraj",
+        "Chandigarh"
+      ],
+      "correct_option_index": 0,
+      "question_type": "practice",
+      "category": "Miscellaneous/Trivia",
+      "subcategory": "india-person-birthplace",
+      "question_shape": "lookup",
+      "difficulty_tier": "Tier 2",
+      "prize_level_asked_at": null,
+      "source": "Wikidata structured facts",
+      "source_schema_version": 5,
+      "source_url": "http://www.wikidata.org/entity/Q2904990",
+      "source_accessed_at": "2026-08-27",
+      "tags": [
+        "india",
+        "people",
+        "birthplace"
+      ],
+      "language_original": "en",
+      "translation_status": "not required",
+      "explanation": "Wikidata records Mumbai as the birthplace of Salim Ali.",
+      "provenance_status": "Wikidata structured fact; options generated from same-type facts; answer not independently verified"
+    },
+    {
+      "id": "wd-india-person-birthplace-Q3070885",
+      "canonical_key": "wd-india-person-birthplace-Q3070885",
+      "season": null,
+      "episode": null,
+      "air_date": null,
+      "question_text": "In which place was the Indian film director Zoya Akhtar born?",
+      "options": [
+        "Patna",
+        "Kaluwas",
+        "Mumbai",
+        "Manvi"
+      ],
+      "correct_option_index": 2,
+      "question_type": "practice",
+      "category": "Miscellaneous/Trivia",
+      "subcategory": "india-person-birthplace",
+      "question_shape": "lookup",
+      "difficulty_tier": "Tier 2",
+      "prize_level_asked_at": null,
+      "source": "Wikidata structured facts",
+      "source_schema_version": 5,
+      "source_url": "http://www.wikidata.org/entity/Q3070885",
+      "source_accessed_at": "2026-08-27",
+      "tags": [
+        "india",
+        "people",
+        "birthplace"
+      ],
+      "language_original": "en",
+      "translation_status": "not required",
+      "explanation": "Wikidata records Mumbai as the birthplace of Zoya Akhtar.",
+      "provenance_status": "Wikidata structured fact; options generated from same-type facts; answer not independently verified"
+    },
+    {
+      "id": "wd-india-person-birthplace-Q3518383",
+      "canonical_key": "wd-india-person-birthplace-Q3518383",
+      "season": null,
+      "episode": null,
+      "air_date": null,
+      "question_text": "In which place was the Indian actress Jaya Prada born?",
+      "options": [
+        "Samrala",
+        "Guntur",
+        "Rajahmundry",
+        "Mumbai"
+      ],
+      "correct_option_index": 2,
+      "question_type": "practice",
+      "category": "Miscellaneous/Trivia",
+      "subcategory": "india-person-birthplace",
+      "question_shape": "lookup",
+      "difficulty_tier": "Tier 2",
+      "prize_level_asked_at": null,
+      "source": "Wikidata structured facts",
+      "source_schema_version": 5,
+      "source_url": "http://www.wikidata.org/entity/Q3518383",
+      "source_accessed_at": "2026-08-27",
+      "tags": [
+        "india",
+        "people",
+        "birthplace"
+      ],
+      "language_original": "en",
+      "translation_status": "not required",
+      "explanation": "Wikidata records Rajahmundry as the birthplace of Jaya Prada.",
+      "provenance_status": "Wikidata structured fact; options generated from same-type facts; answer not independently verified"
+    },
+    {
+      "id": "wd-india-person-birthplace-Q3521531",
+      "canonical_key": "wd-india-person-birthplace-Q3521531",
+      "season": null,
+      "episode": null,
+      "air_date": null,
+      "question_text": "In which place was the Indian film director S. S. Rajamouli born?",
+      "options": [
+        "Lahore",
+        "Bhopal",
+        "Hadali",
+        "Manvi"
+      ],
+      "correct_option_index": 3,
+      "question_type": "practice",
+      "category": "Miscellaneous/Trivia",
+      "subcategory": "india-person-birthplace",
+      "question_shape": "lookup",
+      "difficulty_tier": "Tier 2",
+      "prize_level_asked_at": null,
+      "source": "Wikidata structured facts",
+      "source_schema_version": 5,
+      "source_url": "http://www.wikidata.org/entity/Q3521531",
+      "source_accessed_at": "2026-08-27",
+      "tags": [
+        "india",
+        "people",
+        "birthplace"
+      ],
+      "language_original": "en",
+      "translation_status": "not required",
+      "explanation": "Wikidata records Manvi as the birthplace of S. S. Rajamouli.",
+      "provenance_status": "Wikidata structured fact; options generated from same-type facts; answer not independently verified"
+    },
+    {
+      "id": "wd-india-person-birthplace-Q466974",
+      "canonical_key": "wd-india-person-birthplace-Q466974",
+      "season": null,
+      "episode": null,
+      "air_date": null,
+      "question_text": "In which place was the Indian actress Eesha Koppikhar born?",
+      "options": [
+        "Patna",
+        "Kaluwas",
+        "Manvi",
+        "Mumbai"
+      ],
+      "correct_option_index": 3,
+      "question_type": "practice",
+      "category": "Miscellaneous/Trivia",
+      "subcategory": "india-person-birthplace",
+      "question_shape": "lookup",
+      "difficulty_tier": "Tier 2",
+      "prize_level_asked_at": null,
+      "source": "Wikidata structured facts",
+      "source_schema_version": 5,
+      "source_url": "http://www.wikidata.org/entity/Q466974",
+      "source_accessed_at": "2026-08-27",
+      "tags": [
+        "india",
+        "people",
+        "birthplace"
+      ],
+      "language_original": "en",
+      "translation_status": "not required",
+      "explanation": "Wikidata records Mumbai as the birthplace of Eesha Koppikhar.",
+      "provenance_status": "Wikidata structured fact; options generated from same-type facts; answer not independently verified"
+    },
+    {
+      "id": "wd-india-person-birthplace-Q467343",
+      "canonical_key": "wd-india-person-birthplace-Q467343",
+      "season": null,
+      "episode": null,
+      "air_date": null,
+      "question_text": "In which place was the Indian actress Roma Dasgupta born?",
+      "options": [
+        "Pabna",
+        "Hadali",
+        "Ranchi",
+        "Chembur"
+      ],
+      "correct_option_index": 0,
+      "question_type": "practice",
+      "category": "Miscellaneous/Trivia",
+      "subcategory": "india-person-birthplace",
+      "question_shape": "lookup",
+      "difficulty_tier": "Tier 2",
+      "prize_level_asked_at": null,
+      "source": "Wikidata structured facts",
+      "source_schema_version": 5,
+      "source_url": "http://www.wikidata.org/entity/Q467343",
+      "source_accessed_at": "2026-08-27",
+      "tags": [
+        "india",
+        "people",
+        "birthplace"
+      ],
+      "language_original": "en",
+      "translation_status": "not required",
+      "explanation": "Wikidata records Pabna as the birthplace of Roma Dasgupta.",
+      "provenance_status": "Wikidata structured fact; options generated from same-type facts; answer not independently verified"
+    },
+    {
+      "id": "wd-india-person-birthplace-Q467964",
+      "canonical_key": "wd-india-person-birthplace-Q467964",
+      "season": null,
+      "episode": null,
+      "air_date": null,
+      "question_text": "In which place was the Indian actress Divya Dutta born?",
+      "options": [
+        "Samrala",
+        "Chandigarh",
+        "Guntur",
+        "Ludhiana"
+      ],
+      "correct_option_index": 3,
+      "question_type": "practice",
+      "category": "Miscellaneous/Trivia",
+      "subcategory": "india-person-birthplace",
+      "question_shape": "lookup",
+      "difficulty_tier": "Tier 2",
+      "prize_level_asked_at": null,
+      "source": "Wikidata structured facts",
+      "source_schema_version": 5,
+      "source_url": "http://www.wikidata.org/entity/Q467964",
+      "source_accessed_at": "2026-08-27",
+      "tags": [
+        "india",
+        "people",
+        "birthplace"
+      ],
+      "language_original": "en",
+      "translation_status": "not required",
+      "explanation": "Wikidata records Ludhiana as the birthplace of Divya Dutta.",
+      "provenance_status": "Wikidata structured fact; options generated from same-type facts; answer not independently verified"
+    },
+    {
+      "id": "wd-india-person-birthplace-Q4683087",
+      "canonical_key": "wd-india-person-birthplace-Q4683087",
+      "season": null,
+      "episode": null,
+      "air_date": null,
+      "question_text": "In which place was the Indian actor Aditya Roy Kapur born?",
+      "options": [
+        "Kolkata",
+        "Katur",
+        "Delhi",
+        "Mumbai"
+      ],
+      "correct_option_index": 3,
+      "question_type": "practice",
+      "category": "Miscellaneous/Trivia",
+      "subcategory": "india-person-birthplace",
+      "question_shape": "lookup",
+      "difficulty_tier": "Tier 2",
+      "prize_level_asked_at": null,
+      "source": "Wikidata structured facts",
+      "source_schema_version": 5,
+      "source_url": "http://www.wikidata.org/entity/Q4683087",
+      "source_accessed_at": "2026-08-27",
+      "tags": [
+        "india",
+        "people",
+        "birthplace"
+      ],
+      "language_original": "en",
+      "translation_status": "not required",
+      "explanation": "Wikidata records Mumbai as the birthplace of Aditya Roy Kapur.",
+      "provenance_status": "Wikidata structured fact; options generated from same-type facts; answer not independently verified"
+    },
+    {
+      "id": "wd-india-person-birthplace-Q511589",
+      "canonical_key": "wd-india-person-birthplace-Q511589",
+      "season": null,
+      "episode": null,
+      "air_date": null,
+      "question_text": "In which place was the Indian actor Abhay Deol born?",
+      "options": [
+        "Bhopal",
+        "Hadali",
+        "Mumbai",
+        "Ranchi"
+      ],
+      "correct_option_index": 2,
+      "question_type": "practice",
+      "category": "Miscellaneous/Trivia",
+      "subcategory": "india-person-birthplace",
+      "question_shape": "lookup",
+      "difficulty_tier": "Tier 2",
+      "prize_level_asked_at": null,
+      "source": "Wikidata structured facts",
+      "source_schema_version": 5,
+      "source_url": "http://www.wikidata.org/entity/Q511589",
+      "source_accessed_at": "2026-08-27",
+      "tags": [
+        "india",
+        "people",
+        "birthplace"
+      ],
+      "language_original": "en",
+      "translation_status": "not required",
+      "explanation": "Wikidata records Mumbai as the birthplace of Abhay Deol.",
+      "provenance_status": "Wikidata structured fact; options generated from same-type facts; answer not independently verified"
+    },
+    {
+      "id": "wd-india-person-birthplace-Q511986",
+      "canonical_key": "wd-india-person-birthplace-Q511986",
+      "season": null,
+      "episode": null,
+      "air_date": null,
+      "question_text": "In which place was the Indian tennis player Rohan Bopanna born?",
+      "options": [
+        "Chembur",
+        "Bengaluru",
+        "Chennai",
+        "Kaluwas"
+      ],
+      "correct_option_index": 1,
+      "question_type": "practice",
+      "category": "Miscellaneous/Trivia",
+      "subcategory": "india-person-birthplace",
+      "question_shape": "lookup",
+      "difficulty_tier": "Tier 2",
+      "prize_level_asked_at": null,
+      "source": "Wikidata structured facts",
+      "source_schema_version": 5,
+      "source_url": "http://www.wikidata.org/entity/Q511986",
+      "source_accessed_at": "2026-08-27",
+      "tags": [
+        "india",
+        "people",
+        "birthplace"
+      ],
+      "language_original": "en",
+      "translation_status": "not required",
+      "explanation": "Wikidata records Bengaluru as the birthplace of Rohan Bopanna.",
+      "provenance_status": "Wikidata structured fact; options generated from same-type facts; answer not independently verified"
+    },
+    {
+      "id": "wd-india-person-birthplace-Q553191",
+      "canonical_key": "wd-india-person-birthplace-Q553191",
+      "season": null,
+      "episode": null,
+      "air_date": null,
+      "question_text": "In which place was the Indian gangster Dawood Ibrahim born?",
+      "options": [
+        "Tiruvalla",
+        "Prayagraj",
+        "Chandigarh",
+        "Khed"
+      ],
+      "correct_option_index": 3,
+      "question_type": "practice",
+      "category": "Miscellaneous/Trivia",
+      "subcategory": "india-person-birthplace",
+      "question_shape": "lookup",
+      "difficulty_tier": "Tier 2",
+      "prize_level_asked_at": null,
+      "source": "Wikidata structured facts",
+      "source_schema_version": 5,
+      "source_url": "http://www.wikidata.org/entity/Q553191",
+      "source_accessed_at": "2026-08-27",
+      "tags": [
+        "india",
+        "people",
+        "birthplace"
+      ],
+      "language_original": "en",
+      "translation_status": "not required",
+      "explanation": "Wikidata records Khed as the birthplace of Dawood Ibrahim.",
+      "provenance_status": "Wikidata structured fact; options generated from same-type facts; answer not independently verified"
+    },
+    {
+      "id": "wd-india-person-birthplace-Q554175",
+      "canonical_key": "wd-india-person-birthplace-Q554175",
+      "season": null,
+      "episode": null,
+      "air_date": null,
+      "question_text": "In which place was the Indian politician Feroze Gandhi born?",
+      "options": [
+        "Mumbai",
+        "Patna",
+        "Kaluwas",
+        "Manvi"
+      ],
+      "correct_option_index": 0,
+      "question_type": "practice",
+      "category": "Miscellaneous/Trivia",
+      "subcategory": "india-person-birthplace",
+      "question_shape": "lookup",
+      "difficulty_tier": "Tier 2",
+      "prize_level_asked_at": null,
+      "source": "Wikidata structured facts",
+      "source_schema_version": 5,
+      "source_url": "http://www.wikidata.org/entity/Q554175",
+      "source_accessed_at": "2026-08-27",
+      "tags": [
+        "india",
+        "people",
+        "birthplace"
+      ],
+      "language_original": "en",
+      "translation_status": "not required",
+      "explanation": "Wikidata records Mumbai as the birthplace of Feroze Gandhi.",
+      "provenance_status": "Wikidata structured fact; options generated from same-type facts; answer not independently verified"
+    },
+    {
+      "id": "wd-india-person-birthplace-Q558182",
+      "canonical_key": "wd-india-person-birthplace-Q558182",
+      "season": null,
+      "episode": null,
+      "air_date": null,
+      "question_text": "In which place was the Indian cricket player Sunil Gavaskar born?",
+      "options": [
+        "Samrala",
+        "Amritsar",
+        "Mumbai",
+        "Nainital"
+      ],
+      "correct_option_index": 2,
+      "question_type": "practice",
+      "category": "Miscellaneous/Trivia",
+      "subcategory": "india-person-birthplace",
+      "question_shape": "lookup",
+      "difficulty_tier": "Tier 2",
+      "prize_level_asked_at": null,
+      "source": "Wikidata structured facts",
+      "source_schema_version": 5,
+      "source_url": "http://www.wikidata.org/entity/Q558182",
+      "source_accessed_at": "2026-08-27",
+      "tags": [
+        "india",
+        "people",
+        "birthplace"
+      ],
+      "language_original": "en",
+      "translation_status": "not required",
+      "explanation": "Wikidata records Mumbai as the birthplace of Sunil Gavaskar.",
+      "provenance_status": "Wikidata structured fact; options generated from same-type facts; answer not independently verified"
+    },
+    {
+      "id": "wd-india-person-birthplace-Q560197",
+      "canonical_key": "wd-india-person-birthplace-Q560197",
+      "season": null,
+      "episode": null,
+      "air_date": null,
+      "question_text": "In which place was the Indian actor Prithviraj Kapoor born?",
+      "options": [
+        "Samrala",
+        "Guntur",
+        "Mumbai",
+        "Faisalabad"
+      ],
+      "correct_option_index": 3,
+      "question_type": "practice",
+      "category": "Miscellaneous/Trivia",
+      "subcategory": "india-person-birthplace",
+      "question_shape": "lookup",
+      "difficulty_tier": "Tier 2",
+      "prize_level_asked_at": null,
+      "source": "Wikidata structured facts",
+      "source_schema_version": 5,
+      "source_url": "http://www.wikidata.org/entity/Q560197",
+      "source_accessed_at": "2026-08-27",
+      "tags": [
+        "india",
+        "people",
+        "birthplace"
+      ],
+      "language_original": "en",
+      "translation_status": "not required",
+      "explanation": "Wikidata records Faisalabad as the birthplace of Prithviraj Kapoor.",
+      "provenance_status": "Wikidata structured fact; options generated from same-type facts; answer not independently verified"
+    },
+    {
+      "id": "wd-india-person-birthplace-Q575917",
+      "canonical_key": "wd-india-person-birthplace-Q575917",
+      "season": null,
+      "episode": null,
+      "air_date": null,
+      "question_text": "In which place was the Indian actor Danny Denzongpa born?",
+      "options": [
+        "Manvi",
+        "Gangtok",
+        "Pabna",
+        "Bengaluru"
+      ],
+      "correct_option_index": 1,
+      "question_type": "practice",
+      "category": "Miscellaneous/Trivia",
+      "subcategory": "india-person-birthplace",
+      "question_shape": "lookup",
+      "difficulty_tier": "Tier 2",
+      "prize_level_asked_at": null,
+      "source": "Wikidata structured facts",
+      "source_schema_version": 5,
+      "source_url": "http://www.wikidata.org/entity/Q575917",
+      "source_accessed_at": "2026-08-27",
+      "tags": [
+        "india",
+        "people",
+        "birthplace"
+      ],
+      "language_original": "en",
+      "translation_status": "not required",
+      "explanation": "Wikidata records Gangtok as the birthplace of Danny Denzongpa.",
+      "provenance_status": "Wikidata structured fact; options generated from same-type facts; answer not independently verified"
+    },
+    {
+      "id": "wd-india-person-birthplace-Q6026916",
+      "canonical_key": "wd-india-person-birthplace-Q6026916",
+      "season": null,
+      "episode": null,
+      "air_date": null,
+      "question_text": "In which place was the Indian actor Indraneil Sengupta born?",
+      "options": [
+        "Nainital",
+        "Guwahati",
+        "Goalpara",
+        "Ludhiana"
+      ],
+      "correct_option_index": 1,
+      "question_type": "practice",
+      "category": "Miscellaneous/Trivia",
+      "subcategory": "india-person-birthplace",
+      "question_shape": "lookup",
+      "difficulty_tier": "Tier 2",
+      "prize_level_asked_at": null,
+      "source": "Wikidata structured facts",
+      "source_schema_version": 5,
+      "source_url": "http://www.wikidata.org/entity/Q6026916",
+      "source_accessed_at": "2026-08-27",
+      "tags": [
+        "india",
+        "people",
+        "birthplace"
+      ],
+      "language_original": "en",
+      "translation_status": "not required",
+      "explanation": "Wikidata records Guwahati as the birthplace of Indraneil Sengupta.",
+      "provenance_status": "Wikidata structured fact; options generated from same-type facts; answer not independently verified"
+    },
+    {
+      "id": "wd-india-person-birthplace-Q6203171",
+      "canonical_key": "wd-india-person-birthplace-Q6203171",
+      "season": null,
+      "episode": null,
+      "air_date": null,
+      "question_text": "In which place was the Indian actor Jishnu Raghavan born?",
+      "options": [
+        "Patna",
+        "Kaluwas",
+        "Manvi",
+        "Kannur"
+      ],
+      "correct_option_index": 3,
+      "question_type": "practice",
+      "category": "Miscellaneous/Trivia",
+      "subcategory": "india-person-birthplace",
+      "question_shape": "lookup",
+      "difficulty_tier": "Tier 2",
+      "prize_level_asked_at": null,
+      "source": "Wikidata structured facts",
+      "source_schema_version": 5,
+      "source_url": "http://www.wikidata.org/entity/Q6203171",
+      "source_accessed_at": "2026-08-27",
+      "tags": [
+        "india",
+        "people",
+        "birthplace"
+      ],
+      "language_original": "en",
+      "translation_status": "not required",
+      "explanation": "Wikidata records Kannur as the birthplace of Jishnu Raghavan.",
+      "provenance_status": "Wikidata structured fact; options generated from same-type facts; answer not independently verified"
+    },
+    {
+      "id": "wd-india-person-birthplace-Q6358169",
+      "canonical_key": "wd-india-person-birthplace-Q6358169",
+      "season": null,
+      "episode": null,
+      "air_date": null,
+      "question_text": "In which place was the Indian actress Kamini Kaushal born?",
+      "options": [
+        "Muddenahalli",
+        "Guntur",
+        "Mumbai",
+        "Lahore"
+      ],
+      "correct_option_index": 3,
+      "question_type": "practice",
+      "category": "Miscellaneous/Trivia",
+      "subcategory": "india-person-birthplace",
+      "question_shape": "lookup",
+      "difficulty_tier": "Tier 2",
+      "prize_level_asked_at": null,
+      "source": "Wikidata structured facts",
+      "source_schema_version": 5,
+      "source_url": "http://www.wikidata.org/entity/Q6358169",
+      "source_accessed_at": "2026-08-27",
+      "tags": [
+        "india",
+        "people",
+        "birthplace"
+      ],
+      "language_original": "en",
+      "translation_status": "not required",
+      "explanation": "Wikidata records Lahore as the birthplace of Kamini Kaushal.",
+      "provenance_status": "Wikidata structured fact; options generated from same-type facts; answer not independently verified"
+    },
+    {
+      "id": "wd-india-person-birthplace-Q6373552",
+      "canonical_key": "wd-india-person-birthplace-Q6373552",
+      "season": null,
+      "episode": null,
+      "air_date": null,
+      "question_text": "In which place was the Indian actor Kartik Aaryan born?",
+      "options": [
+        "Kolkata",
+        "Samrala",
+        "Gwalior",
+        "Amritsar"
+      ],
+      "correct_option_index": 2,
+      "question_type": "practice",
+      "category": "Miscellaneous/Trivia",
+      "subcategory": "india-person-birthplace",
+      "question_shape": "lookup",
+      "difficulty_tier": "Tier 2",
+      "prize_level_asked_at": null,
+      "source": "Wikidata structured facts",
+      "source_schema_version": 5,
+      "source_url": "http://www.wikidata.org/entity/Q6373552",
+      "source_accessed_at": "2026-08-27",
+      "tags": [
+        "india",
+        "people",
+        "birthplace"
+      ],
+      "language_original": "en",
+      "translation_status": "not required",
+      "explanation": "Wikidata records Gwalior as the birthplace of Kartik Aaryan.",
+      "provenance_status": "Wikidata structured fact; options generated from same-type facts; answer not independently verified"
+    },
+    {
+      "id": "wd-india-person-birthplace-Q691796",
+      "canonical_key": "wd-india-person-birthplace-Q691796",
+      "season": null,
+      "episode": null,
+      "air_date": null,
+      "question_text": "In which place was the Indian painter Abanindranath Tagore born?",
+      "options": [
+        "Goalpara",
+        "Kolkata",
+        "Guntur",
+        "Mumbai"
+      ],
+      "correct_option_index": 1,
+      "question_type": "practice",
+      "category": "Miscellaneous/Trivia",
+      "subcategory": "india-person-birthplace",
+      "question_shape": "lookup",
+      "difficulty_tier": "Tier 2",
+      "prize_level_asked_at": null,
+      "source": "Wikidata structured facts",
+      "source_schema_version": 5,
+      "source_url": "http://www.wikidata.org/entity/Q691796",
+      "source_accessed_at": "2026-08-27",
+      "tags": [
+        "india",
+        "people",
+        "birthplace"
+      ],
+      "language_original": "en",
+      "translation_status": "not required",
+      "explanation": "Wikidata records Kolkata as the birthplace of Abanindranath Tagore.",
+      "provenance_status": "Wikidata structured fact; options generated from same-type facts; answer not independently verified"
+    },
+    {
+      "id": "wd-india-person-birthplace-Q7286816",
+      "canonical_key": "wd-india-person-birthplace-Q7286816",
+      "season": null,
+      "episode": null,
+      "air_date": null,
+      "question_text": "In which place was the Indian film actress Rakul Preet Singh born?",
+      "options": [
+        "Jalandhar",
+        "New Delhi",
+        "Tiruvalla",
+        "Prayagraj"
+      ],
+      "correct_option_index": 1,
+      "question_type": "practice",
+      "category": "Miscellaneous/Trivia",
+      "subcategory": "india-person-birthplace",
+      "question_shape": "lookup",
+      "difficulty_tier": "Tier 2",
+      "prize_level_asked_at": null,
+      "source": "Wikidata structured facts",
+      "source_schema_version": 5,
+      "source_url": "http://www.wikidata.org/entity/Q7286816",
+      "source_accessed_at": "2026-08-27",
+      "tags": [
+        "india",
+        "people",
+        "birthplace"
+      ],
+      "language_original": "en",
+      "translation_status": "not required",
+      "explanation": "Wikidata records New Delhi as the birthplace of Rakul Preet Singh.",
+      "provenance_status": "Wikidata structured fact; options generated from same-type facts; answer not independently verified"
+    },
+    {
+      "id": "wd-india-person-birthplace-Q741700",
+      "canonical_key": "wd-india-person-birthplace-Q741700",
+      "season": null,
+      "episode": null,
+      "air_date": null,
+      "question_text": "In which place was the Indian engineer M. Visvesvaraya born?",
+      "options": [
+        "Puttur",
+        "Mysore",
+        "Muddenahalli",
+        "Kannur"
+      ],
+      "correct_option_index": 2,
+      "question_type": "practice",
+      "category": "Miscellaneous/Trivia",
+      "subcategory": "india-person-birthplace",
+      "question_shape": "lookup",
+      "difficulty_tier": "Tier 2",
+      "prize_level_asked_at": null,
+      "source": "Wikidata structured facts",
+      "source_schema_version": 5,
+      "source_url": "http://www.wikidata.org/entity/Q741700",
+      "source_accessed_at": "2026-08-27",
+      "tags": [
+        "india",
+        "people",
+        "birthplace"
+      ],
+      "language_original": "en",
+      "translation_status": "not required",
+      "explanation": "Wikidata records Muddenahalli as the birthplace of M. Visvesvaraya.",
+      "provenance_status": "Wikidata structured fact; options generated from same-type facts; answer not independently verified"
+    },
+    {
+      "id": "wd-india-person-birthplace-Q888234",
+      "canonical_key": "wd-india-person-birthplace-Q888234",
+      "season": null,
+      "episode": null,
+      "air_date": null,
+      "question_text": "In which place was Fauja Singh born?",
+      "options": [
+        "Jalandhar",
+        "Chennai",
+        "Kaluwas",
+        "Rajahmundry"
+      ],
+      "correct_option_index": 0,
+      "question_type": "practice",
+      "category": "Miscellaneous/Trivia",
+      "subcategory": "india-person-birthplace",
+      "question_shape": "lookup",
+      "difficulty_tier": "Tier 2",
+      "prize_level_asked_at": null,
+      "source": "Wikidata structured facts",
+      "source_schema_version": 5,
+      "source_url": "http://www.wikidata.org/entity/Q888234",
+      "source_accessed_at": "2026-08-27",
+      "tags": [
+        "india",
+        "people",
+        "birthplace"
+      ],
+      "language_original": "en",
+      "translation_status": "not required",
+      "explanation": "Wikidata records Jalandhar as the birthplace of Fauja Singh.",
+      "provenance_status": "Wikidata structured fact; options generated from same-type facts; answer not independently verified"
+    },
+    {
+      "id": "wd-india-person-birthplace-Q92820",
+      "canonical_key": "wd-india-person-birthplace-Q92820",
+      "season": null,
+      "episode": null,
+      "air_date": null,
+      "question_text": "In which place was the Indian-American computer scientist Raj Reddy born?",
+      "options": [
+        "Ranchi",
+        "Chembur",
+        "Katur",
+        "Chennai"
+      ],
+      "correct_option_index": 2,
+      "question_type": "practice",
+      "category": "Miscellaneous/Trivia",
+      "subcategory": "india-person-birthplace",
+      "question_shape": "lookup",
+      "difficulty_tier": "Tier 2",
+      "prize_level_asked_at": null,
+      "source": "Wikidata structured facts",
+      "source_schema_version": 5,
+      "source_url": "http://www.wikidata.org/entity/Q92820",
+      "source_accessed_at": "2026-08-27",
+      "tags": [
+        "india",
+        "people",
+        "birthplace"
+      ],
+      "language_original": "en",
+      "translation_status": "not required",
+      "explanation": "Wikidata records Katur as the birthplace of Raj Reddy.",
+      "provenance_status": "Wikidata structured fact; options generated from same-type facts; answer not independently verified"
+    },
+    {
+      "id": "wd-india-person-birthplace-Q981496",
+      "canonical_key": "wd-india-person-birthplace-Q981496",
+      "season": null,
+      "episode": null,
+      "air_date": null,
+      "question_text": "In which place was the Indian economist Raghuram Rajan born?",
+      "options": [
+        "Kolkata",
+        "Katur",
+        "Bhopal",
+        "Delhi"
+      ],
+      "correct_option_index": 2,
+      "question_type": "practice",
+      "category": "Miscellaneous/Trivia",
+      "subcategory": "india-person-birthplace",
+      "question_shape": "lookup",
+      "difficulty_tier": "Tier 2",
+      "prize_level_asked_at": null,
+      "source": "Wikidata structured facts",
+      "source_schema_version": 5,
+      "source_url": "http://www.wikidata.org/entity/Q981496",
+      "source_accessed_at": "2026-08-27",
+      "tags": [
+        "india",
+        "people",
+        "birthplace"
+      ],
+      "language_original": "en",
+      "translation_status": "not required",
+      "explanation": "Wikidata records Bhopal as the birthplace of Raghuram Rajan.",
+      "provenance_status": "Wikidata structured fact; options generated from same-type facts; answer not independently verified"
+    },
+    {
+      "id": "wd-india-person-birthplace-Q27180",
+      "canonical_key": "wd-india-person-birthplace-Q27180",
+      "season": null,
+      "episode": null,
+      "air_date": null,
+      "question_text": "In which place was the Major Archbishop Baselios Cleemis born?",
+      "options": [
+        "Puttur",
+        "Tiruvalla",
+        "Mysore",
+        "Kannur"
+      ],
+      "correct_option_index": 1,
+      "question_type": "practice",
+      "category": "Miscellaneous/Trivia",
+      "subcategory": "india-person-birthplace",
+      "question_shape": "lookup",
+      "difficulty_tier": "Tier 2",
+      "prize_level_asked_at": null,
+      "source": "Wikidata structured facts",
+      "source_schema_version": 5,
+      "source_url": "http://www.wikidata.org/entity/Q27180",
+      "source_accessed_at": "2026-08-27",
+      "tags": [
+        "india",
+        "people",
+        "birthplace"
+      ],
+      "language_original": "en",
+      "translation_status": "not required",
+      "explanation": "Wikidata records Tiruvalla as the birthplace of Baselios Cleemis.",
+      "provenance_status": "Wikidata structured fact; options generated from same-type facts; answer not independently verified"
+    },
+    {
+      "id": "wd-india-person-birthplace-Q46018",
+      "canonical_key": "wd-india-person-birthplace-Q46018",
+      "season": null,
+      "episode": null,
+      "air_date": null,
+      "question_text": "In which place was the Indian Bengali actress Raima Sen born?",
+      "options": [
+        "Tiruvalla",
+        "Prayagraj",
+        "Kolkata",
+        "Delhi"
+      ],
+      "correct_option_index": 2,
+      "question_type": "practice",
+      "category": "Miscellaneous/Trivia",
+      "subcategory": "india-person-birthplace",
+      "question_shape": "lookup",
+      "difficulty_tier": "Tier 2",
+      "prize_level_asked_at": null,
+      "source": "Wikidata structured facts",
+      "source_schema_version": 5,
+      "source_url": "http://www.wikidata.org/entity/Q46018",
+      "source_accessed_at": "2026-08-27",
+      "tags": [
+        "india",
+        "people",
+        "birthplace"
+      ],
+      "language_original": "en",
+      "translation_status": "not required",
+      "explanation": "Wikidata records Kolkata as the birthplace of Raima Sen.",
+      "provenance_status": "Wikidata structured fact; options generated from same-type facts; answer not independently verified"
+    },
+    {
+      "id": "wd-india-person-birthplace-Q9575",
+      "canonical_key": "wd-india-person-birthplace-Q9575",
+      "season": null,
+      "episode": null,
+      "air_date": null,
+      "question_text": "In which place was the Indian Hindi poet Harivansh Rai Bachchan born?",
+      "options": [
+        "Guwahati",
+        "Prayagraj",
+        "Chembur",
+        "Chennai"
+      ],
+      "correct_option_index": 1,
+      "question_type": "practice",
+      "category": "Miscellaneous/Trivia",
+      "subcategory": "india-person-birthplace",
+      "question_shape": "lookup",
+      "difficulty_tier": "Tier 2",
+      "prize_level_asked_at": null,
+      "source": "Wikidata structured facts",
+      "source_schema_version": 5,
+      "source_url": "http://www.wikidata.org/entity/Q9575",
+      "source_accessed_at": "2026-08-27",
+      "tags": [
+        "india",
+        "people",
+        "birthplace"
+      ],
+      "language_original": "en",
+      "translation_status": "not required",
+      "explanation": "Wikidata records Prayagraj as the birthplace of Harivansh Rai Bachchan.",
+      "provenance_status": "Wikidata structured fact; options generated from same-type facts; answer not independently verified"
+    },
+    {
+      "id": "wd-india-person-birthplace-Q1203191",
+      "canonical_key": "wd-india-person-birthplace-Q1203191",
+      "season": null,
+      "episode": null,
+      "air_date": null,
+      "question_text": "In which place was the Indian actor Arbaaz Khan born?",
+      "options": [
+        "Guntur",
+        "Puttur",
+        "Mumbai",
+        "Mysore"
+      ],
+      "correct_option_index": 2,
+      "question_type": "practice",
+      "category": "Miscellaneous/Trivia",
+      "subcategory": "india-person-birthplace",
+      "question_shape": "lookup",
+      "difficulty_tier": "Tier 2",
+      "prize_level_asked_at": null,
+      "source": "Wikidata structured facts",
+      "source_schema_version": 5,
+      "source_url": "http://www.wikidata.org/entity/Q1203191",
+      "source_accessed_at": "2026-08-27",
+      "tags": [
+        "india",
+        "people",
+        "birthplace"
+      ],
+      "language_original": "en",
+      "translation_status": "not required",
+      "explanation": "Wikidata records Mumbai as the birthplace of Arbaaz Khan.",
+      "provenance_status": "Wikidata structured fact; options generated from same-type facts; answer not independently verified"
+    },
+    {
+      "id": "wd-india-state-capital-Q1191",
+      "canonical_key": "wd-india-state-capital-Q1191",
+      "season": null,
+      "episode": null,
+      "air_date": null,
+      "question_text": "What is the capital of Maharashtra?",
+      "options": [
+        "Kavaratti",
+        "Chandigarh",
+        "Bhubaneswar",
+        "Nagpur"
+      ],
+      "correct_option_index": 3,
+      "question_type": "practice",
+      "category": "Geography (India)",
+      "subcategory": "india-state-capital",
+      "question_shape": "lookup",
+      "difficulty_tier": "Tier 1",
+      "prize_level_asked_at": null,
+      "source": "Wikidata structured facts",
+      "source_schema_version": 5,
+      "source_url": "http://www.wikidata.org/entity/Q1191",
+      "source_accessed_at": "2026-08-27",
+      "tags": [
+        "india",
+        "state",
+        "capital"
+      ],
+      "language_original": "en",
+      "translation_status": "not required",
+      "explanation": "Wikidata records Nagpur as the capital of Maharashtra.",
       "provenance_status": "Wikidata structured fact; options generated from same-type facts; answer not independently verified"
     }
   ]
