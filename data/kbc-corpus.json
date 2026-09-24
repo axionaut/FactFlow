@@ -1,6 +1,6 @@
 {
   "schema_version": 4,
-  "generated_at": "2026-09-24T12:02:17.365Z",
+  "generated_at": "2026-09-24T17:23:49.894Z",
   "corpus_scope": "India-first KBC practice combining historical KBC archives with accumulating structured facts; not an official Sony corpus.",
   "sources": [
     {
@@ -2041,7 +2041,7 @@
       "url": "https://www.gksection.com/kbc-15-episode-1-questions-answers-hindi/",
       "status": 200,
       "questions": 0,
-      "last_attempted_at": "2026-09-17"
+      "last_attempted_at": "2026-09-24"
     },
     {
       "season": 15,
@@ -2050,7 +2050,7 @@
       "url": "https://www.gksection.com/kbc-15-episode-2-questions-answers-hindi/",
       "status": 200,
       "questions": 0,
-      "last_attempted_at": "2026-09-17"
+      "last_attempted_at": "2026-09-24"
     },
     {
       "season": 15,
@@ -2059,7 +2059,7 @@
       "url": "https://www.gksection.com/kbc-15-episode-3-questions-answers-hindi/",
       "status": 200,
       "questions": 0,
-      "last_attempted_at": "2026-09-17"
+      "last_attempted_at": "2026-09-24"
     },
     {
       "season": 15,
@@ -2068,7 +2068,7 @@
       "url": "https://www.gksection.com/kbc-15-episode-4-questions-answers-hindi/",
       "status": 200,
       "questions": 0,
-      "last_attempted_at": "2026-09-17"
+      "last_attempted_at": "2026-09-24"
     },
     {
       "season": 15,
@@ -2077,7 +2077,7 @@
       "url": "https://www.gksection.com/kbc-15-episode-5-questions-answers-hindi/",
       "status": 200,
       "questions": 0,
-      "last_attempted_at": "2026-09-17"
+      "last_attempted_at": "2026-09-24"
     },
     {
       "season": 15,
@@ -2086,7 +2086,7 @@
       "url": "https://www.gksection.com/kbc-15-episode-6-questions-answers-hindi/",
       "status": 200,
       "questions": 0,
-      "last_attempted_at": "2026-09-17"
+      "last_attempted_at": "2026-09-24"
     },
     {
       "season": 15,
@@ -2966,145 +2966,144 @@
   "wikidata_state": {
     "india-person-birthplace": {
       "offset": 96,
-      "last_attempted_at": "2026-09-24T11:55:42.706Z",
+      "last_attempted_at": "2026-09-24T17:18:03.898Z",
       "last_result_count": 56,
-      "exhausted": false
+      "exhausted": false,
+      "last_error": "Wikidata india-person-birthplace failed (qlever.dev: 400, query.wikidata.org: The operation was aborted due to timeout)"
     },
     "india-film-director": {
       "offset": 48,
-      "last_attempted_at": "2026-09-24T11:56:03.199Z",
+      "last_attempted_at": "2026-09-24T17:18:24.321Z",
       "last_result_count": 56,
       "exhausted": false,
       "last_error": "Wikidata india-film-director failed (qlever.dev: 400, query.wikidata.org: The operation was aborted due to timeout)"
     },
     "india-book-author": {
       "offset": 0,
-      "last_attempted_at": "2026-09-24T11:56:21.974Z",
+      "last_attempted_at": "2026-09-24T17:18:44.153Z",
       "last_result_count": 26,
       "exhausted": true
     },
     "india-state-capital": {
-      "offset": 24,
-      "last_attempted_at": "2026-09-24T11:56:24.055Z",
-      "last_result_count": 32,
-      "exhausted": false
+      "offset": 0,
+      "last_attempted_at": "2026-09-24T17:18:56.414Z",
+      "last_result_count": 18,
+      "exhausted": true
     },
     "world-country-capital": {
-      "offset": 120,
-      "last_attempted_at": "2026-09-24T11:56:44.399Z",
+      "offset": 144,
+      "last_attempted_at": "2026-09-24T17:19:12.655Z",
       "last_result_count": 32,
-      "exhausted": false,
-      "last_error": "Wikidata world-country-capital failed (qlever.dev: 400, query.wikidata.org: The operation was aborted due to timeout)"
+      "exhausted": false
     },
     "world-country-currency": {
       "offset": 48,
-      "last_attempted_at": "2026-09-24T11:56:55.365Z",
+      "last_attempted_at": "2026-09-24T17:19:33.234Z",
       "last_result_count": 32,
-      "exhausted": false
+      "exhausted": false,
+      "last_error": "Wikidata world-country-currency failed (qlever.dev: 400, query.wikidata.org: The operation was aborted due to timeout)"
     },
     "world-heritage-country": {
       "offset": 360,
-      "last_attempted_at": "2026-09-24T11:56:55.807Z",
+      "last_attempted_at": "2026-09-24T17:19:53.652Z",
       "last_result_count": 32,
       "exhausted": false,
-      "last_error": "Wikidata world-heritage-country failed (qlever.dev: 400, query.wikidata.org: 429)"
+      "last_error": "Wikidata world-heritage-country failed (qlever.dev: 400, query.wikidata.org: The operation was aborted due to timeout)"
     },
     "india-athlete-sport": {
       "offset": 48,
-      "last_attempted_at": "2026-09-24T11:57:16.305Z",
+      "last_attempted_at": "2026-09-24T17:20:14.078Z",
       "last_result_count": 56,
       "exhausted": false,
       "last_error": "Wikidata india-athlete-sport failed (qlever.dev: 400, query.wikidata.org: The operation was aborted due to timeout)"
     },
     "chemical-element-symbol": {
       "offset": 24,
-      "last_attempted_at": "2026-09-24T11:57:36.896Z",
+      "last_attempted_at": "2026-09-24T17:20:34.505Z",
       "last_result_count": 32,
       "exhausted": false,
       "last_error": "Wikidata chemical-element-symbol failed (qlever.dev: 400, query.wikidata.org: The operation was aborted due to timeout)"
     },
     "india-battle-year": {
       "offset": 0,
-      "last_attempted_at": "2026-09-24T11:57:57.470Z",
+      "last_attempted_at": "2026-09-24T17:20:43.343Z",
       "last_result_count": 25,
-      "exhausted": true,
-      "last_error": "Wikidata india-battle-year failed (qlever.dev: 400, query.wikidata.org: The operation was aborted due to timeout)"
+      "exhausted": true
     },
     "award-bharat-ratna": {
       "offset": 0,
-      "last_attempted_at": "2026-09-24T11:58:18.054Z",
+      "last_attempted_at": "2026-09-24T17:21:03.997Z",
       "last_result_count": 43,
       "exhausted": true,
       "last_error": "Wikidata foils for award-bharat-ratna failed (qlever.dev: 400, query.wikidata.org: The operation was aborted due to timeout)"
     },
     "award-param-vir-chakra": {
       "offset": 0,
-      "last_attempted_at": "2026-09-24T11:58:38.400Z",
+      "last_attempted_at": "2026-09-24T17:21:04.925Z",
       "last_result_count": 21,
       "exhausted": true,
-      "last_error": "Wikidata foils for award-param-vir-chakra failed (qlever.dev: 400, query.wikidata.org: The operation was aborted due to timeout)"
+      "last_error": "Wikidata foils for award-param-vir-chakra failed (qlever.dev: 400, query.wikidata.org: 429)"
     },
     "award-jnanpith": {
       "offset": 48,
-      "last_attempted_at": "2026-09-24T11:58:58.801Z",
+      "last_attempted_at": "2026-09-24T17:21:25.385Z",
       "last_result_count": 32,
       "exhausted": false,
-      "last_error": "Wikidata award-jnanpith failed (qlever.dev: 400, query.wikidata.org: The operation was aborted due to timeout)"
+      "last_error": "Wikidata foils for award-jnanpith failed (qlever.dev: 400, query.wikidata.org: The operation was aborted due to timeout)"
     },
     "award-dadasaheb-phalke": {
       "offset": 0,
-      "last_attempted_at": "2026-09-24T11:59:19.311Z",
+      "last_attempted_at": "2026-09-24T17:21:35.085Z",
       "last_result_count": 31,
       "exhausted": true,
-      "last_error": "Wikidata award-dadasaheb-phalke failed (qlever.dev: 400, query.wikidata.org: The operation was aborted due to timeout)"
+      "last_error": "Wikidata foils for award-dadasaheb-phalke failed (qlever.dev: 400, query.wikidata.org: 429)"
     },
     "polity-prime-minister": {
       "offset": 0,
-      "last_attempted_at": "2026-09-24T11:59:39.883Z",
+      "last_attempted_at": "2026-09-24T17:21:51.427Z",
       "last_result_count": 10,
-      "exhausted": true,
-      "last_error": "Wikidata foils for polity-prime-minister failed (qlever.dev: 400, query.wikidata.org: The operation was aborted due to timeout)"
+      "exhausted": true
     },
     "polity-president": {
       "offset": 0,
-      "last_attempted_at": "2026-09-24T12:00:00.369Z",
+      "last_attempted_at": "2026-09-24T17:21:52.304Z",
       "last_result_count": 17,
       "exhausted": true,
-      "last_error": "Wikidata polity-president failed (qlever.dev: 400, query.wikidata.org: The operation was aborted due to timeout)"
+      "last_error": "Wikidata polity-president failed (qlever.dev: 400, query.wikidata.org: 429)"
     },
     "polity-chief-justice": {
       "offset": 24,
-      "last_attempted_at": "2026-09-24T12:00:20.721Z",
+      "last_attempted_at": "2026-09-24T17:22:12.724Z",
       "last_result_count": 32,
       "exhausted": false,
-      "last_error": "Wikidata polity-chief-justice failed (qlever.dev: 400, query.wikidata.org: The operation was aborted due to timeout)"
+      "last_error": "Wikidata foils for polity-chief-justice failed (qlever.dev: 400, query.wikidata.org: The operation was aborted due to timeout)"
     },
     "mythology-mahabharata": {
       "offset": 192,
-      "last_attempted_at": "2026-09-24T12:00:41.221Z",
+      "last_attempted_at": "2026-09-24T17:22:33.530Z",
       "last_result_count": 56,
       "exhausted": false,
       "last_error": "Wikidata mythology-mahabharata failed (qlever.dev: 400, query.wikidata.org: The operation was aborted due to timeout)"
     },
     "mythology-ramayana": {
       "offset": 48,
-      "last_attempted_at": "2026-09-24T12:01:01.726Z",
+      "last_attempted_at": "2026-09-24T17:22:54.279Z",
       "last_result_count": 56,
       "exhausted": false,
-      "last_error": "Wikidata mythology-ramayana failed (qlever.dev: 400, query.wikidata.org: The operation was aborted due to timeout)"
+      "last_error": "Wikidata foils for mythology-ramayana failed (qlever.dev: 400, query.wikidata.org: The operation was aborted due to timeout)"
     },
     "india-monument-state": {
-      "offset": 48,
-      "last_attempted_at": "2026-09-24T12:01:08.777Z",
-      "last_result_count": 56,
-      "exhausted": false
+      "offset": 0,
+      "last_attempted_at": "2026-09-24T17:23:04.726Z",
+      "last_result_count": 11,
+      "exhausted": true
     }
   },
   "current_affairs_source_version": 1,
   "current_affairs_questions": 65,
   "pattern_profile": {
     "derived_from": 601,
-    "derived_at": "2026-09-24T12:02:17.365Z",
+    "derived_at": "2026-09-24T17:23:49.894Z",
     "note": "Archive questions are pattern evidence only and are never served as practice.",
     "category_mix": {
       "Miscellaneous/Trivia": 0.5008,
@@ -23408,7 +23407,7 @@
       "source": "Wikidata current affairs",
       "source_schema_version": 1,
       "source_url": "http://www.wikidata.org/entity/Q137204778",
-      "source_accessed_at": "2026-09-23",
+      "source_accessed_at": "2026-09-24",
       "event_date": "2026-08-07",
       "tags": [
         "current-affairs",
@@ -23443,7 +23442,7 @@
       "source": "Wikidata current affairs",
       "source_schema_version": 1,
       "source_url": "http://www.wikidata.org/entity/Q140480413",
-      "source_accessed_at": "2026-09-23",
+      "source_accessed_at": "2026-09-24",
       "event_date": "2026-07-22",
       "tags": [
         "current-affairs",
@@ -23478,7 +23477,7 @@
       "source": "Wikidata current affairs",
       "source_schema_version": 1,
       "source_url": "http://www.wikidata.org/entity/Q269909",
-      "source_accessed_at": "2026-09-23",
+      "source_accessed_at": "2026-09-24",
       "event_date": "2026-07-20",
       "tags": [
         "current-affairs",
@@ -23513,7 +23512,7 @@
       "source": "Wikidata current affairs",
       "source_schema_version": 1,
       "source_url": "http://www.wikidata.org/entity/Q124101558",
-      "source_accessed_at": "2026-09-23",
+      "source_accessed_at": "2026-09-24",
       "event_date": "2026-07-16",
       "tags": [
         "current-affairs",
@@ -23548,7 +23547,7 @@
       "source": "Wikidata current affairs",
       "source_schema_version": 1,
       "source_url": "http://www.wikidata.org/entity/Q1936326",
-      "source_accessed_at": "2026-09-23",
+      "source_accessed_at": "2026-09-24",
       "event_date": "2026-07-14",
       "tags": [
         "current-affairs",
@@ -23583,7 +23582,7 @@
       "source": "Wikidata current affairs",
       "source_schema_version": 1,
       "source_url": "http://www.wikidata.org/entity/Q139594211",
-      "source_accessed_at": "2026-09-23",
+      "source_accessed_at": "2026-09-24",
       "event_date": "2026-06-19",
       "tags": [
         "current-affairs",
@@ -23606,7 +23605,7 @@
         "Alexander Turchyn",
         "Christian Stocker",
         "Janez Janša",
-        "Raffaella Petrini"
+        "Yamandú Orsi"
       ],
       "correct_option_index": 2,
       "question_type": "practice",
@@ -23618,7 +23617,7 @@
       "source": "Wikidata current affairs",
       "source_schema_version": 1,
       "source_url": "http://www.wikidata.org/entity/Q57627",
-      "source_accessed_at": "2026-09-23",
+      "source_accessed_at": "2026-09-24",
       "event_date": "2026-06-04",
       "tags": [
         "current-affairs",
@@ -23653,7 +23652,7 @@
       "source": "Wikidata current affairs",
       "source_schema_version": 1,
       "source_url": "http://www.wikidata.org/entity/Q26257557",
-      "source_accessed_at": "2026-09-23",
+      "source_accessed_at": "2026-09-24",
       "event_date": "2026-05-08",
       "tags": [
         "current-affairs",
@@ -23688,7 +23687,7 @@
       "source": "Wikidata current affairs",
       "source_schema_version": 1,
       "source_url": "http://www.wikidata.org/entity/Q114705150",
-      "source_accessed_at": "2026-09-23",
+      "source_accessed_at": "2026-09-24",
       "event_date": "2026-05-08",
       "tags": [
         "current-affairs",
@@ -23723,7 +23722,7 @@
       "source": "Wikidata current affairs",
       "source_schema_version": 1,
       "source_url": "http://www.wikidata.org/entity/Q110962738",
-      "source_accessed_at": "2026-09-23",
+      "source_accessed_at": "2026-09-24",
       "event_date": "2026-03-30",
       "tags": [
         "current-affairs",
@@ -23758,7 +23757,7 @@
       "source": "Wikidata current affairs",
       "source_schema_version": 1,
       "source_url": "http://www.wikidata.org/entity/Q5937916",
-      "source_accessed_at": "2026-09-23",
+      "source_accessed_at": "2026-09-24",
       "event_date": "2026-03-11",
       "tags": [
         "current-affairs",
@@ -23793,7 +23792,7 @@
       "source": "Wikidata current affairs",
       "source_schema_version": 1,
       "source_url": "http://www.wikidata.org/entity/Q28860866",
-      "source_accessed_at": "2026-09-23",
+      "source_accessed_at": "2026-09-24",
       "event_date": "2026-02-23",
       "tags": [
         "current-affairs",
@@ -23828,7 +23827,7 @@
       "source": "Wikidata current affairs",
       "source_schema_version": 1,
       "source_url": "http://www.wikidata.org/entity/Q7686199",
-      "source_accessed_at": "2026-09-23",
+      "source_accessed_at": "2026-09-24",
       "event_date": "2026-02-17",
       "tags": [
         "current-affairs",
@@ -23863,7 +23862,7 @@
       "source": "Wikidata current affairs",
       "source_schema_version": 1,
       "source_url": "http://www.wikidata.org/entity/Q16146159",
-      "source_accessed_at": "2026-09-23",
+      "source_accessed_at": "2026-09-24",
       "event_date": "2026-01-27",
       "tags": [
         "current-affairs",
@@ -23898,7 +23897,7 @@
       "source": "Wikidata current affairs",
       "source_schema_version": 1,
       "source_url": "http://www.wikidata.org/entity/Q5437258",
-      "source_accessed_at": "2026-09-23",
+      "source_accessed_at": "2026-09-24",
       "event_date": "2025-12-18",
       "tags": [
         "current-affairs",
@@ -23933,7 +23932,7 @@
       "source": "Wikidata current affairs",
       "source_schema_version": 1,
       "source_url": "http://www.wikidata.org/entity/Q10819807",
-      "source_accessed_at": "2026-09-23",
+      "source_accessed_at": "2026-09-24",
       "event_date": "2025-12-09",
       "tags": [
         "current-affairs",
@@ -23968,7 +23967,7 @@
       "source": "Wikidata current affairs",
       "source_schema_version": 1,
       "source_url": "http://www.wikidata.org/entity/Q110520817",
-      "source_accessed_at": "2026-09-23",
+      "source_accessed_at": "2026-09-24",
       "event_date": "2025-11-08",
       "tags": [
         "current-affairs",
@@ -24003,7 +24002,7 @@
       "source": "Wikidata current affairs",
       "source_schema_version": 1,
       "source_url": "http://www.wikidata.org/entity/Q16190544",
-      "source_accessed_at": "2026-09-23",
+      "source_accessed_at": "2026-09-24",
       "event_date": "2025-10-26",
       "tags": [
         "current-affairs",
@@ -24038,7 +24037,7 @@
       "source": "Wikidata current affairs",
       "source_schema_version": 1,
       "source_url": "http://www.wikidata.org/entity/Q1705028",
-      "source_accessed_at": "2026-09-23",
+      "source_accessed_at": "2026-09-24",
       "event_date": "2025-10-21",
       "tags": [
         "current-affairs",
@@ -24073,7 +24072,7 @@
       "source": "Wikidata current affairs",
       "source_schema_version": 1,
       "source_url": "http://www.wikidata.org/entity/Q136448305",
-      "source_accessed_at": "2026-09-23",
+      "source_accessed_at": "2026-09-24",
       "event_date": "2025-10-06",
       "tags": [
         "current-affairs",
@@ -24108,7 +24107,7 @@
       "source": "Wikidata current affairs",
       "source_schema_version": 1,
       "source_url": "http://www.wikidata.org/entity/Q20089181",
-      "source_accessed_at": "2026-09-23",
+      "source_accessed_at": "2026-09-24",
       "event_date": "2025-09-09",
       "tags": [
         "current-affairs",
@@ -24143,7 +24142,7 @@
       "source": "Wikidata current affairs",
       "source_schema_version": 1,
       "source_url": "http://www.wikidata.org/entity/Q133540883",
-      "source_accessed_at": "2026-09-23",
+      "source_accessed_at": "2026-09-24",
       "event_date": "2025-08-28",
       "tags": [
         "current-affairs",
@@ -24178,7 +24177,7 @@
       "source": "Wikidata current affairs",
       "source_schema_version": 1,
       "source_url": "http://www.wikidata.org/entity/Q135454730",
-      "source_accessed_at": "2026-09-23",
+      "source_accessed_at": "2026-09-24",
       "event_date": "2025-07-25",
       "tags": [
         "current-affairs",
@@ -24213,7 +24212,7 @@
       "source": "Wikidata current affairs",
       "source_schema_version": 1,
       "source_url": "http://www.wikidata.org/entity/Q29934395",
-      "source_accessed_at": "2026-09-23",
+      "source_accessed_at": "2026-09-24",
       "event_date": "2025-07-21",
       "tags": [
         "current-affairs",
@@ -24236,7 +24235,7 @@
         "Jennifer Geerlings-Simons",
         "Lee Jae Myung",
         "Friedrich Merz",
-        "Faure Essozimna Gnassingbé"
+        "Salem Saleh bin Braik"
       ],
       "correct_option_index": 0,
       "question_type": "practice",
@@ -24248,7 +24247,7 @@
       "source": "Wikidata current affairs",
       "source_schema_version": 1,
       "source_url": "http://www.wikidata.org/entity/Q440403",
-      "source_accessed_at": "2026-09-23",
+      "source_accessed_at": "2026-09-24",
       "event_date": "2025-07-16",
       "tags": [
         "current-affairs",
@@ -24283,7 +24282,7 @@
       "source": "Wikidata current affairs",
       "source_schema_version": 1,
       "source_url": "http://www.wikidata.org/entity/Q13018661",
-      "source_accessed_at": "2026-09-23",
+      "source_accessed_at": "2026-09-24",
       "event_date": "2025-07-03",
       "tags": [
         "current-affairs",
@@ -24318,7 +24317,7 @@
       "source": "Wikidata current affairs",
       "source_schema_version": 1,
       "source_url": "http://www.wikidata.org/entity/Q18538164",
-      "source_accessed_at": "2026-09-23",
+      "source_accessed_at": "2026-09-24",
       "event_date": "2025-06-23",
       "tags": [
         "current-affairs",
@@ -24353,7 +24352,7 @@
       "source": "Wikidata current affairs",
       "source_schema_version": 1,
       "source_url": "http://www.wikidata.org/entity/Q566257",
-      "source_accessed_at": "2026-09-23",
+      "source_accessed_at": "2026-09-24",
       "event_date": "2025-05-06",
       "tags": [
         "current-affairs",
@@ -24388,7 +24387,7 @@
       "source": "Wikidata current affairs",
       "source_schema_version": 1,
       "source_url": "http://www.wikidata.org/entity/Q4414",
-      "source_accessed_at": "2026-09-23",
+      "source_accessed_at": "2026-09-24",
       "event_date": "2025-05-03",
       "tags": [
         "current-affairs",
@@ -24423,7 +24422,7 @@
       "source": "Wikidata current affairs",
       "source_schema_version": 1,
       "source_url": "http://www.wikidata.org/entity/Q68837007",
-      "source_accessed_at": "2026-09-23",
+      "source_accessed_at": "2026-09-24",
       "event_date": "2025-05-03",
       "tags": [
         "current-affairs",
@@ -24458,7 +24457,7 @@
       "source": "Wikidata current affairs",
       "source_schema_version": 1,
       "source_url": "http://www.wikidata.org/entity/Q57712",
-      "source_accessed_at": "2026-09-23",
+      "source_accessed_at": "2026-09-24",
       "event_date": "2025-05-01",
       "tags": [
         "current-affairs",
@@ -24493,7 +24492,7 @@
       "source": "Wikidata current affairs",
       "source_schema_version": 1,
       "source_url": "http://www.wikidata.org/entity/Q129676165",
-      "source_accessed_at": "2026-09-23",
+      "source_accessed_at": "2026-09-24",
       "event_date": "2025-04-10",
       "tags": [
         "current-affairs",
@@ -24528,7 +24527,7 @@
       "source": "Wikidata current affairs",
       "source_schema_version": 1,
       "source_url": "http://www.wikidata.org/entity/Q16262782",
-      "source_accessed_at": "2026-09-23",
+      "source_accessed_at": "2026-09-24",
       "event_date": "2025-03-28",
       "tags": [
         "current-affairs",
@@ -24563,7 +24562,7 @@
       "source": "Wikidata current affairs",
       "source_schema_version": 1,
       "source_url": "http://www.wikidata.org/entity/Q5360975",
-      "source_accessed_at": "2026-09-23",
+      "source_accessed_at": "2026-09-24",
       "event_date": "2025-03-21",
       "tags": [
         "current-affairs",
@@ -24598,7 +24597,7 @@
       "source": "Wikidata current affairs",
       "source_schema_version": 1,
       "source_url": "http://www.wikidata.org/entity/Q108892374",
-      "source_accessed_at": "2026-09-23",
+      "source_accessed_at": "2026-09-24",
       "event_date": "2025-03-21",
       "tags": [
         "current-affairs",
@@ -24618,8 +24617,8 @@
       "air_date": null,
       "question_text": "Who is the current head of government of Canada?",
       "options": [
-        "Raffaella Petrini",
         "Yamandú Orsi",
+        "Raffaella Petrini",
         "Nawaf Salam",
         "Mark Carney"
       ],
@@ -24633,7 +24632,7 @@
       "source": "Wikidata current affairs",
       "source_schema_version": 1,
       "source_url": "http://www.wikidata.org/entity/Q192533",
-      "source_accessed_at": "2026-09-23",
+      "source_accessed_at": "2026-09-24",
       "event_date": "2025-03-14",
       "tags": [
         "current-affairs",
@@ -24668,7 +24667,7 @@
       "source": "Wikidata current affairs",
       "source_schema_version": 1,
       "source_url": "http://www.wikidata.org/entity/Q56235580",
-      "source_accessed_at": "2026-09-23",
+      "source_accessed_at": "2026-09-24",
       "event_date": "2025-03-10",
       "tags": [
         "current-affairs",
@@ -24703,7 +24702,7 @@
       "source": "Wikidata current affairs",
       "source_schema_version": 1,
       "source_url": "http://www.wikidata.org/entity/Q64576653",
-      "source_accessed_at": "2026-09-23",
+      "source_accessed_at": "2026-09-24",
       "event_date": "2025-03-03",
       "tags": [
         "current-affairs",
@@ -24738,7 +24737,7 @@
       "source": "Wikidata current affairs",
       "source_schema_version": 1,
       "source_url": "http://www.wikidata.org/entity/Q19946921",
-      "source_accessed_at": "2026-09-23",
+      "source_accessed_at": "2026-09-24",
       "event_date": "2025-03-01",
       "tags": [
         "current-affairs",
@@ -24773,7 +24772,7 @@
       "source": "Wikidata current affairs",
       "source_schema_version": 1,
       "source_url": "http://www.wikidata.org/entity/Q109385659",
-      "source_accessed_at": "2026-09-23",
+      "source_accessed_at": "2026-09-24",
       "event_date": "2025-03-01",
       "tags": [
         "current-affairs",
@@ -24808,7 +24807,7 @@
       "source": "Wikidata current affairs",
       "source_schema_version": 1,
       "source_url": "http://www.wikidata.org/entity/Q638463",
-      "source_accessed_at": "2026-09-23",
+      "source_accessed_at": "2026-09-24",
       "event_date": "2025-02-08",
       "tags": [
         "current-affairs",
@@ -24843,7 +24842,7 @@
       "source": "Wikidata current affairs",
       "source_schema_version": 1,
       "source_url": "http://www.wikidata.org/entity/Q336599",
-      "source_accessed_at": "2026-09-23",
+      "source_accessed_at": "2026-09-24",
       "event_date": "2025-02-03",
       "tags": [
         "current-affairs",
@@ -24878,7 +24877,7 @@
       "source": "Wikidata current affairs",
       "source_schema_version": 1,
       "source_url": "http://www.wikidata.org/entity/Q920403",
-      "source_accessed_at": "2026-09-23",
+      "source_accessed_at": "2026-09-24",
       "event_date": "2025-01-23",
       "tags": [
         "current-affairs",
@@ -24948,7 +24947,7 @@
       "source": "Wikidata current affairs",
       "source_schema_version": 1,
       "source_url": "http://www.wikidata.org/entity/Q6761049",
-      "source_accessed_at": "2026-09-23",
+      "source_accessed_at": "2026-09-24",
       "event_date": "2025-01-15",
       "tags": [
         "current-affairs",
@@ -24983,7 +24982,7 @@
       "source": "Wikidata current affairs",
       "source_schema_version": 1,
       "source_url": "http://www.wikidata.org/entity/Q131749390",
-      "source_accessed_at": "2026-09-23",
+      "source_accessed_at": "2026-09-24",
       "event_date": "2025-01-12",
       "tags": [
         "current-affairs",
@@ -25018,7 +25017,7 @@
       "source": "Wikidata current affairs",
       "source_schema_version": 1,
       "source_url": "http://www.wikidata.org/entity/Q108856371",
-      "source_accessed_at": "2026-09-23",
+      "source_accessed_at": "2026-09-24",
       "event_date": "2024-12-21",
       "tags": [
         "current-affairs",
@@ -25053,7 +25052,7 @@
       "source": "Wikidata current affairs",
       "source_schema_version": 1,
       "source_url": "http://www.wikidata.org/entity/Q112703041",
-      "source_accessed_at": "2026-09-23",
+      "source_accessed_at": "2026-09-24",
       "event_date": "2024-12-16",
       "tags": [
         "current-affairs",
@@ -25088,7 +25087,7 @@
       "source": "Wikidata current affairs",
       "source_schema_version": 1,
       "source_url": "http://www.wikidata.org/entity/Q16905281",
-      "source_accessed_at": "2026-09-23",
+      "source_accessed_at": "2026-09-24",
       "event_date": "2024-12-01",
       "tags": [
         "current-affairs",
@@ -25123,7 +25122,7 @@
       "source": "Wikidata current affairs",
       "source_schema_version": 1,
       "source_url": "http://www.wikidata.org/entity/Q131140314",
-      "source_accessed_at": "2026-09-23",
+      "source_accessed_at": "2026-09-24",
       "event_date": "2024-11-11",
       "tags": [
         "current-affairs",
@@ -25158,7 +25157,7 @@
       "source": "Wikidata current affairs",
       "source_schema_version": 1,
       "source_url": "http://www.wikidata.org/entity/Q98298397",
-      "source_accessed_at": "2026-09-23",
+      "source_accessed_at": "2026-09-24",
       "event_date": "2024-09-24",
       "tags": [
         "current-affairs",
@@ -25213,9 +25212,9 @@
       "air_date": null,
       "question_text": "Which of these people was awarded the Nobel Prize in Physics in 2025?",
       "options": [
-        "Omar M. Yaghi",
-        "John Clarke",
         "Susumu Kitagawa",
+        "John Clarke",
+        "Richard Robson",
         "Shimon Sakaguchi"
       ],
       "correct_option_index": 1,
@@ -25283,7 +25282,7 @@
       "air_date": null,
       "question_text": "Which of these people was awarded the Nobel Prize in Physics in 2025?",
       "options": [
-        "Susumu Kitagawa",
+        "Richard Robson",
         "Shimon Sakaguchi",
         "John M. Martinis",
         "Fred Ramsdell"
@@ -25391,7 +25390,7 @@
         "Fred Ramsdell",
         "Mary E. Brunkow",
         "Susumu Kitagawa",
-        "John Hopfield"
+        "Geoffrey Hinton"
       ],
       "correct_option_index": 2,
       "question_type": "practice",
@@ -25423,10 +25422,10 @@
       "air_date": null,
       "question_text": "Which of these people was awarded the Nobel Prize in Physiology or Medicine in 2025?",
       "options": [
-        "Omar M. Yaghi",
-        "Shimon Sakaguchi",
         "Susumu Kitagawa",
-        "John Hopfield"
+        "Shimon Sakaguchi",
+        "Richard Robson",
+        "Geoffrey Hinton"
       ],
       "correct_option_index": 1,
       "question_type": "practice",
@@ -25458,8 +25457,8 @@
       "air_date": null,
       "question_text": "Which of these people was awarded the Nobel Prize in Physiology or Medicine in 2025?",
       "options": [
-        "John Hopfield",
         "Geoffrey Hinton",
+        "John Hopfield",
         "John Clarke",
         "Fred Ramsdell"
       ],
@@ -25494,9 +25493,9 @@
       "question_text": "Which of these people was awarded the Nobel Prize in Physiology or Medicine in 2025?",
       "options": [
         "Mary E. Brunkow",
-        "Richard Robson",
         "Omar M. Yaghi",
-        "Susumu Kitagawa"
+        "Susumu Kitagawa",
+        "Richard Robson"
       ],
       "correct_option_index": 0,
       "question_type": "practice",
@@ -25530,8 +25529,8 @@
       "options": [
         "Mary E. Brunkow",
         "Geoffrey Hinton",
-        "Richard Robson",
-        "Omar M. Yaghi"
+        "Omar M. Yaghi",
+        "Susumu Kitagawa"
       ],
       "correct_option_index": 1,
       "question_type": "practice",
@@ -25566,7 +25565,7 @@
         "John Hopfield",
         "Fred Ramsdell",
         "Mary E. Brunkow",
-        "Richard Robson"
+        "Omar M. Yaghi"
       ],
       "correct_option_index": 0,
       "question_type": "practice",
@@ -31140,7 +31139,7 @@
       "air_date": null,
       "question_text": "What is the capital of Manipur?",
       "options": [
-        "Itanagar",
+        "Gangtok",
         "Imphal",
         "Shillong",
         "Agartala"
@@ -31174,9 +31173,9 @@
       "air_date": null,
       "question_text": "What is the capital of Meghalaya?",
       "options": [
-        "Chennai",
-        "Lucknow",
-        "Dispur",
+        "Bhubaneswar",
+        "Srivijayapuram",
+        "Agartala",
         "Shillong"
       ],
       "correct_option_index": 3,
@@ -31208,10 +31207,10 @@
       "air_date": null,
       "question_text": "What is the capital of West Bengal?",
       "options": [
-        "Agartala",
-        "Jaipur",
+        "Imphal",
+        "Shillong",
         "Kolkata",
-        "Hyderabad"
+        "Agartala"
       ],
       "correct_option_index": 2,
       "question_type": "practice",
@@ -31242,10 +31241,10 @@
       "air_date": null,
       "question_text": "What is the capital of Tripura?",
       "options": [
-        "Thiruvananthapuram",
-        "Itanagar",
+        "Chandigarh",
+        "Bhubaneswar",
         "Agartala",
-        "Shillong"
+        "Srivijayapuram"
       ],
       "correct_option_index": 2,
       "question_type": "practice",
@@ -31276,10 +31275,10 @@
       "air_date": null,
       "question_text": "What is the capital of Rajasthan?",
       "options": [
-        "Shimla",
-        "Ranchi",
+        "Kolkata",
+        "Chennai",
         "Jaipur",
-        "Bhopal"
+        "Lucknow"
       ],
       "correct_option_index": 2,
       "question_type": "practice",
@@ -31310,10 +31309,10 @@
       "air_date": null,
       "question_text": "What is the capital of Tamil Nadu?",
       "options": [
-        "Gandhinagar",
+        "Lucknow",
         "Chennai",
-        "Thiruvananthapuram",
-        "Kolkata"
+        "Gangtok",
+        "Nagpur"
       ],
       "correct_option_index": 1,
       "question_type": "practice",
@@ -31344,9 +31343,9 @@
       "air_date": null,
       "question_text": "What is the capital of Uttar Pradesh?",
       "options": [
-        "Bhopal",
+        "Gangtok",
+        "Nagpur",
         "Imphal",
-        "Shillong",
         "Lucknow"
       ],
       "correct_option_index": 3,
@@ -31427,7 +31426,7 @@
       "source": "Wikidata structured facts",
       "source_schema_version": 5,
       "source_url": "http://www.wikidata.org/entity/Q1502",
-      "source_accessed_at": "2026-09-23",
+      "source_accessed_at": "2026-09-24",
       "tags": [
         "india",
         "state",
@@ -31461,7 +31460,7 @@
       "source": "Wikidata structured facts",
       "source_schema_version": 5,
       "source_url": "http://www.wikidata.org/entity/Q1505",
-      "source_accessed_at": "2026-09-23",
+      "source_accessed_at": "2026-09-24",
       "tags": [
         "india",
         "state",
@@ -31495,7 +31494,7 @@
       "source": "Wikidata structured facts",
       "source_schema_version": 5,
       "source_url": "http://www.wikidata.org/entity/Q1599",
-      "source_accessed_at": "2026-09-23",
+      "source_accessed_at": "2026-09-24",
       "tags": [
         "india",
         "state",
@@ -31529,7 +31528,7 @@
       "source": "Wikidata structured facts",
       "source_schema_version": 5,
       "source_url": "http://www.wikidata.org/entity/Q22048",
-      "source_accessed_at": "2026-09-23",
+      "source_accessed_at": "2026-09-24",
       "tags": [
         "india",
         "state",
@@ -31563,7 +31562,7 @@
       "source": "Wikidata structured facts",
       "source_schema_version": 5,
       "source_url": "http://www.wikidata.org/entity/Q22424",
-      "source_accessed_at": "2026-09-23",
+      "source_accessed_at": "2026-09-24",
       "tags": [
         "india",
         "state",
@@ -31597,7 +31596,7 @@
       "source": "Wikidata structured facts",
       "source_schema_version": 5,
       "source_url": "http://www.wikidata.org/entity/Q26927",
-      "source_accessed_at": "2026-09-23",
+      "source_accessed_at": "2026-09-24",
       "tags": [
         "india",
         "state",
@@ -31616,7 +31615,7 @@
       "air_date": null,
       "question_text": "What is the capital of Andaman and Nicobar Islands?",
       "options": [
-        "Mumbai",
+        "Nagpur",
         "Imphal",
         "Jaipur",
         "Srivijayapuram"
@@ -31631,7 +31630,7 @@
       "source": "Wikidata structured facts",
       "source_schema_version": 5,
       "source_url": "http://www.wikidata.org/entity/Q40888",
-      "source_accessed_at": "2026-09-23",
+      "source_accessed_at": "2026-09-24",
       "tags": [
         "india",
         "state",
@@ -31665,7 +31664,7 @@
       "source": "Wikidata structured facts",
       "source_schema_version": 5,
       "source_url": "http://www.wikidata.org/entity/Q46107",
-      "source_accessed_at": "2026-09-23",
+      "source_accessed_at": "2026-09-24",
       "tags": [
         "india",
         "state",
@@ -43871,7 +43870,7 @@
       "source": "Wikidata structured facts",
       "source_schema_version": 5,
       "source_url": "http://www.wikidata.org/entity/Q203233",
-      "source_accessed_at": "2026-09-23",
+      "source_accessed_at": "2026-09-24",
       "tags": [
         "india",
         "history",
@@ -43905,7 +43904,7 @@
       "source": "Wikidata structured facts",
       "source_schema_version": 5,
       "source_url": "http://www.wikidata.org/entity/Q1259218",
-      "source_accessed_at": "2026-09-23",
+      "source_accessed_at": "2026-09-24",
       "tags": [
         "india",
         "history",
@@ -43939,7 +43938,7 @@
       "source": "Wikidata structured facts",
       "source_schema_version": 5,
       "source_url": "http://www.wikidata.org/entity/Q383614",
-      "source_accessed_at": "2026-09-23",
+      "source_accessed_at": "2026-09-24",
       "tags": [
         "india",
         "history",
@@ -43973,7 +43972,7 @@
       "source": "Wikidata structured facts",
       "source_schema_version": 5,
       "source_url": "http://www.wikidata.org/entity/Q1362188",
-      "source_accessed_at": "2026-09-23",
+      "source_accessed_at": "2026-09-24",
       "tags": [
         "india",
         "history",
@@ -44007,7 +44006,7 @@
       "source": "Wikidata structured facts",
       "source_schema_version": 5,
       "source_url": "http://www.wikidata.org/entity/Q2736986",
-      "source_accessed_at": "2026-09-23",
+      "source_accessed_at": "2026-09-24",
       "tags": [
         "india",
         "history",
@@ -44041,7 +44040,7 @@
       "source": "Wikidata structured facts",
       "source_schema_version": 5,
       "source_url": "http://www.wikidata.org/entity/Q4166578",
-      "source_accessed_at": "2026-09-23",
+      "source_accessed_at": "2026-09-24",
       "tags": [
         "india",
         "history",
@@ -44075,7 +44074,7 @@
       "source": "Wikidata structured facts",
       "source_schema_version": 5,
       "source_url": "http://www.wikidata.org/entity/Q658845",
-      "source_accessed_at": "2026-09-23",
+      "source_accessed_at": "2026-09-24",
       "tags": [
         "india",
         "history",
@@ -44109,7 +44108,7 @@
       "source": "Wikidata structured facts",
       "source_schema_version": 5,
       "source_url": "http://www.wikidata.org/entity/Q1540820",
-      "source_accessed_at": "2026-09-23",
+      "source_accessed_at": "2026-09-24",
       "tags": [
         "india",
         "history",
@@ -44143,7 +44142,7 @@
       "source": "Wikidata structured facts",
       "source_schema_version": 5,
       "source_url": "http://www.wikidata.org/entity/Q2095678",
-      "source_accessed_at": "2026-09-23",
+      "source_accessed_at": "2026-09-24",
       "tags": [
         "india",
         "history",
@@ -44177,7 +44176,7 @@
       "source": "Wikidata structured facts",
       "source_schema_version": 5,
       "source_url": "http://www.wikidata.org/entity/Q1573825",
-      "source_accessed_at": "2026-09-23",
+      "source_accessed_at": "2026-09-24",
       "tags": [
         "india",
         "history",
@@ -44211,7 +44210,7 @@
       "source": "Wikidata structured facts",
       "source_schema_version": 5,
       "source_url": "http://www.wikidata.org/entity/Q16931406",
-      "source_accessed_at": "2026-09-23",
+      "source_accessed_at": "2026-09-24",
       "tags": [
         "india",
         "history",
@@ -44245,7 +44244,7 @@
       "source": "Wikidata structured facts",
       "source_schema_version": 5,
       "source_url": "http://www.wikidata.org/entity/Q12427302",
-      "source_accessed_at": "2026-09-23",
+      "source_accessed_at": "2026-09-24",
       "tags": [
         "india",
         "history",
@@ -44279,7 +44278,7 @@
       "source": "Wikidata structured facts",
       "source_schema_version": 5,
       "source_url": "http://www.wikidata.org/entity/Q19840229",
-      "source_accessed_at": "2026-09-23",
+      "source_accessed_at": "2026-09-24",
       "tags": [
         "india",
         "history",
@@ -44313,7 +44312,7 @@
       "source": "Wikidata structured facts",
       "source_schema_version": 5,
       "source_url": "http://www.wikidata.org/entity/Q30600900",
-      "source_accessed_at": "2026-09-23",
+      "source_accessed_at": "2026-09-24",
       "tags": [
         "india",
         "history",
@@ -44347,7 +44346,7 @@
       "source": "Wikidata structured facts",
       "source_schema_version": 5,
       "source_url": "http://www.wikidata.org/entity/Q4087406",
-      "source_accessed_at": "2026-09-23",
+      "source_accessed_at": "2026-09-24",
       "tags": [
         "india",
         "history",
@@ -44381,7 +44380,7 @@
       "source": "Wikidata structured facts",
       "source_schema_version": 5,
       "source_url": "http://www.wikidata.org/entity/Q4872151",
-      "source_accessed_at": "2026-09-23",
+      "source_accessed_at": "2026-09-24",
       "tags": [
         "india",
         "history",
@@ -44415,7 +44414,7 @@
       "source": "Wikidata structured facts",
       "source_schema_version": 5,
       "source_url": "http://www.wikidata.org/entity/Q2887871",
-      "source_accessed_at": "2026-09-23",
+      "source_accessed_at": "2026-09-24",
       "tags": [
         "india",
         "history",
@@ -44449,7 +44448,7 @@
       "source": "Wikidata structured facts",
       "source_schema_version": 5,
       "source_url": "http://www.wikidata.org/entity/Q3297309",
-      "source_accessed_at": "2026-09-23",
+      "source_accessed_at": "2026-09-24",
       "tags": [
         "india",
         "history",
@@ -44483,7 +44482,7 @@
       "source": "Wikidata structured facts",
       "source_schema_version": 5,
       "source_url": "http://www.wikidata.org/entity/Q4087440",
-      "source_accessed_at": "2026-09-23",
+      "source_accessed_at": "2026-09-24",
       "tags": [
         "india",
         "history",
@@ -44517,7 +44516,7 @@
       "source": "Wikidata structured facts",
       "source_schema_version": 5,
       "source_url": "http://www.wikidata.org/entity/Q4870289",
-      "source_accessed_at": "2026-09-23",
+      "source_accessed_at": "2026-09-24",
       "tags": [
         "india",
         "history",
@@ -44551,7 +44550,7 @@
       "source": "Wikidata structured facts",
       "source_schema_version": 5,
       "source_url": "http://www.wikidata.org/entity/Q4870295",
-      "source_accessed_at": "2026-09-23",
+      "source_accessed_at": "2026-09-24",
       "tags": [
         "india",
         "history",
@@ -44585,7 +44584,7 @@
       "source": "Wikidata structured facts",
       "source_schema_version": 5,
       "source_url": "http://www.wikidata.org/entity/Q4870708",
-      "source_accessed_at": "2026-09-23",
+      "source_accessed_at": "2026-09-24",
       "tags": [
         "india",
         "history",
@@ -49039,7 +49038,7 @@
       "source": "Wikidata structured facts",
       "source_schema_version": 5,
       "source_url": "http://www.wikidata.org/entity/Q248484",
-      "source_accessed_at": "2026-09-23",
+      "source_accessed_at": "2026-09-24",
       "tags": [
         "india",
         "polity",
@@ -49073,7 +49072,7 @@
       "source": "Wikidata structured facts",
       "source_schema_version": 5,
       "source_url": "http://www.wikidata.org/entity/Q275146",
-      "source_accessed_at": "2026-09-23",
+      "source_accessed_at": "2026-09-24",
       "tags": [
         "india",
         "polity",
@@ -49107,7 +49106,7 @@
       "source": "Wikidata structured facts",
       "source_schema_version": 5,
       "source_url": "http://www.wikidata.org/entity/Q315338",
-      "source_accessed_at": "2026-09-23",
+      "source_accessed_at": "2026-09-24",
       "tags": [
         "india",
         "polity",
@@ -49141,7 +49140,7 @@
       "source": "Wikidata structured facts",
       "source_schema_version": 5,
       "source_url": "http://www.wikidata.org/entity/Q317769",
-      "source_accessed_at": "2026-09-23",
+      "source_accessed_at": "2026-09-24",
       "tags": [
         "india",
         "polity",
@@ -49175,7 +49174,7 @@
       "source": "Wikidata structured facts",
       "source_schema_version": 5,
       "source_url": "http://www.wikidata.org/entity/Q319824",
-      "source_accessed_at": "2026-09-23",
+      "source_accessed_at": "2026-09-24",
       "tags": [
         "india",
         "polity",
@@ -49209,7 +49208,7 @@
       "source": "Wikidata structured facts",
       "source_schema_version": 5,
       "source_url": "http://www.wikidata.org/entity/Q334279",
-      "source_accessed_at": "2026-09-23",
+      "source_accessed_at": "2026-09-24",
       "tags": [
         "india",
         "polity",
@@ -49311,7 +49310,7 @@
       "source": "Wikidata structured facts",
       "source_schema_version": 5,
       "source_url": "http://www.wikidata.org/entity/Q1149",
-      "source_accessed_at": "2026-09-23",
+      "source_accessed_at": "2026-09-24",
       "tags": [
         "india",
         "polity",
@@ -49345,7 +49344,7 @@
       "source": "Wikidata structured facts",
       "source_schema_version": 5,
       "source_url": "http://www.wikidata.org/entity/Q41914",
-      "source_accessed_at": "2026-09-23",
+      "source_accessed_at": "2026-09-24",
       "tags": [
         "india",
         "polity",
@@ -49379,7 +49378,7 @@
       "source": "Wikidata structured facts",
       "source_schema_version": 5,
       "source_url": "http://www.wikidata.org/entity/Q4593",
-      "source_accessed_at": "2026-09-23",
+      "source_accessed_at": "2026-09-24",
       "tags": [
         "india",
         "polity",
@@ -57048,10 +57047,10 @@
       "air_date": null,
       "question_text": "In which Indian state or union territory is “Varkala Beach” located?",
       "options": [
-        "Manipur",
-        "Bihar",
+        "Tamil Nadu",
+        "Odisha",
         "Kerala",
-        "Telangana"
+        "Karnataka"
       ],
       "correct_option_index": 2,
       "question_type": "practice",
@@ -57185,9 +57184,9 @@
       "question_text": "In which Indian state or union territory is “Pushpagiri Wildlife Sanctuary” located?",
       "options": [
         "Karnataka",
-        "Uttarakhand",
-        "Manipur",
-        "Maharashtra"
+        "Kerala",
+        "Odisha",
+        "Tamil Nadu"
       ],
       "correct_option_index": 0,
       "question_type": "practice",
@@ -57218,9 +57217,9 @@
       "air_date": null,
       "question_text": "In which Indian state or union territory is “St Thomas Fort” located?",
       "options": [
+        "Odisha",
+        "Karnataka",
         "Tamil Nadu",
-        "Uttarakhand",
-        "Maharashtra",
         "Kerala"
       ],
       "correct_option_index": 3,
@@ -57253,9 +57252,9 @@
       "question_text": "In which Indian state or union territory is “Kudremukh National Park” located?",
       "options": [
         "Karnataka",
+        "Tamil Nadu",
         "Kerala",
-        "Uttar Pradesh",
-        "Assam"
+        "Odisha"
       ],
       "correct_option_index": 0,
       "question_type": "practice",
@@ -57301,7 +57300,7 @@
       "source": "Wikidata structured facts",
       "source_schema_version": 5,
       "source_url": "http://www.wikidata.org/entity/Q3522009",
-      "source_accessed_at": "2026-09-23",
+      "source_accessed_at": "2026-09-24",
       "tags": [
         "india",
         "monument",
@@ -57335,7 +57334,7 @@
       "source": "Wikidata structured facts",
       "source_schema_version": 5,
       "source_url": "http://www.wikidata.org/entity/Q3522109",
-      "source_accessed_at": "2026-09-23",
+      "source_accessed_at": "2026-09-24",
       "tags": [
         "india",
         "monument",
@@ -57354,10 +57353,10 @@
       "air_date": null,
       "question_text": "In which Indian state or union territory is “Bhitarkanika Mangroves” located?",
       "options": [
-        "West Bengal",
-        "Uttar Pradesh",
+        "Kerala",
+        "Karnataka",
         "Odisha",
-        "Himachal Pradesh"
+        "Tamil Nadu"
       ],
       "correct_option_index": 2,
       "question_type": "practice",
@@ -57403,7 +57402,7 @@
       "source": "Wikidata structured facts",
       "source_schema_version": 5,
       "source_url": "http://www.wikidata.org/entity/Q6437601",
-      "source_accessed_at": "2026-09-23",
+      "source_accessed_at": "2026-09-24",
       "tags": [
         "india",
         "monument",
@@ -57437,7 +57436,7 @@
       "source": "Wikidata structured facts",
       "source_schema_version": 5,
       "source_url": "http://www.wikidata.org/entity/Q6807544",
-      "source_accessed_at": "2026-09-23",
+      "source_accessed_at": "2026-09-24",
       "tags": [
         "india",
         "monument",
@@ -57471,7 +57470,7 @@
       "source": "Wikidata structured facts",
       "source_schema_version": 5,
       "source_url": "http://www.wikidata.org/entity/Q681937",
-      "source_accessed_at": "2026-09-23",
+      "source_accessed_at": "2026-09-24",
       "tags": [
         "india",
         "monument",
@@ -66603,9 +66602,9 @@
       "question_text": "What is the capital of Tonga?",
       "options": [
         "Nukuʻalofa",
-        "Tashkent",
-        "Santiago",
-        "Belgrade"
+        "Castries",
+        "Kingston",
+        "St. George's"
       ],
       "correct_option_index": 0,
       "question_type": "practice",
@@ -66617,7 +66616,7 @@
       "source": "Wikidata structured facts",
       "source_schema_version": 5,
       "source_url": "http://www.wikidata.org/entity/Q678",
-      "source_accessed_at": "2026-09-23",
+      "source_accessed_at": "2026-09-24",
       "tags": [
         "world",
         "country",
@@ -66636,10 +66635,10 @@
       "air_date": null,
       "question_text": "What is the capital of Samoa?",
       "options": [
-        "Port Vila",
-        "Ngerulmud",
+        "Honiara",
+        "Palikir",
         "Apia",
-        "Phnom Penh"
+        "Caracas"
       ],
       "correct_option_index": 2,
       "question_type": "practice",
@@ -66651,7 +66650,7 @@
       "source": "Wikidata structured facts",
       "source_schema_version": 5,
       "source_url": "http://www.wikidata.org/entity/Q683",
-      "source_accessed_at": "2026-09-23",
+      "source_accessed_at": "2026-09-24",
       "tags": [
         "world",
         "country",
@@ -66671,9 +66670,9 @@
       "question_text": "What is the capital of Solomon Islands?",
       "options": [
         "Honiara",
-        "Wellington",
-        "Nukuʻalofa",
-        "Apia"
+        "Port Moresby",
+        "South Tarawa",
+        "St. George's"
       ],
       "correct_option_index": 0,
       "question_type": "practice",
@@ -66685,7 +66684,7 @@
       "source": "Wikidata structured facts",
       "source_schema_version": 5,
       "source_url": "http://www.wikidata.org/entity/Q685",
-      "source_accessed_at": "2026-09-23",
+      "source_accessed_at": "2026-09-24",
       "tags": [
         "world",
         "country",
@@ -66704,9 +66703,9 @@
       "air_date": null,
       "question_text": "What is the capital of Vanuatu?",
       "options": [
-        "Guatemala City",
-        "New Delhi",
+        "Port-au-Prince",
         "Ngerulmud",
+        "Kingstown",
         "Port Vila"
       ],
       "correct_option_index": 3,
@@ -66719,7 +66718,7 @@
       "source": "Wikidata structured facts",
       "source_schema_version": 5,
       "source_url": "http://www.wikidata.org/entity/Q686",
-      "source_accessed_at": "2026-09-20",
+      "source_accessed_at": "2026-09-24",
       "tags": [
         "world",
         "country",
@@ -66753,7 +66752,7 @@
       "source": "Wikidata structured facts",
       "source_schema_version": 5,
       "source_url": "http://www.wikidata.org/entity/Q691",
-      "source_accessed_at": "2026-09-20",
+      "source_accessed_at": "2026-09-24",
       "tags": [
         "world",
         "country",
@@ -66772,9 +66771,9 @@
       "air_date": null,
       "question_text": "What is the capital of Palau?",
       "options": [
-        "South Tarawa",
-        "Bogotá",
         "St. George's",
+        "Nassau",
+        "Roseau",
         "Ngerulmud"
       ],
       "correct_option_index": 3,
@@ -66787,7 +66786,7 @@
       "source": "Wikidata structured facts",
       "source_schema_version": 5,
       "source_url": "http://www.wikidata.org/entity/Q695",
-      "source_accessed_at": "2026-09-20",
+      "source_accessed_at": "2026-09-24",
       "tags": [
         "world",
         "country",
@@ -66821,7 +66820,7 @@
       "source": "Wikidata structured facts",
       "source_schema_version": 5,
       "source_url": "http://www.wikidata.org/entity/Q697",
-      "source_accessed_at": "2026-09-20",
+      "source_accessed_at": "2026-09-24",
       "tags": [
         "world",
         "country",
@@ -82990,10 +82989,10 @@
       "air_date": null,
       "question_text": "What is the capital of Federated States of Micronesia?",
       "options": [
-        "South Tarawa",
-        "St. George's",
+        "Port of Spain",
+        "Santo Domingo",
         "Palikir",
-        "Port of Spain"
+        "Yaren District"
       ],
       "correct_option_index": 2,
       "question_type": "practice",
@@ -83005,7 +83004,7 @@
       "source": "Wikidata structured facts",
       "source_schema_version": 5,
       "source_url": "http://www.wikidata.org/entity/Q702",
-      "source_accessed_at": "2026-09-20",
+      "source_accessed_at": "2026-09-24",
       "tags": [
         "world",
         "country",
@@ -83039,7 +83038,7 @@
       "source": "Wikidata structured facts",
       "source_schema_version": 5,
       "source_url": "http://www.wikidata.org/entity/Q709",
-      "source_accessed_at": "2026-09-20",
+      "source_accessed_at": "2026-09-24",
       "tags": [
         "world",
         "country",
@@ -83073,7 +83072,7 @@
       "source": "Wikidata structured facts",
       "source_schema_version": 5,
       "source_url": "http://www.wikidata.org/entity/Q710",
-      "source_accessed_at": "2026-09-20",
+      "source_accessed_at": "2026-09-24",
       "tags": [
         "world",
         "country",
@@ -83092,10 +83091,10 @@
       "air_date": null,
       "question_text": "What is the capital of Mongolia?",
       "options": [
-        "Ngerulmud",
         "Port of Spain",
+        "Kingstown",
         "Ulaanbaatar",
-        "Kingstown"
+        "Santo Domingo"
       ],
       "correct_option_index": 2,
       "question_type": "practice",
@@ -83107,7 +83106,7 @@
       "source": "Wikidata structured facts",
       "source_schema_version": 5,
       "source_url": "http://www.wikidata.org/entity/Q711",
-      "source_accessed_at": "2026-09-20",
+      "source_accessed_at": "2026-09-24",
       "tags": [
         "world",
         "country",
@@ -83126,9 +83125,9 @@
       "air_date": null,
       "question_text": "What is the capital of Fiji?",
       "options": [
-        "Yaren District",
-        "Suva",
         "Guatemala City",
+        "Suva",
+        "Port-au-Prince",
         "Apia"
       ],
       "correct_option_index": 1,
@@ -83141,7 +83140,7 @@
       "source": "Wikidata structured facts",
       "source_schema_version": 5,
       "source_url": "http://www.wikidata.org/entity/Q712",
-      "source_accessed_at": "2026-09-20",
+      "source_accessed_at": "2026-09-24",
       "tags": [
         "world",
         "country",
@@ -83161,9 +83160,9 @@
       "question_text": "What is the capital of Venezuela?",
       "options": [
         "Caracas",
-        "Roseau",
-        "New Delhi",
-        "Port Vila"
+        "Port Vila",
+        "Ngerulmud",
+        "Quito"
       ],
       "correct_option_index": 0,
       "question_type": "practice",
@@ -83175,7 +83174,7 @@
       "source": "Wikidata structured facts",
       "source_schema_version": 5,
       "source_url": "http://www.wikidata.org/entity/Q717",
-      "source_accessed_at": "2026-09-20",
+      "source_accessed_at": "2026-09-24",
       "tags": [
         "world",
         "country",
@@ -83194,10 +83193,10 @@
       "air_date": null,
       "question_text": "What is the capital of Suriname?",
       "options": [
-        "Bogotá",
-        "Paramaribo",
         "Guatemala City",
-        "Nassau"
+        "Paramaribo",
+        "Nassau",
+        "Roseau"
       ],
       "correct_option_index": 1,
       "question_type": "practice",
@@ -83209,7 +83208,7 @@
       "source": "Wikidata structured facts",
       "source_schema_version": 5,
       "source_url": "http://www.wikidata.org/entity/Q730",
-      "source_accessed_at": "2026-09-20",
+      "source_accessed_at": "2026-09-24",
       "tags": [
         "world",
         "country",
@@ -83228,10 +83227,10 @@
       "air_date": null,
       "question_text": "What is the capital of Paraguay?",
       "options": [
-        "Port Vila",
-        "Ngerulmud",
+        "Palikir",
+        "Caracas",
         "Asunción",
-        "Palikir"
+        "Kingstown"
       ],
       "correct_option_index": 2,
       "question_type": "practice",
@@ -83243,7 +83242,7 @@
       "source": "Wikidata structured facts",
       "source_schema_version": 5,
       "source_url": "http://www.wikidata.org/entity/Q733",
-      "source_accessed_at": "2026-09-20",
+      "source_accessed_at": "2026-09-24",
       "tags": [
         "world",
         "country",
@@ -83262,10 +83261,10 @@
       "air_date": null,
       "question_text": "What is the capital of Guyana?",
       "options": [
-        "Asunción",
+        "Kingston",
         "Georgetown",
-        "Castries",
-        "Kingston"
+        "St. George's",
+        "Honiara"
       ],
       "correct_option_index": 1,
       "question_type": "practice",
@@ -83277,7 +83276,7 @@
       "source": "Wikidata structured facts",
       "source_schema_version": 5,
       "source_url": "http://www.wikidata.org/entity/Q734",
-      "source_accessed_at": "2026-09-20",
+      "source_accessed_at": "2026-09-24",
       "tags": [
         "world",
         "country",
@@ -83298,7 +83297,7 @@
       "options": [
         "Palikir",
         "Caracas",
-        "Funafuti",
+        "Asunción",
         "Quito"
       ],
       "correct_option_index": 3,
@@ -83311,7 +83310,7 @@
       "source": "Wikidata structured facts",
       "source_schema_version": 5,
       "source_url": "http://www.wikidata.org/entity/Q736",
-      "source_accessed_at": "2026-09-20",
+      "source_accessed_at": "2026-09-24",
       "tags": [
         "world",
         "country",
@@ -83345,7 +83344,7 @@
       "source": "Wikidata structured facts",
       "source_schema_version": 5,
       "source_url": "http://www.wikidata.org/entity/Q739",
-      "source_accessed_at": "2026-09-20",
+      "source_accessed_at": "2026-09-24",
       "tags": [
         "world",
         "country",
@@ -83366,7 +83365,7 @@
       "options": [
         "Apia",
         "Suva",
-        "Port Moresby",
+        "Santo Domingo",
         "Port of Spain"
       ],
       "correct_option_index": 3,
@@ -83379,7 +83378,7 @@
       "source": "Wikidata structured facts",
       "source_schema_version": 5,
       "source_url": "http://www.wikidata.org/entity/Q754",
-      "source_accessed_at": "2026-09-20",
+      "source_accessed_at": "2026-09-24",
       "tags": [
         "world",
         "country",
@@ -83399,9 +83398,9 @@
       "question_text": "What is the capital of Saint Vincent and the Grenadines?",
       "options": [
         "Kingstown",
-        "St. George's",
-        "Nassau",
-        "Roseau"
+        "Roseau",
+        "Quito",
+        "Port of Spain"
       ],
       "correct_option_index": 0,
       "question_type": "practice",
@@ -83413,7 +83412,7 @@
       "source": "Wikidata structured facts",
       "source_schema_version": 5,
       "source_url": "http://www.wikidata.org/entity/Q757",
-      "source_accessed_at": "2026-09-20",
+      "source_accessed_at": "2026-09-24",
       "tags": [
         "world",
         "country",
@@ -83432,10 +83431,10 @@
       "air_date": null,
       "question_text": "What is the capital of Saint Lucia?",
       "options": [
-        "Bishkek",
-        "Vientiane",
+        "Nukuʻalofa",
+        "Majuro",
         "Castries",
-        "Naypyidaw"
+        "Paramaribo"
       ],
       "correct_option_index": 2,
       "question_type": "practice",
@@ -83447,7 +83446,7 @@
       "source": "Wikidata structured facts",
       "source_schema_version": 5,
       "source_url": "http://www.wikidata.org/entity/Q760",
-      "source_accessed_at": "2026-09-20",
+      "source_accessed_at": "2026-09-24",
       "tags": [
         "world",
         "country",
@@ -83466,10 +83465,10 @@
       "air_date": null,
       "question_text": "What is the capital of Saint Kitts and Nevis?",
       "options": [
-        "Santo Domingo",
+        "Port-au-Prince",
         "Basseterre",
-        "Baghdad",
-        "Managua"
+        "Quito",
+        "Apia"
       ],
       "correct_option_index": 1,
       "question_type": "practice",
@@ -83481,7 +83480,7 @@
       "source": "Wikidata structured facts",
       "source_schema_version": 5,
       "source_url": "http://www.wikidata.org/entity/Q763",
-      "source_accessed_at": "2026-09-20",
+      "source_accessed_at": "2026-09-24",
       "tags": [
         "world",
         "country",
@@ -83501,9 +83500,9 @@
       "question_text": "What is the capital of Jamaica?",
       "options": [
         "Kingston",
-        "Panama City",
-        "Amman",
-        "Kuwait City"
+        "Port Vila",
+        "Ngerulmud",
+        "Palikir"
       ],
       "correct_option_index": 0,
       "question_type": "practice",
@@ -83515,7 +83514,7 @@
       "source": "Wikidata structured facts",
       "source_schema_version": 5,
       "source_url": "http://www.wikidata.org/entity/Q766",
-      "source_accessed_at": "2026-09-20",
+      "source_accessed_at": "2026-09-24",
       "tags": [
         "world",
         "country",
@@ -83536,7 +83535,7 @@
       "options": [
         "Guatemala City",
         "Port-au-Prince",
-        "Jerusalem",
+        "Port Vila",
         "St. George's"
       ],
       "correct_option_index": 3,
@@ -83549,7 +83548,7 @@
       "source": "Wikidata structured facts",
       "source_schema_version": 5,
       "source_url": "http://www.wikidata.org/entity/Q769",
-      "source_accessed_at": "2026-09-20",
+      "source_accessed_at": "2026-09-24",
       "tags": [
         "world",
         "country",
@@ -100163,7 +100162,7 @@
         "Agartala",
         "Silvassa",
         "Kavaratti",
-        "Mumbai"
+        "Nagpur"
       ],
       "correct_option_index": 3,
       "question_type": "practice",
@@ -100175,7 +100174,7 @@
       "source": "Wikidata structured facts",
       "source_schema_version": 5,
       "source_url": "http://www.wikidata.org/entity/Q1191",
-      "source_accessed_at": "2026-09-23",
+      "source_accessed_at": "2026-09-24",
       "tags": [
         "india",
         "state",
@@ -100183,7 +100182,7 @@
       ],
       "language_original": "en",
       "translation_status": "not required",
-      "explanation": "Wikidata records Mumbai as the capital of Maharashtra.",
+      "explanation": "Wikidata records Nagpur as the capital of Maharashtra.",
       "provenance_status": "Wikidata structured fact; options generated from same-type facts; answer not independently verified"
     },
     {
@@ -121596,7 +121595,7 @@
       "source": "Wikidata current affairs",
       "source_schema_version": 1,
       "source_url": "http://www.wikidata.org/entity/Q124488292",
-      "source_accessed_at": "2026-09-23",
+      "source_accessed_at": "2026-09-24",
       "event_date": "2026-05-09",
       "tags": [
         "current-affairs",
@@ -135251,9 +135250,9 @@
       "question_text": "In which Indian state or union territory is “Nakula Sahadeva Ratha” located?",
       "options": [
         "Tamil Nadu",
-        "Bihar",
-        "Himachal Pradesh",
-        "Goa"
+        "Karnataka",
+        "Kerala",
+        "Odisha"
       ],
       "correct_option_index": 0,
       "question_type": "practice",
@@ -135333,7 +135332,7 @@
       "source": "Wikidata structured facts",
       "source_schema_version": 5,
       "source_url": "http://www.wikidata.org/entity/Q1058",
-      "source_accessed_at": "2026-09-23",
+      "source_accessed_at": "2026-09-24",
       "tags": [
         "india",
         "polity",
