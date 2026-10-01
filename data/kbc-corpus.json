@@ -1,6 +1,6 @@
 {
   "schema_version": 4,
-  "generated_at": "2026-10-01T13:30:26.046Z",
+  "generated_at": "2026-10-01T22:47:51.641Z",
   "corpus_scope": "India-first KBC practice combining historical KBC archives with accumulating structured facts; not an official Sony corpus.",
   "sources": [
     {
@@ -66,8 +66,8 @@
       "pages": 5
     }
   ],
-  "fresh_questions": 0,
-  "playable_questions": 3302,
+  "fresh_questions": 1,
+  "playable_questions": 3303,
   "translation_pending": 78,
   "removed_generic_questions": 0,
   "pages": [
@@ -1147,7 +1147,7 @@
       "url": "https://www.iqgarage.com/kbc-questions-and-answers/kbc-6-episode-57-january-25/",
       "status": 200,
       "questions": 0,
-      "last_attempted_at": "2026-09-24"
+      "last_attempted_at": "2026-10-01"
     },
     {
       "season": 6,
@@ -1156,7 +1156,7 @@
       "url": "https://www.iqgarage.com/kbc-questions-and-answers/kbc-6-episode-58-january-26-last-episode-kbc/",
       "status": 200,
       "questions": 0,
-      "last_attempted_at": "2026-09-24"
+      "last_attempted_at": "2026-10-01"
     }
   ],
   "translation_pages": [
@@ -1986,7 +1986,7 @@
       "url": "https://www.gksection.com/kbc-17-questions-and-answers-episode-6/",
       "status": 200,
       "questions": 0,
-      "last_attempted_at": "2026-09-24"
+      "last_attempted_at": "2026-10-01"
     },
     {
       "season": 17,
@@ -1995,7 +1995,7 @@
       "url": "https://www.gksection.com/kbc-17-questions-and-answers-episode-5/",
       "status": 200,
       "questions": 0,
-      "last_attempted_at": "2026-09-24"
+      "last_attempted_at": "2026-10-01"
     },
     {
       "season": 17,
@@ -2004,7 +2004,7 @@
       "url": "https://www.gksection.com/kbc-17-questions-and-answers-episode-4/",
       "status": 200,
       "questions": 0,
-      "last_attempted_at": "2026-09-24"
+      "last_attempted_at": "2026-10-01"
     },
     {
       "season": 17,
@@ -2013,7 +2013,7 @@
       "url": "https://www.gksection.com/kbc-17-questions-and-answers-episode-3/",
       "status": 200,
       "questions": 0,
-      "last_attempted_at": "2026-09-24"
+      "last_attempted_at": "2026-10-01"
     },
     {
       "season": 17,
@@ -2022,7 +2022,7 @@
       "url": "https://www.gksection.com/kbc-17-questions-and-answers-episode-2/",
       "status": 200,
       "questions": 0,
-      "last_attempted_at": "2026-09-24"
+      "last_attempted_at": "2026-10-01"
     },
     {
       "season": 17,
@@ -2031,7 +2031,7 @@
       "url": "https://www.gksection.com/kbc-17-questions-and-answers-episode-1/",
       "status": 200,
       "questions": 0,
-      "last_attempted_at": "2026-09-24"
+      "last_attempted_at": "2026-10-01"
     },
     {
       "season": 15,
@@ -2964,131 +2964,133 @@
   "wikidata_source_version": 5,
   "wikidata_state": {
     "india-person-birthplace": {
-      "offset": 336,
-      "last_attempted_at": "2026-10-01T13:28:51.606Z",
+      "offset": 384,
+      "last_attempted_at": "2026-10-01T22:45:37.136Z",
       "last_result_count": 56,
       "exhausted": false
     },
     "india-film-director": {
-      "offset": 288,
-      "last_attempted_at": "2026-10-01T13:28:53.485Z",
+      "offset": 336,
+      "last_attempted_at": "2026-10-01T22:45:40.836Z",
       "last_result_count": 56,
       "exhausted": false
     },
     "india-book-author": {
       "offset": 0,
-      "last_attempted_at": "2026-10-01T13:29:02.378Z",
+      "last_attempted_at": "2026-10-01T22:45:43.099Z",
       "last_result_count": 26,
       "exhausted": true
     },
     "india-state-capital": {
-      "offset": 0,
-      "last_attempted_at": "2026-10-01T13:29:03.534Z",
-      "last_result_count": 18,
-      "exhausted": true
+      "offset": 24,
+      "last_attempted_at": "2026-10-01T22:45:47.148Z",
+      "last_result_count": 32,
+      "exhausted": false
     },
     "world-country-capital": {
-      "offset": 72,
-      "last_attempted_at": "2026-10-01T13:29:06.494Z",
+      "offset": 96,
+      "last_attempted_at": "2026-10-01T22:45:52.617Z",
       "last_result_count": 32,
       "exhausted": false
     },
     "world-country-currency": {
-      "offset": 48,
-      "last_attempted_at": "2026-10-01T13:29:09.966Z",
+      "offset": 72,
+      "last_attempted_at": "2026-10-01T22:45:56.445Z",
       "last_result_count": 32,
       "exhausted": false
     },
     "world-heritage-country": {
-      "offset": 936,
-      "last_attempted_at": "2026-10-01T13:29:12.943Z",
+      "offset": 0,
+      "last_attempted_at": "2026-10-01T22:46:11.263Z",
+      "last_result_count": 14,
+      "exhausted": true
+    },
+    "india-athlete-sport": {
+      "offset": 48,
+      "last_attempted_at": "2026-10-01T22:46:20.858Z",
+      "last_result_count": 56,
+      "exhausted": false
+    },
+    "chemical-element-symbol": {
+      "offset": 24,
+      "last_attempted_at": "2026-10-01T22:46:22.010Z",
       "last_result_count": 32,
       "exhausted": false
     },
-    "india-athlete-sport": {
-      "offset": 0,
-      "last_attempted_at": "2026-10-01T13:29:15.065Z",
-      "last_result_count": 21,
-      "exhausted": true
-    },
-    "chemical-element-symbol": {
-      "offset": 0,
-      "last_attempted_at": "2026-10-01T13:29:16.602Z",
-      "last_result_count": 22,
-      "exhausted": true
-    },
     "india-battle-year": {
       "offset": 0,
-      "last_attempted_at": "2026-10-01T13:29:18.280Z",
+      "last_attempted_at": "2026-10-01T22:46:24.346Z",
       "last_result_count": 25,
       "exhausted": true
     },
     "award-bharat-ratna": {
       "offset": 0,
-      "last_attempted_at": "2026-10-01T13:29:24.113Z",
+      "last_attempted_at": "2026-10-01T22:46:44.906Z",
       "last_result_count": 44,
-      "exhausted": true
+      "exhausted": true,
+      "last_error": "Wikidata foils for award-bharat-ratna failed (qlever.dev: 400, query.wikidata.org: The operation was aborted due to timeout)"
     },
     "award-param-vir-chakra": {
       "offset": 0,
-      "last_attempted_at": "2026-10-01T13:29:32.314Z",
+      "last_attempted_at": "2026-10-01T22:46:58.964Z",
       "last_result_count": 21,
       "exhausted": true
     },
     "award-jnanpith": {
-      "offset": 0,
-      "last_attempted_at": "2026-10-01T13:29:39.589Z",
-      "last_result_count": 18,
-      "exhausted": true
-    },
-    "award-dadasaheb-phalke": {
       "offset": 24,
-      "last_attempted_at": "2026-10-01T13:29:43.788Z",
+      "last_attempted_at": "2026-10-01T22:47:08.388Z",
       "last_result_count": 32,
       "exhausted": false
     },
+    "award-dadasaheb-phalke": {
+      "offset": 24,
+      "last_attempted_at": "2026-10-01T22:47:28.805Z",
+      "last_result_count": 32,
+      "exhausted": false,
+      "last_error": "Wikidata foils for award-dadasaheb-phalke failed (qlever.dev: 400, query.wikidata.org: The operation was aborted due to timeout)"
+    },
     "polity-prime-minister": {
       "offset": 0,
-      "last_attempted_at": "2026-10-01T13:30:02.223Z",
+      "last_attempted_at": "2026-10-01T22:47:32.667Z",
       "last_result_count": 11,
       "exhausted": true
     },
     "polity-president": {
       "offset": 0,
-      "last_attempted_at": "2026-10-01T13:30:13.998Z",
+      "last_attempted_at": "2026-10-01T22:47:36.786Z",
       "last_result_count": 17,
       "exhausted": true
     },
     "polity-chief-justice": {
-      "offset": 24,
-      "last_attempted_at": "2026-10-01T13:30:20.086Z",
-      "last_result_count": 32,
-      "exhausted": false
+      "offset": 0,
+      "last_attempted_at": "2026-10-01T22:47:46.519Z",
+      "last_result_count": 28,
+      "exhausted": true
     },
     "mythology-mahabharata": {
-      "offset": 96,
-      "last_attempted_at": "2026-10-01T13:30:21.139Z",
+      "offset": 144,
+      "last_attempted_at": "2026-10-01T22:47:47.664Z",
       "last_result_count": 56,
       "exhausted": false
     },
     "mythology-ramayana": {
-      "offset": 0,
-      "last_attempted_at": "2026-10-01T13:30:21.876Z",
-      "last_result_count": 14,
-      "exhausted": true
+      "offset": 48,
+      "last_attempted_at": "2026-10-01T22:47:48.502Z",
+      "last_result_count": 56,
+      "exhausted": false
     },
     "india-monument-state": {
-      "offset": 0,
-      "last_attempted_at": "2026-10-01T13:30:23.509Z",
-      "last_result_count": 11,
-      "exhausted": true
+      "offset": 48,
+      "last_attempted_at": "2026-10-01T22:47:50.354Z",
+      "last_result_count": 56,
+      "exhausted": false
     }
   },
   "current_affairs_source_version": 1,
   "current_affairs_questions": 65,
   "pattern_profile": {
     "derived_from": 601,
-    "derived_at": "2026-10-01T13:30:26.046Z",
+    "derived_at": "2026-10-01T22:47:51.641Z",
     "note": "Archive questions are pattern evidence only and are never served as practice.",
     "category_mix": {
       "Miscellaneous/Trivia": 0.5008,
@@ -3121,8 +3123,8 @@
     {
       "category": "Miscellaneous/Trivia",
       "target": 0.5008,
-      "actual": 0.2565,
-      "gap": 0.2443
+      "actual": 0.2564,
+      "gap": 0.2444
     },
     {
       "category": "Polity & Constitution",
@@ -3169,8 +3171,8 @@
     {
       "category": "Literature & Authors",
       "target": 0.0166,
-      "actual": 0.027,
-      "gap": -0.0104
+      "actual": 0.0269,
+      "gap": -0.0103
     },
     {
       "category": "Current Affairs",
@@ -3187,14 +3189,14 @@
     {
       "category": "Cinema (Bollywood)",
       "target": 0.0782,
-      "actual": 0.1372,
-      "gap": -0.059
+      "actual": 0.1371,
+      "gap": -0.0589
     },
     {
       "category": "Art & Culture",
       "target": 0.0183,
-      "actual": 0.2535,
-      "gap": -0.2352
+      "actual": 0.2537,
+      "gap": -0.2354
     }
   ],
   "questions": [
@@ -23798,8 +23800,8 @@
       "question_text": "Who is the current head of government of Bangladesh?",
       "options": [
         "Tarique Rahman",
-        "Raffaella Petrini",
         "Yamandú Orsi",
+        "Raffaella Petrini",
         "Nawaf Salam"
       ],
       "correct_option_index": 0,
@@ -24078,8 +24080,8 @@
       "question_text": "Who is the current head of government of France?",
       "options": [
         "Péter Magyar",
-        "Rumen Radev",
         "Laura Fernández Delgado",
+        "Rumen Radev",
         "Sébastien Lecornu"
       ],
       "correct_option_index": 3,
@@ -24288,9 +24290,9 @@
       "question_text": "Who is the current head of government of Romania?",
       "options": [
         "Péter Magyar",
-        "Rumen Radev",
+        "Laura Fernández Delgado",
         "Ilie Bolojan",
-        "Laura Fernández Delgado"
+        "Rumen Radev"
       ],
       "correct_option_index": 2,
       "question_type": "practice",
@@ -24429,8 +24431,8 @@
       "options": [
         "Péter Magyar",
         "Kamla Persad-Bissessar",
-        "Rumen Radev",
-        "Laura Fernández Delgado"
+        "Laura Fernández Delgado",
+        "Rumen Radev"
       ],
       "correct_option_index": 1,
       "question_type": "practice",
@@ -24603,8 +24605,8 @@
       "question_text": "Who is the current head of government of Canada?",
       "options": [
         "Christian Stocker",
-        "Raffaella Petrini",
         "Yamandú Orsi",
+        "Raffaella Petrini",
         "Mark Carney"
       ],
       "correct_option_index": 3,
@@ -24917,7 +24919,7 @@
       "air_date": null,
       "question_text": "Who is the current head of government of Mozambique?",
       "options": [
-        "Laura Fernández Delgado",
+        "Rumen Radev",
         "Uchral Nyam-Osor",
         "Maria Benvinda Levy",
         "José Antonio Kast"
@@ -25407,9 +25409,9 @@
       "air_date": null,
       "question_text": "Which of these people was awarded the Nobel Prize in Physiology or Medicine in 2025?",
       "options": [
-        "Michel Devoret",
+        "Omar M. Yaghi",
         "Shimon Sakaguchi",
-        "John M. Martinis",
+        "Susumu Kitagawa",
         "Geoffrey Hinton"
       ],
       "correct_option_index": 1,
@@ -25444,7 +25446,7 @@
       "options": [
         "Geoffrey Hinton",
         "John Hopfield",
-        "Richard Robson",
+        "John Clarke",
         "Fred Ramsdell"
       ],
       "correct_option_index": 3,
@@ -25478,9 +25480,9 @@
       "question_text": "Which of these people was awarded the Nobel Prize in Physiology or Medicine in 2025?",
       "options": [
         "Mary E. Brunkow",
-        "Susumu Kitagawa",
-        "Michel Devoret",
-        "John M. Martinis"
+        "John M. Martinis",
+        "Omar M. Yaghi",
+        "Susumu Kitagawa"
       ],
       "correct_option_index": 0,
       "question_type": "practice",
@@ -31124,7 +31126,7 @@
       "air_date": null,
       "question_text": "What is the capital of Manipur?",
       "options": [
-        "Gangtok",
+        "Itanagar",
         "Imphal",
         "Shillong",
         "Agartala"
@@ -31158,9 +31160,9 @@
       "air_date": null,
       "question_text": "What is the capital of Meghalaya?",
       "options": [
-        "Bhubaneswar",
-        "Srivijayapuram",
-        "Agartala",
+        "Chennai",
+        "Lucknow",
+        "Dispur",
         "Shillong"
       ],
       "correct_option_index": 3,
@@ -31192,10 +31194,10 @@
       "air_date": null,
       "question_text": "What is the capital of West Bengal?",
       "options": [
-        "Imphal",
-        "Shillong",
+        "Agartala",
+        "Jaipur",
         "Kolkata",
-        "Agartala"
+        "Hyderabad"
       ],
       "correct_option_index": 2,
       "question_type": "practice",
@@ -31226,10 +31228,10 @@
       "air_date": null,
       "question_text": "What is the capital of Tripura?",
       "options": [
-        "Chandigarh",
-        "Bhubaneswar",
+        "Thiruvananthapuram",
+        "Itanagar",
         "Agartala",
-        "Srivijayapuram"
+        "Shillong"
       ],
       "correct_option_index": 2,
       "question_type": "practice",
@@ -31260,10 +31262,10 @@
       "air_date": null,
       "question_text": "What is the capital of Rajasthan?",
       "options": [
-        "Kolkata",
-        "Chennai",
+        "Shimla",
+        "Ranchi",
         "Jaipur",
-        "Lucknow"
+        "Bhopal"
       ],
       "correct_option_index": 2,
       "question_type": "practice",
@@ -31294,10 +31296,10 @@
       "air_date": null,
       "question_text": "What is the capital of Tamil Nadu?",
       "options": [
-        "Lucknow",
+        "Gandhinagar",
         "Chennai",
-        "Gangtok",
-        "Nagpur"
+        "Thiruvananthapuram",
+        "Kolkata"
       ],
       "correct_option_index": 1,
       "question_type": "practice",
@@ -31328,9 +31330,9 @@
       "air_date": null,
       "question_text": "What is the capital of Uttar Pradesh?",
       "options": [
-        "Gangtok",
-        "Nagpur",
+        "Bhopal",
         "Imphal",
+        "Shillong",
         "Lucknow"
       ],
       "correct_option_index": 3,
@@ -35272,9 +35274,9 @@
       "air_date": null,
       "question_text": "Which currency is associated with Liberia?",
       "options": [
-        "krone",
-        "złoty",
-        "franc",
+        "naira",
+        "dobra",
+        "leone",
         "dollar"
       ],
       "correct_option_index": 3,
@@ -35321,7 +35323,7 @@
       "source": "Wikidata structured facts",
       "source_schema_version": 5,
       "source_url": "http://www.wikidata.org/entity/Q1016",
-      "source_accessed_at": "2026-09-29",
+      "source_accessed_at": "2026-10-01",
       "tags": [
         "world",
         "country",
@@ -35355,7 +35357,7 @@
       "source": "Wikidata structured facts",
       "source_schema_version": 5,
       "source_url": "http://www.wikidata.org/entity/Q1019",
-      "source_accessed_at": "2026-09-29",
+      "source_accessed_at": "2026-10-01",
       "tags": [
         "world",
         "country",
@@ -35389,7 +35391,7 @@
       "source": "Wikidata structured facts",
       "source_schema_version": 5,
       "source_url": "http://www.wikidata.org/entity/Q1020",
-      "source_accessed_at": "2026-09-29",
+      "source_accessed_at": "2026-10-01",
       "tags": [
         "world",
         "country",
@@ -35423,7 +35425,7 @@
       "source": "Wikidata structured facts",
       "source_schema_version": 5,
       "source_url": "http://www.wikidata.org/entity/Q1025",
-      "source_accessed_at": "2026-09-29",
+      "source_accessed_at": "2026-10-01",
       "tags": [
         "world",
         "country",
@@ -35457,7 +35459,7 @@
       "source": "Wikidata structured facts",
       "source_schema_version": 5,
       "source_url": "http://www.wikidata.org/entity/Q1027",
-      "source_accessed_at": "2026-09-29",
+      "source_accessed_at": "2026-10-01",
       "tags": [
         "world",
         "country",
@@ -35491,7 +35493,7 @@
       "source": "Wikidata structured facts",
       "source_schema_version": 5,
       "source_url": "http://www.wikidata.org/entity/Q1028",
-      "source_accessed_at": "2026-09-29",
+      "source_accessed_at": "2026-10-01",
       "tags": [
         "world",
         "country",
@@ -35525,7 +35527,7 @@
       "source": "Wikidata structured facts",
       "source_schema_version": 5,
       "source_url": "http://www.wikidata.org/entity/Q1029",
-      "source_accessed_at": "2026-09-29",
+      "source_accessed_at": "2026-10-01",
       "tags": [
         "world",
         "country",
@@ -35559,7 +35561,7 @@
       "source": "Wikidata structured facts",
       "source_schema_version": 5,
       "source_url": "http://www.wikidata.org/entity/Q1032",
-      "source_accessed_at": "2026-09-29",
+      "source_accessed_at": "2026-10-01",
       "tags": [
         "world",
         "country",
@@ -35593,7 +35595,7 @@
       "source": "Wikidata structured facts",
       "source_schema_version": 5,
       "source_url": "http://www.wikidata.org/entity/Q1033",
-      "source_accessed_at": "2026-09-29",
+      "source_accessed_at": "2026-10-01",
       "tags": [
         "world",
         "country",
@@ -35627,7 +35629,7 @@
       "source": "Wikidata structured facts",
       "source_schema_version": 5,
       "source_url": "http://www.wikidata.org/entity/Q1036",
-      "source_accessed_at": "2026-09-29",
+      "source_accessed_at": "2026-10-01",
       "tags": [
         "world",
         "country",
@@ -35661,7 +35663,7 @@
       "source": "Wikidata structured facts",
       "source_schema_version": 5,
       "source_url": "http://www.wikidata.org/entity/Q1037",
-      "source_accessed_at": "2026-09-29",
+      "source_accessed_at": "2026-10-01",
       "tags": [
         "world",
         "country",
@@ -35695,7 +35697,7 @@
       "source": "Wikidata structured facts",
       "source_schema_version": 5,
       "source_url": "http://www.wikidata.org/entity/Q1039",
-      "source_accessed_at": "2026-09-29",
+      "source_accessed_at": "2026-10-01",
       "tags": [
         "world",
         "country",
@@ -35729,7 +35731,7 @@
       "source": "Wikidata structured facts",
       "source_schema_version": 5,
       "source_url": "http://www.wikidata.org/entity/Q1041",
-      "source_accessed_at": "2026-09-29",
+      "source_accessed_at": "2026-10-01",
       "tags": [
         "world",
         "country",
@@ -37789,9 +37791,9 @@
       "question_text": "With which sport is Viswanathan Anand associated?",
       "options": [
         "chess",
-        "wrestling",
-        "auto racing",
-        "martial arts"
+        "tennis",
+        "karate",
+        "boxing"
       ],
       "correct_option_index": 0,
       "question_type": "practice",
@@ -37803,7 +37805,7 @@
       "source": "Wikidata structured facts",
       "source_schema_version": 5,
       "source_url": "http://www.wikidata.org/entity/Q45747",
-      "source_accessed_at": "2026-09-30",
+      "source_accessed_at": "2026-10-01",
       "tags": [
         "india",
         "athlete",
@@ -37822,9 +37824,9 @@
       "air_date": null,
       "question_text": "With which sport is Tenzing Norgay associated?",
       "options": [
-        "martial arts",
-        "field hockey",
-        "auto racing",
+        "association football",
+        "cricket",
+        "archery",
         "mountaineering"
       ],
       "correct_option_index": 3,
@@ -37837,7 +37839,7 @@
       "source": "Wikidata structured facts",
       "source_schema_version": 5,
       "source_url": "http://www.wikidata.org/entity/Q80732",
-      "source_accessed_at": "2026-09-30",
+      "source_accessed_at": "2026-10-01",
       "tags": [
         "india",
         "athlete",
@@ -37891,9 +37893,9 @@
       "question_text": "With which sport is Akshay Kumar associated?",
       "options": [
         "martial arts",
+        "shooting sports",
         "cricket",
-        "archery",
-        "tennis"
+        "archery"
       ],
       "correct_option_index": 0,
       "question_type": "practice",
@@ -37905,7 +37907,7 @@
       "source": "Wikidata structured facts",
       "source_schema_version": 5,
       "source_url": "http://www.wikidata.org/entity/Q233748",
-      "source_accessed_at": "2026-09-30",
+      "source_accessed_at": "2026-10-01",
       "tags": [
         "india",
         "athlete",
@@ -37924,10 +37926,10 @@
       "air_date": null,
       "question_text": "With which sport is Gukesh D associated?",
       "options": [
-        "field hockey",
-        "chess",
         "weightlifting",
-        "mountaineering"
+        "chess",
+        "mountaineering",
+        "shooting sports"
       ],
       "correct_option_index": 1,
       "question_type": "practice",
@@ -37939,7 +37941,7 @@
       "source": "Wikidata structured facts",
       "source_schema_version": 5,
       "source_url": "http://www.wikidata.org/entity/Q56026072",
-      "source_accessed_at": "2026-09-30",
+      "source_accessed_at": "2026-10-01",
       "tags": [
         "india",
         "athlete",
@@ -37958,9 +37960,9 @@
       "air_date": null,
       "question_text": "With which sport is Sania Mirza associated?",
       "options": [
-        "badminton",
-        "athletics",
-        "taekwondo",
+        "boxing",
+        "chess",
+        "cricket",
         "tennis"
       ],
       "correct_option_index": 3,
@@ -37973,7 +37975,7 @@
       "source": "Wikidata structured facts",
       "source_schema_version": 5,
       "source_url": "http://www.wikidata.org/entity/Q132147",
-      "source_accessed_at": "2026-09-30",
+      "source_accessed_at": "2026-10-01",
       "tags": [
         "india",
         "athlete",
@@ -37992,10 +37994,10 @@
       "air_date": null,
       "question_text": "With which sport is Virat Kohli associated?",
       "options": [
-        "association football",
         "archery",
+        "tennis",
         "cricket",
-        "tennis"
+        "karate"
       ],
       "correct_option_index": 2,
       "question_type": "practice",
@@ -38007,7 +38009,7 @@
       "source": "Wikidata structured facts",
       "source_schema_version": 5,
       "source_url": "http://www.wikidata.org/entity/Q213854",
-      "source_accessed_at": "2026-09-30",
+      "source_accessed_at": "2026-10-01",
       "tags": [
         "india",
         "athlete",
@@ -38026,9 +38028,9 @@
       "air_date": null,
       "question_text": "With which sport is Shilpa Shetty associated?",
       "options": [
-        "auto racing",
-        "martial arts",
-        "field hockey",
+        "rugby",
+        "archery",
+        "badminton",
         "karate"
       ],
       "correct_option_index": 3,
@@ -38041,7 +38043,7 @@
       "source": "Wikidata structured facts",
       "source_schema_version": 5,
       "source_url": "http://www.wikidata.org/entity/Q270665",
-      "source_accessed_at": "2026-09-30",
+      "source_accessed_at": "2026-10-01",
       "tags": [
         "india",
         "athlete",
@@ -38060,9 +38062,9 @@
       "air_date": null,
       "question_text": "With which sport is Lakshmi Mittal associated?",
       "options": [
-        "karate",
-        "boxing",
-        "chess",
+        "cricket",
+        "archery",
+        "tennis",
         "association football"
       ],
       "correct_option_index": 3,
@@ -38075,7 +38077,7 @@
       "source": "Wikidata structured facts",
       "source_schema_version": 5,
       "source_url": "http://www.wikidata.org/entity/Q191311",
-      "source_accessed_at": "2026-09-30",
+      "source_accessed_at": "2026-10-01",
       "tags": [
         "india",
         "athlete",
@@ -38094,10 +38096,10 @@
       "air_date": null,
       "question_text": "With which sport is Sunil Chhetri associated?",
       "options": [
-        "auto racing",
+        "tennis",
         "association football",
-        "badminton",
-        "athletics"
+        "karate",
+        "boxing"
       ],
       "correct_option_index": 1,
       "question_type": "practice",
@@ -38109,7 +38111,7 @@
       "source": "Wikidata structured facts",
       "source_schema_version": 5,
       "source_url": "http://www.wikidata.org/entity/Q561004",
-      "source_accessed_at": "2026-09-30",
+      "source_accessed_at": "2026-10-01",
       "tags": [
         "india",
         "athlete",
@@ -38128,10 +38130,10 @@
       "air_date": null,
       "question_text": "With which sport is Pusarla Venkata Sindhu associated?",
       "options": [
-        "taekwondo",
-        "wrestling",
+        "tennis",
+        "karate",
         "badminton",
-        "cricket"
+        "boxing"
       ],
       "correct_option_index": 2,
       "question_type": "practice",
@@ -38143,7 +38145,7 @@
       "source": "Wikidata structured facts",
       "source_schema_version": 5,
       "source_url": "http://www.wikidata.org/entity/Q448360",
-      "source_accessed_at": "2026-09-30",
+      "source_accessed_at": "2026-10-01",
       "tags": [
         "india",
         "athlete",
@@ -38162,9 +38164,9 @@
       "air_date": null,
       "question_text": "With which sport is Neeraj Chopra associated?",
       "options": [
-        "auto racing",
-        "archery",
-        "martial arts",
+        "weightlifting",
+        "mountaineering",
+        "shooting sports",
         "athletics"
       ],
       "correct_option_index": 3,
@@ -38177,7 +38179,7 @@
       "source": "Wikidata structured facts",
       "source_schema_version": 5,
       "source_url": "http://www.wikidata.org/entity/Q24955843",
-      "source_accessed_at": "2026-09-30",
+      "source_accessed_at": "2026-10-01",
       "tags": [
         "india",
         "athlete",
@@ -38197,9 +38199,9 @@
       "question_text": "With which sport is Saina Nehwal associated?",
       "options": [
         "badminton",
-        "cricket",
-        "auto racing",
-        "archery"
+        "tennis",
+        "karate",
+        "boxing"
       ],
       "correct_option_index": 0,
       "question_type": "practice",
@@ -38211,7 +38213,7 @@
       "source": "Wikidata structured facts",
       "source_schema_version": 5,
       "source_url": "http://www.wikidata.org/entity/Q464311",
-      "source_accessed_at": "2026-09-30",
+      "source_accessed_at": "2026-10-01",
       "tags": [
         "india",
         "athlete",
@@ -38230,9 +38232,9 @@
       "air_date": null,
       "question_text": "With which sport is Mary Kom associated?",
       "options": [
-        "taekwondo",
-        "wrestling",
-        "auto racing",
+        "shooting sports",
+        "freestyle wrestling",
+        "association football",
         "boxing"
       ],
       "correct_option_index": 3,
@@ -38245,7 +38247,7 @@
       "source": "Wikidata structured facts",
       "source_schema_version": 5,
       "source_url": "http://www.wikidata.org/entity/Q328951",
-      "source_accessed_at": "2026-09-30",
+      "source_accessed_at": "2026-10-01",
       "tags": [
         "india",
         "athlete",
@@ -38264,9 +38266,9 @@
       "air_date": null,
       "question_text": "With which sport is Koneru Humpy associated?",
       "options": [
-        "auto racing",
-        "martial arts",
-        "field hockey",
+        "archery",
+        "badminton",
+        "athletics",
         "chess"
       ],
       "correct_option_index": 3,
@@ -38279,7 +38281,7 @@
       "source": "Wikidata structured facts",
       "source_schema_version": 5,
       "source_url": "http://www.wikidata.org/entity/Q255044",
-      "source_accessed_at": "2026-09-30",
+      "source_accessed_at": "2026-10-01",
       "tags": [
         "india",
         "athlete",
@@ -38298,10 +38300,10 @@
       "air_date": null,
       "question_text": "With which sport is Major Dhyan Chand Singh associated?",
       "options": [
-        "freestyle wrestling",
+        "chess",
         "field hockey",
-        "association football",
-        "martial arts"
+        "rugby",
+        "freestyle wrestling"
       ],
       "correct_option_index": 1,
       "question_type": "practice",
@@ -38313,7 +38315,7 @@
       "source": "Wikidata structured facts",
       "source_schema_version": 5,
       "source_url": "http://www.wikidata.org/entity/Q381138",
-      "source_accessed_at": "2026-09-30",
+      "source_accessed_at": "2026-10-01",
       "tags": [
         "india",
         "athlete",
@@ -38333,9 +38335,9 @@
       "question_text": "With which sport is Tiger Shroff associated?",
       "options": [
         "taekwondo",
-        "athletics",
-        "wrestling",
-        "cricket"
+        "auto racing",
+        "archery",
+        "martial arts"
       ],
       "correct_option_index": 0,
       "question_type": "practice",
@@ -38347,7 +38349,7 @@
       "source": "Wikidata structured facts",
       "source_schema_version": 5,
       "source_url": "http://www.wikidata.org/entity/Q16202406",
-      "source_accessed_at": "2026-09-30",
+      "source_accessed_at": "2026-10-01",
       "tags": [
         "india",
         "athlete",
@@ -38366,10 +38368,10 @@
       "air_date": null,
       "question_text": "With which sport is Praggnanandhaa associated?",
       "options": [
-        "tennis",
-        "karate",
+        "shooting sports",
+        "freestyle wrestling",
         "chess",
-        "boxing"
+        "association football"
       ],
       "correct_option_index": 2,
       "question_type": "practice",
@@ -38381,7 +38383,7 @@
       "source": "Wikidata structured facts",
       "source_schema_version": 5,
       "source_url": "http://www.wikidata.org/entity/Q26703041",
-      "source_accessed_at": "2026-09-30",
+      "source_accessed_at": "2026-10-01",
       "tags": [
         "india",
         "athlete",
@@ -38400,10 +38402,10 @@
       "air_date": null,
       "question_text": "With which sport is Rahul Bose associated?",
       "options": [
-        "freestyle wrestling",
+        "cricket",
         "rugby",
-        "association football",
-        "chess"
+        "archery",
+        "badminton"
       ],
       "correct_option_index": 1,
       "question_type": "practice",
@@ -38415,7 +38417,7 @@
       "source": "Wikidata structured facts",
       "source_schema_version": 5,
       "source_url": "http://www.wikidata.org/entity/Q335238",
-      "source_accessed_at": "2026-09-30",
+      "source_accessed_at": "2026-10-01",
       "tags": [
         "india",
         "athlete",
@@ -38434,10 +38436,10 @@
       "air_date": null,
       "question_text": "With which sport is Leander Paes associated?",
       "options": [
-        "association football",
-        "karate",
+        "chess",
+        "cricket",
         "tennis",
-        "boxing"
+        "rugby"
       ],
       "correct_option_index": 2,
       "question_type": "practice",
@@ -38449,7 +38451,7 @@
       "source": "Wikidata structured facts",
       "source_schema_version": 5,
       "source_url": "http://www.wikidata.org/entity/Q296282",
-      "source_accessed_at": "2026-09-30",
+      "source_accessed_at": "2026-10-01",
       "tags": [
         "india",
         "athlete",
@@ -38502,9 +38504,9 @@
       "air_date": null,
       "question_text": "With which sport is Mahesh Bhupathi associated?",
       "options": [
-        "rugby",
-        "archery",
-        "badminton",
+        "boxing",
+        "chess",
+        "cricket",
         "tennis"
       ],
       "correct_option_index": 3,
@@ -38517,7 +38519,7 @@
       "source": "Wikidata structured facts",
       "source_schema_version": 5,
       "source_url": "http://www.wikidata.org/entity/Q312554",
-      "source_accessed_at": "2026-09-30",
+      "source_accessed_at": "2026-10-01",
       "tags": [
         "india",
         "athlete",
@@ -38536,9 +38538,9 @@
       "air_date": null,
       "question_text": "With which sport is Narain Karthikeyan associated?",
       "options": [
+        "shooting sports",
+        "tennis",
         "karate",
-        "boxing",
-        "chess",
         "auto racing"
       ],
       "correct_option_index": 3,
@@ -38551,7 +38553,7 @@
       "source": "Wikidata structured facts",
       "source_schema_version": 5,
       "source_url": "http://www.wikidata.org/entity/Q82936",
-      "source_accessed_at": "2026-09-30",
+      "source_accessed_at": "2026-10-01",
       "tags": [
         "india",
         "athlete",
@@ -38570,9 +38572,9 @@
       "air_date": null,
       "question_text": "With which sport is Milkha Singh associated?",
       "options": [
+        "karate",
+        "boxing",
         "field hockey",
-        "chess",
-        "rugby",
         "athletics"
       ],
       "correct_option_index": 3,
@@ -38585,7 +38587,7 @@
       "source": "Wikidata structured facts",
       "source_schema_version": 5,
       "source_url": "http://www.wikidata.org/entity/Q269014",
-      "source_accessed_at": "2026-09-30",
+      "source_accessed_at": "2026-10-01",
       "tags": [
         "india",
         "athlete",
@@ -38604,10 +38606,10 @@
       "air_date": null,
       "question_text": "With which sport is Deepika Kumari associated?",
       "options": [
-        "rugby",
+        "chess",
         "archery",
-        "wrestling",
-        "auto racing"
+        "badminton",
+        "athletics"
       ],
       "correct_option_index": 1,
       "question_type": "practice",
@@ -38619,7 +38621,7 @@
       "source": "Wikidata structured facts",
       "source_schema_version": 5,
       "source_url": "http://www.wikidata.org/entity/Q1756438",
-      "source_accessed_at": "2026-09-30",
+      "source_accessed_at": "2026-10-01",
       "tags": [
         "india",
         "athlete",
@@ -38638,10 +38640,10 @@
       "air_date": null,
       "question_text": "With which sport is Mirabai Chanu associated?",
       "options": [
-        "tennis",
+        "mountaineering",
         "weightlifting",
-        "karate",
-        "association football"
+        "martial arts",
+        "field hockey"
       ],
       "correct_option_index": 1,
       "question_type": "practice",
@@ -38653,7 +38655,7 @@
       "source": "Wikidata structured facts",
       "source_schema_version": 5,
       "source_url": "http://www.wikidata.org/entity/Q17415291",
-      "source_accessed_at": "2026-09-30",
+      "source_accessed_at": "2026-10-01",
       "tags": [
         "india",
         "athlete",
@@ -38672,10 +38674,10 @@
       "air_date": null,
       "question_text": "With which sport is Sakshi Malik associated?",
       "options": [
-        "tennis",
-        "karate",
+        "boxing",
+        "chess",
         "freestyle wrestling",
-        "boxing"
+        "rugby"
       ],
       "correct_option_index": 2,
       "question_type": "practice",
@@ -38687,7 +38689,7 @@
       "source": "Wikidata structured facts",
       "source_schema_version": 5,
       "source_url": "http://www.wikidata.org/entity/Q17466423",
-      "source_accessed_at": "2026-09-30",
+      "source_accessed_at": "2026-10-01",
       "tags": [
         "india",
         "athlete",
@@ -38707,9 +38709,9 @@
       "question_text": "With which sport is Bhaichung Bhutia associated?",
       "options": [
         "association football",
+        "martial arts",
         "field hockey",
-        "auto racing",
-        "badminton"
+        "auto racing"
       ],
       "correct_option_index": 0,
       "question_type": "practice",
@@ -38721,7 +38723,7 @@
       "source": "Wikidata structured facts",
       "source_schema_version": 5,
       "source_url": "http://www.wikidata.org/entity/Q333448",
-      "source_accessed_at": "2026-09-30",
+      "source_accessed_at": "2026-10-01",
       "tags": [
         "india",
         "athlete",
@@ -38740,9 +38742,9 @@
       "air_date": null,
       "question_text": "With which sport is Manu Bhaker associated?",
       "options": [
-        "association football",
-        "badminton",
-        "athletics",
+        "taekwondo",
+        "cricket",
+        "archery",
         "shooting sports"
       ],
       "correct_option_index": 3,
@@ -38755,7 +38757,7 @@
       "source": "Wikidata structured facts",
       "source_schema_version": 5,
       "source_url": "http://www.wikidata.org/entity/Q50351453",
-      "source_accessed_at": "2026-09-30",
+      "source_accessed_at": "2026-10-01",
       "tags": [
         "india",
         "athlete",
@@ -38774,10 +38776,10 @@
       "air_date": null,
       "question_text": "With which sport is Abhinav Bindra associated?",
       "options": [
-        "association football",
+        "karate",
         "shooting sports",
-        "badminton",
-        "athletics"
+        "boxing",
+        "chess"
       ],
       "correct_option_index": 1,
       "question_type": "practice",
@@ -38789,7 +38791,7 @@
       "source": "Wikidata structured facts",
       "source_schema_version": 5,
       "source_url": "http://www.wikidata.org/entity/Q320610",
-      "source_accessed_at": "2026-09-30",
+      "source_accessed_at": "2026-10-01",
       "tags": [
         "india",
         "athlete",
@@ -38809,9 +38811,9 @@
       "question_text": "With which sport is Rohit Sharma associated?",
       "options": [
         "cricket",
-        "taekwondo",
-        "rugby",
-        "wrestling"
+        "auto racing",
+        "martial arts",
+        "field hockey"
       ],
       "correct_option_index": 0,
       "question_type": "practice",
@@ -38823,7 +38825,7 @@
       "source": "Wikidata structured facts",
       "source_schema_version": 5,
       "source_url": "http://www.wikidata.org/entity/Q3520045",
-      "source_accessed_at": "2026-09-30",
+      "source_accessed_at": "2026-10-01",
       "tags": [
         "india",
         "athlete",
@@ -38842,10 +38844,10 @@
       "air_date": null,
       "question_text": "With which sport is Karun Chandhok associated?",
       "options": [
-        "cricket",
+        "mountaineering",
         "auto racing",
-        "archery",
-        "shooting sports"
+        "cricket",
+        "archery"
       ],
       "correct_option_index": 1,
       "question_type": "practice",
@@ -38857,7 +38859,7 @@
       "source": "Wikidata structured facts",
       "source_schema_version": 5,
       "source_url": "http://www.wikidata.org/entity/Q172905",
-      "source_accessed_at": "2026-09-30",
+      "source_accessed_at": "2026-10-01",
       "tags": [
         "india",
         "athlete",
@@ -38876,9 +38878,9 @@
       "air_date": null,
       "question_text": "With which sport is Ajith Kumar associated?",
       "options": [
-        "karate",
-        "boxing",
-        "chess",
+        "athletics",
+        "taekwondo",
+        "weightlifting",
         "auto racing"
       ],
       "correct_option_index": 3,
@@ -38891,7 +38893,7 @@
       "source": "Wikidata structured facts",
       "source_schema_version": 5,
       "source_url": "http://www.wikidata.org/entity/Q339896",
-      "source_accessed_at": "2026-09-30",
+      "source_accessed_at": "2026-10-01",
       "tags": [
         "india",
         "athlete",
@@ -38925,7 +38927,7 @@
       "source": "Wikidata structured facts",
       "source_schema_version": 5,
       "source_url": "http://www.wikidata.org/entity/Q378384",
-      "source_accessed_at": "2026-09-30",
+      "source_accessed_at": "2026-10-01",
       "tags": [
         "india",
         "athlete",
@@ -38944,10 +38946,10 @@
       "air_date": null,
       "question_text": "With which sport is Kapil Dev associated?",
       "options": [
-        "athletics",
+        "freestyle wrestling",
         "cricket",
-        "taekwondo",
-        "rugby"
+        "association football",
+        "archery"
       ],
       "correct_option_index": 1,
       "question_type": "practice",
@@ -38959,7 +38961,7 @@
       "source": "Wikidata structured facts",
       "source_schema_version": 5,
       "source_url": "http://www.wikidata.org/entity/Q558189",
-      "source_accessed_at": "2026-09-30",
+      "source_accessed_at": "2026-10-01",
       "tags": [
         "india",
         "athlete",
@@ -38978,10 +38980,10 @@
       "air_date": null,
       "question_text": "With which sport is Tania Sachdev associated?",
       "options": [
-        "shooting sports",
-        "freestyle wrestling",
+        "athletics",
+        "taekwondo",
         "chess",
-        "association football"
+        "auto racing"
       ],
       "correct_option_index": 2,
       "question_type": "practice",
@@ -38993,7 +38995,7 @@
       "source": "Wikidata structured facts",
       "source_schema_version": 5,
       "source_url": "http://www.wikidata.org/entity/Q453607",
-      "source_accessed_at": "2026-09-30",
+      "source_accessed_at": "2026-10-01",
       "tags": [
         "india",
         "athlete",
@@ -39013,9 +39015,9 @@
       "question_text": "With which sport is Rahul Dravid associated?",
       "options": [
         "cricket",
-        "shooting sports",
-        "freestyle wrestling",
-        "association football"
+        "field hockey",
+        "weightlifting",
+        "mountaineering"
       ],
       "correct_option_index": 0,
       "question_type": "practice",
@@ -39027,7 +39029,7 @@
       "source": "Wikidata structured facts",
       "source_schema_version": 5,
       "source_url": "http://www.wikidata.org/entity/Q470772",
-      "source_accessed_at": "2026-09-30",
+      "source_accessed_at": "2026-10-01",
       "tags": [
         "india",
         "athlete",
@@ -39047,9 +39049,9 @@
       "question_text": "With which sport is Vijender Singh associated?",
       "options": [
         "boxing",
-        "wrestling",
-        "auto racing",
-        "martial arts"
+        "martial arts",
+        "field hockey",
+        "weightlifting"
       ],
       "correct_option_index": 0,
       "question_type": "practice",
@@ -39061,7 +39063,7 @@
       "source": "Wikidata structured facts",
       "source_schema_version": 5,
       "source_url": "http://www.wikidata.org/entity/Q470893",
-      "source_accessed_at": "2026-09-30",
+      "source_accessed_at": "2026-10-01",
       "tags": [
         "india",
         "athlete",
@@ -39080,9 +39082,9 @@
       "air_date": null,
       "question_text": "With which sport is Pendyala Harikrishna associated?",
       "options": [
-        "field hockey",
-        "weightlifting",
-        "mountaineering",
+        "taekwondo",
+        "auto racing",
+        "martial arts",
         "chess"
       ],
       "correct_option_index": 3,
@@ -39095,7 +39097,7 @@
       "source": "Wikidata structured facts",
       "source_schema_version": 5,
       "source_url": "http://www.wikidata.org/entity/Q555232",
-      "source_accessed_at": "2026-09-30",
+      "source_accessed_at": "2026-10-01",
       "tags": [
         "india",
         "athlete",
@@ -39114,10 +39116,10 @@
       "air_date": null,
       "question_text": "With which sport is Rohan Bopanna associated?",
       "options": [
-        "taekwondo",
+        "freestyle wrestling",
         "tennis",
-        "wrestling",
-        "auto racing"
+        "association football",
+        "karate"
       ],
       "correct_option_index": 1,
       "question_type": "practice",
@@ -39129,7 +39131,7 @@
       "source": "Wikidata structured facts",
       "source_schema_version": 5,
       "source_url": "http://www.wikidata.org/entity/Q511986",
-      "source_accessed_at": "2026-09-30",
+      "source_accessed_at": "2026-10-01",
       "tags": [
         "india",
         "athlete",
@@ -39148,10 +39150,10 @@
       "air_date": null,
       "question_text": "With which sport is Sunil Gavaskar associated?",
       "options": [
-        "association football",
-        "archery",
+        "chess",
+        "badminton",
         "cricket",
-        "tennis"
+        "athletics"
       ],
       "correct_option_index": 2,
       "question_type": "practice",
@@ -39163,7 +39165,7 @@
       "source": "Wikidata structured facts",
       "source_schema_version": 5,
       "source_url": "http://www.wikidata.org/entity/Q558182",
-      "source_accessed_at": "2026-09-30",
+      "source_accessed_at": "2026-10-01",
       "tags": [
         "india",
         "athlete",
@@ -39183,9 +39185,9 @@
       "question_text": "With which sport is Fauja Singh associated?",
       "options": [
         "athletics",
-        "chess",
-        "rugby",
-        "weightlifting"
+        "martial arts",
+        "tennis",
+        "karate"
       ],
       "correct_option_index": 0,
       "question_type": "practice",
@@ -39197,7 +39199,7 @@
       "source": "Wikidata structured facts",
       "source_schema_version": 5,
       "source_url": "http://www.wikidata.org/entity/Q888234",
-      "source_accessed_at": "2026-09-30",
+      "source_accessed_at": "2026-10-01",
       "tags": [
         "india",
         "athlete",
@@ -39231,7 +39233,7 @@
       "source": "Wikidata structured facts",
       "source_schema_version": 5,
       "source_url": "http://www.wikidata.org/entity/Q2722085",
-      "source_accessed_at": "2026-09-30",
+      "source_accessed_at": "2026-10-01",
       "tags": [
         "india",
         "athlete",
@@ -39250,10 +39252,10 @@
       "air_date": null,
       "question_text": "With which sport is P. T. Usha associated?",
       "options": [
-        "association football",
-        "badminton",
+        "shooting sports",
+        "freestyle wrestling",
         "athletics",
-        "taekwondo"
+        "association football"
       ],
       "correct_option_index": 2,
       "question_type": "practice",
@@ -39265,7 +39267,7 @@
       "source": "Wikidata structured facts",
       "source_schema_version": 5,
       "source_url": "http://www.wikidata.org/entity/Q3284484",
-      "source_accessed_at": "2026-09-30",
+      "source_accessed_at": "2026-10-01",
       "tags": [
         "india",
         "athlete",
@@ -39299,7 +39301,7 @@
       "source": "Wikidata structured facts",
       "source_schema_version": 5,
       "source_url": "http://www.wikidata.org/entity/Q467327",
-      "source_accessed_at": "2026-09-30",
+      "source_accessed_at": "2026-10-01",
       "tags": [
         "india",
         "athlete",
@@ -39319,9 +39321,9 @@
       "question_text": "With which sport is Vijay Mallya associated?",
       "options": [
         "cricket",
-        "shooting sports",
-        "freestyle wrestling",
-        "artistic gymnastics"
+        "field hockey",
+        "weightlifting",
+        "mountaineering"
       ],
       "correct_option_index": 0,
       "question_type": "practice",
@@ -39333,7 +39335,7 @@
       "source": "Wikidata structured facts",
       "source_schema_version": 5,
       "source_url": "http://www.wikidata.org/entity/Q173118",
-      "source_accessed_at": "2026-09-30",
+      "source_accessed_at": "2026-10-01",
       "tags": [
         "india",
         "athlete",
@@ -39352,10 +39354,10 @@
       "air_date": null,
       "question_text": "With which sport is Vinesh Phogat associated?",
       "options": [
-        "competitive swimming",
+        "athletics",
         "freestyle wrestling",
-        "association football",
-        "professional wrestling"
+        "taekwondo",
+        "cricket"
       ],
       "correct_option_index": 1,
       "question_type": "practice",
@@ -39367,7 +39369,7 @@
       "source": "Wikidata structured facts",
       "source_schema_version": 5,
       "source_url": "http://www.wikidata.org/entity/Q17466644",
-      "source_accessed_at": "2026-09-30",
+      "source_accessed_at": "2026-10-01",
       "tags": [
         "india",
         "athlete",
@@ -39387,9 +39389,9 @@
       "question_text": "With which sport is Vaishali Rameshbabu associated?",
       "options": [
         "chess",
-        "field hockey",
-        "table tennis",
-        "mountaineering"
+        "weightlifting",
+        "mountaineering",
+        "shooting sports"
       ],
       "correct_option_index": 0,
       "question_type": "practice",
@@ -39401,7 +39403,7 @@
       "source": "Wikidata structured facts",
       "source_schema_version": 5,
       "source_url": "http://www.wikidata.org/entity/Q22002931",
-      "source_accessed_at": "2026-09-30",
+      "source_accessed_at": "2026-10-01",
       "tags": [
         "india",
         "athlete",
@@ -39420,10 +39422,10 @@
       "air_date": null,
       "question_text": "With which sport is Divya Deshmukh associated?",
       "options": [
-        "artistic gymnastics",
+        "archery",
         "chess",
-        "competitive swimming",
-        "association football"
+        "badminton",
+        "athletics"
       ],
       "correct_option_index": 1,
       "question_type": "practice",
@@ -39435,7 +39437,7 @@
       "source": "Wikidata structured facts",
       "source_schema_version": 5,
       "source_url": "http://www.wikidata.org/entity/Q28479871",
-      "source_accessed_at": "2026-09-30",
+      "source_accessed_at": "2026-10-01",
       "tags": [
         "india",
         "athlete",
@@ -39469,7 +39471,7 @@
       "source": "Wikidata structured facts",
       "source_schema_version": 5,
       "source_url": "http://www.wikidata.org/entity/Q58823966",
-      "source_accessed_at": "2026-09-30",
+      "source_accessed_at": "2026-10-01",
       "tags": [
         "india",
         "athlete",
@@ -41815,7 +41817,7 @@
       "source": "Wikidata structured facts",
       "source_schema_version": 5,
       "source_url": "http://www.wikidata.org/entity/Q1038",
-      "source_accessed_at": "2026-09-30",
+      "source_accessed_at": "2026-10-01",
       "tags": [
         "science",
         "chemistry",
@@ -41849,7 +41851,7 @@
       "source": "Wikidata structured facts",
       "source_schema_version": 5,
       "source_url": "http://www.wikidata.org/entity/Q1046",
-      "source_accessed_at": "2026-09-30",
+      "source_accessed_at": "2026-10-01",
       "tags": [
         "science",
         "chemistry",
@@ -41883,7 +41885,7 @@
       "source": "Wikidata structured facts",
       "source_schema_version": 5,
       "source_url": "http://www.wikidata.org/entity/Q1053",
-      "source_accessed_at": "2026-09-30",
+      "source_accessed_at": "2026-10-01",
       "tags": [
         "science",
         "chemistry",
@@ -41917,7 +41919,7 @@
       "source": "Wikidata structured facts",
       "source_schema_version": 5,
       "source_url": "http://www.wikidata.org/entity/Q1054",
-      "source_accessed_at": "2026-09-30",
+      "source_accessed_at": "2026-10-01",
       "tags": [
         "science",
         "chemistry",
@@ -41951,7 +41953,7 @@
       "source": "Wikidata structured facts",
       "source_schema_version": 5,
       "source_url": "http://www.wikidata.org/entity/Q1086",
-      "source_accessed_at": "2026-09-30",
+      "source_accessed_at": "2026-10-01",
       "tags": [
         "science",
         "chemistry",
@@ -41985,7 +41987,7 @@
       "source": "Wikidata structured facts",
       "source_schema_version": 5,
       "source_url": "http://www.wikidata.org/entity/Q1087",
-      "source_accessed_at": "2026-09-30",
+      "source_accessed_at": "2026-10-01",
       "tags": [
         "science",
         "chemistry",
@@ -42019,7 +42021,7 @@
       "source": "Wikidata structured facts",
       "source_schema_version": 5,
       "source_url": "http://www.wikidata.org/entity/Q1089",
-      "source_accessed_at": "2026-09-30",
+      "source_accessed_at": "2026-10-01",
       "tags": [
         "science",
         "chemistry",
@@ -42053,7 +42055,7 @@
       "source": "Wikidata structured facts",
       "source_schema_version": 5,
       "source_url": "http://www.wikidata.org/entity/Q1090",
-      "source_accessed_at": "2026-09-30",
+      "source_accessed_at": "2026-10-01",
       "tags": [
         "science",
         "chemistry",
@@ -42087,7 +42089,7 @@
       "source": "Wikidata structured facts",
       "source_schema_version": 5,
       "source_url": "http://www.wikidata.org/entity/Q1091",
-      "source_accessed_at": "2026-09-30",
+      "source_accessed_at": "2026-10-01",
       "tags": [
         "science",
         "chemistry",
@@ -42121,7 +42123,7 @@
       "source": "Wikidata structured facts",
       "source_schema_version": 5,
       "source_url": "http://www.wikidata.org/entity/Q1094",
-      "source_accessed_at": "2026-09-30",
+      "source_accessed_at": "2026-10-01",
       "tags": [
         "science",
         "chemistry",
@@ -42155,7 +42157,7 @@
       "source": "Wikidata structured facts",
       "source_schema_version": 5,
       "source_url": "http://www.wikidata.org/entity/Q1096",
-      "source_accessed_at": "2026-09-30",
+      "source_accessed_at": "2026-10-01",
       "tags": [
         "science",
         "chemistry",
@@ -42189,7 +42191,7 @@
       "source": "Wikidata structured facts",
       "source_schema_version": 5,
       "source_url": "http://www.wikidata.org/entity/Q1098",
-      "source_accessed_at": "2026-09-30",
+      "source_accessed_at": "2026-10-01",
       "tags": [
         "science",
         "chemistry",
@@ -42223,7 +42225,7 @@
       "source": "Wikidata structured facts",
       "source_schema_version": 5,
       "source_url": "http://www.wikidata.org/entity/Q1099",
-      "source_accessed_at": "2026-09-30",
+      "source_accessed_at": "2026-10-01",
       "tags": [
         "science",
         "chemistry",
@@ -42257,7 +42259,7 @@
       "source": "Wikidata structured facts",
       "source_schema_version": 5,
       "source_url": "http://www.wikidata.org/entity/Q1100",
-      "source_accessed_at": "2026-09-30",
+      "source_accessed_at": "2026-10-01",
       "tags": [
         "science",
         "chemistry",
@@ -42291,7 +42293,7 @@
       "source": "Wikidata structured facts",
       "source_schema_version": 5,
       "source_url": "http://www.wikidata.org/entity/Q1102",
-      "source_accessed_at": "2026-09-30",
+      "source_accessed_at": "2026-10-01",
       "tags": [
         "science",
         "chemistry",
@@ -42325,7 +42327,7 @@
       "source": "Wikidata structured facts",
       "source_schema_version": 5,
       "source_url": "http://www.wikidata.org/entity/Q1103",
-      "source_accessed_at": "2026-09-30",
+      "source_accessed_at": "2026-10-01",
       "tags": [
         "science",
         "chemistry",
@@ -42359,7 +42361,7 @@
       "source": "Wikidata structured facts",
       "source_schema_version": 5,
       "source_url": "http://www.wikidata.org/entity/Q1105",
-      "source_accessed_at": "2026-09-30",
+      "source_accessed_at": "2026-10-01",
       "tags": [
         "science",
         "chemistry",
@@ -42393,7 +42395,7 @@
       "source": "Wikidata structured facts",
       "source_schema_version": 5,
       "source_url": "http://www.wikidata.org/entity/Q1106",
-      "source_accessed_at": "2026-09-30",
+      "source_accessed_at": "2026-10-01",
       "tags": [
         "science",
         "chemistry",
@@ -42427,7 +42429,7 @@
       "source": "Wikidata structured facts",
       "source_schema_version": 5,
       "source_url": "http://www.wikidata.org/entity/Q1108",
-      "source_accessed_at": "2026-09-30",
+      "source_accessed_at": "2026-10-01",
       "tags": [
         "science",
         "chemistry",
@@ -42461,7 +42463,7 @@
       "source": "Wikidata structured facts",
       "source_schema_version": 5,
       "source_url": "http://www.wikidata.org/entity/Q1109",
-      "source_accessed_at": "2026-09-30",
+      "source_accessed_at": "2026-10-01",
       "tags": [
         "science",
         "chemistry",
@@ -42495,7 +42497,7 @@
       "source": "Wikidata structured facts",
       "source_schema_version": 5,
       "source_url": "http://www.wikidata.org/entity/Q1112",
-      "source_accessed_at": "2026-09-30",
+      "source_accessed_at": "2026-10-01",
       "tags": [
         "science",
         "chemistry",
@@ -42529,7 +42531,7 @@
       "source": "Wikidata structured facts",
       "source_schema_version": 5,
       "source_url": "http://www.wikidata.org/entity/Q1115",
-      "source_accessed_at": "2026-09-30",
+      "source_accessed_at": "2026-10-01",
       "tags": [
         "science",
         "chemistry",
@@ -42563,7 +42565,7 @@
       "source": "Wikidata structured facts",
       "source_schema_version": 5,
       "source_url": "http://www.wikidata.org/entity/Q1119",
-      "source_accessed_at": "2026-09-30",
+      "source_accessed_at": "2026-10-01",
       "tags": [
         "science",
         "chemistry",
@@ -42597,7 +42599,7 @@
       "source": "Wikidata structured facts",
       "source_schema_version": 5,
       "source_url": "http://www.wikidata.org/entity/Q1121",
-      "source_accessed_at": "2026-09-30",
+      "source_accessed_at": "2026-10-01",
       "tags": [
         "science",
         "chemistry",
@@ -53749,7 +53751,7 @@
       "source": "Wikidata structured facts",
       "source_schema_version": 5,
       "source_url": "http://www.wikidata.org/entity/Q107542466",
-      "source_accessed_at": "2026-09-30",
+      "source_accessed_at": "2026-10-01",
       "tags": [
         "india",
         "mythology",
@@ -53783,7 +53785,7 @@
       "source": "Wikidata structured facts",
       "source_schema_version": 5,
       "source_url": "http://www.wikidata.org/entity/Q107600071",
-      "source_accessed_at": "2026-09-30",
+      "source_accessed_at": "2026-10-01",
       "tags": [
         "india",
         "mythology",
@@ -53817,7 +53819,7 @@
       "source": "Wikidata structured facts",
       "source_schema_version": 5,
       "source_url": "http://www.wikidata.org/entity/Q107600165",
-      "source_accessed_at": "2026-09-30",
+      "source_accessed_at": "2026-10-01",
       "tags": [
         "india",
         "mythology",
@@ -53851,7 +53853,7 @@
       "source": "Wikidata structured facts",
       "source_schema_version": 5,
       "source_url": "http://www.wikidata.org/entity/Q107639073",
-      "source_accessed_at": "2026-09-30",
+      "source_accessed_at": "2026-10-01",
       "tags": [
         "india",
         "mythology",
@@ -53885,7 +53887,7 @@
       "source": "Wikidata structured facts",
       "source_schema_version": 5,
       "source_url": "http://www.wikidata.org/entity/Q1157763",
-      "source_accessed_at": "2026-09-30",
+      "source_accessed_at": "2026-10-01",
       "tags": [
         "india",
         "mythology",
@@ -53919,7 +53921,7 @@
       "source": "Wikidata structured facts",
       "source_schema_version": 5,
       "source_url": "http://www.wikidata.org/entity/Q119854811",
-      "source_accessed_at": "2026-09-30",
+      "source_accessed_at": "2026-10-01",
       "tags": [
         "india",
         "mythology",
@@ -53953,7 +53955,7 @@
       "source": "Wikidata structured facts",
       "source_schema_version": 5,
       "source_url": "http://www.wikidata.org/entity/Q128335",
-      "source_accessed_at": "2026-09-30",
+      "source_accessed_at": "2026-10-01",
       "tags": [
         "india",
         "mythology",
@@ -53987,7 +53989,7 @@
       "source": "Wikidata structured facts",
       "source_schema_version": 5,
       "source_url": "http://www.wikidata.org/entity/Q12989817",
-      "source_accessed_at": "2026-09-30",
+      "source_accessed_at": "2026-10-01",
       "tags": [
         "india",
         "mythology",
@@ -54021,7 +54023,7 @@
       "source": "Wikidata structured facts",
       "source_schema_version": 5,
       "source_url": "http://www.wikidata.org/entity/Q130683128",
-      "source_accessed_at": "2026-09-30",
+      "source_accessed_at": "2026-10-01",
       "tags": [
         "india",
         "mythology",
@@ -54055,7 +54057,7 @@
       "source": "Wikidata structured facts",
       "source_schema_version": 5,
       "source_url": "http://www.wikidata.org/entity/Q130684498",
-      "source_accessed_at": "2026-09-30",
+      "source_accessed_at": "2026-10-01",
       "tags": [
         "india",
         "mythology",
@@ -54089,7 +54091,7 @@
       "source": "Wikidata structured facts",
       "source_schema_version": 5,
       "source_url": "http://www.wikidata.org/entity/Q130704978",
-      "source_accessed_at": "2026-09-30",
+      "source_accessed_at": "2026-10-01",
       "tags": [
         "india",
         "mythology",
@@ -54123,7 +54125,7 @@
       "source": "Wikidata structured facts",
       "source_schema_version": 5,
       "source_url": "http://www.wikidata.org/entity/Q130705123",
-      "source_accessed_at": "2026-09-30",
+      "source_accessed_at": "2026-10-01",
       "tags": [
         "india",
         "mythology",
@@ -54157,7 +54159,7 @@
       "source": "Wikidata structured facts",
       "source_schema_version": 5,
       "source_url": "http://www.wikidata.org/entity/Q130705212",
-      "source_accessed_at": "2026-09-30",
+      "source_accessed_at": "2026-10-01",
       "tags": [
         "india",
         "mythology",
@@ -54191,7 +54193,7 @@
       "source": "Wikidata structured facts",
       "source_schema_version": 5,
       "source_url": "http://www.wikidata.org/entity/Q130705264",
-      "source_accessed_at": "2026-09-30",
+      "source_accessed_at": "2026-10-01",
       "tags": [
         "india",
         "mythology",
@@ -54225,7 +54227,7 @@
       "source": "Wikidata structured facts",
       "source_schema_version": 5,
       "source_url": "http://www.wikidata.org/entity/Q130708027",
-      "source_accessed_at": "2026-09-30",
+      "source_accessed_at": "2026-10-01",
       "tags": [
         "india",
         "mythology",
@@ -54259,7 +54261,7 @@
       "source": "Wikidata structured facts",
       "source_schema_version": 5,
       "source_url": "http://www.wikidata.org/entity/Q130708933",
-      "source_accessed_at": "2026-09-30",
+      "source_accessed_at": "2026-10-01",
       "tags": [
         "india",
         "mythology",
@@ -54293,7 +54295,7 @@
       "source": "Wikidata structured facts",
       "source_schema_version": 5,
       "source_url": "http://www.wikidata.org/entity/Q1323463",
-      "source_accessed_at": "2026-09-30",
+      "source_accessed_at": "2026-10-01",
       "tags": [
         "india",
         "mythology",
@@ -54327,7 +54329,7 @@
       "source": "Wikidata structured facts",
       "source_schema_version": 5,
       "source_url": "http://www.wikidata.org/entity/Q13552969",
-      "source_accessed_at": "2026-09-30",
+      "source_accessed_at": "2026-10-01",
       "tags": [
         "india",
         "mythology",
@@ -54361,7 +54363,7 @@
       "source": "Wikidata structured facts",
       "source_schema_version": 5,
       "source_url": "http://www.wikidata.org/entity/Q1425665",
-      "source_accessed_at": "2026-09-30",
+      "source_accessed_at": "2026-10-01",
       "tags": [
         "india",
         "mythology",
@@ -54395,7 +54397,7 @@
       "source": "Wikidata structured facts",
       "source_schema_version": 5,
       "source_url": "http://www.wikidata.org/entity/Q1427875",
-      "source_accessed_at": "2026-09-30",
+      "source_accessed_at": "2026-10-01",
       "tags": [
         "india",
         "mythology",
@@ -54429,7 +54431,7 @@
       "source": "Wikidata structured facts",
       "source_schema_version": 5,
       "source_url": "http://www.wikidata.org/entity/Q1500207",
-      "source_accessed_at": "2026-09-30",
+      "source_accessed_at": "2026-10-01",
       "tags": [
         "india",
         "mythology",
@@ -54463,7 +54465,7 @@
       "source": "Wikidata structured facts",
       "source_schema_version": 5,
       "source_url": "http://www.wikidata.org/entity/Q15845447",
-      "source_accessed_at": "2026-09-30",
+      "source_accessed_at": "2026-10-01",
       "tags": [
         "india",
         "mythology",
@@ -54497,7 +54499,7 @@
       "source": "Wikidata structured facts",
       "source_schema_version": 5,
       "source_url": "http://www.wikidata.org/entity/Q160213",
-      "source_accessed_at": "2026-09-30",
+      "source_accessed_at": "2026-10-01",
       "tags": [
         "india",
         "mythology",
@@ -54531,7 +54533,7 @@
       "source": "Wikidata structured facts",
       "source_schema_version": 5,
       "source_url": "http://www.wikidata.org/entity/Q1642905",
-      "source_accessed_at": "2026-09-30",
+      "source_accessed_at": "2026-10-01",
       "tags": [
         "india",
         "mythology",
@@ -54565,7 +54567,7 @@
       "source": "Wikidata structured facts",
       "source_schema_version": 5,
       "source_url": "http://www.wikidata.org/entity/Q16964006",
-      "source_accessed_at": "2026-09-30",
+      "source_accessed_at": "2026-10-01",
       "tags": [
         "india",
         "mythology",
@@ -54599,7 +54601,7 @@
       "source": "Wikidata structured facts",
       "source_schema_version": 5,
       "source_url": "http://www.wikidata.org/entity/Q17006691",
-      "source_accessed_at": "2026-09-30",
+      "source_accessed_at": "2026-10-01",
       "tags": [
         "india",
         "mythology",
@@ -54633,7 +54635,7 @@
       "source": "Wikidata structured facts",
       "source_schema_version": 5,
       "source_url": "http://www.wikidata.org/entity/Q17009368",
-      "source_accessed_at": "2026-09-30",
+      "source_accessed_at": "2026-10-01",
       "tags": [
         "india",
         "mythology",
@@ -54667,7 +54669,7 @@
       "source": "Wikidata structured facts",
       "source_schema_version": 5,
       "source_url": "http://www.wikidata.org/entity/Q17058396",
-      "source_accessed_at": "2026-09-30",
+      "source_accessed_at": "2026-10-01",
       "tags": [
         "india",
         "mythology",
@@ -54701,7 +54703,7 @@
       "source": "Wikidata structured facts",
       "source_schema_version": 5,
       "source_url": "http://www.wikidata.org/entity/Q18128451",
-      "source_accessed_at": "2026-09-30",
+      "source_accessed_at": "2026-10-01",
       "tags": [
         "india",
         "mythology",
@@ -54735,7 +54737,7 @@
       "source": "Wikidata structured facts",
       "source_schema_version": 5,
       "source_url": "http://www.wikidata.org/entity/Q18207515",
-      "source_accessed_at": "2026-09-30",
+      "source_accessed_at": "2026-10-01",
       "tags": [
         "india",
         "mythology",
@@ -54769,7 +54771,7 @@
       "source": "Wikidata structured facts",
       "source_schema_version": 5,
       "source_url": "http://www.wikidata.org/entity/Q188618",
-      "source_accessed_at": "2026-09-30",
+      "source_accessed_at": "2026-10-01",
       "tags": [
         "india",
         "mythology",
@@ -54803,7 +54805,7 @@
       "source": "Wikidata structured facts",
       "source_schema_version": 5,
       "source_url": "http://www.wikidata.org/entity/Q188676",
-      "source_accessed_at": "2026-09-30",
+      "source_accessed_at": "2026-10-01",
       "tags": [
         "india",
         "mythology",
@@ -54837,7 +54839,7 @@
       "source": "Wikidata structured facts",
       "source_schema_version": 5,
       "source_url": "http://www.wikidata.org/entity/Q191114",
-      "source_accessed_at": "2026-09-30",
+      "source_accessed_at": "2026-10-01",
       "tags": [
         "india",
         "mythology",
@@ -54871,7 +54873,7 @@
       "source": "Wikidata structured facts",
       "source_schema_version": 5,
       "source_url": "http://www.wikidata.org/entity/Q1969788",
-      "source_accessed_at": "2026-09-30",
+      "source_accessed_at": "2026-10-01",
       "tags": [
         "india",
         "mythology",
@@ -54905,7 +54907,7 @@
       "source": "Wikidata structured facts",
       "source_schema_version": 5,
       "source_url": "http://www.wikidata.org/entity/Q19807718",
-      "source_accessed_at": "2026-09-30",
+      "source_accessed_at": "2026-10-01",
       "tags": [
         "india",
         "mythology",
@@ -54939,7 +54941,7 @@
       "source": "Wikidata structured facts",
       "source_schema_version": 5,
       "source_url": "http://www.wikidata.org/entity/Q1987450",
-      "source_accessed_at": "2026-09-30",
+      "source_accessed_at": "2026-10-01",
       "tags": [
         "india",
         "mythology",
@@ -54973,7 +54975,7 @@
       "source": "Wikidata structured facts",
       "source_schema_version": 5,
       "source_url": "http://www.wikidata.org/entity/Q1987461",
-      "source_accessed_at": "2026-09-30",
+      "source_accessed_at": "2026-10-01",
       "tags": [
         "india",
         "mythology",
@@ -55007,7 +55009,7 @@
       "source": "Wikidata structured facts",
       "source_schema_version": 5,
       "source_url": "http://www.wikidata.org/entity/Q19898522",
-      "source_accessed_at": "2026-09-30",
+      "source_accessed_at": "2026-10-01",
       "tags": [
         "india",
         "mythology",
@@ -55041,7 +55043,7 @@
       "source": "Wikidata structured facts",
       "source_schema_version": 5,
       "source_url": "http://www.wikidata.org/entity/Q1996692",
-      "source_accessed_at": "2026-09-30",
+      "source_accessed_at": "2026-10-01",
       "tags": [
         "india",
         "mythology",
@@ -55075,7 +55077,7 @@
       "source": "Wikidata structured facts",
       "source_schema_version": 5,
       "source_url": "http://www.wikidata.org/entity/Q2043788",
-      "source_accessed_at": "2026-09-30",
+      "source_accessed_at": "2026-10-01",
       "tags": [
         "india",
         "mythology",
@@ -55109,7 +55111,7 @@
       "source": "Wikidata structured facts",
       "source_schema_version": 5,
       "source_url": "http://www.wikidata.org/entity/Q21027196",
-      "source_accessed_at": "2026-09-30",
+      "source_accessed_at": "2026-10-01",
       "tags": [
         "india",
         "mythology",
@@ -55143,7 +55145,7 @@
       "source": "Wikidata structured facts",
       "source_schema_version": 5,
       "source_url": "http://www.wikidata.org/entity/Q223617",
-      "source_accessed_at": "2026-09-30",
+      "source_accessed_at": "2026-10-01",
       "tags": [
         "india",
         "mythology",
@@ -55177,7 +55179,7 @@
       "source": "Wikidata structured facts",
       "source_schema_version": 5,
       "source_url": "http://www.wikidata.org/entity/Q2321180",
-      "source_accessed_at": "2026-09-30",
+      "source_accessed_at": "2026-10-01",
       "tags": [
         "india",
         "mythology",
@@ -55211,7 +55213,7 @@
       "source": "Wikidata structured facts",
       "source_schema_version": 5,
       "source_url": "http://www.wikidata.org/entity/Q2342567",
-      "source_accessed_at": "2026-09-30",
+      "source_accessed_at": "2026-10-01",
       "tags": [
         "india",
         "mythology",
@@ -55245,7 +55247,7 @@
       "source": "Wikidata structured facts",
       "source_schema_version": 5,
       "source_url": "http://www.wikidata.org/entity/Q235102",
-      "source_accessed_at": "2026-09-30",
+      "source_accessed_at": "2026-10-01",
       "tags": [
         "india",
         "mythology",
@@ -55279,7 +55281,7 @@
       "source": "Wikidata structured facts",
       "source_schema_version": 5,
       "source_url": "http://www.wikidata.org/entity/Q2355378",
-      "source_accessed_at": "2026-09-30",
+      "source_accessed_at": "2026-10-01",
       "tags": [
         "india",
         "mythology",
@@ -55313,7 +55315,7 @@
       "source": "Wikidata structured facts",
       "source_schema_version": 5,
       "source_url": "http://www.wikidata.org/entity/Q2367292",
-      "source_accessed_at": "2026-09-30",
+      "source_accessed_at": "2026-10-01",
       "tags": [
         "india",
         "mythology",
@@ -57032,10 +57034,10 @@
       "air_date": null,
       "question_text": "In which Indian state or union territory is “Varkala Beach” located?",
       "options": [
-        "Tamil Nadu",
-        "Odisha",
+        "Manipur",
+        "Bihar",
         "Kerala",
-        "Karnataka"
+        "Telangana"
       ],
       "correct_option_index": 2,
       "question_type": "practice",
@@ -57169,9 +57171,9 @@
       "question_text": "In which Indian state or union territory is “Pushpagiri Wildlife Sanctuary” located?",
       "options": [
         "Karnataka",
-        "Kerala",
-        "Odisha",
-        "Tamil Nadu"
+        "Uttarakhand",
+        "Manipur",
+        "Maharashtra"
       ],
       "correct_option_index": 0,
       "question_type": "practice",
@@ -57202,9 +57204,9 @@
       "air_date": null,
       "question_text": "In which Indian state or union territory is “St Thomas Fort” located?",
       "options": [
-        "Odisha",
-        "Karnataka",
         "Tamil Nadu",
+        "Uttarakhand",
+        "Maharashtra",
         "Kerala"
       ],
       "correct_option_index": 3,
@@ -57237,9 +57239,9 @@
       "question_text": "In which Indian state or union territory is “Kudremukh National Park” located?",
       "options": [
         "Karnataka",
-        "Tamil Nadu",
         "Kerala",
-        "Odisha"
+        "Uttar Pradesh",
+        "Assam"
       ],
       "correct_option_index": 0,
       "question_type": "practice",
@@ -57338,10 +57340,10 @@
       "air_date": null,
       "question_text": "In which Indian state or union territory is “Bhitarkanika Mangroves” located?",
       "options": [
-        "Kerala",
-        "Karnataka",
+        "West Bengal",
+        "Uttar Pradesh",
         "Odisha",
-        "Tamil Nadu"
+        "Himachal Pradesh"
       ],
       "correct_option_index": 2,
       "question_type": "practice",
@@ -65124,9 +65126,9 @@
       "air_date": null,
       "question_text": "What is the capital of Liberia?",
       "options": [
-        "Port Louis",
-        "Maputo",
-        "Cairo",
+        "Philipsburg",
+        "Antananarivo",
+        "Lilongwe",
         "Monrovia"
       ],
       "correct_option_index": 3,
@@ -65158,10 +65160,10 @@
       "air_date": null,
       "question_text": "What is the capital of Libya?",
       "options": [
-        "Nouakchott",
+        "Kampala",
         "Tripoli",
-        "Port Louis",
-        "Mexico City"
+        "Algiers",
+        "Monrovia"
       ],
       "correct_option_index": 1,
       "question_type": "practice",
@@ -65207,7 +65209,7 @@
       "source": "Wikidata structured facts",
       "source_schema_version": 5,
       "source_url": "http://www.wikidata.org/entity/Q1019",
-      "source_accessed_at": "2026-09-28",
+      "source_accessed_at": "2026-10-01",
       "tags": [
         "world",
         "country",
@@ -65226,10 +65228,10 @@
       "air_date": null,
       "question_text": "What is the capital of Malawi?",
       "options": [
+        "Victoria",
         "Freetown",
-        "Khartoum",
         "Lilongwe",
-        "Pristina"
+        "Khartoum"
       ],
       "correct_option_index": 2,
       "question_type": "practice",
@@ -65241,7 +65243,7 @@
       "source": "Wikidata structured facts",
       "source_schema_version": 5,
       "source_url": "http://www.wikidata.org/entity/Q1020",
-      "source_accessed_at": "2026-09-28",
+      "source_accessed_at": "2026-10-01",
       "tags": [
         "world",
         "country",
@@ -65275,7 +65277,7 @@
       "source": "Wikidata structured facts",
       "source_schema_version": 5,
       "source_url": "http://www.wikidata.org/entity/Q1025",
-      "source_accessed_at": "2026-09-28",
+      "source_accessed_at": "2026-10-01",
       "tags": [
         "world",
         "country",
@@ -65309,7 +65311,7 @@
       "source": "Wikidata structured facts",
       "source_schema_version": 5,
       "source_url": "http://www.wikidata.org/entity/Q1027",
-      "source_accessed_at": "2026-09-28",
+      "source_accessed_at": "2026-10-01",
       "tags": [
         "world",
         "country",
@@ -65328,10 +65330,10 @@
       "air_date": null,
       "question_text": "What is the capital of Morocco?",
       "options": [
+        "Windhoek",
         "São Tomé",
-        "Victoria",
         "Rabat",
-        "Freetown"
+        "Victoria"
       ],
       "correct_option_index": 2,
       "question_type": "practice",
@@ -65343,7 +65345,7 @@
       "source": "Wikidata structured facts",
       "source_schema_version": 5,
       "source_url": "http://www.wikidata.org/entity/Q1028",
-      "source_accessed_at": "2026-09-28",
+      "source_accessed_at": "2026-10-01",
       "tags": [
         "world",
         "country",
@@ -65362,9 +65364,9 @@
       "air_date": null,
       "question_text": "What is the capital of Mozambique?",
       "options": [
+        "Lilongwe",
         "Windhoek",
         "São Tomé",
-        "Victoria",
         "Maputo"
       ],
       "correct_option_index": 3,
@@ -65377,7 +65379,7 @@
       "source": "Wikidata structured facts",
       "source_schema_version": 5,
       "source_url": "http://www.wikidata.org/entity/Q1029",
-      "source_accessed_at": "2026-09-28",
+      "source_accessed_at": "2026-10-01",
       "tags": [
         "world",
         "country",
@@ -65396,10 +65398,10 @@
       "air_date": null,
       "question_text": "What is the capital of Namibia?",
       "options": [
-        "Mogadishu",
+        "Kampala",
         "Windhoek",
-        "Algiers",
-        "Amsterdam"
+        "Mogadishu",
+        "Algiers"
       ],
       "correct_option_index": 1,
       "question_type": "practice",
@@ -65411,7 +65413,7 @@
       "source": "Wikidata structured facts",
       "source_schema_version": 5,
       "source_url": "http://www.wikidata.org/entity/Q1030",
-      "source_accessed_at": "2026-09-28",
+      "source_accessed_at": "2026-10-01",
       "tags": [
         "world",
         "country",
@@ -65431,8 +65433,8 @@
       "question_text": "What is the capital of Niger?",
       "options": [
         "Algiers",
+        "Monrovia",
         "Lilongwe",
-        "Windhoek",
         "Niamey"
       ],
       "correct_option_index": 3,
@@ -65445,7 +65447,7 @@
       "source": "Wikidata structured facts",
       "source_schema_version": 5,
       "source_url": "http://www.wikidata.org/entity/Q1032",
-      "source_accessed_at": "2026-09-28",
+      "source_accessed_at": "2026-10-01",
       "tags": [
         "world",
         "country",
@@ -65464,10 +65466,10 @@
       "air_date": null,
       "question_text": "What is the capital of Nigeria?",
       "options": [
+        "Monrovia",
         "Lilongwe",
-        "Windhoek",
         "Abuja",
-        "São Tomé"
+        "Windhoek"
       ],
       "correct_option_index": 2,
       "question_type": "practice",
@@ -65479,7 +65481,7 @@
       "source": "Wikidata structured facts",
       "source_schema_version": 5,
       "source_url": "http://www.wikidata.org/entity/Q1033",
-      "source_accessed_at": "2026-09-28",
+      "source_accessed_at": "2026-10-01",
       "tags": [
         "world",
         "country",
@@ -65498,9 +65500,9 @@
       "air_date": null,
       "question_text": "What is the capital of Uganda?",
       "options": [
+        "Pristina",
         "Tashkent",
         "Avarua",
-        "Santiago",
         "Kampala"
       ],
       "correct_option_index": 3,
@@ -65513,7 +65515,7 @@
       "source": "Wikidata structured facts",
       "source_schema_version": 5,
       "source_url": "http://www.wikidata.org/entity/Q1036",
-      "source_accessed_at": "2026-09-28",
+      "source_accessed_at": "2026-10-01",
       "tags": [
         "world",
         "country",
@@ -65532,10 +65534,10 @@
       "air_date": null,
       "question_text": "What is the capital of Rwanda?",
       "options": [
+        "Victoria",
         "Freetown",
-        "Khartoum",
         "Kigali",
-        "Pristina"
+        "Khartoum"
       ],
       "correct_option_index": 2,
       "question_type": "practice",
@@ -65547,7 +65549,7 @@
       "source": "Wikidata structured facts",
       "source_schema_version": 5,
       "source_url": "http://www.wikidata.org/entity/Q1037",
-      "source_accessed_at": "2026-09-28",
+      "source_accessed_at": "2026-10-01",
       "tags": [
         "world",
         "country",
@@ -65581,7 +65583,7 @@
       "source": "Wikidata structured facts",
       "source_schema_version": 5,
       "source_url": "http://www.wikidata.org/entity/Q1039",
-      "source_accessed_at": "2026-09-28",
+      "source_accessed_at": "2026-10-01",
       "tags": [
         "world",
         "country",
@@ -65615,7 +65617,7 @@
       "source": "Wikidata structured facts",
       "source_schema_version": 5,
       "source_url": "http://www.wikidata.org/entity/Q1041",
-      "source_accessed_at": "2026-09-28",
+      "source_accessed_at": "2026-10-01",
       "tags": [
         "world",
         "country",
@@ -65649,7 +65651,7 @@
       "source": "Wikidata structured facts",
       "source_schema_version": 5,
       "source_url": "http://www.wikidata.org/entity/Q1042",
-      "source_accessed_at": "2026-09-28",
+      "source_accessed_at": "2026-10-01",
       "tags": [
         "world",
         "country",
@@ -65669,9 +65671,9 @@
       "question_text": "What is the capital of Sierra Leone?",
       "options": [
         "Freetown",
+        "São Tomé",
         "Victoria",
-        "Khartoum",
-        "Pristina"
+        "Khartoum"
       ],
       "correct_option_index": 0,
       "question_type": "practice",
@@ -65683,7 +65685,7 @@
       "source": "Wikidata structured facts",
       "source_schema_version": 5,
       "source_url": "http://www.wikidata.org/entity/Q1044",
-      "source_accessed_at": "2026-09-28",
+      "source_accessed_at": "2026-10-01",
       "tags": [
         "world",
         "country",
@@ -65717,7 +65719,7 @@
       "source": "Wikidata structured facts",
       "source_schema_version": 5,
       "source_url": "http://www.wikidata.org/entity/Q1045",
-      "source_accessed_at": "2026-09-28",
+      "source_accessed_at": "2026-10-01",
       "tags": [
         "world",
         "country",
@@ -65736,10 +65738,10 @@
       "air_date": null,
       "question_text": "What is the capital of Sudan?",
       "options": [
-        "Tashkent",
+        "Pristina",
         "Khartoum",
-        "Santiago",
-        "Tripoli"
+        "Tashkent",
+        "Santiago"
       ],
       "correct_option_index": 1,
       "question_type": "practice",
@@ -65751,7 +65753,7 @@
       "source": "Wikidata structured facts",
       "source_schema_version": 5,
       "source_url": "http://www.wikidata.org/entity/Q1049",
-      "source_accessed_at": "2026-09-28",
+      "source_accessed_at": "2026-10-01",
       "tags": [
         "world",
         "country",
@@ -65785,7 +65787,7 @@
       "source": "Wikidata structured facts",
       "source_schema_version": 5,
       "source_url": "http://www.wikidata.org/entity/Q1246",
-      "source_accessed_at": "2026-09-28",
+      "source_accessed_at": "2026-10-01",
       "tags": [
         "world",
         "country",
@@ -65819,7 +65821,7 @@
       "source": "Wikidata structured facts",
       "source_schema_version": 5,
       "source_url": "http://www.wikidata.org/entity/Q21203",
-      "source_accessed_at": "2026-09-28",
+      "source_accessed_at": "2026-10-01",
       "tags": [
         "world",
         "country",
@@ -65853,7 +65855,7 @@
       "source": "Wikidata structured facts",
       "source_schema_version": 5,
       "source_url": "http://www.wikidata.org/entity/Q25279",
-      "source_accessed_at": "2026-09-28",
+      "source_accessed_at": "2026-10-01",
       "tags": [
         "world",
         "country",
@@ -65872,10 +65874,10 @@
       "air_date": null,
       "question_text": "What is the capital of Algeria?",
       "options": [
-        "Honiara",
+        "Maputo",
         "Algiers",
-        "Tashkent",
-        "Avarua"
+        "Windhoek",
+        "Niamey"
       ],
       "correct_option_index": 1,
       "question_type": "practice",
@@ -65887,7 +65889,7 @@
       "source": "Wikidata structured facts",
       "source_schema_version": 5,
       "source_url": "http://www.wikidata.org/entity/Q262",
-      "source_accessed_at": "2026-09-29",
+      "source_accessed_at": "2026-10-01",
       "tags": [
         "world",
         "country",
@@ -65906,9 +65908,9 @@
       "air_date": null,
       "question_text": "What is the capital of Sint Maarten?",
       "options": [
-        "Tashkent",
-        "Santiago",
-        "Belgrade",
+        "Algiers",
+        "Maputo",
+        "Niamey",
         "Philipsburg"
       ],
       "correct_option_index": 3,
@@ -65921,7 +65923,7 @@
       "source": "Wikidata structured facts",
       "source_schema_version": 5,
       "source_url": "http://www.wikidata.org/entity/Q26273",
-      "source_accessed_at": "2026-09-29",
+      "source_accessed_at": "2026-10-01",
       "tags": [
         "world",
         "country",
@@ -66839,7 +66841,7 @@
       "source": "Wikidata structured facts",
       "source_schema_version": 5,
       "source_url": "http://www.wikidata.org/entity/Q1042",
-      "source_accessed_at": "2026-09-29",
+      "source_accessed_at": "2026-10-01",
       "tags": [
         "world",
         "country",
@@ -66873,7 +66875,7 @@
       "source": "Wikidata structured facts",
       "source_schema_version": 5,
       "source_url": "http://www.wikidata.org/entity/Q1044",
-      "source_accessed_at": "2026-09-29",
+      "source_accessed_at": "2026-10-01",
       "tags": [
         "world",
         "country",
@@ -66907,7 +66909,7 @@
       "source": "Wikidata structured facts",
       "source_schema_version": 5,
       "source_url": "http://www.wikidata.org/entity/Q1045",
-      "source_accessed_at": "2026-09-29",
+      "source_accessed_at": "2026-10-01",
       "tags": [
         "world",
         "country",
@@ -66941,7 +66943,7 @@
       "source": "Wikidata structured facts",
       "source_schema_version": 5,
       "source_url": "http://www.wikidata.org/entity/Q1049",
-      "source_accessed_at": "2026-09-29",
+      "source_accessed_at": "2026-10-01",
       "tags": [
         "world",
         "country",
@@ -66975,7 +66977,7 @@
       "source": "Wikidata structured facts",
       "source_schema_version": 5,
       "source_url": "http://www.wikidata.org/entity/Q1050",
-      "source_accessed_at": "2026-09-29",
+      "source_accessed_at": "2026-10-01",
       "tags": [
         "world",
         "country",
@@ -67009,7 +67011,7 @@
       "source": "Wikidata structured facts",
       "source_schema_version": 5,
       "source_url": "http://www.wikidata.org/entity/Q21203",
-      "source_accessed_at": "2026-09-29",
+      "source_accessed_at": "2026-10-01",
       "tags": [
         "world",
         "country",
@@ -67043,7 +67045,7 @@
       "source": "Wikidata structured facts",
       "source_schema_version": 5,
       "source_url": "http://www.wikidata.org/entity/Q25279",
-      "source_accessed_at": "2026-09-29",
+      "source_accessed_at": "2026-10-01",
       "tags": [
         "world",
         "country",
@@ -67062,10 +67064,10 @@
       "air_date": null,
       "question_text": "Which currency is associated with South Africa?",
       "options": [
-        "paʻanga",
-        "convertible peso",
+        "metical",
+        "guilder",
         "rand",
-        "peso"
+        "shilling"
       ],
       "correct_option_index": 2,
       "question_type": "practice",
@@ -67077,7 +67079,7 @@
       "source": "Wikidata structured facts",
       "source_schema_version": 5,
       "source_url": "http://www.wikidata.org/entity/Q258",
-      "source_accessed_at": "2026-09-29",
+      "source_accessed_at": "2026-10-01",
       "tags": [
         "world",
         "country",
@@ -67096,10 +67098,10 @@
       "air_date": null,
       "question_text": "Which currency is associated with Algeria?",
       "options": [
-        "tālā",
+        "som",
         "dinar",
-        "guilder",
-        "som"
+        "shilling",
+        "lilangeni"
       ],
       "correct_option_index": 1,
       "question_type": "practice",
@@ -67111,7 +67113,7 @@
       "source": "Wikidata structured facts",
       "source_schema_version": 5,
       "source_url": "http://www.wikidata.org/entity/Q262",
-      "source_accessed_at": "2026-09-29",
+      "source_accessed_at": "2026-10-01",
       "tags": [
         "world",
         "country",
@@ -73639,7 +73641,7 @@
       "source": "Wikidata structured facts",
       "source_schema_version": 5,
       "source_url": "http://www.wikidata.org/entity/Q12059362",
-      "source_accessed_at": "2026-09-30",
+      "source_accessed_at": "2026-10-01",
       "tags": [
         "india",
         "award",
@@ -73673,7 +73675,7 @@
       "source": "Wikidata structured facts",
       "source_schema_version": 5,
       "source_url": "http://www.wikidata.org/entity/Q1226230",
-      "source_accessed_at": "2026-09-30",
+      "source_accessed_at": "2026-10-01",
       "tags": [
         "india",
         "award",
@@ -73707,7 +73709,7 @@
       "source": "Wikidata structured facts",
       "source_schema_version": 5,
       "source_url": "http://www.wikidata.org/entity/Q12420576",
-      "source_accessed_at": "2026-09-30",
+      "source_accessed_at": "2026-10-01",
       "tags": [
         "india",
         "award",
@@ -73741,7 +73743,7 @@
       "source": "Wikidata structured facts",
       "source_schema_version": 5,
       "source_url": "http://www.wikidata.org/entity/Q13008073",
-      "source_accessed_at": "2026-09-30",
+      "source_accessed_at": "2026-10-01",
       "tags": [
         "india",
         "award",
@@ -73775,7 +73777,7 @@
       "source": "Wikidata structured facts",
       "source_schema_version": 5,
       "source_url": "http://www.wikidata.org/entity/Q13057710",
-      "source_accessed_at": "2026-09-30",
+      "source_accessed_at": "2026-10-01",
       "tags": [
         "india",
         "award",
@@ -73843,7 +73845,7 @@
       "source": "Wikidata structured facts",
       "source_schema_version": 5,
       "source_url": "http://www.wikidata.org/entity/Q1388929",
-      "source_accessed_at": "2026-09-30",
+      "source_accessed_at": "2026-10-01",
       "tags": [
         "india",
         "award",
@@ -73877,7 +73879,7 @@
       "source": "Wikidata structured facts",
       "source_schema_version": 5,
       "source_url": "http://www.wikidata.org/entity/Q144391",
-      "source_accessed_at": "2026-09-30",
+      "source_accessed_at": "2026-10-01",
       "tags": [
         "india",
         "award",
@@ -73911,7 +73913,7 @@
       "source": "Wikidata structured facts",
       "source_schema_version": 5,
       "source_url": "http://www.wikidata.org/entity/Q15718096",
-      "source_accessed_at": "2026-09-30",
+      "source_accessed_at": "2026-10-01",
       "tags": [
         "india",
         "award",
@@ -73945,7 +73947,7 @@
       "source": "Wikidata structured facts",
       "source_schema_version": 5,
       "source_url": "http://www.wikidata.org/entity/Q1705018",
-      "source_accessed_at": "2026-09-30",
+      "source_accessed_at": "2026-10-01",
       "tags": [
         "india",
         "award",
@@ -73979,7 +73981,7 @@
       "source": "Wikidata structured facts",
       "source_schema_version": 5,
       "source_url": "http://www.wikidata.org/entity/Q172634",
-      "source_accessed_at": "2026-09-30",
+      "source_accessed_at": "2026-10-01",
       "tags": [
         "india",
         "award",
@@ -74013,7 +74015,7 @@
       "source": "Wikidata structured facts",
       "source_schema_version": 5,
       "source_url": "http://www.wikidata.org/entity/Q1953018",
-      "source_accessed_at": "2026-09-30",
+      "source_accessed_at": "2026-10-01",
       "tags": [
         "india",
         "award",
@@ -74047,7 +74049,7 @@
       "source": "Wikidata structured facts",
       "source_schema_version": 5,
       "source_url": "http://www.wikidata.org/entity/Q1993428",
-      "source_accessed_at": "2026-09-30",
+      "source_accessed_at": "2026-10-01",
       "tags": [
         "india",
         "award",
@@ -74081,7 +74083,7 @@
       "source": "Wikidata structured facts",
       "source_schema_version": 5,
       "source_url": "http://www.wikidata.org/entity/Q2254757",
-      "source_accessed_at": "2026-09-30",
+      "source_accessed_at": "2026-10-01",
       "tags": [
         "india",
         "award",
@@ -74115,7 +74117,7 @@
       "source": "Wikidata structured facts",
       "source_schema_version": 5,
       "source_url": "http://www.wikidata.org/entity/Q2420084",
-      "source_accessed_at": "2026-09-30",
+      "source_accessed_at": "2026-10-01",
       "tags": [
         "india",
         "award",
@@ -74149,7 +74151,7 @@
       "source": "Wikidata structured facts",
       "source_schema_version": 5,
       "source_url": "http://www.wikidata.org/entity/Q2663106",
-      "source_accessed_at": "2026-09-30",
+      "source_accessed_at": "2026-10-01",
       "tags": [
         "india",
         "award",
@@ -74183,7 +74185,7 @@
       "source": "Wikidata structured facts",
       "source_schema_version": 5,
       "source_url": "http://www.wikidata.org/entity/Q2721945",
-      "source_accessed_at": "2026-09-30",
+      "source_accessed_at": "2026-10-01",
       "tags": [
         "india",
         "award",
@@ -74217,7 +74219,7 @@
       "source": "Wikidata structured facts",
       "source_schema_version": 5,
       "source_url": "http://www.wikidata.org/entity/Q2723011",
-      "source_accessed_at": "2026-09-30",
+      "source_accessed_at": "2026-10-01",
       "tags": [
         "india",
         "award",
@@ -74251,7 +74253,7 @@
       "source": "Wikidata structured facts",
       "source_schema_version": 5,
       "source_url": "http://www.wikidata.org/entity/Q2769853",
-      "source_accessed_at": "2026-09-30",
+      "source_accessed_at": "2026-10-01",
       "tags": [
         "india",
         "award",
@@ -74285,7 +74287,7 @@
       "source": "Wikidata structured facts",
       "source_schema_version": 5,
       "source_url": "http://www.wikidata.org/entity/Q2979882",
-      "source_accessed_at": "2026-09-30",
+      "source_accessed_at": "2026-10-01",
       "tags": [
         "india",
         "award",
@@ -74319,7 +74321,7 @@
       "source": "Wikidata structured facts",
       "source_schema_version": 5,
       "source_url": "http://www.wikidata.org/entity/Q2992962",
-      "source_accessed_at": "2026-09-30",
+      "source_accessed_at": "2026-10-01",
       "tags": [
         "india",
         "award",
@@ -74353,7 +74355,7 @@
       "source": "Wikidata structured facts",
       "source_schema_version": 5,
       "source_url": "http://www.wikidata.org/entity/Q3163288",
-      "source_accessed_at": "2026-09-30",
+      "source_accessed_at": "2026-10-01",
       "tags": [
         "india",
         "award",
@@ -74387,7 +74389,7 @@
       "source": "Wikidata structured facts",
       "source_schema_version": 5,
       "source_url": "http://www.wikidata.org/entity/Q3344900",
-      "source_accessed_at": "2026-09-30",
+      "source_accessed_at": "2026-10-01",
       "tags": [
         "india",
         "award",
@@ -74421,7 +74423,7 @@
       "source": "Wikidata structured facts",
       "source_schema_version": 5,
       "source_url": "http://www.wikidata.org/entity/Q3347897",
-      "source_accessed_at": "2026-09-30",
+      "source_accessed_at": "2026-10-01",
       "tags": [
         "india",
         "award",
@@ -80867,9 +80869,9 @@
       "question_text": "Who directed the Indian film “Company”?",
       "options": [
         "Ram Gopal Varma",
-        "K. S. Adhiyaman",
-        "Advait Chandan",
-        "Lokesh Kanagaraj"
+        "Kabir Khan",
+        "Sanjay Leela Bhansali",
+        "Kiran Rao"
       ],
       "correct_option_index": 0,
       "question_type": "practice",
@@ -80900,9 +80902,9 @@
       "air_date": null,
       "question_text": "Who directed the Indian film “Will You Marry Me?”?",
       "options": [
-        "Advait Chandan",
-        "Abrar Alvi",
-        "Mrinal Sen",
+        "Lokesh Kanagaraj",
+        "Sidharth Malhotra",
+        "Sukumar",
         "David Dhawan"
       ],
       "correct_option_index": 3,
@@ -80934,9 +80936,9 @@
       "air_date": null,
       "question_text": "Who directed the Indian film “Housefull”?",
       "options": [
-        "Bimal Roy",
-        "Pan Nalin",
-        "Anil Sharma",
+        "Shyam Benegal",
+        "Sukumar",
+        "Ram Gopal Varma",
         "Sajid Khan"
       ],
       "correct_option_index": 3,
@@ -80983,7 +80985,7 @@
       "source": "Wikidata structured facts",
       "source_schema_version": 5,
       "source_url": "http://www.wikidata.org/entity/Q28180128",
-      "source_accessed_at": "2026-09-28",
+      "source_accessed_at": "2026-10-01",
       "tags": [
         "india",
         "film",
@@ -81051,7 +81053,7 @@
       "source": "Wikidata structured facts",
       "source_schema_version": 5,
       "source_url": "http://www.wikidata.org/entity/Q2900709",
-      "source_accessed_at": "2026-09-28",
+      "source_accessed_at": "2026-10-01",
       "tags": [
         "india",
         "film",
@@ -81085,7 +81087,7 @@
       "source": "Wikidata structured facts",
       "source_schema_version": 5,
       "source_url": "http://www.wikidata.org/entity/Q29467155",
-      "source_accessed_at": "2026-09-28",
+      "source_accessed_at": "2026-10-01",
       "tags": [
         "india",
         "film",
@@ -81119,7 +81121,7 @@
       "source": "Wikidata structured facts",
       "source_schema_version": 5,
       "source_url": "http://www.wikidata.org/entity/Q3036326",
-      "source_accessed_at": "2026-09-28",
+      "source_accessed_at": "2026-10-01",
       "tags": [
         "india",
         "film",
@@ -81187,7 +81189,7 @@
       "source": "Wikidata structured facts",
       "source_schema_version": 5,
       "source_url": "http://www.wikidata.org/entity/Q3764588",
-      "source_accessed_at": "2026-09-28",
+      "source_accessed_at": "2026-10-01",
       "tags": [
         "india",
         "film",
@@ -81221,7 +81223,7 @@
       "source": "Wikidata structured facts",
       "source_schema_version": 5,
       "source_url": "http://www.wikidata.org/entity/Q378921",
-      "source_accessed_at": "2026-09-28",
+      "source_accessed_at": "2026-10-01",
       "tags": [
         "india",
         "film",
@@ -81255,7 +81257,7 @@
       "source": "Wikidata structured facts",
       "source_schema_version": 5,
       "source_url": "http://www.wikidata.org/entity/Q390467",
-      "source_accessed_at": "2026-09-28",
+      "source_accessed_at": "2026-10-01",
       "tags": [
         "india",
         "film",
@@ -81289,7 +81291,7 @@
       "source": "Wikidata structured facts",
       "source_schema_version": 5,
       "source_url": "http://www.wikidata.org/entity/Q50624631",
-      "source_accessed_at": "2026-09-28",
+      "source_accessed_at": "2026-10-01",
       "tags": [
         "india",
         "film",
@@ -81323,7 +81325,7 @@
       "source": "Wikidata structured facts",
       "source_schema_version": 5,
       "source_url": "http://www.wikidata.org/entity/Q542698",
-      "source_accessed_at": "2026-09-28",
+      "source_accessed_at": "2026-10-01",
       "tags": [
         "india",
         "film",
@@ -81391,7 +81393,7 @@
       "source": "Wikidata structured facts",
       "source_schema_version": 5,
       "source_url": "http://www.wikidata.org/entity/Q737318",
-      "source_accessed_at": "2026-09-28",
+      "source_accessed_at": "2026-10-01",
       "tags": [
         "india",
         "film",
@@ -81425,7 +81427,7 @@
       "source": "Wikidata structured facts",
       "source_schema_version": 5,
       "source_url": "http://www.wikidata.org/entity/Q7501068",
-      "source_accessed_at": "2026-09-28",
+      "source_accessed_at": "2026-10-01",
       "tags": [
         "india",
         "film",
@@ -81459,7 +81461,7 @@
       "source": "Wikidata structured facts",
       "source_schema_version": 5,
       "source_url": "http://www.wikidata.org/entity/Q7635909",
-      "source_accessed_at": "2026-09-28",
+      "source_accessed_at": "2026-10-01",
       "tags": [
         "india",
         "film",
@@ -81493,7 +81495,7 @@
       "source": "Wikidata structured facts",
       "source_schema_version": 5,
       "source_url": "http://www.wikidata.org/entity/Q83490910",
-      "source_accessed_at": "2026-09-28",
+      "source_accessed_at": "2026-10-01",
       "tags": [
         "india",
         "film",
@@ -81527,7 +81529,7 @@
       "source": "Wikidata structured facts",
       "source_schema_version": 5,
       "source_url": "http://www.wikidata.org/entity/Q86751411",
-      "source_accessed_at": "2026-09-28",
+      "source_accessed_at": "2026-10-01",
       "tags": [
         "india",
         "film",
@@ -81561,7 +81563,7 @@
       "source": "Wikidata structured facts",
       "source_schema_version": 5,
       "source_url": "http://www.wikidata.org/entity/Q897477",
-      "source_accessed_at": "2026-09-28",
+      "source_accessed_at": "2026-10-01",
       "tags": [
         "india",
         "film",
@@ -81595,7 +81597,7 @@
       "source": "Wikidata structured facts",
       "source_schema_version": 5,
       "source_url": "http://www.wikidata.org/entity/Q905399",
-      "source_accessed_at": "2026-09-28",
+      "source_accessed_at": "2026-10-01",
       "tags": [
         "india",
         "film",
@@ -81629,7 +81631,7 @@
       "source": "Wikidata structured facts",
       "source_schema_version": 5,
       "source_url": "http://www.wikidata.org/entity/Q1058193",
-      "source_accessed_at": "2026-09-28",
+      "source_accessed_at": "2026-10-01",
       "tags": [
         "india",
         "film",
@@ -81663,7 +81665,7 @@
       "source": "Wikidata structured facts",
       "source_schema_version": 5,
       "source_url": "http://www.wikidata.org/entity/Q113625011",
-      "source_accessed_at": "2026-09-28",
+      "source_accessed_at": "2026-10-01",
       "tags": [
         "india",
         "film",
@@ -81697,7 +81699,7 @@
       "source": "Wikidata structured facts",
       "source_schema_version": 5,
       "source_url": "http://www.wikidata.org/entity/Q1150193",
-      "source_accessed_at": "2026-09-28",
+      "source_accessed_at": "2026-10-01",
       "tags": [
         "india",
         "film",
@@ -81731,7 +81733,7 @@
       "source": "Wikidata structured facts",
       "source_schema_version": 5,
       "source_url": "http://www.wikidata.org/entity/Q1163010",
-      "source_accessed_at": "2026-09-28",
+      "source_accessed_at": "2026-10-01",
       "tags": [
         "india",
         "film",
@@ -81765,7 +81767,7 @@
       "source": "Wikidata structured facts",
       "source_schema_version": 5,
       "source_url": "http://www.wikidata.org/entity/Q116536092",
-      "source_accessed_at": "2026-09-28",
+      "source_accessed_at": "2026-10-01",
       "tags": [
         "india",
         "film",
@@ -81799,7 +81801,7 @@
       "source": "Wikidata structured facts",
       "source_schema_version": 5,
       "source_url": "http://www.wikidata.org/entity/Q1207520",
-      "source_accessed_at": "2026-09-28",
+      "source_accessed_at": "2026-10-01",
       "tags": [
         "india",
         "film",
@@ -81867,7 +81869,7 @@
       "source": "Wikidata structured facts",
       "source_schema_version": 5,
       "source_url": "http://www.wikidata.org/entity/Q124714626",
-      "source_accessed_at": "2026-09-28",
+      "source_accessed_at": "2026-10-01",
       "tags": [
         "india",
         "film",
@@ -81969,7 +81971,7 @@
       "source": "Wikidata structured facts",
       "source_schema_version": 5,
       "source_url": "http://www.wikidata.org/entity/Q1423563",
-      "source_accessed_at": "2026-09-28",
+      "source_accessed_at": "2026-10-01",
       "tags": [
         "india",
         "film",
@@ -82003,7 +82005,7 @@
       "source": "Wikidata structured facts",
       "source_schema_version": 5,
       "source_url": "http://www.wikidata.org/entity/Q145331",
-      "source_accessed_at": "2026-09-28",
+      "source_accessed_at": "2026-10-01",
       "tags": [
         "india",
         "film",
@@ -82037,7 +82039,7 @@
       "source": "Wikidata structured facts",
       "source_schema_version": 5,
       "source_url": "http://www.wikidata.org/entity/Q16255225",
-      "source_accessed_at": "2026-09-28",
+      "source_accessed_at": "2026-10-01",
       "tags": [
         "india",
         "film",
@@ -82071,7 +82073,7 @@
       "source": "Wikidata structured facts",
       "source_schema_version": 5,
       "source_url": "http://www.wikidata.org/entity/Q18128126",
-      "source_accessed_at": "2026-09-28",
+      "source_accessed_at": "2026-10-01",
       "tags": [
         "india",
         "film",
@@ -82105,7 +82107,7 @@
       "source": "Wikidata structured facts",
       "source_schema_version": 5,
       "source_url": "http://www.wikidata.org/entity/Q187863",
-      "source_accessed_at": "2026-09-28",
+      "source_accessed_at": "2026-10-01",
       "tags": [
         "india",
         "film",
@@ -82139,7 +82141,7 @@
       "source": "Wikidata structured facts",
       "source_schema_version": 5,
       "source_url": "http://www.wikidata.org/entity/Q18890293",
-      "source_accessed_at": "2026-09-28",
+      "source_accessed_at": "2026-10-01",
       "tags": [
         "india",
         "film",
@@ -82173,7 +82175,7 @@
       "source": "Wikidata structured facts",
       "source_schema_version": 5,
       "source_url": "http://www.wikidata.org/entity/Q19409509",
-      "source_accessed_at": "2026-09-28",
+      "source_accessed_at": "2026-10-01",
       "tags": [
         "india",
         "film",
@@ -82207,7 +82209,7 @@
       "source": "Wikidata structured facts",
       "source_schema_version": 5,
       "source_url": "http://www.wikidata.org/entity/Q19891224",
-      "source_accessed_at": "2026-09-28",
+      "source_accessed_at": "2026-10-01",
       "tags": [
         "india",
         "film",
@@ -82241,7 +82243,7 @@
       "source": "Wikidata structured facts",
       "source_schema_version": 5,
       "source_url": "http://www.wikidata.org/entity/Q2007104",
-      "source_accessed_at": "2026-09-28",
+      "source_accessed_at": "2026-10-01",
       "tags": [
         "india",
         "film",
@@ -82275,7 +82277,7 @@
       "source": "Wikidata structured facts",
       "source_schema_version": 5,
       "source_url": "http://www.wikidata.org/entity/Q2066387",
-      "source_accessed_at": "2026-09-28",
+      "source_accessed_at": "2026-10-01",
       "tags": [
         "india",
         "film",
@@ -82309,7 +82311,7 @@
       "source": "Wikidata structured facts",
       "source_schema_version": 5,
       "source_url": "http://www.wikidata.org/entity/Q20950016",
-      "source_accessed_at": "2026-09-28",
+      "source_accessed_at": "2026-10-01",
       "tags": [
         "india",
         "film",
@@ -82328,10 +82330,10 @@
       "air_date": null,
       "question_text": "Who directed the Indian film “Housefull 2”?",
       "options": [
-        "Krishna Vamsi",
+        "Sanjay Leela Bhansali",
         "Sajid Khan",
-        "Anurag Kashyap",
-        "Maneesh Sharma"
+        "Aziz Mirza",
+        "Mohit Suri"
       ],
       "correct_option_index": 1,
       "question_type": "practice",
@@ -82343,7 +82345,7 @@
       "source": "Wikidata structured facts",
       "source_schema_version": 5,
       "source_url": "http://www.wikidata.org/entity/Q219392",
-      "source_accessed_at": "2026-09-29",
+      "source_accessed_at": "2026-10-01",
       "tags": [
         "india",
         "film",
@@ -82362,10 +82364,10 @@
       "air_date": null,
       "question_text": "Who directed the Indian film “Tezaab”?",
       "options": [
-        "Abhishek Varman",
-        "Ram Gopal Varma",
+        "Rohit Dhawan",
+        "Leslee Udwin",
         "N. Chandra",
-        "Siddharth Anand"
+        "Anees Bazmee"
       ],
       "correct_option_index": 2,
       "question_type": "practice",
@@ -82377,7 +82379,7 @@
       "source": "Wikidata structured facts",
       "source_schema_version": 5,
       "source_url": "http://www.wikidata.org/entity/Q2486250",
-      "source_accessed_at": "2026-09-29",
+      "source_accessed_at": "2026-10-01",
       "tags": [
         "india",
         "film",
@@ -82396,10 +82398,10 @@
       "air_date": null,
       "question_text": "Who directed the Indian film “Tubelight”?",
       "options": [
-        "Kiran Rao",
-        "Ravi Chopra",
+        "Mohit Suri",
+        "N. Chandra",
         "Kabir Khan",
-        "Mani Ratnam"
+        "Indra Kumar"
       ],
       "correct_option_index": 2,
       "question_type": "practice",
@@ -82411,7 +82413,7 @@
       "source": "Wikidata structured facts",
       "source_schema_version": 5,
       "source_url": "http://www.wikidata.org/entity/Q26267945",
-      "source_accessed_at": "2026-09-29",
+      "source_accessed_at": "2026-10-01",
       "tags": [
         "india",
         "film",
@@ -82430,9 +82432,9 @@
       "air_date": null,
       "question_text": "Who directed the Indian film “Talaash: The Answer Lies Within”?",
       "options": [
-        "Jugal Hansraj",
-        "Rishab Shetty",
-        "Pawan Wadeyar",
+        "Priyadarshan",
+        "Satyajit Ray",
+        "Sanjay Gupta",
         "Reema Kagti"
       ],
       "correct_option_index": 3,
@@ -82445,7 +82447,7 @@
       "source": "Wikidata structured facts",
       "source_schema_version": 5,
       "source_url": "http://www.wikidata.org/entity/Q283555",
-      "source_accessed_at": "2026-09-29",
+      "source_accessed_at": "2026-10-01",
       "tags": [
         "india",
         "film",
@@ -82683,7 +82685,7 @@
       "source": "Wikidata structured facts",
       "source_schema_version": 5,
       "source_url": "http://www.wikidata.org/entity/Q3235297",
-      "source_accessed_at": "2026-09-28",
+      "source_accessed_at": "2026-10-01",
       "tags": [
         "india",
         "film",
@@ -91270,10 +91272,10 @@
       "air_date": null,
       "question_text": "In which place was the Indian shehnai player Bismillah Khan born?",
       "options": [
-        "Imphal",
-        "Bengaluru",
+        "Nellore",
+        "Kolkata",
         "Dumraon",
-        "Kandy"
+        "Kaluwas"
       ],
       "correct_option_index": 2,
       "question_type": "practice",
@@ -91304,10 +91306,10 @@
       "air_date": null,
       "question_text": "In which place was the Indian businessman Anil Ambani born?",
       "options": [
-        "Ranaghat",
-        "Jabalpur",
+        "Narkatiaganj",
+        "Secunderabad",
         "Mumbai",
-        "Tinkitam"
+        "Port Mourant"
       ],
       "correct_option_index": 2,
       "question_type": "practice",
@@ -91372,9 +91374,9 @@
       "air_date": null,
       "question_text": "In which place was the Indian politician Meira Kumar born?",
       "options": [
+        "New Delhi",
+        "Bengaluru",
         "Mangaluru",
-        "Gopalganj",
-        "Jasol",
         "Sasaram"
       ],
       "correct_option_index": 3,
@@ -91387,7 +91389,7 @@
       "source": "Wikidata structured facts",
       "source_schema_version": 5,
       "source_url": "http://www.wikidata.org/entity/Q467201",
-      "source_accessed_at": "2026-09-26",
+      "source_accessed_at": "2026-10-01",
       "tags": [
         "india",
         "people",
@@ -91440,10 +91442,10 @@
       "air_date": null,
       "question_text": "In which place was the Indian actress Huma Qureshi born?",
       "options": [
+        "Mumbai",
         "Kheora",
-        "Imphal",
         "Delhi",
-        "Pune"
+        "Imphal"
       ],
       "correct_option_index": 2,
       "question_type": "practice",
@@ -91455,7 +91457,7 @@
       "source": "Wikidata structured facts",
       "source_schema_version": 5,
       "source_url": "http://www.wikidata.org/entity/Q5936662",
-      "source_accessed_at": "2026-09-26",
+      "source_accessed_at": "2026-10-01",
       "tags": [
         "india",
         "people",
@@ -91508,10 +91510,10 @@
       "air_date": null,
       "question_text": "In which place was the Indian actress Radhika Apte born?",
       "options": [
-        "Faridpur",
+        "Kotdwar",
         "Pune",
-        "Sirkazhi",
-        "Amritsar"
+        "Faridpur",
+        "Sirkazhi"
       ],
       "correct_option_index": 1,
       "question_type": "practice",
@@ -91523,7 +91525,7 @@
       "source": "Wikidata structured facts",
       "source_schema_version": 5,
       "source_url": "http://www.wikidata.org/entity/Q7280241",
-      "source_accessed_at": "2026-09-26",
+      "source_accessed_at": "2026-10-01",
       "tags": [
         "india",
         "people",
@@ -91542,10 +91544,10 @@
       "air_date": null,
       "question_text": "In which place was the Indian actor Vivek Oberoi born?",
       "options": [
-        "Imphal",
+        "Kheora",
         "Hyderabad",
-        "Guntur",
-        "Narkatiaganj"
+        "Imphal",
+        "Guntur"
       ],
       "correct_option_index": 1,
       "question_type": "practice",
@@ -91557,7 +91559,7 @@
       "source": "Wikidata structured facts",
       "source_schema_version": 5,
       "source_url": "http://www.wikidata.org/entity/Q731854",
-      "source_accessed_at": "2026-09-26",
+      "source_accessed_at": "2026-10-01",
       "tags": [
         "india",
         "people",
@@ -91577,9 +91579,9 @@
       "question_text": "In which place was the Indian politician Smriti Irani born?",
       "options": [
         "New Delhi",
+        "Hyderabad",
         "Bengaluru",
-        "Mangaluru",
-        "Gopalganj"
+        "Mangaluru"
       ],
       "correct_option_index": 0,
       "question_type": "practice",
@@ -91591,7 +91593,7 @@
       "source": "Wikidata structured facts",
       "source_schema_version": 5,
       "source_url": "http://www.wikidata.org/entity/Q7546539",
-      "source_accessed_at": "2026-09-26",
+      "source_accessed_at": "2026-10-01",
       "tags": [
         "india",
         "people",
@@ -91612,7 +91614,7 @@
       "options": [
         "Sirkazhi",
         "Amritsar",
-        "Sasaram",
+        "Dumraon",
         "Faridpur"
       ],
       "correct_option_index": 3,
@@ -91625,7 +91627,7 @@
       "source": "Wikidata structured facts",
       "source_schema_version": 5,
       "source_url": "http://www.wikidata.org/entity/Q982809",
-      "source_accessed_at": "2026-09-26",
+      "source_accessed_at": "2026-10-01",
       "tags": [
         "india",
         "people",
@@ -91659,7 +91661,7 @@
       "source": "Wikidata structured facts",
       "source_schema_version": 5,
       "source_url": "http://www.wikidata.org/entity/Q109147059",
-      "source_accessed_at": "2026-09-26",
+      "source_accessed_at": "2026-10-01",
       "tags": [
         "india",
         "people",
@@ -91678,9 +91680,9 @@
       "air_date": null,
       "question_text": "In which place was the Indian actress Kirron Kher born?",
       "options": [
-        "Chandigarh",
         "Sirkazhi",
         "Amritsar",
+        "Dumraon",
         "Bengaluru"
       ],
       "correct_option_index": 3,
@@ -91693,7 +91695,7 @@
       "source": "Wikidata structured facts",
       "source_schema_version": 5,
       "source_url": "http://www.wikidata.org/entity/Q158136",
-      "source_accessed_at": "2026-09-26",
+      "source_accessed_at": "2026-10-01",
       "tags": [
         "india",
         "people",
@@ -91712,10 +91714,10 @@
       "air_date": null,
       "question_text": "In which place was the Indian actor Manoj Bajpai born?",
       "options": [
+        "Hyderabad",
         "New Delhi",
-        "Bengaluru",
         "Narkatiaganj",
-        "Mangaluru"
+        "Bengaluru"
       ],
       "correct_option_index": 2,
       "question_type": "practice",
@@ -91727,7 +91729,7 @@
       "source": "Wikidata structured facts",
       "source_schema_version": 5,
       "source_url": "http://www.wikidata.org/entity/Q158533",
-      "source_accessed_at": "2026-09-26",
+      "source_accessed_at": "2026-10-01",
       "tags": [
         "india",
         "people",
@@ -96487,7 +96489,7 @@
       "source": "Wikidata structured facts",
       "source_schema_version": 5,
       "source_url": "http://www.wikidata.org/entity/Q172905",
-      "source_accessed_at": "2026-09-26",
+      "source_accessed_at": "2026-10-01",
       "tags": [
         "india",
         "people",
@@ -96521,7 +96523,7 @@
       "source": "Wikidata structured facts",
       "source_schema_version": 5,
       "source_url": "http://www.wikidata.org/entity/Q2086574",
-      "source_accessed_at": "2026-09-26",
+      "source_accessed_at": "2026-10-01",
       "tags": [
         "india",
         "people",
@@ -96540,9 +96542,9 @@
       "air_date": null,
       "question_text": "In which place was the Indian actor Manoj Kumar born?",
       "options": [
+        "Mumbai",
         "Kheora",
         "Imphal",
-        "Guntur",
         "Abbottabad"
       ],
       "correct_option_index": 3,
@@ -96555,7 +96557,7 @@
       "source": "Wikidata structured facts",
       "source_schema_version": 5,
       "source_url": "http://www.wikidata.org/entity/Q2341602",
-      "source_accessed_at": "2026-09-26",
+      "source_accessed_at": "2026-10-01",
       "tags": [
         "india",
         "people",
@@ -96589,7 +96591,7 @@
       "source": "Wikidata structured facts",
       "source_schema_version": 5,
       "source_url": "http://www.wikidata.org/entity/Q2363587",
-      "source_accessed_at": "2026-09-26",
+      "source_accessed_at": "2026-10-01",
       "tags": [
         "india",
         "people",
@@ -96623,7 +96625,7 @@
       "source": "Wikidata structured facts",
       "source_schema_version": 5,
       "source_url": "http://www.wikidata.org/entity/Q2393916",
-      "source_accessed_at": "2026-09-26",
+      "source_accessed_at": "2026-10-01",
       "tags": [
         "india",
         "people",
@@ -96677,9 +96679,9 @@
       "question_text": "In which place was the Indian film actor Suriya born?",
       "options": [
         "Chennai",
-        "London",
-        "Mumbai",
-        "Pilani"
+        "Faridpur",
+        "Guntur",
+        "London"
       ],
       "correct_option_index": 0,
       "question_type": "practice",
@@ -96691,7 +96693,7 @@
       "source": "Wikidata structured facts",
       "source_schema_version": 5,
       "source_url": "http://www.wikidata.org/entity/Q3345518",
-      "source_accessed_at": "2026-09-26",
+      "source_accessed_at": "2026-10-01",
       "tags": [
         "india",
         "people",
@@ -96710,9 +96712,9 @@
       "air_date": null,
       "question_text": "In which place was the actor Ajith Kumar born?",
       "options": [
-        "Begusarai",
         "Faridpur",
         "Sirkazhi",
+        "Amritsar",
         "Secunderabad"
       ],
       "correct_option_index": 3,
@@ -96725,7 +96727,7 @@
       "source": "Wikidata structured facts",
       "source_schema_version": 5,
       "source_url": "http://www.wikidata.org/entity/Q339896",
-      "source_accessed_at": "2026-09-26",
+      "source_accessed_at": "2026-10-01",
       "tags": [
         "india",
         "people",
@@ -96778,10 +96780,10 @@
       "air_date": null,
       "question_text": "In which place was the Indian wrestler Sushil Kumar born?",
       "options": [
-        "New Delhi",
-        "Bengaluru",
+        "Gopalganj",
+        "Hyderabad",
         "Delhi",
-        "Mangaluru"
+        "New Delhi"
       ],
       "correct_option_index": 2,
       "question_type": "practice",
@@ -96793,7 +96795,7 @@
       "source": "Wikidata structured facts",
       "source_schema_version": 5,
       "source_url": "http://www.wikidata.org/entity/Q378384",
-      "source_accessed_at": "2026-09-26",
+      "source_accessed_at": "2026-10-01",
       "tags": [
         "india",
         "people",
@@ -96812,9 +96814,9 @@
       "air_date": null,
       "question_text": "In which place was the Hindu Guru Anandamayi Ma born?",
       "options": [
+        "Delhi",
         "Chennai",
         "Nalbari",
-        "Jasol",
         "Kheora"
       ],
       "correct_option_index": 3,
@@ -96827,7 +96829,7 @@
       "source": "Wikidata structured facts",
       "source_schema_version": 5,
       "source_url": "http://www.wikidata.org/entity/Q433594",
-      "source_accessed_at": "2026-09-26",
+      "source_accessed_at": "2026-10-01",
       "tags": [
         "india",
         "people",
@@ -96847,7 +96849,7 @@
       "question_text": "In which place was Lakshmi Sahgal born?",
       "options": [
         "Chennai",
-        "Begusarai",
+        "Jasol",
         "Pune",
         "Abbottabad"
       ],
@@ -96861,7 +96863,7 @@
       "source": "Wikidata structured facts",
       "source_schema_version": 5,
       "source_url": "http://www.wikidata.org/entity/Q465051",
-      "source_accessed_at": "2026-09-26",
+      "source_accessed_at": "2026-10-01",
       "tags": [
         "india",
         "people",
@@ -96880,9 +96882,9 @@
       "air_date": null,
       "question_text": "In which place was the Indian civil rights activist Irom Chanu Sharmila born?",
       "options": [
+        "Gopalganj",
+        "Hyderabad",
         "New Delhi",
-        "Bengaluru",
-        "Mangaluru",
         "Imphal"
       ],
       "correct_option_index": 3,
@@ -96895,7 +96897,7 @@
       "source": "Wikidata structured facts",
       "source_schema_version": 5,
       "source_url": "http://www.wikidata.org/entity/Q467322",
-      "source_accessed_at": "2026-09-26",
+      "source_accessed_at": "2026-10-01",
       "tags": [
         "india",
         "people",
@@ -96915,9 +96917,9 @@
       "question_text": "In which place was the Indian botanist Janaki Ammal born?",
       "options": [
         "Kotdwar",
-        "Kheora",
+        "Mumbai",
         "Thalassery",
-        "Imphal"
+        "Kheora"
       ],
       "correct_option_index": 2,
       "question_type": "practice",
@@ -96929,7 +96931,7 @@
       "source": "Wikidata structured facts",
       "source_schema_version": 5,
       "source_url": "http://www.wikidata.org/entity/Q4794782",
-      "source_accessed_at": "2026-09-26",
+      "source_accessed_at": "2026-10-01",
       "tags": [
         "india",
         "people",
@@ -96948,10 +96950,10 @@
       "air_date": null,
       "question_text": "In which place was the Indian cricketer Kapil Dev born?",
       "options": [
-        "Bengaluru",
+        "New Delhi",
         "Chandigarh",
-        "Mangaluru",
-        "Gopalganj"
+        "Bengaluru",
+        "Mangaluru"
       ],
       "correct_option_index": 1,
       "question_type": "practice",
@@ -96963,7 +96965,7 @@
       "source": "Wikidata structured facts",
       "source_schema_version": 5,
       "source_url": "http://www.wikidata.org/entity/Q558189",
-      "source_accessed_at": "2026-09-26",
+      "source_accessed_at": "2026-10-01",
       "tags": [
         "india",
         "people",
@@ -96983,8 +96985,8 @@
       "question_text": "In which place was Lalu Prasad Yadav born?",
       "options": [
         "Gopalganj",
+        "Narkatiaganj",
         "London",
-        "Mumbai",
         "Secunderabad"
       ],
       "correct_option_index": 0,
@@ -96997,7 +96999,7 @@
       "source": "Wikidata structured facts",
       "source_schema_version": 5,
       "source_url": "http://www.wikidata.org/entity/Q561812",
-      "source_accessed_at": "2026-09-26",
+      "source_accessed_at": "2026-10-01",
       "tags": [
         "india",
         "people",
@@ -97019,7 +97021,7 @@
         "Mumbai",
         "Yangon",
         "Indore",
-        "Sasaram"
+        "Dumraon"
       ],
       "correct_option_index": 0,
       "question_type": "practice",
@@ -97031,7 +97033,7 @@
       "source": "Wikidata structured facts",
       "source_schema_version": 5,
       "source_url": "http://www.wikidata.org/entity/Q704859",
-      "source_accessed_at": "2026-09-26",
+      "source_accessed_at": "2026-10-01",
       "tags": [
         "india",
         "people",
@@ -97053,7 +97055,7 @@
         "New Delhi",
         "Kaluwas",
         "Kotdwar",
-        "Kheora"
+        "Mumbai"
       ],
       "correct_option_index": 0,
       "question_type": "practice",
@@ -97065,7 +97067,7 @@
       "source": "Wikidata structured facts",
       "source_schema_version": 5,
       "source_url": "http://www.wikidata.org/entity/Q730045",
-      "source_accessed_at": "2026-09-26",
+      "source_accessed_at": "2026-10-01",
       "tags": [
         "india",
         "people",
@@ -97099,7 +97101,7 @@
       "source": "Wikidata structured facts",
       "source_schema_version": 5,
       "source_url": "http://www.wikidata.org/entity/Q16202179",
-      "source_accessed_at": "2026-09-26",
+      "source_accessed_at": "2026-10-01",
       "tags": [
         "india",
         "people",
@@ -97119,9 +97121,9 @@
       "question_text": "In which place was the Australian number theorist Akshay Venkatesh born?",
       "options": [
         "Delhi",
+        "Kotdwar",
         "Faridpur",
-        "Sirkazhi",
-        "Amritsar"
+        "Sirkazhi"
       ],
       "correct_option_index": 0,
       "question_type": "practice",
@@ -97133,7 +97135,7 @@
       "source": "Wikidata structured facts",
       "source_schema_version": 5,
       "source_url": "http://www.wikidata.org/entity/Q176588",
-      "source_accessed_at": "2026-09-26",
+      "source_accessed_at": "2026-10-01",
       "tags": [
         "india",
         "people",
@@ -97152,10 +97154,10 @@
       "air_date": null,
       "question_text": "In which place was the Indian politician Shashi Tharoor born?",
       "options": [
-        "Chennai",
+        "Delhi",
         "London",
-        "Nalbari",
-        "Jasol"
+        "Chennai",
+        "Nalbari"
       ],
       "correct_option_index": 1,
       "question_type": "practice",
@@ -97167,7 +97169,7 @@
       "source": "Wikidata structured facts",
       "source_schema_version": 5,
       "source_url": "http://www.wikidata.org/entity/Q195616",
-      "source_accessed_at": "2026-09-26",
+      "source_accessed_at": "2026-10-01",
       "tags": [
         "india",
         "people",
@@ -97186,10 +97188,10 @@
       "air_date": null,
       "question_text": "In which place was the Indian singer Mukesh born?",
       "options": [
-        "Faridpur",
         "Abbottabad",
+        "Thalassery",
         "New Delhi",
-        "Thalassery"
+        "Chandigarh"
       ],
       "correct_option_index": 2,
       "question_type": "practice",
@@ -97201,7 +97203,7 @@
       "source": "Wikidata structured facts",
       "source_schema_version": 5,
       "source_url": "http://www.wikidata.org/entity/Q2367593",
-      "source_accessed_at": "2026-09-26",
+      "source_accessed_at": "2026-10-01",
       "tags": [
         "india",
         "people",
@@ -97220,10 +97222,10 @@
       "air_date": null,
       "question_text": "In which place was the Indian actress Seema Biswas born?",
       "options": [
+        "Dumraon",
         "Sasaram",
-        "Chennai",
         "Nalbari",
-        "Nellore"
+        "Chennai"
       ],
       "correct_option_index": 2,
       "question_type": "practice",
@@ -97235,7 +97237,7 @@
       "source": "Wikidata structured facts",
       "source_schema_version": 5,
       "source_url": "http://www.wikidata.org/entity/Q2576856",
-      "source_accessed_at": "2026-09-26",
+      "source_accessed_at": "2026-10-01",
       "tags": [
         "india",
         "people",
@@ -97269,7 +97271,7 @@
       "source": "Wikidata structured facts",
       "source_schema_version": 5,
       "source_url": "http://www.wikidata.org/entity/Q2722933",
-      "source_accessed_at": "2026-09-26",
+      "source_accessed_at": "2026-10-01",
       "tags": [
         "india",
         "people",
@@ -97288,9 +97290,9 @@
       "air_date": null,
       "question_text": "In which place was the Indian politician Jaswant Singh born?",
       "options": [
+        "Chennai",
         "Nalbari",
         "Nellore",
-        "Kolkata",
         "Jasol"
       ],
       "correct_option_index": 3,
@@ -97303,7 +97305,7 @@
       "source": "Wikidata structured facts",
       "source_schema_version": 5,
       "source_url": "http://www.wikidata.org/entity/Q3518489",
-      "source_accessed_at": "2026-09-26",
+      "source_accessed_at": "2026-10-01",
       "tags": [
         "india",
         "people",
@@ -97337,7 +97339,7 @@
       "source": "Wikidata structured facts",
       "source_schema_version": 5,
       "source_url": "http://www.wikidata.org/entity/Q3595311",
-      "source_accessed_at": "2026-09-26",
+      "source_accessed_at": "2026-10-01",
       "tags": [
         "india",
         "people",
@@ -97357,9 +97359,9 @@
       "question_text": "In which place was Muppavarapu Venkaiah Naidu born?",
       "options": [
         "Nellore",
+        "Pilani",
         "Sirkazhi",
-        "Yangon",
-        "Indore"
+        "Yangon"
       ],
       "correct_option_index": 0,
       "question_type": "practice",
@@ -97371,7 +97373,7 @@
       "source": "Wikidata structured facts",
       "source_schema_version": 5,
       "source_url": "http://www.wikidata.org/entity/Q3764667",
-      "source_accessed_at": "2026-09-26",
+      "source_accessed_at": "2026-10-01",
       "tags": [
         "india",
         "people",
@@ -97391,9 +97393,9 @@
       "question_text": "In which place was the Indian actress Soha Ali Khan born?",
       "options": [
         "New Delhi",
-        "Abbottabad",
         "Thalassery",
-        "Chandigarh"
+        "Chandigarh",
+        "Sirkazhi"
       ],
       "correct_option_index": 0,
       "question_type": "practice",
@@ -97405,7 +97407,7 @@
       "source": "Wikidata structured facts",
       "source_schema_version": 5,
       "source_url": "http://www.wikidata.org/entity/Q434435",
-      "source_accessed_at": "2026-09-26",
+      "source_accessed_at": "2026-10-01",
       "tags": [
         "india",
         "people",
@@ -97424,7 +97426,7 @@
       "air_date": null,
       "question_text": "In which place was the Indian chess player Tania Sachdev born?",
       "options": [
-        "Mumbai",
+        "London",
         "Pilani",
         "Delhi",
         "Yangon"
@@ -97439,7 +97441,7 @@
       "source": "Wikidata structured facts",
       "source_schema_version": 5,
       "source_url": "http://www.wikidata.org/entity/Q453607",
-      "source_accessed_at": "2026-09-26",
+      "source_accessed_at": "2026-10-01",
       "tags": [
         "india",
         "people",
@@ -97459,9 +97461,9 @@
       "question_text": "In which place was the Indian mathematician S. R. Ranganathan born?",
       "options": [
         "Sirkazhi",
+        "Kolkata",
         "Kaluwas",
-        "Kotdwar",
-        "Begusarai"
+        "Kotdwar"
       ],
       "correct_option_index": 0,
       "question_type": "practice",
@@ -97473,7 +97475,7 @@
       "source": "Wikidata structured facts",
       "source_schema_version": 5,
       "source_url": "http://www.wikidata.org/entity/Q457933",
-      "source_accessed_at": "2026-09-26",
+      "source_accessed_at": "2026-10-01",
       "tags": [
         "india",
         "people",
@@ -97507,7 +97509,7 @@
       "source": "Wikidata structured facts",
       "source_schema_version": 5,
       "source_url": "http://www.wikidata.org/entity/Q466325",
-      "source_accessed_at": "2026-09-26",
+      "source_accessed_at": "2026-10-01",
       "tags": [
         "india",
         "people",
@@ -97541,7 +97543,7 @@
       "source": "Wikidata structured facts",
       "source_schema_version": 5,
       "source_url": "http://www.wikidata.org/entity/Q467223",
-      "source_accessed_at": "2026-09-26",
+      "source_accessed_at": "2026-10-01",
       "tags": [
         "india",
         "people",
@@ -97575,7 +97577,7 @@
       "source": "Wikidata structured facts",
       "source_schema_version": 5,
       "source_url": "http://www.wikidata.org/entity/Q469933",
-      "source_accessed_at": "2026-09-26",
+      "source_accessed_at": "2026-10-01",
       "tags": [
         "india",
         "people",
@@ -97595,9 +97597,9 @@
       "question_text": "In which place was the Indian cricketer Rahul Dravid born?",
       "options": [
         "Indore",
+        "Jasol",
         "Nellore",
-        "Kolkata",
-        "Kaluwas"
+        "Kolkata"
       ],
       "correct_option_index": 0,
       "question_type": "practice",
@@ -97609,7 +97611,7 @@
       "source": "Wikidata structured facts",
       "source_schema_version": 5,
       "source_url": "http://www.wikidata.org/entity/Q470772",
-      "source_accessed_at": "2026-09-26",
+      "source_accessed_at": "2026-10-01",
       "tags": [
         "india",
         "people",
@@ -97628,9 +97630,9 @@
       "air_date": null,
       "question_text": "In which place was the Indian philanthropist Nita Ambani born?",
       "options": [
+        "Kotdwar",
         "Pune",
         "Faridpur",
-        "Sirkazhi",
         "Mumbai"
       ],
       "correct_option_index": 3,
@@ -97643,7 +97645,7 @@
       "source": "Wikidata structured facts",
       "source_schema_version": 5,
       "source_url": "http://www.wikidata.org/entity/Q7041178",
-      "source_accessed_at": "2026-09-26",
+      "source_accessed_at": "2026-10-01",
       "tags": [
         "india",
         "people",
@@ -97663,9 +97665,9 @@
       "question_text": "In which place was the President of Guyana Cheddi Jagan born?",
       "options": [
         "Port Mourant",
-        "Madurai",
-        "Gangtok",
-        "Gwalior"
+        "Dumraon",
+        "Sasaram",
+        "Chennai"
       ],
       "correct_option_index": 0,
       "question_type": "practice",
@@ -97677,7 +97679,7 @@
       "source": "Wikidata structured facts",
       "source_schema_version": 5,
       "source_url": "http://www.wikidata.org/entity/Q724156",
-      "source_accessed_at": "2026-09-26",
+      "source_accessed_at": "2026-10-01",
       "tags": [
         "india",
         "people",
@@ -97832,8 +97834,8 @@
       "air_date": null,
       "question_text": "In which place was the Indian actress Nimrat Kaur born?",
       "options": [
-        "Gopalganj",
-        "Begusarai",
+        "Bengaluru",
+        "Mangaluru",
         "Abbottabad",
         "Pilani"
       ],
@@ -97847,7 +97849,7 @@
       "source": "Wikidata structured facts",
       "source_schema_version": 5,
       "source_url": "http://www.wikidata.org/entity/Q15611257",
-      "source_accessed_at": "2026-09-26",
+      "source_accessed_at": "2026-10-01",
       "tags": [
         "india",
         "people",
@@ -98512,9 +98514,9 @@
       "air_date": null,
       "question_text": "In which place was the Indian politician Maneka Gandhi born?",
       "options": [
+        "Mumbai",
         "Kheora",
         "Imphal",
-        "Guntur",
         "New Delhi"
       ],
       "correct_option_index": 3,
@@ -98527,7 +98529,7 @@
       "source": "Wikidata structured facts",
       "source_schema_version": 5,
       "source_url": "http://www.wikidata.org/entity/Q2739159",
-      "source_accessed_at": "2026-09-26",
+      "source_accessed_at": "2026-10-01",
       "tags": [
         "india",
         "people",
@@ -98751,9 +98753,9 @@
       "question_text": "In which place was the Indian boxer Vijender Singh born?",
       "options": [
         "Kaluwas",
-        "Gopalganj",
-        "Jasol",
-        "Begusarai"
+        "Bengaluru",
+        "Mangaluru",
+        "Jasol"
       ],
       "correct_option_index": 0,
       "question_type": "practice",
@@ -98765,7 +98767,7 @@
       "source": "Wikidata structured facts",
       "source_schema_version": 5,
       "source_url": "http://www.wikidata.org/entity/Q470893",
-      "source_accessed_at": "2026-09-26",
+      "source_accessed_at": "2026-10-01",
       "tags": [
         "india",
         "people",
@@ -124981,7 +124983,7 @@
       "source": "Wikidata structured facts",
       "source_schema_version": 5,
       "source_url": "http://www.wikidata.org/entity/Q1013",
-      "source_accessed_at": "2026-09-29",
+      "source_accessed_at": "2026-10-01",
       "tags": [
         "world",
         "country",
@@ -134554,10 +134556,10 @@
       "air_date": null,
       "question_text": "In which country is the UNESCO World Heritage Site “Getbol, Korean Tidal Flats” located?",
       "options": [
-        "Palestine",
-        "Australia",
+        "Canada",
+        "India",
         "South Korea",
-        "Kiribati"
+        "Spain"
       ],
       "correct_option_index": 2,
       "question_type": "practice",
@@ -134569,7 +134571,7 @@
       "source": "Wikidata structured facts",
       "source_schema_version": 5,
       "source_url": "http://www.wikidata.org/entity/Q107715736",
-      "source_accessed_at": "2026-09-16",
+      "source_accessed_at": "2026-10-01",
       "tags": [
         "world",
         "heritage",
@@ -134588,10 +134590,10 @@
       "air_date": null,
       "question_text": "In which country is the UNESCO World Heritage Site “Si Thep historical park” located?",
       "options": [
-        "Kiribati",
+        "Australia",
         "Thailand",
-        "Ethiopia",
-        "Germany"
+        "Germany",
+        "Hungary"
       ],
       "correct_option_index": 1,
       "question_type": "practice",
@@ -134603,7 +134605,7 @@
       "source": "Wikidata structured facts",
       "source_schema_version": 5,
       "source_url": "http://www.wikidata.org/entity/Q1517758",
-      "source_accessed_at": "2026-09-16",
+      "source_accessed_at": "2026-10-01",
       "tags": [
         "world",
         "heritage",
@@ -134622,10 +134624,10 @@
       "air_date": null,
       "question_text": "In which country is the UNESCO World Heritage Site “Churches and Convents of Goa” located?",
       "options": [
+        "Thailand",
         "Australia",
-        "Dominican Republic",
         "India",
-        "Spain"
+        "South Korea"
       ],
       "correct_option_index": 2,
       "question_type": "practice",
@@ -134637,7 +134639,7 @@
       "source": "Wikidata structured facts",
       "source_schema_version": 5,
       "source_url": "http://www.wikidata.org/entity/Q15726428",
-      "source_accessed_at": "2026-09-16",
+      "source_accessed_at": "2026-10-01",
       "tags": [
         "world",
         "heritage",
@@ -134656,9 +134658,9 @@
       "air_date": null,
       "question_text": "In which country is the UNESCO World Heritage Site “Historic Centre of the City of Salzburg” located?",
       "options": [
-        "Canada",
-        "India",
-        "Australia",
+        "Hungary",
+        "Thailand",
+        "Greece",
         "Austria"
       ],
       "correct_option_index": 3,
@@ -134671,7 +134673,7 @@
       "source": "Wikidata structured facts",
       "source_schema_version": 5,
       "source_url": "http://www.wikidata.org/entity/Q1621046",
-      "source_accessed_at": "2026-09-16",
+      "source_accessed_at": "2026-10-01",
       "tags": [
         "world",
         "heritage",
@@ -134690,9 +134692,9 @@
       "air_date": null,
       "question_text": "In which country is the UNESCO World Heritage Site “Dong Phayayen-Khao Yai Forest Complex” located?",
       "options": [
+        "Dominican Republic",
+        "Austria",
         "Australia",
-        "Germany",
-        "Hungary",
         "Thailand"
       ],
       "correct_option_index": 3,
@@ -134705,7 +134707,7 @@
       "source": "Wikidata structured facts",
       "source_schema_version": 5,
       "source_url": "http://www.wikidata.org/entity/Q16963852",
-      "source_accessed_at": "2026-09-16",
+      "source_accessed_at": "2026-10-01",
       "tags": [
         "world",
         "heritage",
@@ -134724,10 +134726,10 @@
       "air_date": null,
       "question_text": "In which country is the UNESCO World Heritage Site “Jantar Mantar” located?",
       "options": [
-        "Canada",
+        "Greece",
         "India",
-        "Austria",
-        "Germany"
+        "Canada",
+        "Austria"
       ],
       "correct_option_index": 1,
       "question_type": "practice",
@@ -134739,7 +134741,7 @@
       "source": "Wikidata structured facts",
       "source_schema_version": 5,
       "source_url": "http://www.wikidata.org/entity/Q2045115",
-      "source_accessed_at": "2026-09-16",
+      "source_accessed_at": "2026-10-01",
       "tags": [
         "world",
         "heritage",
@@ -134759,8 +134761,8 @@
       "question_text": "In which country is the UNESCO World Heritage Site “Colonial City of Santo Domingo” located?",
       "options": [
         "Spain",
+        "South Korea",
         "Australia",
-        "Thailand",
         "Dominican Republic"
       ],
       "correct_option_index": 3,
@@ -134773,7 +134775,7 @@
       "source": "Wikidata structured facts",
       "source_schema_version": 5,
       "source_url": "http://www.wikidata.org/entity/Q2470834",
-      "source_accessed_at": "2026-09-16",
+      "source_accessed_at": "2026-10-01",
       "tags": [
         "world",
         "heritage",
@@ -134794,8 +134796,8 @@
       "options": [
         "Australia",
         "Thailand",
-        "Austria",
-        "Germany"
+        "South Korea",
+        "Austria"
       ],
       "correct_option_index": 0,
       "question_type": "practice",
@@ -134807,7 +134809,7 @@
       "source": "Wikidata structured facts",
       "source_schema_version": 5,
       "source_url": "http://www.wikidata.org/entity/Q260465",
-      "source_accessed_at": "2026-09-16",
+      "source_accessed_at": "2026-10-01",
       "tags": [
         "world",
         "heritage",
@@ -134826,9 +134828,9 @@
       "air_date": null,
       "question_text": "In which country is the UNESCO World Heritage Site “Lugo Cathedral” located?",
       "options": [
+        "Australia",
+        "South Korea",
         "Dominican Republic",
-        "India",
-        "Canada",
         "Spain"
       ],
       "correct_option_index": 3,
@@ -134841,7 +134843,7 @@
       "source": "Wikidata structured facts",
       "source_schema_version": 5,
       "source_url": "http://www.wikidata.org/entity/Q2942708",
-      "source_accessed_at": "2026-09-16",
+      "source_accessed_at": "2026-10-01",
       "tags": [
         "world",
         "heritage",
@@ -134860,7 +134862,7 @@
       "air_date": null,
       "question_text": "In which country is the UNESCO World Heritage Site “Babelsberg Palace” located?",
       "options": [
-        "Spain",
+        "South Korea",
         "Dominican Republic",
         "Germany",
         "Austria"
@@ -134875,7 +134877,7 @@
       "source": "Wikidata structured facts",
       "source_schema_version": 5,
       "source_url": "http://www.wikidata.org/entity/Q702477",
-      "source_accessed_at": "2026-09-16",
+      "source_accessed_at": "2026-10-01",
       "tags": [
         "world",
         "heritage",
@@ -134894,10 +134896,10 @@
       "air_date": null,
       "question_text": "In which country is the UNESCO World Heritage Site “Pimachiowin Aki” located?",
       "options": [
-        "Austria",
+        "Hungary",
         "Canada",
-        "Spain",
-        "Germany"
+        "Thailand",
+        "Australia"
       ],
       "correct_option_index": 1,
       "question_type": "practice",
@@ -134909,7 +134911,7 @@
       "source": "Wikidata structured facts",
       "source_schema_version": 5,
       "source_url": "http://www.wikidata.org/entity/Q7194595",
-      "source_accessed_at": "2026-09-16",
+      "source_accessed_at": "2026-10-01",
       "tags": [
         "world",
         "heritage",
@@ -134928,9 +134930,9 @@
       "air_date": null,
       "question_text": "In which country is the UNESCO World Heritage Site “Duchess Anna Amalia Library” located?",
       "options": [
-        "Canada",
         "India",
         "Australia",
+        "Spain",
         "Germany"
       ],
       "correct_option_index": 3,
@@ -134943,7 +134945,7 @@
       "source": "Wikidata structured facts",
       "source_schema_version": 5,
       "source_url": "http://www.wikidata.org/entity/Q50711",
-      "source_accessed_at": "2026-09-16",
+      "source_accessed_at": "2026-10-01",
       "tags": [
         "world",
         "heritage",
@@ -135235,9 +135237,9 @@
       "question_text": "In which Indian state or union territory is “Nakula Sahadeva Ratha” located?",
       "options": [
         "Tamil Nadu",
-        "Karnataka",
-        "Kerala",
-        "Odisha"
+        "Bihar",
+        "Himachal Pradesh",
+        "Goa"
       ],
       "correct_option_index": 0,
       "question_type": "practice",
@@ -135268,10 +135270,10 @@
       "air_date": null,
       "question_text": "In which country is the UNESCO World Heritage Site “Early Christian Necropolis of Pécs” located?",
       "options": [
-        "Thailand",
-        "Canada",
+        "South Korea",
+        "Dominican Republic",
         "Hungary",
-        "India"
+        "Austria"
       ],
       "correct_option_index": 2,
       "question_type": "practice",
@@ -135283,7 +135285,7 @@
       "source": "Wikidata structured facts",
       "source_schema_version": 5,
       "source_url": "http://www.wikidata.org/entity/Q927535",
-      "source_accessed_at": "2026-09-16",
+      "source_accessed_at": "2026-10-01",
       "tags": [
         "world",
         "heritage",
@@ -135700,6 +135702,40 @@
       "language_original": "en",
       "translation_status": "not required",
       "explanation": "Wikidata locates Tower of Kamianiec in Belarus.",
+      "provenance_status": "Wikidata structured fact; options generated from same-type facts; answer not independently verified"
+    },
+    {
+      "id": "wd-world-heritage-country-Q1887316",
+      "canonical_key": "wd-world-heritage-country-Q1887316",
+      "season": null,
+      "episode": null,
+      "air_date": null,
+      "question_text": "In which country is the UNESCO World Heritage Site “Malia” located?",
+      "options": [
+        "India",
+        "Greece",
+        "Austria",
+        "Spain"
+      ],
+      "correct_option_index": 1,
+      "question_type": "practice",
+      "category": "Art & Culture",
+      "subcategory": "world-heritage-country",
+      "question_shape": "lookup",
+      "difficulty_tier": "Tier 3",
+      "prize_level_asked_at": null,
+      "source": "Wikidata structured facts",
+      "source_schema_version": 5,
+      "source_url": "http://www.wikidata.org/entity/Q1887316",
+      "source_accessed_at": "2026-10-01",
+      "tags": [
+        "world",
+        "heritage",
+        "country"
+      ],
+      "language_original": "en",
+      "translation_status": "not required",
+      "explanation": "Wikidata locates Malia in Greece.",
       "provenance_status": "Wikidata structured fact; options generated from same-type facts; answer not independently verified"
     }
   ]
