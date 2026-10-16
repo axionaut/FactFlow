@@ -1,6 +1,6 @@
 {
   "schema_version": 4,
-  "generated_at": "2026-10-16T11:35:24.452Z",
+  "generated_at": "2026-10-16T16:52:19.161Z",
   "corpus_scope": "India-first KBC practice combining historical KBC archives with accumulating structured facts; not an official Sony corpus.",
   "sources": [
     {
@@ -2364,7 +2364,7 @@
       "url": "https://www.gksection.com/kbc-15-episode-37-questions-answers-hindi/",
       "status": 200,
       "questions": 0,
-      "last_attempted_at": "2026-09-26"
+      "last_attempted_at": "2026-10-16"
     },
     {
       "season": 15,
@@ -2373,7 +2373,7 @@
       "url": "https://www.gksection.com/kbc-15-episode-38-questions-answers-hindi/",
       "status": 200,
       "questions": 0,
-      "last_attempted_at": "2026-09-26"
+      "last_attempted_at": "2026-10-16"
     },
     {
       "season": 15,
@@ -2382,7 +2382,7 @@
       "url": "https://www.gksection.com/kbc-15-episode-39-questions-answers-hindi/",
       "status": 200,
       "questions": 0,
-      "last_attempted_at": "2026-09-26"
+      "last_attempted_at": "2026-10-16"
     },
     {
       "season": 15,
@@ -2391,7 +2391,7 @@
       "url": "https://www.gksection.com/kbc-15-episode-41-questions-answers-hindi/",
       "status": 200,
       "questions": 0,
-      "last_attempted_at": "2026-09-26"
+      "last_attempted_at": "2026-10-16"
     },
     {
       "season": 15,
@@ -2400,7 +2400,7 @@
       "url": "https://www.gksection.com/kbc-15-episode-42-questions-answers-hindi/",
       "status": 200,
       "questions": 0,
-      "last_attempted_at": "2026-09-26"
+      "last_attempted_at": "2026-10-16"
     },
     {
       "season": 15,
@@ -2409,7 +2409,7 @@
       "url": "https://www.gksection.com/kbc-15-episode-43-questions-answers-hindi/",
       "status": 200,
       "questions": 0,
-      "last_attempted_at": "2026-09-26"
+      "last_attempted_at": "2026-10-16"
     },
     {
       "season": 15,
@@ -2965,130 +2965,148 @@
   "wikidata_state": {
     "india-person-birthplace": {
       "offset": 384,
-      "last_attempted_at": "2026-10-16T11:34:01.602Z",
+      "last_attempted_at": "2026-10-16T16:45:29.087Z",
       "last_result_count": 56,
-      "exhausted": false
+      "exhausted": false,
+      "last_error": "Wikidata india-person-birthplace failed (qlever.dev: 400, query.wikidata.org: The operation was aborted due to timeout)"
     },
     "india-film-director": {
       "offset": 0,
-      "last_attempted_at": "2026-10-16T11:34:06.094Z",
+      "last_attempted_at": "2026-10-16T16:45:49.652Z",
       "last_result_count": 14,
-      "exhausted": true
+      "exhausted": true,
+      "last_error": "Wikidata india-film-director failed (qlever.dev: 400, query.wikidata.org: The operation was aborted due to timeout)"
     },
     "india-book-author": {
       "offset": 0,
-      "last_attempted_at": "2026-10-16T11:34:08.756Z",
+      "last_attempted_at": "2026-10-16T16:46:10.157Z",
       "last_result_count": 26,
-      "exhausted": true
+      "exhausted": true,
+      "last_error": "Wikidata india-book-author failed (qlever.dev: 400, query.wikidata.org: The operation was aborted due to timeout)"
     },
     "india-state-capital": {
-      "offset": 0,
-      "last_attempted_at": "2026-10-16T11:34:10.890Z",
-      "last_result_count": 18,
-      "exhausted": true
+      "offset": 24,
+      "last_attempted_at": "2026-10-16T16:46:19.768Z",
+      "last_result_count": 32,
+      "exhausted": false
     },
     "world-country-capital": {
       "offset": 72,
-      "last_attempted_at": "2026-10-16T11:34:12.141Z",
+      "last_attempted_at": "2026-10-16T16:46:40.273Z",
       "last_result_count": 32,
-      "exhausted": false
+      "exhausted": false,
+      "last_error": "Wikidata world-country-capital failed (qlever.dev: 400, query.wikidata.org: The operation was aborted due to timeout)"
     },
     "world-country-currency": {
-      "offset": 168,
-      "last_attempted_at": "2026-10-16T11:34:13.351Z",
-      "last_result_count": 32,
-      "exhausted": false
+      "offset": 0,
+      "last_attempted_at": "2026-10-16T16:46:59.687Z",
+      "last_result_count": 31,
+      "exhausted": true
     },
     "world-heritage-country": {
       "offset": 24,
-      "last_attempted_at": "2026-10-16T11:34:15.462Z",
+      "last_attempted_at": "2026-10-16T16:47:20.007Z",
       "last_result_count": 32,
-      "exhausted": false
+      "exhausted": false,
+      "last_error": "Wikidata world-heritage-country failed (qlever.dev: 400, query.wikidata.org: The operation was aborted due to timeout)"
     },
     "india-athlete-sport": {
       "offset": 0,
-      "last_attempted_at": "2026-10-16T11:34:17.767Z",
+      "last_attempted_at": "2026-10-16T16:47:40.452Z",
       "last_result_count": 23,
-      "exhausted": true
+      "exhausted": true,
+      "last_error": "Wikidata india-athlete-sport failed (qlever.dev: 400, query.wikidata.org: The operation was aborted due to timeout)"
     },
     "chemical-element-symbol": {
       "offset": 0,
-      "last_attempted_at": "2026-10-16T11:34:19.436Z",
+      "last_attempted_at": "2026-10-16T16:48:00.897Z",
       "last_result_count": 22,
-      "exhausted": true
+      "exhausted": true,
+      "last_error": "Wikidata chemical-element-symbol failed (qlever.dev: 400, query.wikidata.org: The operation was aborted due to timeout)"
     },
     "india-battle-year": {
       "offset": 0,
-      "last_attempted_at": "2026-10-16T11:34:20.767Z",
+      "last_attempted_at": "2026-10-16T16:48:21.196Z",
       "last_result_count": 25,
-      "exhausted": true
+      "exhausted": true,
+      "last_error": "Wikidata india-battle-year failed (qlever.dev: 400, query.wikidata.org: The operation was aborted due to timeout)"
     },
     "award-bharat-ratna": {
       "offset": 0,
-      "last_attempted_at": "2026-10-16T11:34:24.910Z",
+      "last_attempted_at": "2026-10-16T16:48:41.687Z",
       "last_result_count": 44,
-      "exhausted": true
+      "exhausted": true,
+      "last_error": "Wikidata award-bharat-ratna failed (qlever.dev: 400, query.wikidata.org: The operation was aborted due to timeout)"
     },
     "award-param-vir-chakra": {
       "offset": 0,
-      "last_attempted_at": "2026-10-16T11:34:40.711Z",
+      "last_attempted_at": "2026-10-16T16:49:01.995Z",
       "last_result_count": 21,
-      "exhausted": true
+      "exhausted": true,
+      "last_error": "Wikidata foils for award-param-vir-chakra failed (qlever.dev: 400, query.wikidata.org: The operation was aborted due to timeout)"
     },
     "award-jnanpith": {
       "offset": 0,
-      "last_attempted_at": "2026-10-16T11:34:44.568Z",
+      "last_attempted_at": "2026-10-16T16:49:22.408Z",
       "last_result_count": 18,
-      "exhausted": true
+      "exhausted": true,
+      "last_error": "Wikidata award-jnanpith failed (qlever.dev: 400, query.wikidata.org: The operation was aborted due to timeout)"
     },
     "award-dadasaheb-phalke": {
       "offset": 48,
-      "last_attempted_at": "2026-10-16T11:34:58.542Z",
+      "last_attempted_at": "2026-10-16T16:49:42.857Z",
       "last_result_count": 32,
-      "exhausted": false
+      "exhausted": false,
+      "last_error": "Wikidata award-dadasaheb-phalke failed (qlever.dev: 400, query.wikidata.org: The operation was aborted due to timeout)"
     },
     "polity-prime-minister": {
       "offset": 0,
-      "last_attempted_at": "2026-10-16T11:35:05.709Z",
+      "last_attempted_at": "2026-10-16T16:50:03.381Z",
       "last_result_count": 11,
-      "exhausted": true
+      "exhausted": true,
+      "last_error": "Wikidata foils for polity-prime-minister failed (qlever.dev: 400, query.wikidata.org: The operation was aborted due to timeout)"
     },
     "polity-president": {
       "offset": 0,
-      "last_attempted_at": "2026-10-16T11:35:12.929Z",
+      "last_attempted_at": "2026-10-16T16:50:23.894Z",
       "last_result_count": 17,
-      "exhausted": true
+      "exhausted": true,
+      "last_error": "Wikidata polity-president failed (qlever.dev: 400, query.wikidata.org: The operation was aborted due to timeout)"
     },
     "polity-chief-justice": {
       "offset": 0,
-      "last_attempted_at": "2026-10-16T11:35:19.111Z",
+      "last_attempted_at": "2026-10-16T16:50:44.214Z",
       "last_result_count": 28,
-      "exhausted": true
+      "exhausted": true,
+      "last_error": "Wikidata foils for polity-chief-justice failed (qlever.dev: 400, query.wikidata.org: The operation was aborted due to timeout)"
     },
     "mythology-mahabharata": {
       "offset": 48,
-      "last_attempted_at": "2026-10-16T11:35:20.002Z",
+      "last_attempted_at": "2026-10-16T16:51:04.518Z",
       "last_result_count": 56,
-      "exhausted": false
+      "exhausted": false,
+      "last_error": "Wikidata mythology-mahabharata failed (qlever.dev: 400, query.wikidata.org: The operation was aborted due to timeout)"
     },
     "mythology-ramayana": {
       "offset": 96,
-      "last_attempted_at": "2026-10-16T11:35:20.761Z",
+      "last_attempted_at": "2026-10-16T16:51:07.915Z",
       "last_result_count": 56,
-      "exhausted": false
+      "exhausted": false,
+      "last_error": "Wikidata mythology-ramayana failed (qlever.dev: 400, query.wikidata.org: 502)"
     },
     "india-monument-state": {
       "offset": 0,
-      "last_attempted_at": "2026-10-16T11:35:22.310Z",
+      "last_attempted_at": "2026-10-16T16:51:28.260Z",
       "last_result_count": 11,
-      "exhausted": true
+      "exhausted": true,
+      "last_error": "Wikidata india-monument-state failed (qlever.dev: 400, query.wikidata.org: The operation was aborted due to timeout)"
     }
   },
   "current_affairs_source_version": 1,
   "current_affairs_questions": 73,
   "pattern_profile": {
     "derived_from": 601,
-    "derived_at": "2026-10-16T11:35:24.450Z",
+    "derived_at": "2026-10-16T16:52:19.161Z",
     "note": "Archive questions are pattern evidence only and are never served as practice.",
     "category_mix": {
       "Miscellaneous/Trivia": 0.5008,
@@ -23762,7 +23780,7 @@
       "air_date": null,
       "question_text": "Who is the current head of government of Kingdom of the Netherlands?",
       "options": [
-        "Yamandú Orsi",
+        "Raffaella Petrini",
         "Rob Jetten",
         "Nawaf Salam",
         "Bart De Wever"
@@ -23798,7 +23816,7 @@
       "question_text": "Who is the current head of government of Bangladesh?",
       "options": [
         "Tarique Rahman",
-        "Yamandú Orsi",
+        "Raffaella Petrini",
         "Nawaf Salam",
         "Bart De Wever"
       ],
@@ -24042,7 +24060,7 @@
       "air_date": null,
       "question_text": "Who is the current head of government of France?",
       "options": [
-        "Elijah Ngurare",
+        "Sarra Zaafrani",
         "Mark Carney",
         "Alexander Turchyn",
         "Sébastien Lecornu"
@@ -25057,7 +25075,7 @@
       "air_date": null,
       "question_text": "Who is the current head of government of Haiti?",
       "options": [
-        "Elijah Ngurare",
+        "Sarra Zaafrani",
         "Alix Didier Fils-Aimé",
         "Mark Carney",
         "Alexander Turchyn"
@@ -31089,7 +31107,7 @@
       "air_date": null,
       "question_text": "What is the capital of Manipur?",
       "options": [
-        "Gangtok",
+        "Itanagar",
         "Imphal",
         "Shillong",
         "Agartala"
@@ -31123,9 +31141,9 @@
       "air_date": null,
       "question_text": "What is the capital of Meghalaya?",
       "options": [
-        "Bhubaneswar",
-        "Srivijayapuram",
-        "Agartala",
+        "Chennai",
+        "Lucknow",
+        "Dispur",
         "Shillong"
       ],
       "correct_option_index": 3,
@@ -31157,10 +31175,10 @@
       "air_date": null,
       "question_text": "What is the capital of West Bengal?",
       "options": [
-        "Imphal",
-        "Shillong",
+        "Agartala",
+        "Jaipur",
         "Kolkata",
-        "Agartala"
+        "Hyderabad"
       ],
       "correct_option_index": 2,
       "question_type": "practice",
@@ -31191,10 +31209,10 @@
       "air_date": null,
       "question_text": "What is the capital of Tripura?",
       "options": [
-        "Chandigarh",
-        "Bhubaneswar",
+        "Thiruvananthapuram",
+        "Itanagar",
         "Agartala",
-        "Srivijayapuram"
+        "Shillong"
       ],
       "correct_option_index": 2,
       "question_type": "practice",
@@ -31225,10 +31243,10 @@
       "air_date": null,
       "question_text": "What is the capital of Rajasthan?",
       "options": [
-        "Kolkata",
-        "Chennai",
+        "Shimla",
+        "Ranchi",
         "Jaipur",
-        "Lucknow"
+        "Bhopal"
       ],
       "correct_option_index": 2,
       "question_type": "practice",
@@ -31259,10 +31277,10 @@
       "air_date": null,
       "question_text": "What is the capital of Tamil Nadu?",
       "options": [
-        "Lucknow",
+        "Gandhinagar",
         "Chennai",
-        "Gangtok",
-        "Nagpur"
+        "Thiruvananthapuram",
+        "Kolkata"
       ],
       "correct_option_index": 1,
       "question_type": "practice",
@@ -31293,9 +31311,9 @@
       "air_date": null,
       "question_text": "What is the capital of Uttar Pradesh?",
       "options": [
-        "Gangtok",
-        "Nagpur",
+        "Bhopal",
         "Imphal",
+        "Shillong",
         "Lucknow"
       ],
       "correct_option_index": 3,
@@ -85830,9 +85848,9 @@
       "question_text": "Which currency is associated with Bangladesh?",
       "options": [
         "taka",
-        "kyat",
-        "rial",
-        "baht"
+        "nakfa",
+        "kwanza",
+        "dollar"
       ],
       "correct_option_index": 0,
       "question_type": "practice",
@@ -85863,9 +85881,9 @@
       "air_date": null,
       "question_text": "Which currency is associated with Mali?",
       "options": [
-        "afghani",
-        "ngultrum",
         "shilling",
+        "dinar",
+        "pound",
         "franc"
       ],
       "correct_option_index": 3,
@@ -85912,7 +85930,7 @@
       "source": "Wikidata structured facts",
       "source_schema_version": 5,
       "source_url": "http://www.wikidata.org/entity/Q916",
-      "source_accessed_at": "2026-10-14",
+      "source_accessed_at": "2026-10-16",
       "tags": [
         "world",
         "country",
@@ -85946,7 +85964,7 @@
       "source": "Wikidata structured facts",
       "source_schema_version": 5,
       "source_url": "http://www.wikidata.org/entity/Q917",
-      "source_accessed_at": "2026-10-14",
+      "source_accessed_at": "2026-10-16",
       "tags": [
         "world",
         "country",
@@ -85980,7 +85998,7 @@
       "source": "Wikidata structured facts",
       "source_schema_version": 5,
       "source_url": "http://www.wikidata.org/entity/Q921",
-      "source_accessed_at": "2026-10-14",
+      "source_accessed_at": "2026-10-16",
       "tags": [
         "world",
         "country",
@@ -86014,7 +86032,7 @@
       "source": "Wikidata structured facts",
       "source_schema_version": 5,
       "source_url": "http://www.wikidata.org/entity/Q924",
-      "source_accessed_at": "2026-10-14",
+      "source_accessed_at": "2026-10-16",
       "tags": [
         "world",
         "country",
@@ -86048,7 +86066,7 @@
       "source": "Wikidata structured facts",
       "source_schema_version": 5,
       "source_url": "http://www.wikidata.org/entity/Q928",
-      "source_accessed_at": "2026-10-14",
+      "source_accessed_at": "2026-10-16",
       "tags": [
         "world",
         "country",
@@ -86082,7 +86100,7 @@
       "source": "Wikidata structured facts",
       "source_schema_version": 5,
       "source_url": "http://www.wikidata.org/entity/Q929",
-      "source_accessed_at": "2026-10-14",
+      "source_accessed_at": "2026-10-16",
       "tags": [
         "world",
         "country",
@@ -86116,7 +86134,7 @@
       "source": "Wikidata structured facts",
       "source_schema_version": 5,
       "source_url": "http://www.wikidata.org/entity/Q945",
-      "source_accessed_at": "2026-10-14",
+      "source_accessed_at": "2026-10-16",
       "tags": [
         "world",
         "country",
@@ -86150,7 +86168,7 @@
       "source": "Wikidata structured facts",
       "source_schema_version": 5,
       "source_url": "http://www.wikidata.org/entity/Q948",
-      "source_accessed_at": "2026-10-14",
+      "source_accessed_at": "2026-10-16",
       "tags": [
         "world",
         "country",
@@ -86184,7 +86202,7 @@
       "source": "Wikidata structured facts",
       "source_schema_version": 5,
       "source_url": "http://www.wikidata.org/entity/Q953",
-      "source_accessed_at": "2026-10-14",
+      "source_accessed_at": "2026-10-16",
       "tags": [
         "world",
         "country",
@@ -86218,7 +86236,7 @@
       "source": "Wikidata structured facts",
       "source_schema_version": 5,
       "source_url": "http://www.wikidata.org/entity/Q958",
-      "source_accessed_at": "2026-10-14",
+      "source_accessed_at": "2026-10-16",
       "tags": [
         "world",
         "country",
@@ -94684,7 +94702,7 @@
       "source": "Wikidata structured facts",
       "source_schema_version": 5,
       "source_url": "http://www.wikidata.org/entity/Q962",
-      "source_accessed_at": "2026-10-14",
+      "source_accessed_at": "2026-10-16",
       "tags": [
         "world",
         "country",
@@ -94718,7 +94736,7 @@
       "source": "Wikidata structured facts",
       "source_schema_version": 5,
       "source_url": "http://www.wikidata.org/entity/Q963",
-      "source_accessed_at": "2026-10-14",
+      "source_accessed_at": "2026-10-16",
       "tags": [
         "world",
         "country",
@@ -94752,7 +94770,7 @@
       "source": "Wikidata structured facts",
       "source_schema_version": 5,
       "source_url": "http://www.wikidata.org/entity/Q965",
-      "source_accessed_at": "2026-10-14",
+      "source_accessed_at": "2026-10-16",
       "tags": [
         "world",
         "country",
@@ -94786,7 +94804,7 @@
       "source": "Wikidata structured facts",
       "source_schema_version": 5,
       "source_url": "http://www.wikidata.org/entity/Q967",
-      "source_accessed_at": "2026-10-14",
+      "source_accessed_at": "2026-10-16",
       "tags": [
         "world",
         "country",
@@ -94820,7 +94838,7 @@
       "source": "Wikidata structured facts",
       "source_schema_version": 5,
       "source_url": "http://www.wikidata.org/entity/Q970",
-      "source_accessed_at": "2026-10-14",
+      "source_accessed_at": "2026-10-16",
       "tags": [
         "world",
         "country",
@@ -94854,7 +94872,7 @@
       "source": "Wikidata structured facts",
       "source_schema_version": 5,
       "source_url": "http://www.wikidata.org/entity/Q971",
-      "source_accessed_at": "2026-10-14",
+      "source_accessed_at": "2026-10-16",
       "tags": [
         "world",
         "country",
@@ -94888,7 +94906,7 @@
       "source": "Wikidata structured facts",
       "source_schema_version": 5,
       "source_url": "http://www.wikidata.org/entity/Q974",
-      "source_accessed_at": "2026-10-14",
+      "source_accessed_at": "2026-10-16",
       "tags": [
         "world",
         "country",
@@ -94922,7 +94940,7 @@
       "source": "Wikidata structured facts",
       "source_schema_version": 5,
       "source_url": "http://www.wikidata.org/entity/Q977",
-      "source_accessed_at": "2026-10-14",
+      "source_accessed_at": "2026-10-16",
       "tags": [
         "world",
         "country",
@@ -94956,7 +94974,7 @@
       "source": "Wikidata structured facts",
       "source_schema_version": 5,
       "source_url": "http://www.wikidata.org/entity/Q983",
-      "source_accessed_at": "2026-10-14",
+      "source_accessed_at": "2026-10-16",
       "tags": [
         "world",
         "country",
@@ -94990,7 +95008,7 @@
       "source": "Wikidata structured facts",
       "source_schema_version": 5,
       "source_url": "http://www.wikidata.org/entity/Q986",
-      "source_accessed_at": "2026-10-14",
+      "source_accessed_at": "2026-10-16",
       "tags": [
         "world",
         "country",
@@ -121532,7 +121550,7 @@
       "options": [
         "Brigitte Haas",
         "Jens-Frederik Nielsen",
-        "Sarra Zaafrani",
+        "Elijah Ngurare",
         "Péter Magyar"
       ],
       "correct_option_index": 3,
